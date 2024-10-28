@@ -5,14 +5,7 @@ date: '2024-10-24'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
-description: The following analytic detects the execution of tasks registered in Windows
-  Task Scheduler by monitoring EventID 200 (action run) and 201 (action completed)
-  from the Task Scheduler logs. This detection leverages Task Scheduler logs to identify
-  potentially suspicious or unauthorized task executions. Monitoring these events
-  is significant for a SOC as it helps uncover evasive techniques used for persistence,
-  unauthorized code execution, or other malicious activities. If confirmed malicious,
-  this activity could lead to unauthorized access, data exfiltration, or the execution
-  of harmful payloads, posing a significant threat to the environment.
+description: The following analytic detects the execution of tasks registered in Windows Task Scheduler by monitoring EventID 200 (action run) and 201 (action completed) from the Task Scheduler logs. This detection leverages Task Scheduler logs to identify potentially suspicious or unauthorized task executions. Monitoring these events is significant for a SOC as it helps uncover evasive techniques used for persistence, unauthorized code execution, or other malicious activities. If confirmed malicious, this activity could lead to unauthorized access, data exfiltration, or the execution of harmful payloads, posing a significant threat to the environment.
 data_source:
 - Windows Event Log TaskScheduler 200
 - Windows Event Log TaskScheduler 201

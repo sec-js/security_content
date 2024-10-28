@@ -5,14 +5,7 @@ date: '2024-10-16'
 author: Rico Valdez, Splunk
 status: experimental
 type: TTP
-description: The following analytic identifies outbound ICMP packets with a size larger
-  than 1,000 bytes. It leverages the Network_Traffic data model to detect unusually
-  large ICMP packets that are not blocked and are destined for external IP addresses.
-  This activity is significant because threat actors often use ICMP for command and
-  control communication, and large ICMP packets can indicate data exfiltration or
-  other malicious activities. If confirmed malicious, this could allow attackers to
-  maintain covert communication channels, exfiltrate sensitive data, or further compromise
-  the network.
+description: The following analytic identifies outbound ICMP packets with a size larger than 1,000 bytes. It leverages the Network_Traffic data model to detect unusually large ICMP packets that are not blocked and are destined for external IP addresses. This activity is significant because threat actors often use ICMP for command and control communication, and large ICMP packets can indicate data exfiltration or other malicious activities. If confirmed malicious, this could allow attackers to maintain covert communication channels, exfiltrate sensitive data, or further compromise the network.
 data_source: []
 search: >- 
   | tstats `security_content_summariesonly` count earliest(_time) as firstTime
