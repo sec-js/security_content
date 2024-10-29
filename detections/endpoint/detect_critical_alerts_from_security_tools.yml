@@ -17,16 +17,16 @@ search: '| tstats `security_content_summariesonly` count min(_time) as firstTime
 how_to_implement: In order to properly run this search, you to ingest alerts data from other security products such as Crowdstrike, Microsoft Defender, or Carbon Black using appropriate TAs for that technology. Once ingested, the fields should be mapped to the Alerts data model. Make sure to apply transformation on the data if necessary. The risk_score field is used to calculate the risk score for the alerts and the mitre_technique_id field is used to map the alerts to the MITRE ATT&CK framework is dynamically created by the detection when this is triggered. These fields need not be set in the adaptive response actions. 
 known_false_positives: False positives may vary by endpoint protection tool; monitor and filter out the alerts that are not relevant to your environment.
 references:
-  - https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/accessing-microsoft-defender-for-cloud-alerts-in-splunk-using/ba-p/938228
-  - https://docs.splunk.com/Documentation/CIM/5.3.2/User/Alerts
-  - https://learn.microsoft.com/en-us/defender-endpoint/api/raw-data-export-event-hub
+- https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/accessing-microsoft-defender-for-cloud-alerts-in-splunk-using/ba-p/938228
+- https://docs.splunk.com/Documentation/CIM/5.3.2/User/Alerts
+- https://learn.microsoft.com/en-us/defender-endpoint/api/raw-data-export-event-hub
 drilldown_searches:
-- name: View the detection results for "$user$"
-  search: '%original_detection_search% | search  user = "$user$"'
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-- name: View risk events for the last 7 days for "$user$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$") starthoursago=168 | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 tags:
