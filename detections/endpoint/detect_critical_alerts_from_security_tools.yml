@@ -69,6 +69,6 @@ tests:
 #     sourcetype: mscs:azure:eventhub:defender:advancedhunting
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/alerts/defender_incident_alerts.json
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/alerts/defender_incident_alerts.txt
     source: m365_defender_incident_alerts
     sourcetype: ms365:defender:incident:alerts
