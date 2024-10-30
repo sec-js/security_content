@@ -1,0 +1,4 @@
+definition: index=msdefender sourcetype=ms:defender:atp:alerts
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: msatp_defender_alert
