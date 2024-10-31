@@ -30,7 +30,7 @@ tags:
   - Critical Alerts
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 50
+  confidence: 10
   impact: 50
   message: $severity$ alert for $user$ from $sourcetype$ - $signature$
   mitre_attack_id: []
@@ -60,7 +60,7 @@ tags:
   - Alerts.id
   - Alerts.vendor
   - sourcetype
-  risk_score: 25
+  risk_score: 50
   security_domain: endpoint
 tests:
 - name: True Positive Test
