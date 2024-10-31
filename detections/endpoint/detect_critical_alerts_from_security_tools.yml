@@ -60,7 +60,7 @@ tags:
   - Alerts.id
   - Alerts.vendor
   - sourcetype
-  risk_score: 5025
+  risk_score: 25
   security_domain: endpoint
   manual_test: We are dynamically creating the risk_score field based on the severity of the alert in the SPL and that supersedes the risk score set in the detection. Since integration tests compare these values created in the risk index and the set risk score in the yaml, we are setting this to manual test since it otherwise fails integration test.
 tests:
