@@ -30,7 +30,7 @@ tags:
   - Critical Alerts
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 10
+  confidence: 50
   impact: 50
   message: $severity$ alert for $user$ from $sourcetype$ - $signature$
   mitre_attack_id: []
@@ -60,8 +60,9 @@ tags:
   - Alerts.id
   - Alerts.vendor
   - sourcetype
-  risk_score: 50
+  risk_score: 5025
   security_domain: endpoint
+  manual_testing: We are dynamically creating the risk_score field based on the severity of the alert in the SPL and that supersedes the risk score set in the detection. Since integration tests compare these two values, we are setting this to manual test.
 tests:
 - name: True Positive Test
   attack_data:
