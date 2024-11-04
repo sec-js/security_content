@@ -49,7 +49,7 @@ tags:
   - T1558.003
   observable:
   - name: user
-    type: Endpoint
+    type: User
     role:
     - Victim
   product:
