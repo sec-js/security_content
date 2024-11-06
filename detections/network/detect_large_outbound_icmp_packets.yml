@@ -33,6 +33,15 @@ known_false_positives: ICMP packets are used in a variety of ways to help troubl
   false positives, you can modify the macro `detect_large_outbound_icmp_packets_filter`
   to adjust the byte threshold or add specific IP addresses to an allow list.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$src_ip$" and "$dest_ip$"
+  search: '%original_detection_search% | search  src = "$src_ip$" dest = "$dest_ip$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_ip$" and "$dest_ip$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_ip$", "$dest_ip$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Command And Control
