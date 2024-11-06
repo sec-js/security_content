@@ -1,12 +1,13 @@
 name: Detect Large Outbound ICMP Packets
 id: e9c102de-4d43-42a7-b1c8-8062ea297419
-version: 5
-date: '2024-10-16'
-author: Rico Valdez, Splunk
-status: experimental
+version: 6
+date: '2024-11-06'
+author: Rico Valdez, Dean Luxton, Splunk
+status: production
 type: TTP
 description: The following analytic identifies outbound ICMP packets with a size larger than 1,000 bytes. It leverages the Network_Traffic data model to detect unusually large ICMP packets that are not blocked and are destined for external IP addresses. This activity is significant because threat actors often use ICMP for command and control communication, and large ICMP packets can indicate data exfiltration or other malicious activities. If confirmed malicious, this could allow attackers to maintain covert communication channels, exfiltrate sensitive data, or further compromise the network.
-data_source: []
+data_source:
+- Palo Alto Network Traffic
 search: >- 
   | tstats `security_content_summariesonly` count earliest(_time) as firstTime
   latest(_time) as lastTime values(All_Traffic.action) as action values(All_Traffic.bytes) as bytes from
@@ -65,3 +66,9 @@ tags:
   - All_Traffic.dest_ip
   risk_score: 25
   security_domain: network
+tests:
+- name: True Positive Test
+  attack_data:
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1095/palologs/large_icmp.log
+    sourcetype: pan:traffic
+    source: pan:traffic
