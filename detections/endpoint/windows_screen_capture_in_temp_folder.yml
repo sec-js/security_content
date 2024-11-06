@@ -8,7 +8,6 @@ data_sources:
 type: TTP
 status: production
 description: The following analytic detects the creation of screen capture files by the Braodo stealer malware. This stealer is known to capture screenshots of the victim's desktop as part of its data theft activities. The detection focuses on identifying unusual screen capture activity, especially when images are saved in directories often used by malware, such as temporary or hidden folders. Monitoring for these files helps to quickly identify malicious screen capture attempts, allowing security teams to respond and mitigate potential information exposure before sensitive data is compromised.
-kind: endpoint
 search: '|tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Filesystem 
   where Filesystem.file_name IN ("screenshot.png", "screenshot.jpg","screenshot.bmp") Filesystem.file_path = "*\\temp\\*" 
   by _time Filesystem.file_name Filesystem.file_path Filesystem.dest Filesystem.file_create_time 
