@@ -1,7 +1,7 @@
 name: Windows DLL Search Order Hijacking Hunt
 id: 79c7d0fc-60c7-41be-a616-ccda752efe89
-version: 3
-date: '2023-11-07'
+version: 4
+date: '2024-10-17'
 author: Michael Haag, Splunk
 status: deprecated
 type: Hunting
@@ -79,5 +79,5 @@ tests:
   attack_data:
   - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.001/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
     update_timestamp: true

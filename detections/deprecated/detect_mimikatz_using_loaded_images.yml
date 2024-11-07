@@ -1,7 +1,7 @@
 name: Detect Mimikatz Using Loaded Images
 id: 29e307ba-40af-4ab2-91b2-3c6b392bbba0
-version: 1
-date: '2019-12-03'
+version: 2
+date: '2024-10-17'
 author: Patrick Bareiss, Splunk
 status: deprecated
 type: TTP
@@ -69,4 +69,4 @@ tests:
   attack_data:
   - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
