@@ -6,7 +6,7 @@ author: Teoderick Contreras, Splunk
 status: production
 type: TTP
 data_source:
-- Sysmon EventID 12 
+- Sysmon EventID 12
 - Sysmon EventID 13
 description: The following analytic detects modifications to the Windows registry
   aimed at preventing wallpaper changes. It leverages data from the Endpoint.Registry
@@ -29,14 +29,22 @@ known_false_positives: Administrators may enable or disable this feature that ma
   cause some false positive, however is not common. Filter as needed.
 references:
 - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-319a
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Rhysida Ransomware
   asset_type: Endpoint
   confidence: 60
   impact: 60
-  message: the registry settings was modified to disable changing of wallpaper on
-    $dest$.
+  message: the registry settings was modified to disable changing of wallpaper on $dest$.
   mitre_attack_id:
   - T1112
   observable:
@@ -61,7 +69,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1112/no_changing_wallpaper/NoChangingWallPaper.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1112/no_changing_wallpaper/NoChangingWallPaper.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

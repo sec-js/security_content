@@ -6,7 +6,7 @@ author: Michael Haag, Teoderick Contreras, Splunk
 status: production
 type: TTP
 data_source:
-- Sysmon EventID 12 
+- Sysmon EventID 12
 - Sysmon EventID 13
 description: The following analytic detects modifications to the BootExecute registry
   key, which manages applications and services executed during system boot. It leverages
@@ -30,6 +30,15 @@ how_to_implement: To successfully implement this search you need to be ingesting
 known_false_positives: False positives may be present and will need to be filtered.
 references:
 - https://www.microsoft.com/en-us/security/blog/2023/04/11/guidance-for-investigating-attacks-using-cve-2022-21894-the-blacklotus-campaign/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Windows BootKits
@@ -37,8 +46,7 @@ tags:
   atomic_guid: []
   confidence: 100
   impact: 100
-  message: The Registry BootExecute value was modified on $dest$ and should be reviewed
-    immediately.
+  message: The Registry BootExecute value was modified on $dest$ and should be reviewed immediately.
   mitre_attack_id:
   - T1542
   - T1547.001
@@ -65,7 +73,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1547.001/atomic_red_team/bootexecute-windows-sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1547.001/atomic_red_team/bootexecute-windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

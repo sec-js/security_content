@@ -1,12 +1,12 @@
 name: Windows Modify Registry EnableLinkedConnections
 id: 93048164-3358-4af0-8680-aa5f38440516
 version: 3
-date: '2024-10-04'
+date: '2024-09-30'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
 data_source:
-- Sysmon EventID 12 
+- Sysmon EventID 12
 - Sysmon EventID 13
 description: The following analytic detects a suspicious modification to the Windows
   registry setting for EnableLinkedConnections. It leverages data from the Endpoint.Registry
@@ -31,6 +31,15 @@ known_false_positives: Administrators may enable or disable this feature that ma
   cause some false positive.
 references:
 - https://www.microsoft.com/en-us/security/blog/2023/07/06/the-five-day-job-a-blackbyte-ransomware-intrusion-case-study/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - BlackByte Ransomware
@@ -39,8 +48,7 @@ tags:
   - 4f4e2f9f-6209-4fcf-9b15-3b7455706f5b
   confidence: 70
   impact: 70
-  message: A registry modification in Windows EnableLinkedConnections configuration
-    on $dest$
+  message: A registry modification in Windows EnableLinkedConnections configuration on $dest$
   mitre_attack_id:
   - T1112
   observable:
@@ -66,7 +74,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1112/blackbyte/enablelinkedconnections/blackbyte_sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1112/blackbyte/enablelinkedconnections/blackbyte_sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
