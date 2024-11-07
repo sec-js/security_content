@@ -1,8 +1,8 @@
 name: Curl Download and Bash Execution
 id: 900bc324-59f3-11ec-9fb4-acde48001122
-version: 4
+version: 5
 date: '2024-09-30'
-author: Michael Haag, Splunk
+author: Michael Haag, Splunk, DipsyTipsy
 status: production
 type: TTP
 description: The following analytic detects the use of curl on Linux or MacOS systems to download a file from a remote source and pipe it directly to bash for execution. This detection leverages data from Endpoint Detection and Response (EDR) agents, focusing on process names, command-line arguments, and parent processes. This activity is significant as it is commonly associated with malicious actions such as coinminers and exploitation of vulnerabilities like CVE-2021-44228 in Log4j. If confirmed malicious, this behavior could lead to unauthorized code execution, system compromise, and further exploitation within the environment.
