@@ -38,6 +38,7 @@ references:
 - https://www.huntress.com/blog/rapid-response-critical-rce-vulnerability-is-affecting-java
 - https://www.lunasec.io/docs/blog/log4j-zero-day/
 - https://gist.github.com/nathanqthai/01808c569903f41a52e7e7b575caa890
+- https://github.com/MHaggis/notes/blob/master/utilities/warp_pipe_tester.py
 tags:
   analytic_story:
   - Ingress Tool Transfer
@@ -82,6 +83,7 @@ tags:
   - Processes.parent_process_id
   risk_score: 80
   security_domain: endpoint
+  manual_test: Due to current limitations in command line extraction capabilities with Sysmon for Linux, full CommandLine data cannot be collected for complete validation. Setting to manual test to prevent integration test failures.
 tests:
 - name: True Positive Test
   attack_data:
