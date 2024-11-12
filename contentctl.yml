@@ -53,21 +53,21 @@ apps:
   version: 1.0.0
   description: description of app
   hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/splunk-add-on-for-sysmon-for-linux_100.tgz
-- uid: null
-  title: Splunk Fix XmlWinEventLog HEC Parsing
-  appid: Splunk_FIX_XMLWINEVENTLOG_HEC_PARSING
-  version: '0.1'
-  description: This TA is required for replaying Windows Data into the Test Environment.
-    The Default TA does not include logic for properly splitting multiple log events
-    in a single file.  In production environments, this logic is applied by the Universal
-    Forwarder.
-  hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/Latest/Splunk_TA_fix_windows.tgz
+# - uid: null
+#   title: Splunk Fix XmlWinEventLog HEC Parsing
+#   appid: Splunk_FIX_XMLWINEVENTLOG_HEC_PARSING
+#   version: '0.1'
+#   description: This TA is required for replaying Windows Data into the Test Environment.
+#     The Default TA does not include logic for properly splitting multiple log events
+#     in a single file.  In production environments, this logic is applied by the Universal
+#     Forwarder.
+#   hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/Latest/Splunk_TA_fix_windows.tgz
 - uid: 742
   title: Splunk Add-on for Microsoft Windows
   appid: SPLUNK_ADD_ON_FOR_MICROSOFT_WINDOWS
-  version: 9.0.0
+  version: 9.0.1
   description: description of app
-  hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/splunk-add-on-for-microsoft-windows_900.tgz
+  hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/Splunk_TA_windows-9.0.1.spl
 - uid: 5709
   title: Splunk Add-on for Sysmon
   appid: Splunk_TA_microsoft_sysmon
