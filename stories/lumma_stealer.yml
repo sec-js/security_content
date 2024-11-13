@@ -12,11 +12,11 @@ narrative: As of late 2024, Lumma Stealer has emerged as one of the most promine
 
     Effective detection strategies should focus on monitoring PowerShell execution patterns, suspicious Run dialog usage, and unauthorized access attempts to credential stores and cryptocurrency wallets. Organizations should implement comprehensive monitoring of these attack vectors to detect and respond to Lumma Stealer campaigns effectively.
 references:
-    - https://www.cloudsek.com/blog/lumma-stealer-malware-analysis
+    - https://www.cloudsek.com/blog/unmasking-the-danger-lumma-stealer-malware-exploits-fake-captcha-pages
     - https://medium.com/@shaherzakaria8/downloading-trojan-lumma-infostealer-through-capatcha-1f25255a0e71
-    - https://www.kaspersky.com/blog/lumma-stealer-captcha-scam/49454/
-    - https://www.bleepingcomputer.com/news/security/fake-captcha-pages-push-dangerous-lumma-stealer-malware/
-    - https://www.trendmicro.com/en_us/research/24/a/lumma-stealer-distributed-via-fake-captcha.html
+    - https://securelist.com/fake-captcha-delivers-lumma-amadey/114312/
+    - https://www.bleepingcomputer.com/news/security/clever-github-scanner-campaign-abusing-repos-to-push-malware/
+    - https://www.trendmicro.com/en_us/research/23/j/beware-lumma-stealer-distributed-via-discord-cdn-.html
     - https://redcanary.com/blog/threat-intelligence/intelligence-insights-october-2024/
     - https://www.forensafe.com/blogs/runmrukey.html
 tags:
