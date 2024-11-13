@@ -15,6 +15,13 @@ references:
 - https://developer.okta.com/docs/reference/api/event-types/?q=user.acount.lock
 - https://sec.okta.com/everythingisyes
 - https://splunkbase.splunk.com/app/6553
+rba:
+  message: $user$ account has rejected multiple Okta pushes.
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 18.0
+  threat_objects: []
 tags:
   analytic_story:
   - Okta Account Takeover
@@ -22,14 +29,8 @@ tags:
   asset_type: Okta Tenant
   confidence: 60
   impact: 30
-  message: $user$ account has rejected multiple Okta pushes.
   mitre_attack_id:
   - T1110
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

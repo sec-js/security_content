@@ -11,6 +11,13 @@ search: '| tstats `security_content_summariesonly` values(All_Email.recipient) a
 how_to_implement: You need to ingest email header data. Specifically the sender's address (src_user) must be populated.  You also need to have run the search "ESCU - DNSTwist Domain Names", which creates the permutations of the domain that will be checked for.
 known_false_positives: None at this time
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - Brand Monitoring
@@ -18,12 +25,6 @@ tags:
   asset_type: Endpoint
   confidence: 50
   impact: 50
-  message: tbd
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

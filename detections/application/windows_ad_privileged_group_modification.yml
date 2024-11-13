@@ -13,6 +13,13 @@ how_to_implement: This analytic requires eventCode 4728 to be ingested along wit
 known_false_positives: None
 references:
 - https://splunkbase.splunk.com/app/6853
+rba:
+  message: $user$ was added to privileged AD Group $Group_Name$ by $src_user$
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 50.0
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Privilege Escalation
@@ -20,14 +27,8 @@ tags:
   asset_type: Endpoint
   confidence: 100
   impact: 50
-  message: $user$ was added to privileged AD Group $Group_Name$ by $src_user$
   mitre_attack_id:
   - T1098
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

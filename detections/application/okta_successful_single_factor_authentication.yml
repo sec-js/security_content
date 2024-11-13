@@ -23,24 +23,26 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: A user [$user$] has successfully logged in to Okta Dashboard with single
+    factor authentication from IP Address - [$src_ip$].
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 48.0
+  threat_objects: []
 tags:
   analytic_story:
   - Okta Account Takeover
   asset_type: Okta Tenant
   confidence: 60
   impact: 80
-  message: A user [$user$] has successfully logged in to Okta Dashboard with single factor authentication from IP Address - [$src_ip$].
   mitre_attack_id:
   - T1586
   - T1586.003
   - T1078
   - T1078.004
   - T1621
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

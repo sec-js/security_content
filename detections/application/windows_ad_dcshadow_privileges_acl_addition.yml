@@ -25,26 +25,27 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$", "$src_user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: ACL modification Event Initiated by $src_user$ applying $user$ the minimum
+    required extended rights to perform a DCShadow attack.
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 100.0
+  - field: src_user
+    type: User
+    risk_score: 100.0
+  threat_objects: []
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
   confidence: 100
   impact: 100
-  message: ACL modification Event Initiated by $src_user$ applying $user$ the minimum required extended rights to perform a DCShadow attack.
   mitre_attack_id:
   - T1484
   - T1207
   - T1222.001
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

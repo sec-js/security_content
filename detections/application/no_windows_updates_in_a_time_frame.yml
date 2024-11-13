@@ -11,18 +11,19 @@ search: '| tstats `security_content_summariesonly` max(_time) as lastTime from d
 how_to_implement: To successfully implement this search, it requires that the 'Update' data model is being populated. This can be accomplished by ingesting Windows events or the Windows Update log via a universal forwarder on the Windows endpoints you wish to monitor. The Windows add-on should be also be installed and configured to properly parse Windows events in Splunk. There may be other data sources which can populate this data model, including vulnerability management systems.
 known_false_positives: None identified
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: dest
+    type: Hostname
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - Monitor for Updates
   asset_type: Endpoint
   confidence: 50
   impact: 50
-  message: tbd
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

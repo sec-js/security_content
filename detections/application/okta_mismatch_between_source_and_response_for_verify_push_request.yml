@@ -14,6 +14,14 @@ known_false_positives: False positives may be present based on organization size
 references:
 - https://attack.mitre.org/techniques/T1621
 - https://splunkbase.splunk.com/app/6553
+rba:
+  message: A mismatch between source and response for verifying a push request has
+    occurred for $actor.alternateId$
+  risk_objects:
+  - field: actor.alternateId
+    type: User
+    risk_score: 64.0
+  threat_objects: []
 tags:
   analytic_story:
   - Okta Account Takeover
@@ -21,14 +29,8 @@ tags:
   asset_type: Okta Tenant
   confidence: 80
   impact: 80
-  message: A mismatch between source and response for verifying a push request has occurred for $actor.alternateId$
   mitre_attack_id:
   - T1621
-  observable:
-  - name: actor.alternateId
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

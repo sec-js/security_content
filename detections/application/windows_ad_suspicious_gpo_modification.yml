@@ -19,27 +19,28 @@ references:
 - https://wald0.com/?p=179
 - https://github.com/FSecureLABS/SharpGPOAbuse
 - https://lantern.splunk.com/Security/Product_Tips/Enterprise_Security/Enabling_an_audit_trail_from_Active_Directory
+rba:
+  message: $src_user$ has added new GPO Client Side Extensions $folder$ to the policy
+    $gpo_guid$
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 80.0
+  - field: src_user
+    type: User
+    risk_score: 80.0
+  threat_objects: []
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
   confidence: 80
   impact: 100
-  message: $src_user$ has added new GPO Client Side Extensions $folder$ to the policy $gpo_guid$
   mitre_attack_id:
   - T1484
   - T1484.001
   - T1222
   - T1222.001
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

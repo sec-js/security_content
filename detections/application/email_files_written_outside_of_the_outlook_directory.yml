@@ -12,21 +12,22 @@ search: '| tstats `security_content_summariesonly` count values(Filesystem.file_
 how_to_implement: To successfully implement this search, you must be ingesting data that records the file-system activity from your hosts to populate the Endpoint.Filesystem data model node. This is typically populated via endpoint detection-and-response product, such as Carbon Black, or by other endpoint data sources, such as Sysmon. The data used for this search is typically generated via logs that report file-system reads and writes.
 known_false_positives: Administrators and users sometimes prefer backing up their email data by moving the email files into a different folder. These attempts will be detected by the search.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: dest
+    type: Hostname
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - Collection and Staging
   asset_type: Endpoint
   confidence: 50
   impact: 50
-  message: tbd
   mitre_attack_id:
   - T1114
   - T1114.001
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

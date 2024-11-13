@@ -14,21 +14,22 @@ known_false_positives: False positives may be present based on organization size
 references:
 - https://attack.mitre.org/techniques/T1538
 - https://attack.mitre.org/techniques/T1550/004
+rba:
+  message: Multiple Failed Requests to Access Applications via Okta for $actor.alternateId$.
+  risk_objects:
+  - field: actor.alternateId
+    type: User
+    risk_score: 56.0
+  threat_objects: []
 tags:
   analytic_story:
   - Okta Account Takeover
   asset_type: Okta Tenant
   confidence: 70
   impact: 80
-  message: Multiple Failed Requests to Access Applications via Okta for $actor.alternateId$.
   mitre_attack_id:
   - T1550.004
   - T1538
-  observable:
-  - name: actor.alternateId
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

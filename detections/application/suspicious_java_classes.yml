@@ -11,22 +11,22 @@ search: '`stream_http` http_method=POST http_content_length>1 | regex form_data=
 how_to_implement: In order to properly run this search, Splunk needs to ingest data from your web-traffic appliances that serve or sit in the path of your Struts application servers. This can be accomplished by indexing data from a web proxy, or by using network traffic-analysis tools, such as Splunk Stream or Bro.
 known_false_positives: There are no known false positives.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 25.0
+  - field: dest
+    type: Hostname
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - Apache Struts Vulnerability
   asset_type: Endpoint
   confidence: 50
   impact: 50
-  message: tbd
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
