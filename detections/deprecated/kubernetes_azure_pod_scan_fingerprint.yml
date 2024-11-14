@@ -1,7 +1,7 @@
 name: Kubernetes Azure pod scan fingerprint
 id: 86aad3e0-732f-4f66-bbbc-70df448e461d
-version: 3
-date: '2024-10-17'
+version: 4
+date: '2024-11-14'
 author: Rod Soto, Splunk
 status: deprecated
 type: Hunting
@@ -17,18 +17,19 @@ how_to_implement: You must install the Add-on for Microsoft Cloud Services and C
 known_false_positives: Not all unauthenticated requests are malicious, but source
   IPs, userAgent, verb, request URI and response status will provide context.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: sourceIPs{}
+    type: IP Address
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - Kubernetes Scanning Activity
   asset_type: Azure AKS Kubernetes cluster
   confidence: 50
   impact: 50
-  message: tbd
-  observable:
-  - name: sourceIPs{}
-    type: IP Address
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

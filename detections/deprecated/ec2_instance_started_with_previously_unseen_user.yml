@@ -1,7 +1,7 @@
 name: EC2 Instance Started With Previously Unseen User
 id: 22773e84-bac0-4595-b086-20d3f735b4f1
-version: 4
-date: '2024-10-17'
+version: 5
+date: '2024-11-14'
 author: David Dorsey, Splunk
 status: deprecated
 type: Anomaly
@@ -26,6 +26,13 @@ known_false_positives: It's possible that a user will start to create EC2 instan
   when they haven't before for any number of reasons. Verify with the user that is
   launching instances that this is the intended behavior.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - AWS Cryptomining
@@ -33,14 +40,8 @@ tags:
   asset_type: AWS Instance
   confidence: 50
   impact: 50
-  message: tbd
   mitre_attack_id:
   - T1078.004
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

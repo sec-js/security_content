@@ -1,7 +1,7 @@
 name: First time seen command line argument
 id: a1b6e73f-98d5-470f-99ac-77aacd578473
-version: 7
-date: '2024-10-17'
+version: 8
+date: '2024-11-14'
 author: Bhavin Patel, Splunk
 status: deprecated
 type: Hunting
@@ -35,6 +35,13 @@ known_false_positives: Legitimate programs can also use command-line arguments t
   is being executed. We recommend customizing the `first_time_seen_cmd_line_filter`
   macro to exclude legitimate parent_process_name
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: dest
+    type: Hostname
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - DHS Report TA18-074A
@@ -45,15 +52,9 @@ tags:
   asset_type: Endpoint
   confidence: 50
   impact: 50
-  message: tbd
   mitre_attack_id:
   - T1059.001
   - T1059.003
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

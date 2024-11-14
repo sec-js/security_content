@@ -1,7 +1,7 @@
 name: Detect new API calls from user roles
 id: 22773e84-bac0-4595-b086-20d3f335b4f1
-version: 3
-date: '2024-10-17'
+version: 4
+date: '2024-11-14'
 author: Bhavin Patel, Splunk
 status: deprecated
 type: Anomaly
@@ -27,20 +27,21 @@ known_false_positives: It is possible that there are legitimate user roles makin
   new or infrequently used API calls in your infrastructure, causing the search to
   trigger.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - AWS User Monitoring
   asset_type: AWS Instance
   confidence: 50
   impact: 50
-  message: tbd
   mitre_attack_id:
   - T1078.004
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

@@ -1,7 +1,7 @@
 name: Windows hosts file modification
 id: 06a6fc63-a72d-41dc-8736-7e3dd9612116
-version: 3
-date: '2024-10-17'
+version: 4
+date: '2024-11-14'
 author: Rico Valdez, Splunk
 status: deprecated
 type: TTP
@@ -23,18 +23,19 @@ how_to_implement: To successfully implement this search, you must be ingesting d
 known_false_positives: There may be legitimate reasons for system administrators to
   add entries to this file.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: dest
+    type: Hostname
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - Host Redirection
   asset_type: Endpoint
   confidence: 50
   impact: 50
-  message: tbd
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

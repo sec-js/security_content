@@ -1,7 +1,7 @@
 name: Detect new user AWS Console Login
 id: ada0f478-84a8-4641-a3f3-d82362dffd75
-version: 4
-date: '2024-10-17'
+version: 5
+date: '2024-11-14'
 author: Bhavin Patel, Splunk
 status: deprecated
 type: Hunting
@@ -27,20 +27,21 @@ known_false_positives: When a legitimate new user logins for the first time, thi
   activity will be detected. Check how old the account is and verify that the user
   activity is legitimate.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious AWS Login Activities
   asset_type: AWS Instance
   confidence: 50
   impact: 50
-  message: tbd
   mitre_attack_id:
   - T1078.004
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

@@ -1,7 +1,7 @@
 name: Kubernetes Azure detect RBAC authorization by account
 id: 47af7d20-0607-4079-97d7-7a29af58b54e
-version: 3
-date: '2024-10-17'
+version: 4
+date: '2024-11-14'
 author: Rod Soto, Splunk
 status: deprecated
 type: Hunting
@@ -18,18 +18,19 @@ how_to_implement: You must install the Add-on for Microsoft Cloud Services and C
 known_false_positives: Not all RBAC Authorications are malicious. RBAC authorizations
   can uncover malicious activity specially if sensitive Roles have been granted.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: user.username
+    type: User
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - Kubernetes Sensitive Role Activity
   asset_type: Azure AKS Kubernetes cluster
   confidence: 50
   impact: 50
-  message: tbd
-  observable:
-  - name: user.username
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

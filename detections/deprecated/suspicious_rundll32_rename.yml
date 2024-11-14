@@ -1,7 +1,7 @@
 name: Suspicious Rundll32 Rename
 id: 7360137f-abad-473e-8189-acbdaa34d114
-version: 6
-date: '2024-10-17'
+version: 7
+date: '2024-11-14'
 author: Michael Haag, Splunk
 status: deprecated
 type: Hunting
@@ -34,6 +34,16 @@ references:
 - https://attack.mitre.org/techniques/T1218/011/
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218.011/T1218.011.md
 - https://lolbas-project.github.io/lolbas/Binaries/Rundll32/
+rba:
+  message: Suspicious renamed rundll32.exe binary ran on $dest$ by $user$
+  risk_objects:
+  - field: dest
+    type: Endpoint
+    risk_score: 63.0
+  - field: User
+    type: User
+    risk_score: 63.0
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious Rundll32 Activity
@@ -41,21 +51,11 @@ tags:
   asset_type: Endpoint
   confidence: 90
   impact: 70
-  message: Suspicious renamed rundll32.exe binary ran on $dest$ by $user$
   mitre_attack_id:
   - T1218
   - T1036
   - T1218.011
   - T1036.003
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: User
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

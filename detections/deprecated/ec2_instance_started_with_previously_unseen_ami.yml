@@ -1,7 +1,7 @@
 name: EC2 Instance Started With Previously Unseen AMI
 id: 347ec301-601b-48b9-81aa-9ddf9c829dd3
-version: 3
-date: '2024-10-17'
+version: 4
+date: '2024-11-14'
 author: David Dorsey, Splunk
 status: deprecated
 type: Anomaly
@@ -28,18 +28,19 @@ known_false_positives: After a new AMI is created, the first systems created wit
   that AMI will cause this alert to fire.  Verify that the AMI being used was created
   by a legitimate user.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: dest
+    type: Hostname
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - AWS Cryptomining
   asset_type: AWS Instance
   confidence: 50
   impact: 50
-  message: tbd
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

@@ -1,7 +1,7 @@
 name: Identify New User Accounts
 id: 475b9e27-17e4-46e2-b7e2-648221be3b89
-version: 3
-date: '2024-10-17'
+version: 4
+date: '2024-11-14'
 author: Bhavin Patel, Splunk
 status: deprecated
 type: Hunting
@@ -20,19 +20,20 @@ known_false_positives: If the Identity_Management data model is not updated regu
   this search could give you false positive alerts. Please consider this and investigate
   appropriately.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: identity
+    type: User
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story: []
   asset_type: Domain Server
   confidence: 50
   impact: 50
-  message: tbd
   mitre_attack_id:
   - T1078.002
-  observable:
-  - name: identity
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

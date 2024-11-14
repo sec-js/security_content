@@ -1,7 +1,7 @@
 name: EC2 Instance Started With Previously Unseen Instance Type
 id: 65541c80-03c7-4e05-83c8-1dcd57a2e1ad
-version: 4
-date: '2024-10-17'
+version: 5
+date: '2024-11-14'
 author: David Dorsey, Splunk
 status: deprecated
 type: Anomaly
@@ -28,18 +28,19 @@ known_false_positives: It is possible that an admin will create a new system usi
   a new instance type never used before. Verify with the creator that they intended
   to create the system with the new instance type.
 references: []
+rba:
+  message: tbd
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 25.0
+  threat_objects: []
 tags:
   analytic_story:
   - AWS Cryptomining
   asset_type: AWS Instance
   confidence: 50
   impact: 50
-  message: tbd
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
