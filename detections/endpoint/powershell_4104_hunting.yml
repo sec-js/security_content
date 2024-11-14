@@ -32,6 +32,7 @@ tags:
   - Data Destruction
   - CISA AA24-241A
   - Braodo Stealer
+  - Lumma Stealer
   asset_type: Endpoint
   confidence: 100
   impact: 80

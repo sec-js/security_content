@@ -19,6 +19,8 @@ references:
     - https://www.trendmicro.com/en_us/research/23/j/beware-lumma-stealer-distributed-via-discord-cdn-.html
     - https://redcanary.com/blog/threat-intelligence/intelligence-insights-october-2024/
     - https://www.forensafe.com/blogs/runmrukey.html
+    - https://mandarnaik016.in/blog/2024-10-05-malware-analysis-lumma-stealer/
+    - https://www.mcafee.com/blogs/other-blogs/mcafee-labs/behind-the-captcha-a-clever-gateway-of-malware/
 tags:
   category:
   - Adversary Tactics

@@ -36,7 +36,7 @@ tags:
   asset_type: Endpoint
   confidence: 50
   impact: 70
-  message: Powershell.exe running potentially malicious encodede commands on $dest$
+  message: Powershell.exe running potentially malicious encoded commands on $dest$
   mitre_attack_id:
   - T1027
   observable:
