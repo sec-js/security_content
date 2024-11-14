@@ -1,11 +1,17 @@
 name: Windows Defender Exclusion Registry Entry
 id: 13395a44-4dd9-11ec-9df7-acde48001122
-version: 6
-date: '2024-10-04'
+version: 7
+date: '2024-11-14'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: TTP
-description: The following analytic detects modifications to the Windows Defender exclusion registry entries. It leverages endpoint registry data to identify changes in the registry path "*\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Exclusions\\*". This activity is significant because adversaries often modify these entries to bypass Windows Defender, allowing malicious code to execute without detection. If confirmed malicious, this behavior could enable attackers to evade antivirus defenses, maintain persistence, and execute further malicious activities undetected.
+description: The following analytic detects modifications to the Windows Defender
+  exclusion registry entries. It leverages endpoint registry data to identify changes
+  in the registry path "*\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Exclusions\\*".
+  This activity is significant because adversaries often modify these entries to bypass
+  Windows Defender, allowing malicious code to execute without detection. If confirmed
+  malicious, this behavior could enable attackers to evade antivirus defenses, maintain
+  persistence, and execute further malicious activities undetected.
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
@@ -30,9 +36,25 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$user$" and "$dest$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$", "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Exclusion registry $registry_path$ modified or added on $dest$ for Windows
+    Defender
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 64.0
+  - field: dest
+    type: Hostname
+    risk_score: 64.0
+  threat_objects: []
 tags:
   analytic_story:
   - Remcos
@@ -44,19 +66,9 @@ tags:
   asset_type: Endpoint
   confidence: 80
   impact: 80
-  message: Exclusion registry $registry_path$ modified or added on $dest$ for Windows Defender
   mitre_attack_id:
   - T1562.001
   - T1562
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -73,6 +85,7 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/defender_exclusion_sysmon/sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/defender_exclusion_sysmon/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

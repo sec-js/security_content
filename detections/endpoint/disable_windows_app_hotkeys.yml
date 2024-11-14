@@ -1,11 +1,17 @@
 name: Disable Windows App Hotkeys
 id: 1490f224-ad8b-11eb-8c4f-acde48001122
-version: 6
-date: '2024-10-04'
+version: 7
+date: '2024-11-14'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: TTP
-description: The following analytic detects a suspicious registry modification aimed at disabling Windows hotkeys for native applications. It leverages data from the Endpoint.Registry data model, focusing on specific registry paths and values indicative of this behavior. This activity is significant as it can impair an analyst's ability to use essential tools like Task Manager and Command Prompt, hindering incident response efforts. If confirmed malicious, this technique can allow an attacker to maintain persistence and evade detection, complicating the remediation process.
+description: The following analytic detects a suspicious registry modification aimed
+  at disabling Windows hotkeys for native applications. It leverages data from the
+  Endpoint.Registry data model, focusing on specific registry paths and values indicative
+  of this behavior. This activity is significant as it can impair an analyst's ability
+  to use essential tools like Task Manager and Command Prompt, hindering incident
+  response efforts. If confirmed malicious, this technique can allow an attacker to
+  maintain persistence and evade detection, complicating the remediation process.
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
@@ -29,9 +35,21 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$dest$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Disabled 'Windows App Hotkeys' on $dest$
+  risk_objects:
+  - field: dest
+    type: Endpoint
+    risk_score: 40.0
+  threat_objects: []
 tags:
   analytic_story:
   - XMRig
@@ -39,16 +57,10 @@ tags:
   asset_type: Endpoint
   confidence: 100
   impact: 40
-  message: Disabled 'Windows App Hotkeys' on $dest$
   mitre_attack_id:
   - T1562.001
   - T1562
   - T1112
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -66,6 +78,7 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/hotkey_disabled_hidden_user/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/hotkey_disabled_hidden_user/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

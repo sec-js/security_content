@@ -1,11 +1,18 @@
 name: Disabling SystemRestore In Registry
 id: f4f837e2-91fb-11eb-8bf6-acde48001122
-version: 7
-date: '2024-10-04'
+version: 8
+date: '2024-11-14'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: TTP
-description: The following analytic detects the modification of registry keys to disable System Restore on a machine. It leverages data from the Endpoint.Registry data model, specifically monitoring changes to registry paths associated with System Restore settings. This activity is significant because disabling System Restore can hinder recovery efforts and is a tactic often used by Remote Access Trojans (RATs) to maintain persistence on an infected system. If confirmed malicious, this action could prevent system recovery, allowing the attacker to sustain their foothold and potentially cause further damage or data loss.
+description: The following analytic detects the modification of registry keys to disable
+  System Restore on a machine. It leverages data from the Endpoint.Registry data model,
+  specifically monitoring changes to registry paths associated with System Restore
+  settings. This activity is significant because disabling System Restore can hinder
+  recovery efforts and is a tactic often used by Remote Access Trojans (RATs) to maintain
+  persistence on an infected system. If confirmed malicious, this action could prevent
+  system recovery, allowing the attacker to sustain their foothold and potentially
+  cause further damage or data loss.
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
@@ -31,9 +38,25 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$user$" and "$dest$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$", "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: The Windows registry was modified to disable system restore on $dest$ by
+    $user$.
+  risk_objects:
+  - field: user
+    type: User
+    risk_score: 49.0
+  - field: dest
+    type: Hostname
+    risk_score: 49.0
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics
@@ -42,18 +65,8 @@ tags:
   asset_type: Endpoint
   confidence: 70
   impact: 70
-  message: The Windows registry was modified to disable system restore on $dest$ by $user$.
   mitre_attack_id:
   - T1490
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -71,15 +84,19 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-security.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-security.log
     source: WinEventLog:Security
     sourcetype: WinEventLog
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-system.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-system.log
     source: WinEventLog:System
     sourcetype: WinEventLog
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-xml.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-xml.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

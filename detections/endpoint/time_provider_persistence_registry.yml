@@ -1,11 +1,18 @@
 name: Time Provider Persistence Registry
 id: 5ba382c4-2105-11ec-8d8f-acde48001122
-version: 6
-date: '2024-10-04'
+version: 7
+date: '2024-11-14'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: TTP
-description: The following analytic detects suspicious modifications to the time provider registry for persistence and autostart. It leverages data from the Endpoint.Registry data model, focusing on changes to the "CurrentControlSet\\Services\\W32Time\\TimeProviders" registry path. This activity is significant because such modifications are uncommon and can indicate an attempt to establish persistence on a compromised host. If confirmed malicious, this technique allows an attacker to maintain access and execute code automatically upon system boot, potentially leading to further exploitation and control over the affected system.
+description: The following analytic detects suspicious modifications to the time provider
+  registry for persistence and autostart. It leverages data from the Endpoint.Registry
+  data model, focusing on changes to the "CurrentControlSet\\Services\\W32Time\\TimeProviders"
+  registry path. This activity is significant because such modifications are uncommon
+  and can indicate an attempt to establish persistence on a compromised host. If confirmed
+  malicious, this technique allows an attacker to maintain access and execute code
+  automatically upon system boot, potentially leading to further exploitation and
+  control over the affected system.
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
@@ -29,9 +36,24 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$dest$" and "$user$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$", "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: modified/added/deleted registry entry $registry_path$ in $dest$
+  risk_objects:
+  - field: dest
+    type: Hostname
+    risk_score: 80.0
+  - field: user
+    type: User
+    risk_score: 80.0
+  threat_objects: []
 tags:
   analytic_story:
   - Hermetic Wiper
@@ -42,19 +64,9 @@ tags:
   asset_type: Endpoint
   confidence: 100
   impact: 80
-  message: modified/added/deleted registry entry $registry_path$ in $dest$
   mitre_attack_id:
   - T1547.003
   - T1547
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -72,6 +84,7 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1547.003/timeprovider_reg/sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1547.003/timeprovider_reg/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

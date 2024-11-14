@@ -1,11 +1,18 @@
 name: Disable Defender Spynet Reporting
 id: 898debf4-3021-11ec-ba7c-acde48001122
-version: 6
-date: '2024-10-04'
+version: 7
+date: '2024-11-14'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: TTP
-description: The following analytic detects the modification of the registry to disable Windows Defender SpyNet reporting. It leverages data from the Endpoint.Registry data model, specifically monitoring changes to the registry path associated with Windows Defender SpyNet settings. This activity is significant because disabling SpyNet reporting can prevent Windows Defender from sending telemetry data, potentially allowing malicious activities to go undetected. If confirmed malicious, this action could enable an attacker to evade detection, maintain persistence, and carry out further attacks without being flagged by Windows Defender.
+description: The following analytic detects the modification of the registry to disable
+  Windows Defender SpyNet reporting. It leverages data from the Endpoint.Registry
+  data model, specifically monitoring changes to the registry path associated with
+  Windows Defender SpyNet settings. This activity is significant because disabling
+  SpyNet reporting can prevent Windows Defender from sending telemetry data, potentially
+  allowing malicious activities to go undetected. If confirmed malicious, this action
+  could enable an attacker to evade detection, maintain persistence, and carry out
+  further attacks without being flagged by Windows Defender.
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
@@ -29,9 +36,24 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$dest$" and "$user$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$", "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: modified/added/deleted registry entry $registry_path$ in $dest$
+  risk_objects:
+  - field: dest
+    type: Hostname
+    risk_score: 49.0
+  - field: user
+    type: User
+    risk_score: 49.0
+  threat_objects: []
 tags:
   analytic_story:
   - Azorult
@@ -42,19 +64,9 @@ tags:
   asset_type: Endpoint
   confidence: 70
   impact: 70
-  message: modified/added/deleted registry entry $registry_path$ in $dest$
   mitre_attack_id:
   - T1562.001
   - T1562
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -72,6 +84,7 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/icedid/disable_av/sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/icedid/disable_av/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

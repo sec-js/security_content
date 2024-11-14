@@ -1,11 +1,17 @@
 name: Disable Windows Behavior Monitoring
 id: 79439cae-9200-11eb-a4d3-acde48001122
-version: 8
-date: '2024-10-04'
+version: 9
+date: '2024-11-14'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: TTP
-description: The following analytic identifies modifications in the registry to disable Windows Defender's real-time behavior monitoring. It leverages data from the Endpoint.Registry data model, specifically monitoring changes to registry paths associated with Windows Defender settings. This activity is significant because disabling real-time protection is a common tactic used by malware such as RATs, bots, or Trojans to evade detection. If confirmed malicious, this action could allow an attacker to execute code, escalate privileges, or persist in the environment without being detected by antivirus software.
+description: The following analytic identifies modifications in the registry to disable
+  Windows Defender's real-time behavior monitoring. It leverages data from the Endpoint.Registry
+  data model, specifically monitoring changes to registry paths associated with Windows
+  Defender settings. This activity is significant because disabling real-time protection
+  is a common tactic used by malware such as RATs, bots, or Trojans to evade detection.
+  If confirmed malicious, this action could allow an attacker to execute code, escalate
+  privileges, or persist in the environment without being detected by antivirus software.
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
@@ -36,9 +42,21 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$dest$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Windows Defender real time behavior monitoring disabled on $dest$
+  risk_objects:
+  - field: dest
+    type: Endpoint
+    risk_score: 40.0
+  threat_objects: []
 tags:
   analytic_story:
   - Azorult
@@ -51,15 +69,9 @@ tags:
   asset_type: Endpoint
   confidence: 100
   impact: 40
-  message: Windows Defender real time behavior monitoring disabled on $dest$
   mitre_attack_id:
   - T1562.001
   - T1562
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -77,6 +89,7 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_app_defender_disabling/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
