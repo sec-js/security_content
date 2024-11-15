@@ -47,7 +47,7 @@ rba:
   message: A new group policy objected was created on $dcName$
   risk_objects:
   - field: dcName
-    type: endpoint
+    type: system
     score: 50
   threat_objects: []
 tags:

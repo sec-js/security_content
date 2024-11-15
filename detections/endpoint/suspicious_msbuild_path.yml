@@ -56,7 +56,7 @@ rba:
   message: Msbuild.exe ran from an uncommon path on $dest$ execyted by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 49
   - field: user
     type: user

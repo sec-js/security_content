@@ -45,7 +45,7 @@ rba:
   message: Windows $object$ cleared on $dest$ via EventCode $EventCode$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 70
   threat_objects: []
 tags:

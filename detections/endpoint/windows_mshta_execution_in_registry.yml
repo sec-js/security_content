@@ -50,7 +50,7 @@ rba:
   message: A registry $registry_path$ contains mshta $registry_value_data$ in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 72
   - field: user
     type: user

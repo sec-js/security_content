@@ -56,11 +56,11 @@ rba:
     host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 70
   threat_objects:
   - field: process_name
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - BlackByte Ransomware

@@ -52,7 +52,7 @@ rba:
   message: A commandline $process$ executed on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 16
   threat_objects: []
 tags:

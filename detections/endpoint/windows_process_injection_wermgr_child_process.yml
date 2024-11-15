@@ -54,7 +54,7 @@ rba:
   message: wermgr parent process has a child process $process_name$ in $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 56
   threat_objects: []
 tags:

@@ -55,7 +55,7 @@ rba:
   message: A suspicious process $process_name$ was launched from $file_name$ on $dest$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 16
   - field: user
     type: user

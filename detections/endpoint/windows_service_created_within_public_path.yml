@@ -46,7 +46,7 @@ rba:
   message: A Windows Service $ServiceName$ with a public path was created on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 54
   threat_objects:
   - field: ServiceName

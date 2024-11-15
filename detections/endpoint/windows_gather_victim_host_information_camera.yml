@@ -47,7 +47,7 @@ rba:
   message: A Powershell script to enumerate camera detected on host - $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 42
   - field: user
     type: user

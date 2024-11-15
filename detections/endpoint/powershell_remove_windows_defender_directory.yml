@@ -43,7 +43,7 @@ rba:
   message: suspicious powershell script $ScriptBlockText$ was executed on the $Computer$
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 90
   - field: UserID
     type: user

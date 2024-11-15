@@ -57,7 +57,7 @@ rba:
   message: Process $process_name$ that executed reboot via commandline on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 30
   threat_objects: []
 tags:

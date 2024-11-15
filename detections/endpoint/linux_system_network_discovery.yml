@@ -54,7 +54,7 @@ rba:
   message: Network discovery process $process_name_list$ executed on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 9
   threat_objects: []
 tags:

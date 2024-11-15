@@ -46,7 +46,7 @@ rba:
   message: A schedule task created for CompMgmtLauncher or Eventvwr on [$dest$].
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 64
   threat_objects: []
 tags:

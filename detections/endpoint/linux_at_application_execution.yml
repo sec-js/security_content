@@ -54,7 +54,7 @@ rba:
   message: At application was executed in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 9
   threat_objects: []
 tags:

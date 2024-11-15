@@ -56,7 +56,7 @@ rba:
     $src_count$ sources using $unique_count$ unique user accounts.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 75
   threat_objects: []
 tags:

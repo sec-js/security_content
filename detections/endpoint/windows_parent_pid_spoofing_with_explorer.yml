@@ -52,7 +52,7 @@ rba:
   message: An explorer.exe process with process commandline $process$ on dest $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 64
   threat_objects: []
 tags:

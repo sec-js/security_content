@@ -46,7 +46,7 @@ rba:
     attempting to export a certificate.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 36
   threat_objects: []
 tags:

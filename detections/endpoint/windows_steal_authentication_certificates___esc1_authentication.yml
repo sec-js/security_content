@@ -64,10 +64,10 @@ rba:
   message: Possible AD CS ESC1 authentication on $dest$
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 90
   - field: dest
-    type: hostname
+    type: system
     score: 90
   - field: src_user
     type: user

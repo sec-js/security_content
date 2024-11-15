@@ -51,7 +51,7 @@ rba:
     type: user
     score: 64
   - field: dest
-    type: endpoint
+    type: system
     score: 64
   threat_objects:
   - field: deleted_files

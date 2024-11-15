@@ -50,7 +50,7 @@ rba:
   message: A [$process_exec$] event occurred on host - [$dest$] to add a user account.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 25
   threat_objects: []
 tags:

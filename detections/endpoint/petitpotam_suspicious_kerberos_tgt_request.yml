@@ -45,7 +45,7 @@ rba:
     related to CVE-2021-36942, PetitPotam.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 56
   threat_objects: []
 tags:

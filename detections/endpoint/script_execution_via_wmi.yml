@@ -54,7 +54,7 @@ rba:
   message: A wmic.exe process $process_name$ that execute script in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 36
   - field: user
     type: user

@@ -57,7 +57,7 @@ rba:
   message: Office document spawning suspicious child process on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 35
   threat_objects: []
 tags:

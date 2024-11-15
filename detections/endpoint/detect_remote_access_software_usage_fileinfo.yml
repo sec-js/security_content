@@ -52,11 +52,11 @@ rba:
     detected on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 25
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Insider Threat

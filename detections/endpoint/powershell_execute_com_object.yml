@@ -44,7 +44,7 @@ rba:
   message: A suspicious powershell script contains COM CLSID command on host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 5
   threat_objects: []
 tags:

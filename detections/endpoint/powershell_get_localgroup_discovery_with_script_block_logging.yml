@@ -34,7 +34,7 @@ rba:
   message: Local group discovery on endpoint $dest$ by user $user$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 15
   - field: user
     type: user

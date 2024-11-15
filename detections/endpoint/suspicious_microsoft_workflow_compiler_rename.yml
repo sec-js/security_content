@@ -42,7 +42,7 @@ rba:
     by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 63
   - field: user
     type: user

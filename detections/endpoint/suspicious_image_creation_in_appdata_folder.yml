@@ -52,11 +52,11 @@ rba:
   message: Process $process_name$ creating image file $file_path$ in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Remcos

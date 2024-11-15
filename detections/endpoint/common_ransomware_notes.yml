@@ -35,7 +35,7 @@ rba:
     type: user
     score: 90
   - field: dest
-    type: hostname
+    type: system
     score: 90
   - field: file_name
     type: file name

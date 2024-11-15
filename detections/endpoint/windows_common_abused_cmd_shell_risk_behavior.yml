@@ -61,7 +61,7 @@ rba:
     on $risk_object$
   risk_objects:
   - field: risk_object
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

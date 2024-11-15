@@ -44,7 +44,7 @@ rba:
     on host $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 72
   threat_objects:
   - field: proc_terminated

@@ -57,7 +57,7 @@ rba:
     with parent command line $parent_process$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 9
   - field: user
     type: user

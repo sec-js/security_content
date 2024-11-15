@@ -54,7 +54,7 @@ rba:
   message: Possible file data deletion on $dest$ using $process$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 54
   threat_objects: []
 tags:

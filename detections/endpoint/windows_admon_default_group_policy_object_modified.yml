@@ -49,7 +49,7 @@ rba:
   message: A default domain group policy was updated on $dcName$
   risk_objects:
   - field: dcName
-    type: endpoint
+    type: system
     score: 50
   threat_objects: []
 tags:

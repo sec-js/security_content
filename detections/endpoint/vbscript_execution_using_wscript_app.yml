@@ -55,7 +55,7 @@ rba:
   message: Process name $process_name$ with commandline $process$ to execute vbsscript
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 49
   - field: user
     type: user

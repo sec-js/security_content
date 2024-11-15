@@ -54,14 +54,14 @@ rba:
   message: User $user$ on $dest$ spawned Windows Script Host from Winword.exe
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 70
   - field: user
     type: user
     score: 70
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Spearphishing Attachments

@@ -48,7 +48,7 @@ rba:
   message: A suspicious file modification or replace in $file_path$  in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 72
   threat_objects:
   - field: file_name

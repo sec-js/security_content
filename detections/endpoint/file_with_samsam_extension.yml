@@ -53,7 +53,7 @@ rba:
     type: user
     score: 90
   - field: dest
-    type: endpoint
+    type: system
     score: 90
   threat_objects:
   - field: file_name

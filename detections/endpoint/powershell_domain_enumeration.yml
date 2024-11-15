@@ -49,7 +49,7 @@ rba:
     with EventCode $EventCode$ in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 42
   - field: user
     type: user

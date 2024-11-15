@@ -58,11 +58,11 @@ rba:
     type: user
     score: 56
   - field: dest
-    type: endpoint
+    type: system
     score: 56
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Windows File Extension and Association Abuse

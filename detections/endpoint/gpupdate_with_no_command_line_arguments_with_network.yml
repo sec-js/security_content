@@ -63,11 +63,11 @@ rba:
     type: user
     score: 81
   - field: dest
-    type: endpoint
+    type: system
     score: 81
   threat_objects:
   - field: parent_process_name
-    type: process name
+    type: parent_process_name
   - field: C2
     type: ip_address
 tags:

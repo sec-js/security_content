@@ -40,7 +40,7 @@ rba:
   message: ASR registry modification event, $ASR_Rule$, was triggered on $dest$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 50
   threat_objects: []
 tags:

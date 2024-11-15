@@ -56,7 +56,7 @@ rba:
   message: Process $process_name$ seen to execute shutdown via commandline on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

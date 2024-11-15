@@ -52,7 +52,7 @@ rba:
     type: user
     score: 63
   - field: dest
-    type: hostname
+    type: system
     score: 63
   - field: file_name
     type: file name

@@ -45,13 +45,13 @@ rba:
     on endpoint $dest$ spawning a Windows shell, potentially indicative of exploitation.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 40
   threat_objects:
   - field: parent_process_name
-    type: process
+    type: parent_process_name
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Log4Shell CVE-2021-44228

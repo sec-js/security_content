@@ -55,7 +55,7 @@ rba:
     destinations.
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 25
   threat_objects: []
 tags:

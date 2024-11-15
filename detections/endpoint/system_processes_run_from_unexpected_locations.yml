@@ -56,11 +56,11 @@ rba:
     potentially non-standard.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 30
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Suspicious Command-Line Executions

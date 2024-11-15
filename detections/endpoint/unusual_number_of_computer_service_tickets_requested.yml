@@ -34,7 +34,7 @@ rba:
   message: ''
   risk_objects:
   - field: Client_Address
-    type: endpoint
+    type: system
     score: 42
   threat_objects: []
 tags:

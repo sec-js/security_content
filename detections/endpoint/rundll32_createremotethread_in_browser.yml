@@ -46,7 +46,7 @@ rba:
     $TargetImage$ in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 70
   threat_objects:
   - field: SourceImage

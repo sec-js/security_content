@@ -50,7 +50,7 @@ rba:
   message: A registry modification in Windows bitlocker registry settings on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 64
   threat_objects: []
 tags:

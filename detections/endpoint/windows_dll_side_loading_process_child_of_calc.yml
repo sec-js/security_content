@@ -53,7 +53,7 @@ rba:
   message: calc.exe has a child process $process_name$ in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 81
   threat_objects: []
 tags:

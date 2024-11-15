@@ -54,7 +54,7 @@ rba:
   message: dynwrapx.dll loaded by process $process_name$ on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 80
   threat_objects: []
 tags:

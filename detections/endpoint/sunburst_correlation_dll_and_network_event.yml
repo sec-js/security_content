@@ -32,7 +32,7 @@ rba:
   message: tbd
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 25
   threat_objects: []
 tags:

@@ -52,7 +52,7 @@ rba:
   message: A doas $process_name$ with commandline $process$ was executed on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

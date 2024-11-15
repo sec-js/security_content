@@ -59,11 +59,11 @@ rba:
     type: user
     score: 5
   - field: dest
-    type: endpoint
+    type: system
     score: 5
   threat_objects:
   - field: process_name
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - Trickbot

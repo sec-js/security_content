@@ -62,7 +62,7 @@ rba:
     $process$ in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 72
   - field: user
     type: user

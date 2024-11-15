@@ -42,7 +42,7 @@ rba:
     with a processname that appears to be randomly generated.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 45
   - field: user
     type: user

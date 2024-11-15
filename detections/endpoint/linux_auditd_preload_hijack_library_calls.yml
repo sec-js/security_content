@@ -51,7 +51,7 @@ rba:
     library functions using the LD_PRELOAD environment variable.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 81
   threat_objects: []
 tags:

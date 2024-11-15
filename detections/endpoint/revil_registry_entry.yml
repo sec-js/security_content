@@ -65,7 +65,7 @@ rba:
     and $registry_value_name$ related to revil ransomware in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 60
   - field: user
     type: user

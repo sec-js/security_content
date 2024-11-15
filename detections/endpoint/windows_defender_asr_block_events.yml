@@ -54,7 +54,7 @@ rba:
   message: ASR block event, $ASR_Rule$, was triggered on $dest$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 45
   threat_objects:
   - field: ASR_Rule

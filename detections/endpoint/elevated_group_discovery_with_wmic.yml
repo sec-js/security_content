@@ -58,7 +58,7 @@ rba:
   message: Elevated domain group discovery enumeration on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 21
   threat_objects: []
 tags:

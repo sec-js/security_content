@@ -50,7 +50,7 @@ rba:
     URLs in an array, this is commonly used for malware.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 80
   - field: user
     type: user

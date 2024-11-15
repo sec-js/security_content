@@ -66,7 +66,7 @@ rba:
   message: Wmiprsve.exe spawned a LOLBAS process on $dest$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 54
   threat_objects: []
 tags:

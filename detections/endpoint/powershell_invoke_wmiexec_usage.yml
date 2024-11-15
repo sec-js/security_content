@@ -43,7 +43,7 @@ rba:
   message: PowerShell was identified running a Invoke-WmiExec on $Computer$.
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 100
   threat_objects: []
 tags:

@@ -43,7 +43,7 @@ rba:
   message: A driver $ImageLoaded$ related to xmrig crytominer loaded in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 80
   threat_objects: []
 tags:

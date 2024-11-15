@@ -30,7 +30,7 @@ rba:
   message: Network Connection discovery on $Computer$ by $user$
   risk_objects:
   - field: Computer
-    type: endpoint
+    type: system
     score: 15
   threat_objects: []
 tags:

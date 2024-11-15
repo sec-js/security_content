@@ -41,7 +41,7 @@ rba:
   message: elevated process using runas on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 25
   threat_objects: []
 tags:

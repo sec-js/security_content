@@ -48,7 +48,7 @@ rba:
     [$file_path$] on host- [$dest$].
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 25
   threat_objects:
   - field: file_name

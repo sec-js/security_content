@@ -38,7 +38,7 @@ rba:
   message: A commandline $process$ that may modify cronjob file using editor in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 6
   threat_objects: []
 tags:

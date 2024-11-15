@@ -47,7 +47,7 @@ rba:
   message: An interactive session was opened on a remote endpoint from $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 45
   threat_objects: []
 tags:

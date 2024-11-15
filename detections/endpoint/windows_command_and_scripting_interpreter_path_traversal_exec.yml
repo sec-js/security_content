@@ -55,7 +55,7 @@ rba:
     with path traversal commandline $process$ in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 90
   threat_objects: []
 tags:

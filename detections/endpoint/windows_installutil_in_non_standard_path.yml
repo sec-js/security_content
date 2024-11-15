@@ -63,13 +63,13 @@ rba:
     type: user
     score: 49
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects:
   - field: parent_process_name
-    type: process
+    type: parent_process_name
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Masquerading - Rename System Utilities

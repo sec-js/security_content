@@ -51,7 +51,7 @@ rba:
   message: Potential DCShadow Attack Detected on $Computer$
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 64
   threat_objects:
   - field: SubjectUserName

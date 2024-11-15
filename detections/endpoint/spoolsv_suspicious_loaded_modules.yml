@@ -44,7 +44,7 @@ rba:
     on endpoint $dest$. This behavior is suspicious and related to PrintNightmare.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 72
   threat_objects: []
 tags:

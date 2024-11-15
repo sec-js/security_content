@@ -56,7 +56,7 @@ rba:
   message: System nslookup domain discovery on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 1
   threat_objects: []
 tags:

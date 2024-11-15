@@ -48,7 +48,7 @@ rba:
     staging on $dest$ by $user$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 80
   - field: user
     type: user

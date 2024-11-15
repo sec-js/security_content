@@ -50,7 +50,7 @@ rba:
   message: A [$type$] event has occured on host - [$dest$] to modify the preload file.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 81
   threat_objects: []
 tags:

@@ -51,7 +51,7 @@ rba:
   message: A [$process_exec$] event occurred on host - [$dest$].
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 81
   threat_objects: []
 tags:

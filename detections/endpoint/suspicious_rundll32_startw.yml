@@ -58,7 +58,7 @@ rba:
   message: rundll32.exe running with suspicious StartW parameters on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 35
   - field: user
     type: user

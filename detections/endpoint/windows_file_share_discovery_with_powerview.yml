@@ -47,7 +47,7 @@ rba:
   message: Invoke-ShareFinder commandlet was executed on $Computer$
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 48
   - field: UserID
     type: user

@@ -59,11 +59,11 @@ rba:
     type: user
     score: 30
   - field: dest
-    type: hostname
+    type: system
     score: 30
   threat_objects:
   - field: parent_process_name
-    type: process
+    type: parent_process_name
 tags:
   analytic_story:
   - Active Directory Discovery

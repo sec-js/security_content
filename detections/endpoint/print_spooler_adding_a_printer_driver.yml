@@ -46,7 +46,7 @@ rba:
   message: Suspicious print driver was loaded on endpoint $ComputerName$.
   risk_objects:
   - field: ComputerName
-    type: endpoint
+    type: system
     score: 72
   threat_objects: []
 tags:

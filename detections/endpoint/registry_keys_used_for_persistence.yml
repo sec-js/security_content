@@ -69,7 +69,7 @@ rba:
   message: A registry activity in $registry_path$ related to persistence in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 76
   - field: user
     type: user

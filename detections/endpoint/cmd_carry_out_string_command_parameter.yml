@@ -41,7 +41,7 @@ rba:
     on endpoint $dest$ by user $user$ attempting spawn a new process.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 30
   - field: user
     type: user

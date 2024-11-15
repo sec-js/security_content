@@ -61,7 +61,7 @@ rba:
     related to Remcos RAT in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 90
   threat_objects: []
 tags:

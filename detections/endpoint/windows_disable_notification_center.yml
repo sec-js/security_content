@@ -50,7 +50,7 @@ rba:
     type: user
     score: 48
   - field: dest
-    type: hostname
+    type: system
     score: 48
   threat_objects: []
 tags:

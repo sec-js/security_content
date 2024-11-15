@@ -43,7 +43,7 @@ rba:
   message: rundll32 process drops a file $file_name$ on host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 80
   threat_objects:
   - field: file_name

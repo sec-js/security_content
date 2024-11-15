@@ -48,7 +48,7 @@ rba:
     within 5 minutes.
   risk_objects:
   - field: IpAddress
-    type: endpoint
+    type: system
     score: 30
   threat_objects: []
 tags:

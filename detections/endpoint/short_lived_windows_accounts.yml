@@ -47,7 +47,7 @@ rba:
   message: A user account created or delete shortly in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 63
   - field: user
     type: user

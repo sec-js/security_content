@@ -39,7 +39,7 @@ rba:
   message: Network Connection discovery on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 15
   threat_objects: []
 tags:

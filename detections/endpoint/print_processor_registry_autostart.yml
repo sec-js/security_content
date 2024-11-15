@@ -36,7 +36,7 @@ rba:
   message: modified/added/deleted registry entry $Registry.registry_path$ in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 80
   - field: user
     type: user

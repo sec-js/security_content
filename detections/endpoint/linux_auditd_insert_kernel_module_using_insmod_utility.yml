@@ -52,7 +52,7 @@ rba:
     Linux kernel module using the insmod utility.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 64
   threat_objects: []
 tags:

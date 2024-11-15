@@ -58,7 +58,7 @@ rba:
   message: Office application spawning regsvr32.exe on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 63
   threat_objects: []
 tags:

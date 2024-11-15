@@ -47,7 +47,7 @@ rba:
   message: Multiple files delted in /etc/ folder on $dest$ by process GUID -  $process_guid$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

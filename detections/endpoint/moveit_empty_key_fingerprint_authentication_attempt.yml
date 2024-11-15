@@ -30,7 +30,7 @@ rba:
     Transfer, causing empty key fingerprint authentication attempts via $source$.
   risk_objects:
   - field: source
-    type: endpoint
+    type: system
     score: 9
   threat_objects: []
 tags:

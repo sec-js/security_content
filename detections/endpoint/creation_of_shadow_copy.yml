@@ -61,11 +61,11 @@ rba:
     type: user
     score: 81
   - field: dest
-    type: hostname
+    type: system
     score: 81
   threat_objects:
   - field: parent_process_name
-    type: process
+    type: parent_process_name
 tags:
   analytic_story:
   - Credential Dumping

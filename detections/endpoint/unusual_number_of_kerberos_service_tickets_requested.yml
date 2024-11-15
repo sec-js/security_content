@@ -53,7 +53,7 @@ rba:
     a potential kerberoasting attack
   risk_objects:
   - field: src
-    type: endpoint
+    type: system
     score: 64
   - field: user
     type: user

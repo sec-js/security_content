@@ -55,7 +55,7 @@ rba:
   message: cmd.exe launching script interpreters $process_name$ on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 35
   threat_objects: []
 tags:

@@ -40,7 +40,7 @@ rba:
   message: dxdiag.exe process with commandline $process$ on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 25
   - field: user
     type: user

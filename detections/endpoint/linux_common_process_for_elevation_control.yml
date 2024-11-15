@@ -46,7 +46,7 @@ rba:
   message: A commandline $process$ with process $process_name$ on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 9
   threat_objects: []
 tags:

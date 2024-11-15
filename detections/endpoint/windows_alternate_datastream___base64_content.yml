@@ -51,7 +51,7 @@ rba:
     command field for details.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 80
   - field: user
     type: user

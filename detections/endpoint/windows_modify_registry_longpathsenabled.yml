@@ -48,7 +48,7 @@ rba:
   message: A registry modification in Windows LongPathEnable configuration on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 16
   threat_objects: []
 tags:

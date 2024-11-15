@@ -56,7 +56,7 @@ rba:
   message: The forfiles command (forfiles.exe) launched the process name -  $process_name$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 25
   threat_objects: []
 tags:

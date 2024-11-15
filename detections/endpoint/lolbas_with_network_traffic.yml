@@ -61,7 +61,7 @@ rba:
   message: The LOLBAS $process_name$ on device $src$ was seen communicating with $dest$.
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 25
   threat_objects:
   - field: dest

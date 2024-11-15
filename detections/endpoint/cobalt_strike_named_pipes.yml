@@ -54,11 +54,11 @@ rba:
     known suspicious named pipes related to Cobalt Strike.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 72
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Trickbot

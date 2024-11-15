@@ -45,7 +45,7 @@ rba:
     name on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 70
   - field: OldTargetUserName
     type: user

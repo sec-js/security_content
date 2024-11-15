@@ -34,7 +34,7 @@ rba:
   message: Unusual number of remote authentication events from $Source_Network_Address$
   risk_objects:
   - field: target_hosts
-    type: endpoint
+    type: system
     score: 42
   threat_objects: []
 tags:

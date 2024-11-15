@@ -51,7 +51,7 @@ rba:
   message: ASR rule disabled event, $ASR_Rule$, was triggered on $dest$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 100
   threat_objects:
   - field: ASR_Rule

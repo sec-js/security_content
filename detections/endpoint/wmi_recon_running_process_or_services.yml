@@ -49,7 +49,7 @@ rba:
     running services
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 20
   - field: user
     type: user

@@ -49,11 +49,11 @@ rba:
   message: Suspicious writes to windows Recycle Bin process $process_name$ on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 28
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Collection and Staging

@@ -52,7 +52,7 @@ rba:
     virtual disk files and directories.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 25
   threat_objects: []
 tags:

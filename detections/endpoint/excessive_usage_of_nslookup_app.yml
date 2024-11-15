@@ -51,7 +51,7 @@ rba:
     is triggered as as it violates the dynamic threshold
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 28
   threat_objects: []
 tags:

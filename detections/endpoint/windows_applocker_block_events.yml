@@ -46,7 +46,7 @@ rba:
   message: An instance of AppLocker policy violation has been detected on $dest$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 16
   threat_objects: []
 tags:

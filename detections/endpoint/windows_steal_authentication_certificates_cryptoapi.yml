@@ -44,7 +44,7 @@ rba:
   message: Certificates were exported via the CryptoAPI 2 on $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 24
   threat_objects: []
 tags:

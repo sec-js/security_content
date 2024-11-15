@@ -45,7 +45,7 @@ rba:
   message: A process that possibly write shim database in $file_path$ in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 56
   threat_objects:
   - field: file_path

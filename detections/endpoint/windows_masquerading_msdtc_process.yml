@@ -54,7 +54,7 @@ rba:
   message: msdtc.exe process with process commandline used by PlugX malware in $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 64
   threat_objects: []
 tags:

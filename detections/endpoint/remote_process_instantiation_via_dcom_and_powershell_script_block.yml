@@ -46,7 +46,7 @@ rba:
     using PowerShell.exe
   risk_objects:
   - field: Computer
-    type: endpoint
+    type: system
     score: 63
   threat_objects: []
 tags:

@@ -38,7 +38,7 @@ rba:
   message: An application was executed from an uncommon location on a host $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

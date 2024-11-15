@@ -56,7 +56,7 @@ rba:
   message: wmi command $process$ to list processes and services in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 4
   threat_objects: []
 tags:

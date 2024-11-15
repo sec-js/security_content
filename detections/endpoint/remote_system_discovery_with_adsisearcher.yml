@@ -45,7 +45,7 @@ rba:
   message: Remote system discovery enumeration with adsisearcher on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 15
   threat_objects: []
 tags:

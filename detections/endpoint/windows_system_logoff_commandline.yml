@@ -57,7 +57,7 @@ rba:
   message: Process name $process_name$ is seen to execute logoff commandline on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 56
   threat_objects: []
 tags:

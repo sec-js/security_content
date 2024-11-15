@@ -50,7 +50,7 @@ rba:
     modules.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 15
   threat_objects: []
 tags:

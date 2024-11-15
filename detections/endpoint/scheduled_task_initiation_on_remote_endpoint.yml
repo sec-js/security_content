@@ -54,7 +54,7 @@ rba:
   message: A Windows Scheduled Task was ran on a remote endpoint from $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 54
   threat_objects: []
 tags:

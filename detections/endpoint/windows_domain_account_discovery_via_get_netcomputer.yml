@@ -45,7 +45,7 @@ rba:
   message: Windows Domain Account Discovery Via Get-NetComputer in $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 15
   threat_objects: []
 tags:

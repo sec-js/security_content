@@ -32,7 +32,7 @@ rba:
   message: System user discovery on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 15
   threat_objects: []
 tags:

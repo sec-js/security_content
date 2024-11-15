@@ -52,7 +52,7 @@ rba:
   message: A default group policy object was modified on $Computer$ by $SubjectUserSid$
   risk_objects:
   - field: Computer
-    type: endpoint
+    type: system
     score: 50
   threat_objects:
   - field: SubjectUserSid

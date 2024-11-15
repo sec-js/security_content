@@ -54,7 +54,7 @@ rba:
   message: a commandline $process$ that may modify profile files in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

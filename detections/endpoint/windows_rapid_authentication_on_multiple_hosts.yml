@@ -47,7 +47,7 @@ rba:
     number of remote endpoints within 5 minutes.
   risk_objects:
   - field: host_targets
-    type: endpoint
+    type: system
     score: 48
   threat_objects:
   - field: IpAddress

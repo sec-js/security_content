@@ -57,11 +57,11 @@ rba:
     type: user
     score: 28
   - field: dest
-    type: endpoint
+    type: system
     score: 28
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Prestige Ransomware

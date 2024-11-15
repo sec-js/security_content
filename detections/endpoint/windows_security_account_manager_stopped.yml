@@ -54,7 +54,7 @@ rba:
     on $dest$ by this command: $process$'
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 70
   - field: user
     type: user

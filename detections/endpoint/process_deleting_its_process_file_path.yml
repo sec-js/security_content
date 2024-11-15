@@ -56,7 +56,7 @@ rba:
     as part of defense evasion in host $dest$ by user $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 60
   - field: user
     type: user

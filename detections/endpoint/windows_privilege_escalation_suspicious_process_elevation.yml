@@ -71,7 +71,7 @@ rba:
     a suspicious elevated integrity process [$process_name$].
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 40
   - field: user
     type: user
@@ -81,7 +81,7 @@ rba:
     score: 40
   threat_objects:
   - field: process_name
-    type: other
+    type: process_name
 tags:
   analytic_story:
   - Windows Privilege Escalation

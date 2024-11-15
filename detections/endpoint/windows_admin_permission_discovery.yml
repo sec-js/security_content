@@ -50,7 +50,7 @@ rba:
   message: A file was created in root drive C:/ on host - $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 25
   threat_objects:
   - field: file_name

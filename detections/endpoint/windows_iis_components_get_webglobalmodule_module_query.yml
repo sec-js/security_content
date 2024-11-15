@@ -30,7 +30,7 @@ rba:
   message: IIS Modules have been listed on $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 1
   threat_objects: []
 tags:

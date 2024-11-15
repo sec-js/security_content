@@ -53,11 +53,11 @@ rba:
   message: rundll32 process $process_name$ with commandline $process$ in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 42
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - IcedID

@@ -63,7 +63,7 @@ rba:
     type: user
     score: 9
   - field: dest
-    type: endpoint
+    type: system
     score: 9
   threat_objects: []
 tags:

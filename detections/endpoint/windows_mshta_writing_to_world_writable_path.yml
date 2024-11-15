@@ -60,7 +60,7 @@ rba:
   message: An instance of $Image$ writing to $TargetFilename$ was detected on $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 64
   threat_objects:
   - field: Image

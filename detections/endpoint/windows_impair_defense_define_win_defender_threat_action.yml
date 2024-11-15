@@ -50,7 +50,7 @@ rba:
   message: Define Windows Defender threat action through registry on $dest$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 49
   threat_objects: []
 tags:

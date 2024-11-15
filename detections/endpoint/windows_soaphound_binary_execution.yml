@@ -61,7 +61,7 @@ rba:
     type: process
     score: 80
   - field: dest
-    type: hostname
+    type: system
     score: 80
   threat_objects: []
 tags:

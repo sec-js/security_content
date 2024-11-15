@@ -64,7 +64,7 @@ rba:
     and reg value $registry_value_name$ in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 48
   threat_objects:
   - field: registry_path

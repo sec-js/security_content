@@ -49,7 +49,7 @@ rba:
     type: user
     score: 100
   - field: Computer
-    type: hostname
+    type: system
     score: 100
   threat_objects: []
 tags:

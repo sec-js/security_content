@@ -57,13 +57,13 @@ rba:
   message: Certify/Certipy arguments detected on $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 90
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
   - field: process_name
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - Windows Certificate Services

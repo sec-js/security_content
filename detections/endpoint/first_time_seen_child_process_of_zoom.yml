@@ -47,11 +47,11 @@ rba:
     type: user
     score: 64
   - field: dest
-    type: endpoint
+    type: system
     score: 64
   threat_objects:
   - field: process_name
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - Suspicious Zoom Child Processes

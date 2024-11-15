@@ -59,11 +59,11 @@ rba:
     type: user
     score: 90
   - field: dest
-    type: hostname
+    type: system
     score: 90
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - PaperCut MF NG Vulnerability

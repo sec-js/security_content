@@ -50,7 +50,7 @@ rba:
     executed by parent process $parent_process$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 20
   - field: user
     type: user

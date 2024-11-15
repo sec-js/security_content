@@ -47,7 +47,7 @@ rba:
   message: SSH Config and keys are deleted on $dest$ by Process GUID - $process_guid$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

@@ -58,7 +58,7 @@ rba:
   message: Activity related to privilege escalation has been identified on $risk_object$.
   risk_objects:
   - field: risk_object
-    type: hostname
+    type: system
     score: 64
   threat_objects: []
 tags:

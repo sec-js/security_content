@@ -53,11 +53,11 @@ rba:
     type: user
     score: 40
   - field: dest
-    type: hostname
+    type: system
     score: 40
   threat_objects:
   - field: process_name
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - Living Off The Land

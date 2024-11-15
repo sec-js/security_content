@@ -56,7 +56,7 @@ rba:
     present in the command line.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   - field: user
     type: user

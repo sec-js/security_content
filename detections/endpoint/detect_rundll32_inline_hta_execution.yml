@@ -56,7 +56,7 @@ rba:
   message: Suspicious rundll32.exe inline HTA execution on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 56
   threat_objects: []
 tags:

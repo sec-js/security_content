@@ -52,7 +52,7 @@ rba:
   message: a $process_name$ execute sysrq command $process$ to reboot $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

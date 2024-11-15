@@ -36,7 +36,7 @@ rba:
   message: A suspicious TGT was requested was requested by $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 60
   threat_objects: []
 tags:

@@ -60,11 +60,11 @@ rba:
     type: user
     score: 100
   - field: dest
-    type: hostname
+    type: system
     score: 100
   threat_objects:
   - field: parent_process_name
-    type: process name
+    type: parent_process_name
   - field: process_name
     type: process_name
 tags:

@@ -44,11 +44,11 @@ rba:
   message: Possible Trickbot namedpipe created on $dest$ by $process_name$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 42
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Trickbot

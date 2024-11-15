@@ -55,7 +55,7 @@ rba:
     security permission of a specific file or directory on host $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 72
   - field: user
     type: user

@@ -50,7 +50,7 @@ rba:
   message: the registry for DisallowRun settings was modified to enable in $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 49
   threat_objects: []
 tags:

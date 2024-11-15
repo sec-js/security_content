@@ -52,7 +52,7 @@ rba:
   message: The module [$loaded_file$] was loaded from an unusual location by [$process$]
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 10
   - field: user
     type: user

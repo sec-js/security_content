@@ -50,7 +50,7 @@ rba:
   message: ESX Admins group $EventCodeDescription$ on $dest$ by user $SubjectUserName$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 25
   threat_objects:
   - field: SubjectUserName

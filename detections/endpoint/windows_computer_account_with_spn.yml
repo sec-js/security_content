@@ -48,7 +48,7 @@ rba:
     possibly indicative of Kerberos relay attack.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 64
   threat_objects: []
 tags:

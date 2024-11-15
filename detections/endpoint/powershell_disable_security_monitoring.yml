@@ -55,7 +55,7 @@ rba:
   message: Windows Defender Real-time Behavior Monitoring disabled on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 25
   threat_objects: []
 tags:

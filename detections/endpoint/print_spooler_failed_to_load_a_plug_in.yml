@@ -47,7 +47,7 @@ rba:
     with EventCode $EventCode$.
   risk_objects:
   - field: ComputerName
-    type: hostname
+    type: system
     score: 72
   threat_objects: []
 tags:

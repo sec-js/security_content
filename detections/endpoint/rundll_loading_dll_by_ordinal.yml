@@ -58,7 +58,7 @@ rba:
     commandline $process$ on host $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   - field: user
     type: user

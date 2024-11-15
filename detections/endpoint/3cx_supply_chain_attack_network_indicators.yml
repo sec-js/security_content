@@ -34,7 +34,7 @@ rba:
   message: Indicators related to 3CX supply chain attack have been identified on $src$.
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 100
   threat_objects:
   - field: query

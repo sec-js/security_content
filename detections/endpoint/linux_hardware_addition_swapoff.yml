@@ -51,7 +51,7 @@ rba:
   message: a $process_name$ swap off paging device in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 36
   - field: user
     type: user

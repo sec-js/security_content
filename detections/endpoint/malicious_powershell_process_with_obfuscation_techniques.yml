@@ -54,7 +54,7 @@ rba:
   message: Powershell.exe running with potential obfuscated arguments on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 42
   threat_objects: []
 tags:

@@ -56,7 +56,7 @@ rba:
     on $dest$.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 100
   threat_objects: []
 tags:

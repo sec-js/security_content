@@ -48,7 +48,7 @@ rba:
   message: Disabled Registry Tools on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 40
   threat_objects: []
 tags:

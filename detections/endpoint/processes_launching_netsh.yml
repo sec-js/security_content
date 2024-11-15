@@ -56,7 +56,7 @@ rba:
     on $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 14
   - field: user
     type: user

@@ -36,7 +36,7 @@ rba:
   message: a debugger $process_name$ is executed in $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 9
   - field: user
     type: user

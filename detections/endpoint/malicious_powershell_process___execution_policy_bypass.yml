@@ -55,7 +55,7 @@ rba:
   message: PowerShell local execution policy bypass attempt on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 42
   threat_objects: []
 tags:

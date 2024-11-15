@@ -54,7 +54,7 @@ rba:
   message: A commandline $process$ that may install kernel module on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 64
   threat_objects: []
 tags:

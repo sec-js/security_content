@@ -55,7 +55,7 @@ rba:
   message: Process with named pipe in $process$ on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 49
   threat_objects: []
 tags:

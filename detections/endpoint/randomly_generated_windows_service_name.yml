@@ -28,7 +28,7 @@ rba:
   message: A Windows Service with a suspicious service name was installed on $ComputerName$
   risk_objects:
   - field: ComputerName
-    type: endpoint
+    type: system
     score: 45
   threat_objects: []
 tags:

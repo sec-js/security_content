@@ -63,11 +63,11 @@ rba:
     type: user
     score: 72
   - field: dest
-    type: hostname
+    type: system
     score: 72
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Suspicious Compiled HTML Activity

@@ -58,14 +58,14 @@ rba:
     process: $process_name$ which is very common in spearphishing attacks'
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 70
   - field: user
     type: user
     score: 70
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Spearphishing Attachments

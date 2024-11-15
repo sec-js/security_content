@@ -35,7 +35,7 @@ rba:
     Get-NetUser on $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 15
   threat_objects: []
 tags:

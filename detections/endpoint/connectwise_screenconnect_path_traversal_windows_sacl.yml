@@ -50,7 +50,7 @@ rba:
   message: A path traversal attack against ScreenConnect has been detected on $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 100
   threat_objects: []
 tags:

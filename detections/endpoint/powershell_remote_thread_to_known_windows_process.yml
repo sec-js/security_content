@@ -47,11 +47,11 @@ rba:
     thread on target process $TargetImage$ with eventcode $EventCode$ in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 63
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Trickbot

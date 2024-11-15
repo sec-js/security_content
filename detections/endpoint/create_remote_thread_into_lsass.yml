@@ -47,7 +47,7 @@ rba:
     behavior is indicative of credential dumping and should be investigated.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 81
   threat_objects:
   - field: TargetImage

@@ -64,14 +64,14 @@ rba:
     level integrity process [$system_process$].
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 80
   - field: user
     type: user
     score: 80
   threat_objects:
   - field: process_name
-    type: other
+    type: process_name
 tags:
   analytic_story:
   - Windows Privilege Escalation

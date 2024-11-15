@@ -49,7 +49,7 @@ rba:
   message: Commandlets leveraged to discover GPP credentials were executed on $Computer$
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 56
   - field: UserID
     type: user

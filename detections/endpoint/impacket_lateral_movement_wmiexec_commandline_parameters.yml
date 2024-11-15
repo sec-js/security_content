@@ -65,7 +65,7 @@ rba:
     using wmiexec.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 63
   threat_objects: []
 tags:

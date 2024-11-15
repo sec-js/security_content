@@ -50,7 +50,7 @@ rba:
   message: A PowerShell script contains memorystream command on host $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 40
   - field: user
     type: user

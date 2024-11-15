@@ -54,7 +54,7 @@ rba:
   message: sdelete process $process_name$ executed in $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 49
   - field: user
     type: user

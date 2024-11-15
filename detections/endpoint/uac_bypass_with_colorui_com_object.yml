@@ -45,7 +45,7 @@ rba:
     on endpoint $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 48
   threat_objects:
   - field: ImageLoaded

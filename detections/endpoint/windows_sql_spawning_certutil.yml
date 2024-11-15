@@ -43,14 +43,14 @@ rba:
     with the SQL process identified.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 90
   - field: user
     type: user
     score: 90
   threat_objects:
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Flax Typhoon

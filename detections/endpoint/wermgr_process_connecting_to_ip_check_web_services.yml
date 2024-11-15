@@ -48,7 +48,7 @@ rba:
   message: Wermgr.exe process connecting IP location web services on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 56
   threat_objects: []
 tags:

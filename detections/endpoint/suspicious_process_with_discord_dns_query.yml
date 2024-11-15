@@ -45,11 +45,11 @@ rba:
   message: suspicious process $process_name$ has a dns query in $QueryName$ on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 64
   threat_objects:
   - field: process_name
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - Data Destruction

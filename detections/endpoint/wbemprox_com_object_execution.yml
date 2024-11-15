@@ -47,7 +47,7 @@ rba:
   message: Suspicious COM Object Execution on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 35
   threat_objects: []
 tags:

@@ -54,7 +54,7 @@ rba:
   message: Suspicious microsoft.workflow.compiler.exe process ran on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 35
   - field: user
     type: user

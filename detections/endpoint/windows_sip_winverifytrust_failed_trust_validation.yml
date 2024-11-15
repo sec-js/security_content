@@ -48,7 +48,7 @@ rba:
   message: Failed trust validation via the CryptoAPI 2 on $dest$ for a binary.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 64
   threat_objects: []
 tags:

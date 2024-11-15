@@ -30,7 +30,7 @@ rba:
   message: The Windows Event Log Service shutdown on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 9
   threat_objects: []
 tags:

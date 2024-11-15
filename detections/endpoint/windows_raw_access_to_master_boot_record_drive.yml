@@ -48,7 +48,7 @@ rba:
   message: process accessing MBR $Device$ on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 90
   threat_objects: []
 tags:

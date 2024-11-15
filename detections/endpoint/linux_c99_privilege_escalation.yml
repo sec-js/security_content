@@ -53,13 +53,13 @@ rba:
     on endpoint $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 30
   threat_objects:
   - field: parent_process_name
-    type: process
+    type: parent_process_name
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Linux Privilege Escalation

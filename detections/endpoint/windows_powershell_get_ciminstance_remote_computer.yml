@@ -45,7 +45,7 @@ rba:
     connect to a remote host.
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 15
   threat_objects: []
 tags:

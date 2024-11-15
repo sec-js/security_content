@@ -54,7 +54,7 @@ rba:
   message: A commandline $process$ that may set suid or sgid on $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

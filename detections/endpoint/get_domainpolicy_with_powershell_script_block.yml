@@ -47,7 +47,7 @@ rba:
     policy.
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 30
   - field: UserID
     type: user

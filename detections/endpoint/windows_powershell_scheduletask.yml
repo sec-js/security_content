@@ -50,7 +50,7 @@ rba:
     occurred on $Computer$ by $user_id$.
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 25
   - field: user_id
     type: user

@@ -47,7 +47,7 @@ rba:
     or modified. This could indicate exploitation of CVE-2024-21378 on $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

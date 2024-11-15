@@ -51,7 +51,7 @@ rba:
   message: Known services $param1$ terminated by a potential ransomware on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 72
   threat_objects:
   - field: param1

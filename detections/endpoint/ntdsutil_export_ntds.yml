@@ -57,7 +57,7 @@ rba:
   message: Active Directory NTDS export on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 50
   threat_objects: []
 tags:

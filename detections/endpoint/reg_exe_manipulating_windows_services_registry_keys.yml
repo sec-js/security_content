@@ -55,7 +55,7 @@ rba:
   message: A reg.exe process $process_name$ with commandline $process$ in host $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 45
   - field: user
     type: user

@@ -65,7 +65,7 @@ rba:
     path $registry_value_name$ in $dest$
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 63
   threat_objects: []
 tags:

@@ -48,7 +48,7 @@ rba:
   message: Registry modification in "ShowCompColor" and "ShowInfoTips" on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 25
   threat_objects: []
 tags:

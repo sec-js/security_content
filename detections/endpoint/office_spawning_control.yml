@@ -61,13 +61,13 @@ rba:
     on endpoint $dest$ clicking a suspicious attachment.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 80
   threat_objects:
   - field: parent_process_name
-    type: process
+    type: parent_process_name
   - field: process_name
-    type: process
+    type: process_name
 tags:
   analytic_story:
   - Spearphishing Attachments

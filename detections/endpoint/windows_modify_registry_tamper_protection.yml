@@ -49,7 +49,7 @@ rba:
   message: A registry modification to tamper Windows Defender protection on $dest$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 49
   threat_objects: []
 tags:

@@ -52,7 +52,7 @@ rba:
     of 5 minutes.
   risk_objects:
   - field: host_targets
-    type: endpoint
+    type: system
     score: 56
   threat_objects:
   - field: IpAddress

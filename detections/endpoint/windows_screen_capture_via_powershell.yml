@@ -45,7 +45,7 @@ rba:
     on $Computer$.
   risk_objects:
   - field: Computer
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:
