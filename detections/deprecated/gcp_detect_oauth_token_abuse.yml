@@ -25,7 +25,7 @@ rba:
   risk_objects:
   - field: protoPayload.status.details{}.violations{}.callerIp
     type: IP Address
-    risk_score: 25
+    score: 25
   threat_objects: []
 tags:
   analytic_story:

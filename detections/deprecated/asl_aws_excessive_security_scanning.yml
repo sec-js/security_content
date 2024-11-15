@@ -27,7 +27,7 @@ rba:
   risk_objects:
   - field: identity.user.name
     type: User
-    risk_score: 18
+    score: 18
   threat_objects:
   - field: src_endpoint.ip
     type: IP Address
