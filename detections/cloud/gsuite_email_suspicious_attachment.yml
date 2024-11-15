@@ -52,7 +52,7 @@ rba:
     score: 49
   threat_objects:
   - field: source.address
-    type: email address
+    type: email_address
 tags:
   analytic_story:
   - Dev Sec Ops
