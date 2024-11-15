@@ -43,7 +43,7 @@ rba:
   risk_objects:
   - field: actor.alternateId
     type: User
-    risk_score: 56
+    score: 56
   threat_objects: []
 tags:
   analytic_story:

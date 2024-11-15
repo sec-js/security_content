@@ -54,7 +54,7 @@ rba:
   risk_objects:
   - field: dest
     type: IP Address
-    risk_score: 64
+    score: 64
   threat_objects:
   - field: src_ip
     type: IP Address

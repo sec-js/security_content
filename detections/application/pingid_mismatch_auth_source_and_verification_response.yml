@@ -62,10 +62,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 25
+    score: 25
   - field: src
     type: IP Address
-    risk_score: 25
+    score: 25
   threat_objects:
   - field: object
     type: Other

@@ -51,10 +51,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 10
+    score: 10
   - field: src
     type: IP Address
-    risk_score: 10
+    score: 10
   threat_objects:
   - field: object
     type: Other
