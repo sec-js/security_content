@@ -29,7 +29,7 @@ rba:
     score: 25
   threat_objects:
   - field: IPs
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Brand Monitoring

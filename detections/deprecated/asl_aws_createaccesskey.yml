@@ -49,7 +49,7 @@ rba:
   risk_objects: []
   threat_objects:
   - field: src_endpoint.ip
-    type: ip address
+    type: ip_address
   - field: identity.user.name
     type: user
 tags:

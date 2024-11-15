@@ -30,7 +30,7 @@ rba:
     score: 18
   threat_objects:
   - field: src_endpoint.ip
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - AWS User Monitoring

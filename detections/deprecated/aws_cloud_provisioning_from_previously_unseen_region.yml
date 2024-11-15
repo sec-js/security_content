@@ -45,7 +45,7 @@ rba:
     score: 25
   threat_objects:
   - field: src_ip
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - AWS Suspicious Provisioning Activities
