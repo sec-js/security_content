@@ -46,7 +46,7 @@ rba:
     Investigate further to determine if this was authorized.
   risk_objects:
   - field: app
-    type: endpoint
+    type: system
     score: 25
   threat_objects:
   - field: src_ip
