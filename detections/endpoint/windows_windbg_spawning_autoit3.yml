@@ -66,6 +66,7 @@ rba:
   - field: parent_process_name
     type: Process Name
   - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - DarkGate Malware
