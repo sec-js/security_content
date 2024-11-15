@@ -35,7 +35,7 @@ rba:
   risk_objects:
   - field: src_domain_list
     type: Email Address
-    risk_score: 9
+    score: 9
   threat_objects:
   - field: dest_domain
     type: IP Address

@@ -54,7 +54,7 @@ rba:
   risk_objects:
   - field: email
     type: User
-    risk_score: 21
+    score: 21
   threat_objects:
   - field: parameters.owner
     type: User

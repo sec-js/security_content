@@ -42,7 +42,7 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 15
+    score: 15
   threat_objects:
   - field: requestingAccountId
     type: Other

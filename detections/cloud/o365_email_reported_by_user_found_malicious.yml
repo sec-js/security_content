@@ -46,10 +46,10 @@ rba:
   risk_objects:
   - field: src_user
     type: User
-    risk_score: 75
+    score: 75
   - field: user
     type: User
-    risk_score: 75
+    score: 75
   threat_objects:
   - field: subject
     type: Other

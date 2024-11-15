@@ -40,7 +40,7 @@ rba:
   risk_objects:
   - field: dest
     type: Endpoint
-    risk_score: 36
+    score: 36
   threat_objects:
   - field: user
     type: User

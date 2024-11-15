@@ -48,7 +48,7 @@ rba:
   risk_objects:
   - field: repository
     type: Other
-    risk_score: 21
+    score: 21
   threat_objects:
   - field: user
     type: User

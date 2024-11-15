@@ -36,7 +36,7 @@ rba:
   risk_objects:
   - field: bucketName
     type: Other
-    risk_score: 25
+    score: 25
   threat_objects:
   - field: src_ip
     type: IP Address

@@ -46,7 +46,7 @@ rba:
   risk_objects:
   - field: aws_account_id
     type: Other
-    risk_score: 64
+    score: 64
   threat_objects:
   - field: user_arn
     type: User

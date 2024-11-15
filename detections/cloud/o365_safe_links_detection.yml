@@ -42,7 +42,7 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 40
+    score: 40
   threat_objects:
   - field: url
     type: URL String

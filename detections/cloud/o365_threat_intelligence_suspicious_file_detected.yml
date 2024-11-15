@@ -46,10 +46,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 50
+    score: 50
   - field: file_name
     type: File Name
-    risk_score: 50
+    score: 50
   threat_objects:
   - field: signature
     type: Other

@@ -46,7 +46,7 @@ rba:
   risk_objects:
   - field: userIdentity.arn
     type: User
-    risk_score: 10
+    score: 10
   threat_objects:
   - field: src_ip
     type: IP Address

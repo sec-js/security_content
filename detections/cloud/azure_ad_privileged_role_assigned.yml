@@ -54,7 +54,7 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 63
+    score: 63
   threat_objects:
   - field: initiatedBy
     type: User

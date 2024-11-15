@@ -46,7 +46,7 @@ rba:
   risk_objects:
   - field: risk_object
     type: Other
-    risk_score: 70
+    score: 70
   threat_objects: []
 tags:
   analytic_story:
