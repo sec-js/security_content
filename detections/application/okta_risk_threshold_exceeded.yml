@@ -51,14 +51,6 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-rba:
-  message: Okta Risk threshold exceeded for user [$risk_object$]. Investigate further
-    to determine if this was authorized.
-  risk_objects:
-  - field: risk_object
-    type: user
-    score: 56
-  threat_objects: []
 tags:
   analytic_story:
   - Okta Account Takeover
