@@ -64,7 +64,7 @@ rba:
     score: 54
   threat_objects:
   - field: src_ip
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Azure Active Directory Account Takeover

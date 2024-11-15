@@ -37,7 +37,7 @@ rba:
     score: 10
   threat_objects:
   - field: src_ip
-    type: ip address
+    type: ip_address
 references:
 - https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeletePolicy.html
 - https://docs.aws.amazon.com/cli/latest/reference/iam/delete-policy.html

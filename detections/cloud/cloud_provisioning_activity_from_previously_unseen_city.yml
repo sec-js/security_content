@@ -71,7 +71,7 @@ rba:
     score: 18
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Suspicious Cloud Provisioning Activities

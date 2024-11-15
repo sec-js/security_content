@@ -56,7 +56,7 @@ rba:
     score: 42
   threat_objects:
   - field: ip_addresses_new_added
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Office 365 Persistence Mechanisms

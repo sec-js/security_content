@@ -56,7 +56,7 @@ rba:
     score: 64
   threat_objects:
   - field: sourceIPAddress
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Cloud Federated Credential Abuse

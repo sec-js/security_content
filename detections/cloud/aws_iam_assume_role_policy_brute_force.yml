@@ -54,7 +54,7 @@ rba:
     score: 28
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

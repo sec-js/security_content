@@ -53,7 +53,7 @@ rba:
   - field: user_arn
     type: user
   - field: src_ip
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Suspicious Cloud Instance Activities

@@ -38,7 +38,7 @@ rba:
     score: 9
   threat_objects:
   - field: dest_domain
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Dev Sec Ops
