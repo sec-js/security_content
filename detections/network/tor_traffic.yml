@@ -49,7 +49,7 @@ rba:
   risk_objects:
   - field: src_ip
     type: IP Address
-    risk_score: 80
+    score: 80
   threat_objects: []
 tags:
   analytic_story:
