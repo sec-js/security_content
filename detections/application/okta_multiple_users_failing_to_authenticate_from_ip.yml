@@ -52,7 +52,7 @@ rba:
     score: 54
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Okta Account Takeover
