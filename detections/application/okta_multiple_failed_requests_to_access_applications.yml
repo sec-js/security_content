@@ -38,13 +38,6 @@ known_false_positives: False positives may be present based on organization size
 references:
 - https://attack.mitre.org/techniques/T1538
 - https://attack.mitre.org/techniques/T1550/004
-rba:
-  message: Multiple Failed Requests to Access Applications via Okta for $actor.alternateId$.
-  risk_objects:
-  - field: actor.alternateId
-    type: user
-    score: 56
-  threat_objects: []
 tags:
   analytic_story:
   - Okta Account Takeover
