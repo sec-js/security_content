@@ -52,7 +52,7 @@ rba:
     score: 75
   threat_objects:
   - field: subject
-    type: other
+    type: email_subject
 tags:
   analytic_story:
   - Spearphishing Attachments

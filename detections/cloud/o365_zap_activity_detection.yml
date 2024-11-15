@@ -51,7 +51,7 @@ rba:
   - field: url
     type: url
   - field: src_user
-    type: user
+    type: email_address
 tags:
   analytic_story:
   - Spearphishing Attachments

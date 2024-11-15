@@ -46,9 +46,7 @@ rba:
   - field: src_user
     type: user
     score: 25
-  threat_objects:
-  - field: signature_id
-    type: other
+  threat_objects: []
 tags:
   analytic_story:
   - Data Exfiltration

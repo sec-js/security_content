@@ -36,9 +36,10 @@ rba:
   - field: dest
     type: system
     score: 18
-  threat_objects:
   - field: user
     type: user
+    score: 18
+  threat_objects: []
 tags:
   analytic_story:
   - Cloud Cryptomining

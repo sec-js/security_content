@@ -54,7 +54,7 @@ rba:
     score: 20
   threat_objects:
   - field: recipient
-    type: user
+    type: email_address
 tags:
   analytic_story:
   - Data Exfiltration

@@ -43,9 +43,10 @@ rba:
   - field: user
     type: user
     score: 15
-  threat_objects:
-  - field: requestingAccountId
+  - field: requestedAccountId
     type: other
+    score: 15
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious Cloud Authentication Activities

@@ -52,7 +52,7 @@ rba:
     score: 50
   threat_objects:
   - field: object_name
-    type: other
+    type: service
 tags:
   analytic_story:
   - Azure Active Directory Persistence

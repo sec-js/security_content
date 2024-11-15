@@ -49,9 +49,10 @@ rba:
   - field: aws_account_id
     type: other
     score: 48
-  threat_objects:
   - field: user_arn
     type: user
+    score: 48
+  threat_objects:
   - field: src_ip
     type: ip_address
 tags:

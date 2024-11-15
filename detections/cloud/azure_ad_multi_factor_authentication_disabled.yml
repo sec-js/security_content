@@ -51,9 +51,10 @@ rba:
   - field: user
     type: user
     score: 45
-  threat_objects:
   - field: initiatedBy
     type: user
+    score: 45
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Account Takeover

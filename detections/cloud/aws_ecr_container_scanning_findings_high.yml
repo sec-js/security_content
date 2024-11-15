@@ -50,9 +50,10 @@ rba:
   - field: repository
     type: other
     score: 70
-  threat_objects:
   - field: user
     type: user
+    score: 70
+  threat_objects: []
 tags:
   analytic_story:
   - Dev Sec Ops

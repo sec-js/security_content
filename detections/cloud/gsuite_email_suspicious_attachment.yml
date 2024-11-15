@@ -48,7 +48,7 @@ rba:
   message: Suspicious email from $source.address$ to $destination{}.address$
   risk_objects:
   - field: destination{}.address
-    type: email address
+    type: user
     score: 49
   threat_objects:
   - field: source.address

@@ -55,9 +55,10 @@ rba:
   - field: email
     type: user
     score: 21
-  threat_objects:
   - field: parameters.owner
     type: user
+    score: 21
+  threat_objects: []
 tags:
   analytic_story:
   - Dev Sec Ops

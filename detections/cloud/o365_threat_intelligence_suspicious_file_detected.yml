@@ -47,12 +47,9 @@ rba:
   - field: user
     type: user
     score: 50
-  - field: file_name
-    type: file name
-    score: 50
   threat_objects:
-  - field: signature
-    type: other
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
   - Azure Active Directory Account Takeover

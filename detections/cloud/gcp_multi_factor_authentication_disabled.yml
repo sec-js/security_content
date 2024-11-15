@@ -49,9 +49,10 @@ rba:
   - field: user
     type: user
     score: 45
-  threat_objects:
   - field: actor.email
     type: user
+    score: 45
+  threat_objects: []
 tags:
   analytic_story:
   - GCP Account Takeover
