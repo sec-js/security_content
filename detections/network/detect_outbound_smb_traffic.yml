@@ -40,7 +40,7 @@ rba:
     to dest ip $dest_ip$
   risk_objects:
   - field: src_ip
-    type: ip address
+    type: system
     score: 25
   threat_objects:
   - field: dest_ip

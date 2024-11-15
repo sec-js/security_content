@@ -27,7 +27,7 @@ rba:
   message: Rogue DC Activity Detected from $src_category$ device $src$ to $dest$ ($dest_category$)
   risk_objects:
   - field: dest
-    type: ip address
+    type: system
     score: 100
   threat_objects:
   - field: src

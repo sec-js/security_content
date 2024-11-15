@@ -48,7 +48,7 @@ rba:
     to $dest_ip$
   risk_objects:
   - field: src_ip
-    type: ip address
+    type: system
     score: 80
   threat_objects: []
 tags:

@@ -60,10 +60,10 @@ rba:
   message: Detect Large Outbound ICMP Packets detected from $src_ip$ to $dest_ip$
   risk_objects:
   - field: dest_ip
-    type: ip address
+    type: system
     score: 25
   - field: src_ip
-    type: ip address
+    type: system
     score: 25
   threat_objects: []
 tags:

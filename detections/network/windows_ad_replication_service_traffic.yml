@@ -32,7 +32,7 @@ rba:
   message: Active Directory Replication Traffic from Unknown Source - $src$
   risk_objects:
   - field: dest
-    type: ip address
+    type: system
     score: 100
   threat_objects:
   - field: src
