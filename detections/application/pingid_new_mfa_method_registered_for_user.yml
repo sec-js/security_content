@@ -55,9 +55,7 @@ rba:
   - field: src
     type: system
     score: 10
-  threat_objects:
-  - field: object
-    type: other
+  threat_objects: [] 
 tags:
   analytic_story:
   - Compromised User Account
