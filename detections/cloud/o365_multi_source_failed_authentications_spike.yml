@@ -38,13 +38,6 @@ references:
 - https://docs.microsoft.com/en-us/security/compass/incident-response-playbook-password-spray
 - https://www.cisa.gov/uscert/ncas/alerts/aa21-008a
 - https://docs.microsoft.com/azure/active-directory/reports-monitoring/reference-sign-ins-error-codes
-rba:
-  message: An anomalous multi source authentication spike ocurred at $_time$
-  risk_objects:
-  - field: user
-    type: user
-    score: 42
-  threat_objects: []
 tags:
   analytic_story:
   - Office 365 Account Takeover

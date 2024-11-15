@@ -29,19 +29,6 @@ known_false_positives: This detection will require tuning to provide high fideli
 references:
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/delete-group.html
 - https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteGroup.html
-rba:
-  message: User $user_arn$ has sucessfully deleted mulitple groups $group_deleted$
-    from $src$
-  risk_objects:
-  - field: user_arn
-    type: user
-    score: 5
-  - field: group_deleted
-    type: user
-    score: 5
-  threat_objects:
-  - field: src
-    type: ip_address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

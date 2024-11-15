@@ -21,13 +21,6 @@ how_to_implement: You must install splunk AWS add on and Splunk App for AWS. Thi
 known_false_positives: Not all permanent key creations are malicious. If there is
   a policy of rotating keys this search can be adjusted to provide better context.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - AWS Cross Account Activity

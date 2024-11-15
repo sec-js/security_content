@@ -27,15 +27,6 @@ known_false_positives: While this search has no known false positives, it is pos
 references:
 - https://bishopfox.com/blog/privilege-escalation-in-aws
 - https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation-part-2/
-rba:
-  message: User $user_arn$ is attempting to create access keys for $requestParameters.userName$
-    from this IP $src$
-  risk_objects: []
-  threat_objects:
-  - field: src
-    type: ip_address
-  - field: user_arn
-    type: user
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

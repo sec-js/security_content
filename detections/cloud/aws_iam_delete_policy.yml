@@ -30,16 +30,6 @@ known_false_positives: This detection will require tuning to provide high fideli
 references:
 - https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeletePolicy.html
 - https://docs.aws.amazon.com/cli/latest/reference/iam/delete-policy.html
-rba:
-  message: User $user_arn$ has deleted AWS Policies from IP address $src$ by executing
-    the following command $eventName$
-  risk_objects:
-  - field: user_arn
-    type: user
-    score: 10
-  threat_objects:
-  - field: src
-    type: ip_address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

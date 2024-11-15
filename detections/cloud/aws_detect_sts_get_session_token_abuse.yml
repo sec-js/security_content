@@ -23,13 +23,6 @@ known_false_positives: Sts:GetSessionToken can be very noisy as in certain envir
   specific values to identify cases of abuse. In specific environments the use of
   field requestParameters.serialNumber will need to be used.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - AWS Cross Account Activity

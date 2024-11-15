@@ -24,13 +24,6 @@ known_false_positives: Attach to policy can create a lot of noise. This search c
   The search can provide context for common users attaching themselves to higher privilege
   policies or even newly created policies.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - AWS Cross Account Activity

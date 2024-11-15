@@ -25,15 +25,6 @@ known_false_positives: While this search has no known false positives, it is pos
 references:
 - http://detectioninthe.cloud/execution/modify_lambda_function_code/
 - https://sysdig.com/blog/exploit-mitigate-aws-lambdas-mitre/
-rba:
-  message: User $user_arn$ is attempting to update the lambda function code of $function_updated$
-    from this IP $src_ip$
-  risk_objects: []
-  threat_objects:
-  - field: src_ip
-    type: ip_address
-  - field: user_arn
-    type: user
 tags:
   analytic_story:
   - Suspicious Cloud User Activities

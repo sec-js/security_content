@@ -36,15 +36,6 @@ references:
 - https://docs.aws.amazon.com/cli/latest/reference/guardduty/index.html
 - https://docs.aws.amazon.com/cli/latest/reference/waf/index.html
 - https://www.elastic.co/guide/en/security/current/prebuilt-rules.html
-rba:
-  message: User $user_arn$ has made potentially risky api calls $eventName$ that could
-    impair AWS security services for account id $aws_account_id$
-  risk_objects: []
-  threat_objects:
-  - field: src
-    type: ip_address
-  - field: user_arn
-    type: user
 tags:
   analytic_story:
   - AWS Defense Evasion

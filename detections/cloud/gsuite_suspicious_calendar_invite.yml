@@ -30,12 +30,6 @@ known_false_positives: This search will also produce normal activity statistics.
 references:
 - https://www.techrepublic.com/article/how-to-avoid-the-dreaded-google-calendar-malicious-invite-issue/
 - https://gcn.com/cybersecurity/2012/09/the-20-most-common-words-in-phishing-attacks/280956/
-rba:
-  message: Gsuite suspicious calendar invite sent by $email$
-  risk_objects: []
-  threat_objects:
-  - field: email
-    type: email_address
 tags:
   analytic_story:
   - Spearphishing Attachments

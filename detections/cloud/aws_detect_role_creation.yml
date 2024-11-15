@@ -23,13 +23,6 @@ known_false_positives: CreateRole is not very common in common users. This searc
   can be adjusted to provide specific values to identify cases of abuse. In general
   AWS provides plenty of trust policies that fit most use cases.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - AWS Cross Account Activity

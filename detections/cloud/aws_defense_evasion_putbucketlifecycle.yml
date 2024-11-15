@@ -28,15 +28,6 @@ known_false_positives: While this search has no known false positives, it is pos
   events using userAgent, user_arn field names.
 references:
 - https://stratus-red-team.cloud/attack-techniques/AWS/aws.defense-evasion.cloudtrail-lifecycle-rule/
-rba:
-  message: User $user_arn$ has created a new rule to on an S3 bucket $bucket_name$
-    with short expiration days
-  risk_objects: []
-  threat_objects:
-  - field: src
-    type: ip_address
-  - field: user_arn
-    type: user
 tags:
   analytic_story:
   - AWS Defense Evasion

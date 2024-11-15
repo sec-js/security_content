@@ -24,13 +24,6 @@ known_false_positives: Sts:AssumeRole can be very noisy as it is a standard mech
   to provide cross account and cross resources access. This search can be adjusted
   to provide specific values to identify cases of abuse.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - AWS Cross Account Activity

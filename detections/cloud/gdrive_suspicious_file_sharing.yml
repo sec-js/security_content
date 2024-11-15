@@ -28,13 +28,6 @@ known_false_positives: This is an anomaly search, you must specify your domain i
   target users.
 references:
 - https://www.splunk.com/en_us/blog/security/investigating-gsuite-phishing-attacks-with-splunk.html
-rba:
-  message: tbd
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Spearphishing Attachments
