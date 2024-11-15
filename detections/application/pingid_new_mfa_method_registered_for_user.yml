@@ -53,7 +53,7 @@ rba:
     type: user
     score: 10
   - field: src
-    type: ip address
+    type: system
     score: 10
   threat_objects:
   - field: object
