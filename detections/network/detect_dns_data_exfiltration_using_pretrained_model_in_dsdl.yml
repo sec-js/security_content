@@ -55,7 +55,7 @@ rba:
     score: 45
   threat_objects:
   - field: query
-    type: other
+    type: domain
 tags:
   analytic_story:
   - DNS Hijacking

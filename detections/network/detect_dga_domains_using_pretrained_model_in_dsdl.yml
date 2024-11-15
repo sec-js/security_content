@@ -51,7 +51,7 @@ rba:
     score: 63
   threat_objects:
   - field: domain
-    type: url string
+    type: url
 tags:
   analytic_story:
   - Data Exfiltration
