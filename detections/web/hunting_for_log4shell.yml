@@ -43,15 +43,6 @@ references:
 - https://news.sophos.com/en-us/2021/12/12/log4shell-hell-anatomy-of-an-exploit-outbreak/
 - https://gist.github.com/MHaggis/1899b8554f38c8692a9fb0ceba60b44c
 - https://twitter.com/sasi2103/status/1469764719850442760?s=20
-rba:
-  message: Hunting for Log4Shell exploitation has occurred.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 40
-  threat_objects:
-  - field: src
-    type: ip_address
 tags:
   analytic_story:
   - Log4Shell CVE-2021-44228
