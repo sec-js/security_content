@@ -54,7 +54,7 @@ rba:
     score: 45
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   cve:
   - CVE-2023-29298

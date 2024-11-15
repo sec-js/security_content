@@ -35,7 +35,7 @@ rba:
     score: 32
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - CISA AA24-241A

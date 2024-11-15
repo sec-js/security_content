@@ -60,7 +60,7 @@ rba:
     score: 63
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - JetBrains TeamCity Vulnerabilities

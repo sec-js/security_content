@@ -53,7 +53,7 @@ rba:
     score: 72
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - CVE-2023-22515 Privilege Escalation Vulnerability Confluence Data Center and Server

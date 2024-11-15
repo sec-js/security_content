@@ -57,7 +57,7 @@ rba:
     score: 100
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Atlassian Confluence Server and Data Center CVE-2022-26134
