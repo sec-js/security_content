@@ -52,7 +52,7 @@ rba:
   risk_objects:
   - field: src
     type: Hostname
-    risk_score: 45.0
+    risk_score: 45
   threat_objects:
   - field: query
     type: Other
