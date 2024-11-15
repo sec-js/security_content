@@ -39,7 +39,7 @@ rba:
   risk_objects:
   - field: host
     type: Hostname
-    risk_score: 64.0
+    risk_score: 64
   threat_objects: []
 tags:
   analytic_story:

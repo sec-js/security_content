@@ -16,11 +16,11 @@ description: The following analytic detects a process attempting to delete a sch
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  where Registry.registry_path IN ("*\\Schedule\\TaskCache\\Tree\\*") Registry.user="SYSTEM"
-  Registry.registry_value_name="SD" (Registry.action=Deleted OR Registry.action=modified)
-  by Registry.dest Registry.process_guid Registry.user Registry.registry_path
-  Registry.registry_value_name Registry.registry_key_name Registry.registry_value_data
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry where Registry.registry_path IN ("*\\Schedule\\TaskCache\\Tree\\*")
+  Registry.user="SYSTEM" Registry.registry_value_name="SD" (Registry.action=Deleted
+  OR Registry.action=modified) by Registry.dest Registry.process_guid Registry.user
+  Registry.registry_path Registry.registry_value_name Registry.registry_key_name Registry.registry_value_data
   Registry.status Registry.action | `drop_dm_object_name(Registry)` | `security_content_ctime(firstTime)`
   | `security_content_ctime(lastTime)` | `windows_registry_delete_task_sd_filter`'
 how_to_implement: To successfully implement this search you need to be ingesting information
@@ -54,7 +54,7 @@ rba:
   risk_objects:
   - field: dest
     type: Endpoint
-    risk_score: 49.0
+    risk_score: 49
   threat_objects: []
 tags:
   analytic_story:

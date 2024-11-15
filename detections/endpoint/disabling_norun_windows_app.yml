@@ -15,10 +15,10 @@ description: The following analytic detects the modification of the Windows regi
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  WHERE (Registry.registry_path= "*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoRun"
-  Registry.registry_value_data = "0x00000001") BY Registry.dest Registry.user
-  Registry.registry_path Registry.registry_key_name Registry.registry_value_name Registry.registry_value_data
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.registry_path= "*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoRun"
+  Registry.registry_value_data = "0x00000001") BY Registry.dest Registry.user Registry.registry_path
+  Registry.registry_key_name Registry.registry_value_name Registry.registry_value_data
   Registry.process_guid | `drop_dm_object_name(Registry)`| where isnotnull(registry_value_data)
   | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)` | `disabling_norun_windows_app_filter`'
 how_to_implement: To successfully implement this search, you need to be ingesting
@@ -49,10 +49,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 25.0
+    risk_score: 25
   - field: dest
     type: Hostname
-    risk_score: 25.0
+    risk_score: 25
   threat_objects: []
 tags:
   analytic_story:

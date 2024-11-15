@@ -16,8 +16,8 @@ description: The following analytic detects suspicious modifications to firewall
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  WHERE (Registry.registry_path= "*\\System\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\FirewallRules\\*"
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.registry_path= "*\\System\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\FirewallRules\\*"
   Registry.registry_value_data = "*|Action=Allow|*" Registry.registry_value_data =
   "*|Dir=In|*"  Registry.registry_value_data = "*|LPort=*") BY Registry.registry_path
   Registry.registry_key_name Registry.registry_value_name Registry.registry_value_data
@@ -51,10 +51,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 25.0
+    risk_score: 25
   - field: dest
     type: Hostname
-    risk_score: 25.0
+    risk_score: 25
   threat_objects: []
 tags:
   analytic_story:

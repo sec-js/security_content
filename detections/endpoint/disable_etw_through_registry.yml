@@ -16,8 +16,8 @@ description: The following analytic detects modifications to the registry that d
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  WHERE (Registry.registry_path= "*\\SOFTWARE\\Microsoft\\.NETFramework\\ETWEnabled"
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.registry_path= "*\\SOFTWARE\\Microsoft\\.NETFramework\\ETWEnabled"
   Registry.registry_value_data = "0x00000000") BY Registry.dest Registry.registry_path
   Registry.registry_key_name Registry.registry_value_name Registry.registry_value_data
   Registry.process_guid | `drop_dm_object_name(Registry)` | where isnotnull(registry_value_data)
@@ -49,7 +49,7 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 25.0
+    risk_score: 25
   threat_objects: []
 tags:
   analytic_story:

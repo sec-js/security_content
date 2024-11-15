@@ -53,7 +53,7 @@ rba:
   risk_objects:
   - field: Computer
     type: Endpoint
-    risk_score: 50.0
+    risk_score: 50
   threat_objects:
   - field: SubjectUserSid
     type: User

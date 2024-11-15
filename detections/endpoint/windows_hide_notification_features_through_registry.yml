@@ -15,8 +15,8 @@ description: The following analytic detects suspicious registry modifications ai
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  WHERE (Registry.registry_path= "*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\*"
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.registry_path= "*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\*"
   Registry.registry_value_name IN ("HideClock", "HideSCAHealth", "HideSCANetwork",
   "HideSCAPower", "HideSCAVolume") Registry.registry_value_data = "0x00000001") BY
   _time span=1h Registry.dest Registry.user Registry.registry_path Registry.registry_key_name
@@ -49,7 +49,7 @@ rba:
   risk_objects:
   - field: dest
     type: Endpoint
-    risk_score: 49.0
+    risk_score: 49
   threat_objects: []
 tags:
   analytic_story:

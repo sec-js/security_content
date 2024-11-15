@@ -42,13 +42,13 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 81.0
+    risk_score: 81
   - field: dest
     type: Hostname
-    risk_score: 81.0
+    risk_score: 81
   - field: file_name
     type: File Name
-    risk_score: 81.0
+    risk_score: 81
   threat_objects: []
 tags:
   analytic_story:

@@ -15,12 +15,12 @@ description: The following analytic detects modifications to the registry key `H
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  WHERE (Registry.action=modified AND Registry.registry_path="*CurrentControlSet\\Control\\Print\\Monitors*")
-  BY Registry.dest Registry.user Registry.registry_path Registry.registry_key_name
-  Registry.registry_value_name Registry.registry_value_data Registry.process_guid
-  | `drop_dm_object_name(Registry)` | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
-  | `monitor_registry_keys_for_print_monitors_filter`'
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.action=modified AND
+  Registry.registry_path="*CurrentControlSet\\Control\\Print\\Monitors*") BY Registry.dest
+  Registry.user Registry.registry_path Registry.registry_key_name Registry.registry_value_name
+  Registry.registry_value_data Registry.process_guid | `drop_dm_object_name(Registry)`
+  | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)` | `monitor_registry_keys_for_print_monitors_filter`'
 how_to_implement: To successfully implement this search, you need to be ingesting
   logs with the registry value name, registry path, and registry value data from your
   endpoints. If you are using Sysmon, you must have at least version 2.0 of the offical
@@ -47,7 +47,7 @@ rba:
   risk_objects:
   - field: dest
     type: Endpoint
-    risk_score: 64.0
+    risk_score: 64
   threat_objects: []
 tags:
   analytic_story:

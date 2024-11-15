@@ -19,7 +19,7 @@ search: '| tstats `security_content_summariesonly` count min(_time) as firstTime
   All_Changes.result="*lock*" by All_Changes.dest All_Changes.result |`drop_dm_object_name("All_Changes")`
   |`drop_dm_object_name("Account_Management")`| `security_content_ctime(firstTime)`
   | `security_content_ctime(lastTime)` | search count > 5 | `detect_excessive_account_lockouts_from_endpoint_filter`'
-how_to_implement: 'You must ingest your Windows security event logs in the `Change`
+how_to_implement: You must ingest your Windows security event logs in the `Change`
   datamodel under the nodename is `Account_Management`, for this search to execute
   successfully. Please consider updating the cron schedule and the count of lockouts
   you want to monitor, according to your environment.\n**Splunk>Phantom Playbook Integration**
@@ -31,7 +31,8 @@ how_to_implement: 'You must ingest your Windows security event logs in the `Chan
   install the Phantom App for Splunk `https://splunkbase.splunk.com/app/3411/`, add
   the correct hostname to the \"Phantom Instance\" field in the Adaptive Response
   Actions when configuring this detection search, and set the corresponding Playbook
-  to active.\nPlaybook Link:`https://my.phantom.us/4.1/playbook/excessive-account-lockouts-enrichment-and-response/`)'
+  to active.\nPlaybook 
+  Link:`https://my.phantom.us/4.1/playbook/excessive-account-lockouts-enrichment-and-response/`)
 known_false_positives: It's possible that a widely used system, such as a kiosk, could
   cause a large number of account lockouts.
 references: []
@@ -55,10 +56,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 36.0
+    risk_score: 36
   - field: dest
     type: Hostname
-    risk_score: 36.0
+    risk_score: 36
   threat_objects: []
 tags:
   analytic_story:

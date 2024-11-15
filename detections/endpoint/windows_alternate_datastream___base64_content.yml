@@ -52,10 +52,10 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 80.0
+    risk_score: 80
   - field: user
     type: User
-    risk_score: 80.0
+    risk_score: 80
   threat_objects:
   - field: file_name
     type: File Name

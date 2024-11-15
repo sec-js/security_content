@@ -26,7 +26,7 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 5.0
+    risk_score: 5
   threat_objects: []
 tags:
   analytic_story:

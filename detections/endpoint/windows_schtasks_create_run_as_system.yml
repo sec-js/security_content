@@ -59,7 +59,7 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 48.0
+    risk_score: 48
   threat_objects:
   - field: process_name
     type: Process

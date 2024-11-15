@@ -16,12 +16,13 @@ description: The following analytic detects the modification of the registry to 
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  WHERE (Registry.registry_path="*\\CurrentVersion\\Policies\\System*" Registry.registry_value_name="LocalAccountTokenFilterPolicy"
-  Registry.registry_value_data="0x00000001"  ) BY Registry.user Registry.dest
-  Registry.registry_path Registry.registry_key_name Registry.registry_value_name Registry.registry_value_data
-  Registry.process_guid | `drop_dm_object_name(Registry)`| where isnotnull(registry_value_data)
-  | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)` | `disable_uac_remote_restriction_filter`'
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.registry_path="*\\CurrentVersion\\Policies\\System*"
+  Registry.registry_value_name="LocalAccountTokenFilterPolicy" Registry.registry_value_data="0x00000001"  )
+  BY Registry.user Registry.dest Registry.registry_path Registry.registry_key_name
+  Registry.registry_value_name Registry.registry_value_data Registry.process_guid
+  | `drop_dm_object_name(Registry)`| where isnotnull(registry_value_data) | `security_content_ctime(firstTime)`
+  | `security_content_ctime(lastTime)` | `disable_uac_remote_restriction_filter`'
 how_to_implement: To successfully implement this search, you need to be ingesting
   logs with the registry value name, registry path, and registry value data from your
   endpoints. If you are using Sysmon, you must have at least version 2.0 of the offical
@@ -48,10 +49,10 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 80.0
+    risk_score: 80
   - field: user
     type: User
-    risk_score: 80.0
+    risk_score: 80
   threat_objects: []
 tags:
   analytic_story:

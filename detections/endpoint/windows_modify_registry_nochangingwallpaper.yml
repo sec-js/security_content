@@ -15,8 +15,8 @@ description: The following analytic detects modifications to the Windows registr
   to enforce a malicious wallpaper, thereby limiting user control over system settings.
   If confirmed malicious, this registry change could indicate a ransomware infection,
   leading to further system compromise and user disruption.
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  WHERE (Registry.registry_path= "*\\Windows\\CurrentVersion\\Policies\\ActiveDesktop\\NoChangingWallPaper"
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.registry_path= "*\\Windows\\CurrentVersion\\Policies\\ActiveDesktop\\NoChangingWallPaper"
   Registry.registry_value_data = 1) BY Registry.dest Registry.user Registry.registry_path
   Registry.registry_key_name Registry.registry_value_name Registry.registry_value_data
   Registry.process_guid | `drop_dm_object_name(Registry)` | where isnotnull(registry_value_data)
@@ -49,7 +49,7 @@ rba:
   risk_objects:
   - field: dest
     type: Endpoint
-    risk_score: 36.0
+    risk_score: 36
   threat_objects: []
 tags:
   analytic_story:

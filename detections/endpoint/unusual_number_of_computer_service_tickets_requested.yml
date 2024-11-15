@@ -35,7 +35,7 @@ rba:
   risk_objects:
   - field: Client_Address
     type: Endpoint
-    risk_score: 42.0
+    risk_score: 42
   threat_objects: []
 tags:
   analytic_story:

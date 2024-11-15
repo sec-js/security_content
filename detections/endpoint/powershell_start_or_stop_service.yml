@@ -48,7 +48,7 @@ rba:
   risk_objects:
   - field: Computer
     type: Hostname
-    risk_score: 10.0
+    risk_score: 10
   threat_objects: []
 tags:
   analytic_story:

@@ -59,7 +59,7 @@ rba:
   risk_objects:
   - field: dest
     type: Endpoint
-    risk_score: 72.0
+    risk_score: 72
   threat_objects:
   - field: process_name
     type: Process
