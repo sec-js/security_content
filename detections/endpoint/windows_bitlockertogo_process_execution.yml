@@ -59,6 +59,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://raw.githubusercontent.com/splunk/attack_data/master/datasets/attack_techniques/T1218/bitlockertogo/4688_bitlockertogo_windows-security.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1218/bitlockertogo/4688_bitlockertogo_windows-security.log
     source: XmlWinEventLog:Security
     sourcetype: XmlWinEventLog
