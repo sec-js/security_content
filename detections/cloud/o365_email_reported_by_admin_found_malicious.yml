@@ -43,14 +43,14 @@ rba:
     from $src_user$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 50
   - field: user
-    type: User
+    type: user
     score: 50
   threat_objects:
   - field: subject
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Spearphishing Attachments

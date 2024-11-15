@@ -48,11 +48,11 @@ rba:
   message: Suspicious email from $source.address$ to $destination{}.address$
   risk_objects:
   - field: destination{}.address
-    type: Email Address
+    type: email address
     score: 49
   threat_objects:
   - field: source.address
-    type: Email Address
+    type: email address
 tags:
   analytic_story:
   - Dev Sec Ops

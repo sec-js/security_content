@@ -42,7 +42,7 @@ rba:
     the first time
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

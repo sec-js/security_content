@@ -44,7 +44,7 @@ rba:
   message: Multiple failed MFA requestes for $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 48
   threat_objects: []
 tags:

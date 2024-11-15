@@ -53,7 +53,7 @@ rba:
   message: Administrator $user$ consented an OAuth application for the tenant.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 45
   threat_objects: []
 tags:

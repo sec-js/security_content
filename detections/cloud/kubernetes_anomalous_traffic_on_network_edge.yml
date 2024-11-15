@@ -47,7 +47,7 @@ rba:
   message: Kubernetes Anomalous Traffic on Network Edge in kubernetes cluster $host$
   risk_objects:
   - field: host
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

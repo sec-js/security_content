@@ -45,13 +45,13 @@ rba:
   message: Anomalous S3 activities detected by user $user_arn$ from $src_ip$
   risk_objects:
   - field: aws_account_id
-    type: Other
+    type: other
     score: 64
   threat_objects:
   - field: user_arn
-    type: User
+    type: user
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Data Exfiltration

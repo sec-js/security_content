@@ -34,11 +34,11 @@ rba:
   message: User $user$ is creating a new instance $dest$ for the first time
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 18
   threat_objects:
   - field: user
-    type: User
+    type: user
 tags:
   analytic_story:
   - Cloud Cryptomining

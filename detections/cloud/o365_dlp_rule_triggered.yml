@@ -50,11 +50,11 @@ rba:
   message: User $src_user$ triggered a Microsoft Office DLP rule.
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 20
   threat_objects:
   - field: recipient
-    type: User
+    type: user
 tags:
   analytic_story:
   - Data Exfiltration

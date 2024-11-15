@@ -50,7 +50,7 @@ rba:
   message: A new federated domain, $domain$ , was added by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 81
   threat_objects: []
 tags:

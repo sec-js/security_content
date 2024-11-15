@@ -50,7 +50,7 @@ rba:
   message: An anomalous multi source authentication spike ocurred at $_time$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

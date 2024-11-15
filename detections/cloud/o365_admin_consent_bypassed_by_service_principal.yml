@@ -54,7 +54,7 @@ rba:
     permissions to $dest_user$
   risk_objects:
   - field: dest_user
-    type: User
+    type: user
     score: 54
   threat_objects: []
 tags:

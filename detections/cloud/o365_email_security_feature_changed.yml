@@ -42,7 +42,7 @@ rba:
   message: An O365 security object [$object$] was altered by user $user$ using $signature$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   threat_objects: []
 tags:

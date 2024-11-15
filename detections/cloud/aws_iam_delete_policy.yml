@@ -35,11 +35,11 @@ rba:
     the following command $eventName$
   risk_objects:
   - field: user_arn
-    type: User
+    type: user
     score: 10
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

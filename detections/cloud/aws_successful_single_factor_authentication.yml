@@ -46,11 +46,11 @@ rba:
     Authentication from $src$
   risk_objects:
   - field: user_name
-    type: User
+    type: user
     score: 64
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS Identity and Access Management Account Takeover

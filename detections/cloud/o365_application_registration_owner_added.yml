@@ -46,7 +46,7 @@ rba:
   message: Application registration $app_displayName$ was assigned a new owner $object$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects: []
 tags:

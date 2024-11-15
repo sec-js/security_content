@@ -43,15 +43,15 @@ rba:
   message: User $user$ was included in a ZAP protection activity.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 10
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
   - field: url
-    type: URL String
+    type: url string
   - field: src_user
-    type: User
+    type: user
 tags:
   analytic_story:
   - Spearphishing Attachments

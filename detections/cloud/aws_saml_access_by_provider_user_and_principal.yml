@@ -52,11 +52,11 @@ rba:
     event $eventName$ for account ID $recipientAccountId$
   risk_objects:
   - field: recipientAccountId
-    type: Other
+    type: other
     score: 64
   threat_objects:
   - field: sourceIPAddress
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Cloud Federated Credential Abuse

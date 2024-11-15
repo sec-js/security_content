@@ -54,10 +54,10 @@ rba:
     permissions to $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 54
   - field: src_user
-    type: User
+    type: user
     score: 54
   threat_objects: []
 tags:

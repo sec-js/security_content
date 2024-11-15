@@ -49,10 +49,10 @@ rba:
     following permissions $permission$
   risk_objects:
   - field: user_arn
-    type: User
+    type: user
     score: 48
   - field: bucketName
-    type: Other
+    type: other
     score: 48
   threat_objects: []
 tags:

@@ -64,14 +64,14 @@ rba:
     time in City $City$ from IP address $src$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 18
   - field: object
-    type: Endpoint
+    type: endpoint
     score: 18
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Suspicious Cloud Provisioning Activities

@@ -43,7 +43,7 @@ rba:
     of 5 minutes for AWS Account $aws_account_id$
   risk_objects:
   - field: user_name
-    type: User
+    type: user
     score: 35
   threat_objects: []
 tags:

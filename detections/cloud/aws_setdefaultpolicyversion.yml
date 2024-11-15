@@ -47,11 +47,11 @@ rba:
     for updating the the default policy version
   risk_objects:
   - field: user_arn
-    type: User
+    type: user
     score: 30
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

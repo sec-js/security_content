@@ -53,7 +53,7 @@ rba:
   message: User $user$ consented an OAuth application that requests mail-related permissions.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 40
   threat_objects: []
 tags:

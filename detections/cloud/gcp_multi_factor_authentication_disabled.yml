@@ -47,11 +47,11 @@ rba:
   message: MFA disabled for User $user$ initiated by $actor.email$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 45
   threat_objects:
   - field: actor.email
-    type: User
+    type: user
 tags:
   analytic_story:
   - GCP Account Takeover

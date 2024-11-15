@@ -48,11 +48,11 @@ rba:
     $object_attrs$ [$signature$]
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 56
   threat_objects:
   - field: object_attrs
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Azure Active Directory Persistence

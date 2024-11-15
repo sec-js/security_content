@@ -48,11 +48,11 @@ rba:
     and did a console login from this IP $src_ip$
   risk_objects:
   - field: user_arn
-    type: User
+    type: user
     score: 72
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

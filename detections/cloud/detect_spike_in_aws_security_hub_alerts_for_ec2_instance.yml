@@ -46,7 +46,7 @@ rba:
   message: Spike in AWS security Hub alerts with title $Title$ for EC2 instance $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 15
   threat_objects: []
 tags:

@@ -48,11 +48,11 @@ rba:
   message: User $user$ denifed consent for an OAuth application.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Office 365 Account Takeover

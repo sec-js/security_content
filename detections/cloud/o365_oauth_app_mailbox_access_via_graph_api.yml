@@ -46,7 +46,7 @@ rba:
     through the Graph API.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

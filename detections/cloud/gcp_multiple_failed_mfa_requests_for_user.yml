@@ -50,11 +50,11 @@ rba:
   message: Multiple Failed MFA requests for user $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 54
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - GCP Account Takeover

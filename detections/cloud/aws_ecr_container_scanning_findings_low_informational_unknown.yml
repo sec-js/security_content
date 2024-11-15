@@ -48,11 +48,11 @@ rba:
   message: Vulnerabilities with severity $severity$ found in repository $repository$
   risk_objects:
   - field: repository
-    type: Other
+    type: other
     score: 5
   threat_objects:
   - field: user
-    type: User
+    type: user
 tags:
   analytic_story:
   - Dev Sec Ops

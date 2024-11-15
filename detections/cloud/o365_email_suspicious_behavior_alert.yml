@@ -44,7 +44,7 @@ rba:
   message: The user $user$ triggered the O365 security alert [$signature$]
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 90
   threat_objects: []
 tags:

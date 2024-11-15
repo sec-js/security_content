@@ -49,7 +49,7 @@ rba:
     in their account.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects: []
 tags:

@@ -48,11 +48,11 @@ rba:
     an event $eventName$ to update the SAML provider to $requestParameters.sAMLProviderArn$
   risk_objects:
   - field: userIdentity.principalId
-    type: User
+    type: user
     score: 64
   threat_objects:
   - field: sourceIPAddress
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Cloud Federated Credential Abuse

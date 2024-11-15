@@ -49,11 +49,11 @@ rba:
   message: A new MFA method was registered for user $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 64
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Compromised User Account

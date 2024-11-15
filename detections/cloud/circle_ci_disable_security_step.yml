@@ -30,7 +30,7 @@ rba:
   message: Disable security step $mandatory_step$ in job $job_name$ from user $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 72
   threat_objects: []
 tags:

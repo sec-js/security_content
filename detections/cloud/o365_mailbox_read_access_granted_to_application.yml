@@ -51,7 +51,7 @@ rba:
   message: Application registration $object$ was grandes mailbox read access by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 45
   threat_objects: []
 tags:

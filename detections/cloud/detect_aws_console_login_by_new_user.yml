@@ -36,7 +36,7 @@ rba:
   message: User $user$ is logging into the AWS console for the first time
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects: []
 tags:

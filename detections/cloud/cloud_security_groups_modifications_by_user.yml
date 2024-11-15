@@ -50,7 +50,7 @@ rba:
   message: Unsual number cloud security group modifications detected by user - $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 35
   threat_objects: []
 tags:

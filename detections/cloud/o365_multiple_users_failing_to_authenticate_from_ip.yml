@@ -47,11 +47,11 @@ rba:
   message: Source Ip $src_ip$ failed to authenticate with 20 users within 5 minutes.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 63
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Office 365 Account Takeover

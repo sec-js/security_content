@@ -35,11 +35,11 @@ rba:
   message: New S3 access from a new IP - $src_ip$
   risk_objects:
   - field: bucketName
-    type: Other
+    type: other
     score: 25
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Suspicious AWS S3 Activities

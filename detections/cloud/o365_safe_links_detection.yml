@@ -41,11 +41,11 @@ rba:
   message: $user$ triggered a Microsoft Safe Links detection.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 40
   threat_objects:
   - field: url
-    type: URL String
+    type: url string
 tags:
   analytic_story:
   - Office 365 Account Takeover

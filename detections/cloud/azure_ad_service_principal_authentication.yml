@@ -50,7 +50,7 @@ rba:
   message: Service Principal $user$ authenticated from $src_ip$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   threat_objects:
   - field: src_ip

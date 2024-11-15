@@ -48,7 +48,7 @@ rba:
   message: User $src_user$ has created new service principal $new_value$ in AzureActiveDirectory
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

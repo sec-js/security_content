@@ -45,11 +45,11 @@ rba:
     related api calls- $failures$, within an hour where the access was denied.
   risk_objects:
   - field: userIdentity.arn
-    type: User
+    type: user
     score: 10
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Suspicious Cloud User Activities

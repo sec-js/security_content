@@ -47,7 +47,7 @@ rba:
   message: A folder was granted read permission by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

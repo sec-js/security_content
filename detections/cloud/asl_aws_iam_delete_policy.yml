@@ -33,11 +33,11 @@ rba:
   message: User $user$ has deleted AWS Policies from IP address $src_ip$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 10
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 references:
 - https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeletePolicy.html
 - https://docs.aws.amazon.com/cli/latest/reference/iam/delete-policy.html

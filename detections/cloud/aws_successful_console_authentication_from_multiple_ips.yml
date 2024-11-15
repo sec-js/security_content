@@ -43,11 +43,11 @@ rba:
     IP addresses $src_ip$ within 5 mins
   risk_objects:
   - field: user_arn
-    type: User
+    type: user
     score: 72
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Suspicious AWS Login Activities

@@ -33,11 +33,11 @@ rba:
   message: User $user$ has sucessfully deleted a user group from $src_ip$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 5
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

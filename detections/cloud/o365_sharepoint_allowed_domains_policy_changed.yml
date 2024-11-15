@@ -49,7 +49,7 @@ rba:
   message: The SharePoint Online domain allowlist was changed by $user$, $result$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 75
   threat_objects: []
 tags:

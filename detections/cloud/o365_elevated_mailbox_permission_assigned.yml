@@ -45,7 +45,7 @@ rba:
   message: Elevated mailbox permissions were assigned on $dest_user$
   risk_objects:
   - field: dest_user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

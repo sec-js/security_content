@@ -53,7 +53,7 @@ rba:
   message: User $user$ denied more than 9 MFA requests in a timespan of 10 minutes.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 54
   threat_objects: []
 tags:

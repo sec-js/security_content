@@ -53,11 +53,11 @@ rba:
   message: suspicious share gdrive from $parameters.owner$ to $email$ namely as $parameters.doc_title$
   risk_objects:
   - field: email
-    type: User
+    type: user
     score: 21
   threat_objects:
   - field: parameters.owner
-    type: User
+    type: user
 tags:
   analytic_story:
   - Dev Sec Ops

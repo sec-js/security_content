@@ -52,7 +52,7 @@ rba:
   message: A new Azure Automation Runbook $object$ was created by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 63
   threat_objects: []
 tags:

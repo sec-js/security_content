@@ -54,7 +54,7 @@ rba:
   message: User $user$ disabled the BlockUserConsentForRiskyApps Azure AD setting.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects: []
 tags:

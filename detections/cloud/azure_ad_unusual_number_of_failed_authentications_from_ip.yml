@@ -52,11 +52,11 @@ rba:
   message: Possible Password Spraying attack against Azure AD from source ip $ipAddress$
   risk_objects:
   - field: userPrincipalName
-    type: User
+    type: user
     score: 54
   threat_objects:
   - field: ipAddress
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Azure Active Directory Account Takeover

@@ -51,11 +51,11 @@ rba:
   message: Device code requested for $user$ from $src_ip$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 35
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Azure Active Directory Account Takeover

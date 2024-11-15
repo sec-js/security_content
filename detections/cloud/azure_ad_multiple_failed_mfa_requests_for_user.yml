@@ -54,7 +54,7 @@ rba:
     a timespan of 10 minutes.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 54
   threat_objects: []
 tags:

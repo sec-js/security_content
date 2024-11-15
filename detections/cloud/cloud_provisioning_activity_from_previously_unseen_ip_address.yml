@@ -63,13 +63,13 @@ rba:
     time from IP address $src$
   risk_objects:
   - field: object_id
-    type: Endpoint
+    type: endpoint
     score: 42
   threat_objects:
   - field: user
-    type: User
+    type: user
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Suspicious Cloud Provisioning Activities

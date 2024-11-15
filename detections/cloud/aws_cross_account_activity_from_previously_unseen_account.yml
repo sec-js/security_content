@@ -41,11 +41,11 @@ rba:
     other account $requestedAccountId$, for the first time.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 15
   threat_objects:
   - field: requestingAccountId
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Suspicious Cloud Authentication Activities

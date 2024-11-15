@@ -52,7 +52,7 @@ rba:
     initiated by $initiatedBy$
   risk_objects:
   - field: initiatedBy
-    type: User
+    type: user
     score: 35
   threat_objects: []
 tags:

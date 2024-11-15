@@ -50,7 +50,7 @@ rba:
   message: Advanced auditing for user $object$ was disabled by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 32
   threat_objects: []
 tags:

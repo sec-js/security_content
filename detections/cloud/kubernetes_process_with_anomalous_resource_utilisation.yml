@@ -50,7 +50,7 @@ rba:
   message: Kubernetes Process with Anomalous Resource Utilisation on host $host$
   risk_objects:
   - field: host
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

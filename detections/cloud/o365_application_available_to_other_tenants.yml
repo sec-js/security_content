@@ -48,11 +48,11 @@ rba:
     to external tenants.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 50
   threat_objects:
   - field: object_name
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Azure Active Directory Persistence

@@ -43,7 +43,7 @@ rba:
   message: Vulnerabilities found in packages used by GitHub repository $repository$
   risk_objects:
   - field: repository
-    type: Other
+    type: other
     score: 27
   threat_objects: []
 tags:

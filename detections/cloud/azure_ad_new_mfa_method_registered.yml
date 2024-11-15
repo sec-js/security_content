@@ -54,7 +54,7 @@ rba:
   message: A new MFA method was registered for user $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects: []
 tags:

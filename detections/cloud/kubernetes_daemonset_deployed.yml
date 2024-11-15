@@ -51,11 +51,11 @@ rba:
   message: DaemonSet deployed to Kubernetes by user $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Kubernetes Security

@@ -34,11 +34,11 @@ rba:
   message: Suspicious email from $src_domain_list$ to $dest_domain$
   risk_objects:
   - field: src_domain_list
-    type: Email Address
+    type: email address
     score: 9
   threat_objects:
   - field: dest_domain
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Dev Sec Ops

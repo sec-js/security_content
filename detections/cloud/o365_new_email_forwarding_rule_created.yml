@@ -45,7 +45,7 @@ rba:
   message: A forwarding email inbox rule was created for $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

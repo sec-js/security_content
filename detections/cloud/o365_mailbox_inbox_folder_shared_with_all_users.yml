@@ -51,7 +51,7 @@ rba:
   message: Inbox folder for the $MailboxOwnerUPN$ mailbox was shared with all users.
   risk_objects:
   - field: MailboxOwnerUPN
-    type: User
+    type: user
     score: 56
   threat_objects: []
 tags:

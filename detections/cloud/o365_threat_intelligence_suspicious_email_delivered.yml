@@ -49,14 +49,14 @@ rba:
     signature
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 20
   - field: src_user
-    type: User
+    type: user
     score: 20
   threat_objects:
   - field: subject
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Spearphishing Attachments

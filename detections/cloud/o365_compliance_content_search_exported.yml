@@ -45,7 +45,7 @@ rba:
   message: A new compliance content search export was started by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

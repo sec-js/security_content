@@ -35,7 +35,7 @@ rba:
   risk_objects: []
   threat_objects:
   - field: email
-    type: Email Address
+    type: email address
 tags:
   analytic_story:
   - Spearphishing Attachments

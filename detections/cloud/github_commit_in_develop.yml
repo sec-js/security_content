@@ -43,7 +43,7 @@ rba:
   message: Suspicious commit by $commit.commit.author.email$ to develop branch
   risk_objects:
   - field: commit.commit.author.email
-    type: User
+    type: user
     score: 9
   threat_objects: []
 tags:

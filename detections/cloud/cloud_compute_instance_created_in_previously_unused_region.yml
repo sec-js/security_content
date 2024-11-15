@@ -38,11 +38,11 @@ rba:
     time
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 42
   threat_objects:
   - field: user
-    type: User
+    type: user
 tags:
   analytic_story:
   - Cloud Cryptomining

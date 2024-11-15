@@ -55,10 +55,10 @@ rba:
     Principal $user$ initiated by $src_user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 75
   - field: src_user
-    type: User
+    type: user
     score: 75
   threat_objects: []
 tags:

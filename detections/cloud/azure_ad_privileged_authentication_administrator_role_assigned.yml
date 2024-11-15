@@ -50,11 +50,11 @@ rba:
     assigned for User $user$ initiated by $initiatedBy$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 50
   threat_objects:
   - field: initiatedBy
-    type: User
+    type: user
 tags:
   analytic_story:
   - Azure Active Directory Privilege Escalation

@@ -50,11 +50,11 @@ rba:
   message: Successful authentication for user $user$ using PowerShell.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 54
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Azure Active Directory Account Takeover

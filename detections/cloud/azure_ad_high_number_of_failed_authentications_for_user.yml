@@ -49,7 +49,7 @@ rba:
     minutes.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 35
   threat_objects: []
 tags:

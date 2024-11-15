@@ -51,7 +51,7 @@ rba:
   message: Service Principal named $displayName$ created by $user$
   risk_objects:
   - field: displayName
-    type: User
+    type: user
     score: 45
   threat_objects: []
 tags:

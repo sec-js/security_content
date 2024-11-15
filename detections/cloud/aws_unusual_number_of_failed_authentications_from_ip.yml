@@ -47,11 +47,11 @@ rba:
     against users from IP Address - $src_ip$'
   risk_objects:
   - field: tried_accounts
-    type: User
+    type: user
     score: 54
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS Identity and Access Management Account Takeover

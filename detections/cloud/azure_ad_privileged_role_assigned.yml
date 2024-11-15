@@ -53,11 +53,11 @@ rba:
   message: A privileged Azure AD role was assigned for User $user$ initiated by $initiatedBy$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 63
   threat_objects:
   - field: initiatedBy
-    type: User
+    type: user
 tags:
   analytic_story:
   - Azure Active Directory Persistence

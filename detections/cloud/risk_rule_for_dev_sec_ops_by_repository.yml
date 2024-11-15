@@ -45,7 +45,7 @@ rba:
   message: Correlation triggered for repository $risk_object$
   risk_objects:
   - field: risk_object
-    type: Other
+    type: other
     score: 70
   threat_objects: []
 tags:

@@ -35,7 +35,7 @@ rba:
   message: User $user$ is modifying an instance $object_id$ for the first time.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

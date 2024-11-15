@@ -41,14 +41,14 @@ rba:
   message: A security administrator $src_user$ accessed email messages for $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   - field: src_user
-    type: User
+    type: user
     score: 25
   threat_objects:
   - field: signature_id
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Data Exfiltration

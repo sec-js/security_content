@@ -57,7 +57,7 @@ rba:
   message: User $user$ changed the external identity [$object_name$] policy - $result$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 75
   threat_objects: []
 tags:

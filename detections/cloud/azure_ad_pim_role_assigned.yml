@@ -48,7 +48,7 @@ rba:
   message: An Azure AD PIM role assignment was assiged to $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 35
   threat_objects: []
 tags:

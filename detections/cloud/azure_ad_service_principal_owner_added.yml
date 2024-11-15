@@ -49,11 +49,11 @@ rba:
   message: A new owner was added for service principal $displayName$ by $initiatedBy$
   risk_objects:
   - field: displayName
-    type: User
+    type: user
     score: 54
   threat_objects:
   - field: initiatedBy
-    type: User
+    type: user
 tags:
   analytic_story:
   - Azure Active Directory Persistence

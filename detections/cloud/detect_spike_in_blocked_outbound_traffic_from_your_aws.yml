@@ -48,7 +48,7 @@ rba:
   message: Blocked outbound traffic from your AWS
   risk_objects:
   - field: resourceId
-    type: Other
+    type: other
     score: 25
   threat_objects: []
 tags:

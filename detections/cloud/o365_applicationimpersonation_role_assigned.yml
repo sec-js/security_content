@@ -45,10 +45,10 @@ rba:
   message: $user$ granted the ApplicationImpersonation role to $target_user$
   risk_objects:
   - field: target_user
-    type: User
+    type: user
     score: 56
   - field: user
-    type: User
+    type: user
     score: 56
   threat_objects: []
 tags:

@@ -51,7 +51,7 @@ rba:
   message: A shell is spawned in the container $container_name$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects: []
 tags:

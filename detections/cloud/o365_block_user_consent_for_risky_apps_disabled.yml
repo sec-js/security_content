@@ -51,7 +51,7 @@ rba:
   message: Risk-based step-up consent security setting was disabled by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects: []
 tags:

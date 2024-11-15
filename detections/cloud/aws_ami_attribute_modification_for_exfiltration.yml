@@ -49,13 +49,13 @@ rba:
     from $src_ip$ or AMI made is made Public.
   risk_objects:
   - field: aws_account_id
-    type: Other
+    type: other
     score: 80
   threat_objects:
   - field: user_arn
-    type: User
+    type: user
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Suspicious Cloud Instance Activities

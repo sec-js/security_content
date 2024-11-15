@@ -43,11 +43,11 @@ rba:
     addresses $src$, violating the threshold of 50, using the following commands $command$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 18
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS User Monitoring

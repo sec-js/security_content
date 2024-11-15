@@ -52,7 +52,7 @@ rba:
     risky.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects: []
 tags:

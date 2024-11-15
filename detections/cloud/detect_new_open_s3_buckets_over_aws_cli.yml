@@ -53,7 +53,7 @@ rba:
     $requestParameters.accessControlList.x-amz-grant-write-acp$ $requestParameters.accessControlList.x-amz-grant-full-control$
   risk_objects:
   - field: userIdentity.userName
-    type: User
+    type: user
     score: 48
   threat_objects: []
 tags:

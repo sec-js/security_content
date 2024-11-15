@@ -52,7 +52,7 @@ rba:
   message: A new custom domain, $domain$ , was added by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 54
   threat_objects: []
 tags:

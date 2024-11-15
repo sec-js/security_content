@@ -43,11 +43,11 @@ rba:
     $eventName$), such that the instance is accessible from anywhere
   risk_objects:
   - field: user_arn
-    type: User
+    type: user
     score: 5
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS Network ACL Activity

@@ -50,11 +50,11 @@ rba:
     unique IP address in the span of 30 minutes.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 56
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Compromised User Account

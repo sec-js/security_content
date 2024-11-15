@@ -49,7 +49,7 @@ rba:
   message: The $object$ application registration was granted tenant wide admin consent.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 45
   threat_objects: []
 tags:

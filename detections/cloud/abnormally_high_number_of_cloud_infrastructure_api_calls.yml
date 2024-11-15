@@ -36,7 +36,7 @@ rba:
     of $expected_upper_threshold$ with the following command $command$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 15
   threat_objects: []
 tags:

@@ -43,11 +43,11 @@ rba:
   message: Remote File Inclusion Attack detected on $host$
   risk_objects:
   - field: host
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Dev Sec Ops

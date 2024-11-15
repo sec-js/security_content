@@ -43,11 +43,11 @@ rba:
   message: AWS Batch Job is created on account id - $aws_account_id$ from src_ip $src_ip$
   risk_objects:
   - field: aws_account_id
-    type: Other
+    type: other
     score: 64
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Data Exfiltration

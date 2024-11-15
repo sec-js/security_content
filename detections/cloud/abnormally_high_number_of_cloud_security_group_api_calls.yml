@@ -37,7 +37,7 @@ rba:
     command $command$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 15
   threat_objects: []
 tags:

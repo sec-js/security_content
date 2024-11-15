@@ -52,7 +52,7 @@ rba:
   message: User $user$ denied consent for an OAuth application.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 36
   threat_objects: []
 tags:

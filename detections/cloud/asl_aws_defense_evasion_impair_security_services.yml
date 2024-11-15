@@ -38,11 +38,11 @@ rba:
     impair AWS security services for account id $aws_account_id$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS Defense Evasion
