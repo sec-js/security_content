@@ -14,13 +14,6 @@ search: '`risk_index` | fillnull | stats sum(risk_score) as risk_score values(so
 how_to_implement: For Dev Sec Ops POC
 known_false_positives: unknown
 references: []
-rba:
-  message: Correlation triggered for user $user$
-  risk_objects:
-  - field: user
-    type: user
-    score: 70
-  threat_objects: []
 tags:
   analytic_story:
   - Dev Sec Ops
