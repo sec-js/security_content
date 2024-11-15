@@ -53,7 +53,7 @@ rba:
     score: 49
   threat_objects:
   - field: SourceImage
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - Brute Ratel C4

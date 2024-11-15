@@ -55,7 +55,7 @@ rba:
   - field: ProcessID
     type: process
   - field: TargetImage
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - PrintNightmare CVE-2021-34527

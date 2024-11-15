@@ -78,7 +78,7 @@ rba:
   - field: process_name
     type: process_name
   - field: file_name
-    type: file
+    type: file_name
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

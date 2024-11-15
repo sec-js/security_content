@@ -69,7 +69,7 @@ rba:
     score: 35
   threat_objects:
   - field: process_path
-    type: process name
+    type: process_name
 tags:
   analytic_story:
   - Double Zero Destructor

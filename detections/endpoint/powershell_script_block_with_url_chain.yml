@@ -59,7 +59,7 @@ rba:
   - field: file_name
     type: file_name
   - field: url
-    type: url string
+    type: url
 tags:
   analytic_story:
   - Malicious PowerShell

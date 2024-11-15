@@ -55,7 +55,7 @@ rba:
   - field: file_name
     type: file_name
   - field: file_hash
-    type: file hash
+    type: file_hash
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

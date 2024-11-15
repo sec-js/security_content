@@ -52,7 +52,7 @@ rba:
     score: 72
   threat_objects:
   - field: file_name
-    type: file
+    type: file_name
 tags:
   analytic_story:
   - Data Destruction
