@@ -65,9 +65,10 @@ rba:
   - field: object_id
     type: system
     score: 42
-  threat_objects:
   - field: user
     type: user
+    score: 42
+  threat_objects:
   - field: src
     type: ip_address
 tags:

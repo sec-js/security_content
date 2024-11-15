@@ -53,9 +53,10 @@ rba:
   - field: Computer
     type: system
     score: 64
-  threat_objects:
-  - field: SubjectUserName
+  - field: SubjectUsername
     type: user
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks
