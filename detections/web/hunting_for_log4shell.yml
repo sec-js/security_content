@@ -47,7 +47,7 @@ rba:
   message: Hunting for Log4Shell exploitation has occurred.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 40
   threat_objects:
   - field: src

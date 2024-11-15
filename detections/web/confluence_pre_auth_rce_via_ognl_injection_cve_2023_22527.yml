@@ -46,7 +46,7 @@ rba:
     detected. The source IP is $src$ and the destination hostname is $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 81
   threat_objects:
   - field: src

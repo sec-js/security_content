@@ -52,7 +52,7 @@ rba:
   message: Possible exploitation of CVE-2023-46805 and CVE-2024-21887 against $dest$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 90
   threat_objects: []
 tags:

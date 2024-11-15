@@ -57,7 +57,7 @@ rba:
     by $src$.
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 25
   - field: user
     type: user

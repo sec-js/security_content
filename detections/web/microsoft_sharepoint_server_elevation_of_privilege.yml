@@ -46,7 +46,7 @@ rba:
   message: Possible exploitation of CVE-2023-29357 against $dest$ from $src$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 45
   threat_objects:
   - field: src

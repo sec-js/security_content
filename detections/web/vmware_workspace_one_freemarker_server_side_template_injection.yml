@@ -50,7 +50,7 @@ rba:
     $dest$ has occurred.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 49
   threat_objects: []
 tags:

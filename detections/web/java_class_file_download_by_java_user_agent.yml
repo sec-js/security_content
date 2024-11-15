@@ -44,7 +44,7 @@ rba:
     a remote class file.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 40
   threat_objects:
   - field: http_user_agent

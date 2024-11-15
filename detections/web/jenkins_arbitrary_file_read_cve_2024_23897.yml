@@ -50,7 +50,7 @@ rba:
   message: Jenkins Arbitrary File Read CVE-2024-23897 against $dest$ by $src$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 81
   threat_objects:
   - field: src

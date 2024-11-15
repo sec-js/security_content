@@ -45,7 +45,7 @@ rba:
     a vulnerability in Spring Cloud.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 42
   threat_objects:
   - field: src

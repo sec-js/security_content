@@ -51,7 +51,7 @@ rba:
     on $dest$ by $src$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 100
   threat_objects:
   - field: src

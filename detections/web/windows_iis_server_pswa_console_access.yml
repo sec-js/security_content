@@ -31,7 +31,7 @@ rba:
   message: Access to the PowerShell Web Access (PSWA) console detected from $src$.
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 32
   threat_objects:
   - field: src
