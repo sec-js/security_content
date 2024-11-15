@@ -35,17 +35,6 @@ known_false_positives: network admin can terminate a process using this linux co
 references:
 - https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/overview-of-the-cyber-weapons-used-in-the-ukraine-russia-war/
 - https://cert.gov.ua/article/3718487
-rba:
-  message: a $process_name$ tries to execute pkill commandline to terminate process
-    in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 9
-  - field: user
-    type: user
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - AwfulShred

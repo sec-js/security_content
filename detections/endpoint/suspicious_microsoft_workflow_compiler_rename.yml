@@ -37,17 +37,6 @@ known_false_positives: Although unlikely, some legitimate applications may use a
 references:
 - https://lolbas-project.github.io/lolbas/Binaries/Microsoft.Workflow.Compiler/
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218/T1218.md#atomic-test-6---microsoftworkflowcompilerexe-payload-execution
-rba:
-  message: Suspicious renamed microsoft.workflow.compiler.exe binary ran on $dest$
-    by $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 63
-  - field: user
-    type: user
-    score: 63
-  threat_objects: []
 tags:
   analytic_story:
   - Masquerading - Rename System Utilities

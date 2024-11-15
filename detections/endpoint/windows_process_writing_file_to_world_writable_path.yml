@@ -43,16 +43,6 @@ known_false_positives: False positives may occur if legitimate software writes t
   if it is malicious.
 references:
 - https://research.splunk.com/endpoint/efbcf8ee-bc75-47f1-8985-a5c638c4faf0/
-rba:
-  message: A process wrote a file name- [$file_name$] to a world writable file path
-    [$file_path$] on host- [$dest$].
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects:
-  - field: file_name
-    type: file
 tags:
   analytic_story:
   - APT29 Diplomatic Deceptions with WINELOADER

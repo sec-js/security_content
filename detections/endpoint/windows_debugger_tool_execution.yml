@@ -32,16 +32,6 @@ known_false_positives: administrator or IT professional may execute this applica
 references:
 - https://www.splunk.com/en_us/blog/security/enter-the-gates-an-analysis-of-the-darkgate-autoit-loader.html
 - https://www.trendmicro.com/en_us/research/23/b/investigating-the-plugx-trojan-disguised-as-a-legitimate-windows.html
-rba:
-  message: a debugger $process_name$ is executed in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 9
-  - field: user
-    type: user
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - DarkGate Malware

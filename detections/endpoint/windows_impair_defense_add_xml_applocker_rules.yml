@@ -37,13 +37,6 @@ known_false_positives: Administrators may execute this command that may cause so
   false positive.
 references:
 - https://app.any.run/tasks/a6f2ffe2-e6e2-4396-ae2e-04ea0143f2d8/
-rba:
-  message: Applocker importing xml policy command was executed in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Azorult

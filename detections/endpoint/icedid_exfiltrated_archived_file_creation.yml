@@ -28,15 +28,6 @@ how_to_implement: To successfully implement this search, you need to be ingestin
 known_false_positives: unknown
 references:
 - https://www.cisecurity.org/insights/white-papers/security-primer-icedid
-rba:
-  message: Process $process_name$ create a file $TargetFilename$ on host $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 72
-  threat_objects:
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - IcedID

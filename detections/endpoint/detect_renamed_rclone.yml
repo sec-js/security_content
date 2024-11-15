@@ -38,21 +38,6 @@ references:
 - https://redcanary.com/blog/rclone-mega-extortion/
 - https://www.mandiant.com/resources/shining-a-light-on-darkside-ransomware-operations
 - https://thedfirreport.com/2021/03/29/sodinokibi-aka-revil-ransomware/
-rba:
-  message: The following $process_name$ has been identified as renamed, spawning from
-    $parent_process_name$ on $dest$ by $user$.
-  risk_objects:
-  - field: user
-    type: user
-    score: 27
-  - field: dest
-    type: system
-    score: 27
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - DarkSide Ransomware

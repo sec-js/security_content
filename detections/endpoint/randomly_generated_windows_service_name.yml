@@ -24,13 +24,6 @@ how_to_implement: To successfully implement this search, you need to be ingestin
 known_false_positives: Legitimate applications may use random Windows Service names.
 references:
 - https://attack.mitre.org/techniques/T1543/003/
-rba:
-  message: A Windows Service with a suspicious service name was installed on $ComputerName$
-  risk_objects:
-  - field: ComputerName
-    type: system
-    score: 45
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement

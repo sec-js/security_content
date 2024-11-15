@@ -36,16 +36,6 @@ known_false_positives: This commandline can be used by a network administrator t
   audit host machine specifications. Thus, a filter is needed.
 references:
 - https://app.any.run/tasks/df0baf9f-8baf-4c32-a452-16562ecb19be/
-rba:
-  message: dxdiag.exe process with commandline $process$ on $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Remcos

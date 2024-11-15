@@ -36,16 +36,6 @@ known_false_positives: False positives may be present. Tune as needed.
 references:
 - https://attack.mitre.org/techniques/T1069/001/
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1069.001/T1069.001.md
-rba:
-  message: System group discovery on $dest$ by $user$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  - field: user
-    type: user
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery

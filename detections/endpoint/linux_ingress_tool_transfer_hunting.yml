@@ -37,19 +37,6 @@ references:
 - https://curl.se/docs/manpage.html#-I
 - https://gtfobins.github.io/gtfobins/curl/
 - https://github.com/rapid7/metasploit-framework/search?q=curl
-rba:
-  message: An instance of $process_name$ was identified on endpoint $dest$ by user
-    $user$ utilizing curl or wget.
-  risk_objects:
-  - field: user
-    type: user
-    score: 1
-  - field: dest
-    type: system
-    score: 1
-  threat_objects:
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - Linux Living Off The Land

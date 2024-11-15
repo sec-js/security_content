@@ -36,13 +36,6 @@ known_false_positives: Administrators or power users may use this PowerShell com
   for troubleshooting.
 references:
 - https://attack.mitre.org/techniques/T1087/001/
-rba:
-  message: Local user discovery enumeration using PowerShell on $dest$ by $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - Winter Vivern

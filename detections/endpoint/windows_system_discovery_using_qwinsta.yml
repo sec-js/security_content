@@ -38,13 +38,6 @@ known_false_positives: Administrator may execute this commandline tool for audit
 references:
 - https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/qwinsta
 - https://securelist.com/qakbot-technical-analysis/103931/
-rba:
-  message: System qwinsta domain discovery on $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Qakbot

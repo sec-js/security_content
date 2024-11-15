@@ -38,18 +38,6 @@ references:
 - https://www.blackhillsinfosec.com/red-blue-purple/
 - https://attack.mitre.org/techniques/T1087/002/
 - https://docs.microsoft.com/en-us/powershell/module/activedirectory/get-aduser?view=windowsserver2019-ps
-rba:
-  message: an instance of process $process_name$ with commandline $process$ in $dest$
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  - field: dest
-    type: system
-    score: 25
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
 tags:
   analytic_story:
   - Active Directory Discovery

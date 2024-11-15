@@ -38,16 +38,6 @@ references:
 - https://lolbas-project.github.io/lolbas/Binaries/Msbuild/
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1127.001/T1127.001.md
 - https://github.com/infosecn1nja/MaliciousMacroMSBuild/
-rba:
-  message: Suspicious renamed msbuild.exe binary ran on $dest$ by $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 63
-  - field: user
-    type: user
-    score: 63
-  threat_objects: []
 tags:
   analytic_story:
   - Trusted Developer Utilities Proxy Execution MSBuild

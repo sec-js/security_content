@@ -37,13 +37,6 @@ known_false_positives: A network operator or systems administrator may utilize a
   is needed.
 references:
 - https://app.any.run/tasks/ad4c3cda-41f2-4401-8dba-56cc2d245488/
-rba:
-  message: elevated process using runas on $dest$ by $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Data Destruction

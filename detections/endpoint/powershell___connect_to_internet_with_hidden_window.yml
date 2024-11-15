@@ -41,20 +41,6 @@ references:
 - https://ss64.com/ps/powershell.html
 - https://twitter.com/M_haggis/status/1440758396534214658?s=20
 - https://blog.netlab.360.com/ten-families-of-malicious-samples-are-spreading-using-the-log4j2-vulnerability-now/
-rba:
-  message: PowerShell processes $process$ started with parameters to modify the execution
-    policy of the run, run in a hidden window, and connect to the Internet on host
-    $dest$ executed by user $user$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 81
-  - field: user
-    type: user
-    score: 81
-  threat_objects:
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - AgentTesla

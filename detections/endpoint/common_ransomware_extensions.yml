@@ -34,18 +34,6 @@ known_false_positives: It is possible for a legitimate file with these extension
   of files created with these extensions.
 references:
 - https://github.com/splunk/security_content/issues/2448
-rba:
-  message: The device $dest$ wrote $file_count$ files to $path_count$ path(s) with
-    the $file_extension$ extension. This extension and behavior may indicate a $Name$
-    ransomware attack.
-  risk_objects:
-  - field: user
-    type: user
-    score: 90
-  - field: dest
-    type: system
-    score: 90
-  threat_objects: []
 tags:
   analytic_story:
   - SamSam Ransomware

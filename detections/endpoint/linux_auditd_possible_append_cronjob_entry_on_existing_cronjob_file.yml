@@ -34,14 +34,6 @@ references:
 - https://attack.mitre.org/techniques/T1053/003/
 - https://blog.aquasec.com/threat-alert-kinsing-malware-container-vulnerability
 - https://www.intezer.com/blog/research/kaiji-new-chinese-linux-malware-turning-to-golang/
-rba:
-  message: A [$type$] event has occured on host - [$dest$] to append a cronjob entry
-    on an existing cronjob file.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 49
-  threat_objects: []
 tags:
   analytic_story:
   - Scheduled Tasks

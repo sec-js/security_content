@@ -36,21 +36,6 @@ known_false_positives: There are circumstances where an application may legitima
   execute and interact with the Windows command-line interface. Investigate and modify
   the lookup file, as appropriate.
 references: []
-rba:
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    on endpoint $dest$ by user $user$ running prohibited applications.
-  risk_objects:
-  - field: user
-    type: user
-    score: 80
-  - field: dest
-    type: system
-    score: 80
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - Suspicious Command-Line Executions

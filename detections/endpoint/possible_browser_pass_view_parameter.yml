@@ -40,16 +40,6 @@ known_false_positives: False positive is quite limited. Filter is needed
 references:
 - https://www.nirsoft.net/utils/web_browser_password.html
 - https://app.any.run/tasks/df0baf9f-8baf-4c32-a452-16562ecb19be/
-rba:
-  message: suspicious process $process_name$ contains commandline $process$ on $dest$
-  risk_objects:
-  - field: user
-    type: user
-    score: 16
-  - field: dest
-    type: system
-    score: 16
-  threat_objects: []
 tags:
   analytic_story:
   - Remcos

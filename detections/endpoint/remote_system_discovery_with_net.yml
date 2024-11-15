@@ -37,13 +37,6 @@ known_false_positives: Administrators or power users may use this command for tr
 references:
 - https://attack.mitre.org/techniques/T1018/
 - https://thedfirreport.com/2023/05/22/icedid-macro-ends-in-nokoyawa-ransomware/
-rba:
-  message: Remote system discovery enumeration on $dest$ by $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery

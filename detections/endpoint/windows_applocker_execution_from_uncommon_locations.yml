@@ -34,13 +34,6 @@ known_false_positives: False positives are possible if legitimate users are exec
 references:
 - https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/operations/querying-application-control-events-centrally-using-advanced-hunting
 - https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/applocker/using-event-viewer-with-applocker
-rba:
-  message: An application was executed from an uncommon location on a host $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 49
-  threat_objects: []
 tags:
   analytic_story:
   - Windows AppLocker

@@ -27,18 +27,6 @@ how_to_implement: This search requires audit computer account management to be e
 known_false_positives: None thus far found
 references:
 - https://www.lares.com/blog/from-lares-labs-defensive-guidance-for-zerologon-cve-2020-1472/
-rba:
-  message: The following $EventCode$ occurred on $dest$ by $user$ with Logon Type
-    3, which may be indicative of the an account or group being changed by an anonymous
-    account.
-  risk_objects:
-  - field: user
-    type: user
-    score: 49
-  - field: dest
-    type: system
-    score: 49
-  threat_objects: []
 tags:
   analytic_story:
   - Detect Zerologon Attack

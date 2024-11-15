@@ -36,13 +36,6 @@ known_false_positives: A network operator or systems administrator may utilize a
   ec2 script that uses this application. Filter as needed.
 references:
 - https://app.any.run/tasks/ad4c3cda-41f2-4401-8dba-56cc2d245488/
-rba:
-  message: Network Connection discovery on $dest$ by $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery

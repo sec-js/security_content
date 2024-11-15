@@ -37,21 +37,6 @@ references:
 - https://www.cisa.gov/uscert/ncas/alerts/TA18-201A
 - http://www.nirsoft.net/
 - https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/
-rba:
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    on endpoint $dest$ by user $user$ related to NiRSoft software usage.
-  risk_objects:
-  - field: user
-    type: user
-    score: 80
-  - field: dest
-    type: system
-    score: 80
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - Data Destruction

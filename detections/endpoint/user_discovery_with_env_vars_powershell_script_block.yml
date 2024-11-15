@@ -27,16 +27,6 @@ known_false_positives: Administrators or power users may use this PowerShell com
   for troubleshooting.
 references:
 - https://attack.mitre.org/techniques/T1033/
-rba:
-  message: System user discovery on endpoint $dest$ by user $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  - field: user
-    type: user
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery

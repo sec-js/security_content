@@ -33,16 +33,6 @@ how_to_implement: The detection is based on data that originates from Endpoint D
   names and speed up the data modeling process.
 known_false_positives: Remote Desktop may be used legitimately by users on the network.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Hidden Cobra Malware

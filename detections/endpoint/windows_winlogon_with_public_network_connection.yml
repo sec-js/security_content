@@ -38,14 +38,6 @@ known_false_positives: False positives will be present and filtering will be req
   Legitimate IPs will be present and need to be filtered.
 references:
 - https://www.microsoft.com/en-us/security/blog/2023/04/11/guidance-for-investigating-attacks-using-cve-2022-21894-the-blacklotus-campaign/
-rba:
-  message: Winlogon.exe has generated a network connection to a remote destination
-    on endpoint $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - BlackLotus Campaign

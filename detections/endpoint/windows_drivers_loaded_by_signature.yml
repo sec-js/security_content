@@ -29,13 +29,6 @@ references:
 - https://redcanary.com/blog/tracking-driver-inventory-to-expose-rootkits/
 - https://attack.mitre.org/techniques/T1014/
 - https://www.fuzzysecurity.com/tutorials/28.html
-rba:
-  message: A driver has loaded on $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 42
-  threat_objects: []
 tags:
   analytic_story:
   - Windows Drivers

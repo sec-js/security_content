@@ -44,14 +44,6 @@ known_false_positives: False positives may occur if legitimate PSWA processes ar
 references:
 - https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-241a
 - https://gist.github.com/MHaggis/7e67b659af9148fa593cf2402edebb41
-rba:
-  message: PowerShell Web Access (PSWA) IIS Application Pool activity detected on
-    $PSWA Host$.
-  risk_objects:
-  - field: PSWA Host
-    type: system
-    score: 64
-  threat_objects: []
 tags:
   analytic_story:
   - CISA AA24-241A

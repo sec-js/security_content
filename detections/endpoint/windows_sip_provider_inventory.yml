@@ -23,14 +23,6 @@ known_false_positives: False positives are limited as this is a hunting query fo
   inventory.
 references:
 - https://gist.github.com/MHaggis/75dd5db546c143ea67703d0e86cdbbd1
-rba:
-  message: A list of SIP providers on the system is available. Review for new and
-    non-standard paths for SIP providers on $host$.
-  risk_objects:
-  - field: host
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Subvert Trust Controls SIP and Trust Provider Hijacking

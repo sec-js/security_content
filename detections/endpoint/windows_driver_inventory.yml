@@ -21,13 +21,6 @@ known_false_positives: Filter and modify the analytic as you'd like. Filter base
   on path. Remove the system32\drivers and look for non-standard paths.
 references:
 - https://gist.github.com/MHaggis/3e4dc85c69b3f7a4595a06c8a692f244
-rba:
-  message: Drivers have been identified on $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 5
-  threat_objects: []
 tags:
   analytic_story:
   - Windows Drivers

@@ -43,15 +43,6 @@ known_false_positives: False positives are not expected with this analytic, sinc
 references:
 - https://asrgen.streamlit.app/
 - https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction?view=o365-worldwide
-rba:
-  message: An ASR rule, $ASR_Rule$, was triggered on $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 50
-  threat_objects:
-  - field: ASR_Rule
-    type: unknown
 tags:
   analytic_story:
   - Windows Attack Surface Reduction

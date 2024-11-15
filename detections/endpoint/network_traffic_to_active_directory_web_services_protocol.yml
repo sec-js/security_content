@@ -31,16 +31,6 @@ known_false_positives: False positives should be limited as the destination port
   by App or dest_ip to AD servers and remove known proceses querying ADWS.
 references:
 - https://github.com/FalconForceTeam/SOAPHound
-rba:
-  message: Network traffic to Active Directory Web Services Protocol was identified
-    on $dest_ip$ by $src_ip$.
-  risk_objects:
-  - field: dest_ip
-    type: system
-    score: 10
-  threat_objects:
-  - field: src_ip
-    type: ip_address
 tags:
   analytic_story:
   - Windows Discovery Techniques

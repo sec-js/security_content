@@ -27,13 +27,6 @@ known_false_positives: False positives will be present based on paths. Filter or
   libraries from non-standard paths.
 references:
 - https://hijacklibs.net
-rba:
-  message: Potential Windows DLL Search Order Hijacking detected on $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 1
-  threat_objects: []
 tags:
   analytic_story:
   - Living Off The Land

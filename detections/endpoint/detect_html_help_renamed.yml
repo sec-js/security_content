@@ -38,21 +38,6 @@ references:
 - https://attack.mitre.org/techniques/T1218/001/
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218.001/T1218.001.md
 - https://lolbas-project.github.io/lolbas/Binaries/Hh/
-rba:
-  message: The following $process_name$ has been identified as renamed, spawning from
-    $parent_process_name$ on $dest$ executed by $user$
-  risk_objects:
-  - field: user
-    type: user
-    score: 80
-  - field: dest
-    type: system
-    score: 80
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - Suspicious Compiled HTML Activity

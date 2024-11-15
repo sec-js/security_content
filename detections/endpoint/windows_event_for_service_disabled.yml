@@ -25,13 +25,6 @@ known_false_positives: Windows service update may cause this event. In that scen
   filtering is needed.
 references:
 - https://blog.talosintelligence.com/2018/02/olympic-destroyer.html
-rba:
-  message: Service $ServiceName$ was disabled on $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 36
-  threat_objects: []
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

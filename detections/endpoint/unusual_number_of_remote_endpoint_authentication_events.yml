@@ -30,13 +30,6 @@ known_false_positives: An single endpoint authenticating to a large number of ho
   to vulnerability scanners, jump servers and missconfigured systems.
 references:
 - https://attack.mitre.org/techniques/T1078/
-rba:
-  message: Unusual number of remote authentication events from $Source_Network_Address$
-  risk_objects:
-  - field: target_hosts
-    type: system
-    score: 42
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement

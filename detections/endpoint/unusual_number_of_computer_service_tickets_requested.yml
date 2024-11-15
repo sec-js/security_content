@@ -30,13 +30,6 @@ known_false_positives: An single endpoint requesting a large number of computer 
   systems.
 references:
 - https://attack.mitre.org/techniques/T1078/
-rba:
-  message: ''
-  risk_objects:
-  - field: Client_Address
-    type: system
-    score: 42
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement

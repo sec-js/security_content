@@ -39,17 +39,6 @@ known_false_positives: windows can used this application for its normal COM obje
 references:
 - https://gist.github.com/NickTyrer/0598b60112eaafe6d07789f7964290d5
 - https://bohops.com/2018/08/18/abusing-the-com-registry-structure-part-2-loading-techniques-for-evasion-and-persistence/
-rba:
-  message: process $process_name$ to execute possible clsid commandline $process$
-    in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Unusual Processes

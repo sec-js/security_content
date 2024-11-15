@@ -35,13 +35,6 @@ known_false_positives: Administrator or network operator can use this applicatio
 references:
 - https://www.welivesecurity.com/2022/04/12/industroyer2-industroyer-reloaded/
 - https://cert.gov.ua/article/39518
-rba:
-  message: A possible crontab list command $process$ executed on $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Industroyer2

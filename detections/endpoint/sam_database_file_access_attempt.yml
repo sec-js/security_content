@@ -32,21 +32,6 @@ references:
 - https://github.com/GossiTheDog/HiveNightmare
 - https://github.com/JumpsecLabs/Guidance-Advice/tree/main/SAM_Permissions
 - https://en.wikipedia.org/wiki/Security_Account_Manager
-rba:
-  message: The following process $process_name$ accessed the object $ObjectName$ attempting
-    to gain access to credentials on $dest$ by user $src_user$.
-  risk_objects:
-  - field: src_user
-    type: user
-    score: 80
-  - field: dest
-    type: system
-    score: 80
-  threat_objects:
-  - field: process_name
-    type: process_name
-  - field: ObjectName
-    type: file
 tags:
   analytic_story:
   - Credential Dumping

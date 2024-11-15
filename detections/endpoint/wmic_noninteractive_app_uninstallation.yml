@@ -37,19 +37,6 @@ known_false_positives: Third party application may use this approach to uninstal
   applications.
 references:
 - https://thedfirreport.com/2021/10/18/icedid-to-xinglocker-ransomware-in-24-hours/
-rba:
-  message: Wmic $process_name$ with command-line $process$ on $dest$ attempting to
-    uninstall software.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  - field: user
-    type: user
-    score: 25
-  threat_objects:
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - IcedID

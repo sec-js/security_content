@@ -37,17 +37,6 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: unknown
 references:
 - https://threadreaderapp.com/thread/1423361119926816776.html
-rba:
-  message: archive process $process_name$ with suspicious cmdline $process$ in host
-    $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Ransomware

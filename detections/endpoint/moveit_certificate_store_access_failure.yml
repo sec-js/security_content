@@ -23,14 +23,6 @@ known_false_positives: False positives may occur, therefore utilize the analytic
   a jump off point to identifiy potential certificate store errors.
 references:
 - https://labs.watchtowr.com/auth-bypass-in-un-limited-scenarios-progress-moveit-transfer-cve-2024-5806/
-rba:
-  message: Potential exploitation of the CVE-2024-5806 vulnerability in Progress MOVEit
-    Transfer, causing certificate store access failure on $source$.
-  risk_objects:
-  - field: source
-    type: system
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - MOVEit Transfer Authentication Bypass

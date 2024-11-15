@@ -34,13 +34,6 @@ known_false_positives: Administrator or network operator can execute this comman
   Please update the filter macros to remove false positives.
 references:
 - https://attack.mitre.org/techniques/T1548/003/
-rba:
-  message: A commandline $process$ that execute sudo or su in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - Linux Privilege Escalation

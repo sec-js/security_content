@@ -25,13 +25,6 @@ known_false_positives: Administrators or power users may use this PowerShell com
 references:
 - https://attack.mitre.org/techniques/T1087/001/
 - https://www.splunk.com/en_us/blog/security/hunting-for-malicious-powershell-using-script-block-logging.html
-rba:
-  message: Local user discovery enumeration using PowerShell on $Computer$ by $UserID$
-  risk_objects:
-  - field: Computer
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - Winter Vivern

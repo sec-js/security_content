@@ -33,16 +33,6 @@ known_false_positives: This hunting analytic is meant to assist with baselining 
   understanding headless browsing in use. Filter as needed.
 references:
 - https://cert.gov.ua/article/5702579
-rba:
-  message: Behavior related to headless browser usage detected on $dest$ by $user$.
-  risk_objects:
-  - field: user
-    type: user
-    score: 15
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - Forest Blizzard

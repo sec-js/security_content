@@ -36,14 +36,6 @@ known_false_positives: Administrators or power users may use this command for tr
 references:
 - https://attack.mitre.org/techniques/T1033/
 - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-347a
-rba:
-  message: Activity related to system user privilege discovery detected on $dest$
-    using whoami.exe.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - CISA AA23-347A

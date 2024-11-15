@@ -41,21 +41,6 @@ references:
 - https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-40444
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218.002/T1218.002.yaml
 - https://redcanary.com/blog/intelligence-insights-december-2021/
-rba:
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    on endpoint $dest$ by user $user$ attempting to load a suspicious file from disk.
-  risk_objects:
-  - field: user
-    type: user
-    score: 15
-  - field: dest
-    type: system
-    score: 15
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - Suspicious Rundll32 Activity

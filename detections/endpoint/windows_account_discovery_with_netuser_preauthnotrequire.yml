@@ -26,14 +26,6 @@ known_false_positives: Administrators may leverage PowerView for legitimate purp
   filter as needed.
 references:
 - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-347a
-rba:
-  message: A user dicovery using powerview commandlet Get-NetUser with PreauthNotRequire
-    parameter on $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - CISA AA23-347A

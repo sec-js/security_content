@@ -25,14 +25,6 @@ known_false_positives: False positives may occur, therefore utilize the analytic
   a jump off point to identify potential empty key fingerprint authentication attempts.
 references:
 - https://labs.watchtowr.com/auth-bypass-in-un-limited-scenarios-progress-moveit-transfer-cve-2024-5806/
-rba:
-  message: Potential exploitation of the CVE-2024-5806 vulnerability in Progress MOVEit
-    Transfer, causing empty key fingerprint authentication attempts via $source$.
-  risk_objects:
-  - field: source
-    type: system
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - MOVEit Transfer Authentication Bypass

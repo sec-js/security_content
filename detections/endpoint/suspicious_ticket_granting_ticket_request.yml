@@ -32,13 +32,6 @@ references:
 - https://exploit.ph/cve-2021-42287-cve-2021-42278-weaponisation.html
 - https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-42278
 - https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-42287
-rba:
-  message: A suspicious TGT was requested was requested by $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 60
-  threat_objects: []
 tags:
   analytic_story:
   - sAMAccountName Spoofing and Domain Controller Impersonation

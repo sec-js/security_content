@@ -40,14 +40,6 @@ references:
 - https://www.welivesecurity.com/2022/01/11/signed-kernel-drivers-unguarded-gateway-windows-core/
 - https://eclypsium.com/2019/11/12/mother-of-all-drivers/
 - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-37969
-rba:
-  message: An process has loaded a possible vulnerable driver on $dest$. Review and
-    escalate as needed.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Windows Drivers

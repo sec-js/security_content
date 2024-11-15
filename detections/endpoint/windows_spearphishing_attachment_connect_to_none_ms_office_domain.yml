@@ -29,14 +29,6 @@ known_false_positives: Windows Office document may contain legitimate url link o
 references:
 - https://www.netskope.com/blog/asyncrat-using-fully-undetected-downloader
 - https://malpedia.caad.fkie.fraunhofer.de/details/win.asyncrat
-rba:
-  message: a office document process $Image$ connect to an URL link $QueryName$ in
-    $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - Spearphishing Attachments

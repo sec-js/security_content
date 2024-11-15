@@ -27,17 +27,6 @@ references:
 - https://www.blackhillsinfosec.com/red-blue-purple/
 - https://attack.mitre.org/techniques/T1087/002/
 - https://docs.microsoft.com/en-us/powershell/module/activedirectory/get-aduser?view=windowsserver2019-ps
-rba:
-  message: Powershell process having commandline "get-aduser" for user enumeration
-    on $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery

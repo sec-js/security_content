@@ -28,18 +28,6 @@ known_false_positives: Some security products or third party applications may ut
   CreateRemoteThread, filter as needed before enabling as a notable.
 references:
 - https://unit42.paloaltonetworks.com/brute-ratel-c4-tool/
-rba:
-  message: process $SourceImage$ create a remote thread to process $TargetImage$ on
-    host $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 64
-  threat_objects:
-  - field: SourceImage
-    type: process
-  - field: TargetImage
-    type: process
 tags:
   analytic_story:
   - Brute Ratel C4

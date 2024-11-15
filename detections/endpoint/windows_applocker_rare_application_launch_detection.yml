@@ -31,14 +31,6 @@ known_false_positives: False positives are possible if legitimate users are laun
 references:
 - https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/applocker/using-event-viewer-with-applocker
 - https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/operations/querying-application-control-events-centrally-using-advanced-hunting
-rba:
-  message: An application launch that deviates from the norm was detected on a host
-    $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - Windows AppLocker

@@ -42,13 +42,6 @@ references:
 - https://github.com/Neo23x0/auditd/blob/master/audit.rules#L285-L297
 - https://github.com/bfuzzy1/auditd-attack/blob/master/auditd-attack/auditd-attack.rules#L269-L270
 - https://github.com/microsoft/MSTIC-Sysmon/blob/main/linux/configs/attack-based/privilege_escalation/T1548.001_ElevationControl_CommonProcesses.xml
-rba:
-  message: A commandline $process$ with process $process_name$ on $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - Linux Privilege Escalation

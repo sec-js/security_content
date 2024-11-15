@@ -36,21 +36,6 @@ known_false_positives: False positives will be present as this is meant to assis
 references:
 - https://strontic.github.io/xcyclopedia/library/odbcconf.exe-07FBA12552331355C103999806627314.html
 - https://twitter.com/redcanary/status/1541838407894171650?s=20&t=kp3WBPtfnyA3xW7D7wx0uw
-rba:
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    on endpoint $dest$ by user $user$ attempting to circumvent controls.
-  risk_objects:
-  - field: user
-    type: user
-    score: 6
-  - field: dest
-    type: system
-    score: 6
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - Living Off The Land

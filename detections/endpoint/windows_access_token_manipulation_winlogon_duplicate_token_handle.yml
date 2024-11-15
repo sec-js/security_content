@@ -29,16 +29,6 @@ known_false_positives: It is possible legitimate applications will request acces
 references:
 - https://docs.microsoft.com/en-us/windows/win32/api/handleapi/nf-handleapi-duplicatehandle
 - https://attack.mitre.org/techniques/T1134/001/
-rba:
-  message: A process $SourceImage$ is duplicating the handle token of winlogon.exe
-    in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 36
-  threat_objects:
-  - field: SourceImage
-    type: process name
 tags:
   analytic_story:
   - Brute Ratel C4

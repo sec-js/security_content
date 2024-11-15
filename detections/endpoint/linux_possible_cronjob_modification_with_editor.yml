@@ -34,13 +34,6 @@ known_false_positives: Administrator or network operator can use this commandlin
   for automation purposes. Please update the filter macros to remove false positives.
 references:
 - https://attack.mitre.org/techniques/T1053/003/
-rba:
-  message: A commandline $process$ that may modify cronjob file using editor in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 6
-  threat_objects: []
 tags:
   analytic_story:
   - Linux Privilege Escalation

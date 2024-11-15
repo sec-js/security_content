@@ -30,14 +30,6 @@ references:
 - https://powersploit.readthedocs.io/en/stable/Recon/README/
 - https://book.hacktricks.xyz/windows-hardening/basic-powershell-for-pentesters/powerview
 - https://atomicredteam.io/discovery/T1087.001/
-rba:
-  message: Windows Account Discovery for None Disable User Account using PowerView's
-    Get-NetUser on $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - CISA AA23-347A

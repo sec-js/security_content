@@ -36,13 +36,6 @@ known_false_positives: Administrators or power users may use this command for tr
 references:
 - https://attack.mitre.org/techniques/T1018/
 - https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc732952(v=ws.11)
-rba:
-  message: Remote system discovery enumeration on $dest$ by $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery

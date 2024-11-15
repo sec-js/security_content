@@ -25,13 +25,6 @@ known_false_positives: False positives will be present, filter as needed or rest
 references:
 - https://gist.github.com/MHaggis/138c6bf563bacbda4a2524f089773706
 - https://doublepulsar.com/rdp-hijacking-how-to-hijack-rds-and-remoteapp-sessions-transparently-to-move-through-an-da2a1e73a5f6
-rba:
-  message: A successful RDP connection on $dest$ occurred.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement

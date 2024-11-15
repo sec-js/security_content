@@ -57,17 +57,6 @@ references:
 - https://hurricanelabs.com/splunk-tutorials/how-to-use-powershell-transcription-logs-in-splunk/
 - https://www.splunk.com/en_us/blog/security/hunting-for-malicious-powershell-using-script-block-logging.html
 - https://adlumin.com/post/powerdrop-a-new-insidious-powershell-script-for-command-and-control-attacks-targets-u-s-aerospace-defense-industry/
-rba:
-  message: Powershell was identified on endpoint $host$ by user $user$ executing suspicious
-    commands.
-  risk_objects:
-  - field: user
-    type: user
-    score: 80
-  - field: dest
-    type: system
-    score: 80
-  threat_objects: []
 tags:
   analytic_story:
   - Malicious PowerShell

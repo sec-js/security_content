@@ -30,13 +30,6 @@ references:
 - https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainGroupMember/
 - https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory
 - https://attack.mitre.org/techniques/T1069/002/
-rba:
-  message: Elevated group discovery using PowerView on $dest$ by $user$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 21
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery

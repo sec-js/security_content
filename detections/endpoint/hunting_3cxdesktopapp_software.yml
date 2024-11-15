@@ -40,15 +40,6 @@ references:
 - https://www.reddit.com/r/crowdstrike/comments/125r3uu/20230329_situational_awareness_crowdstrike/
 - https://www.3cx.com/community/threads/crowdstrike-endpoint-security-detection-re-3cx-desktop-app.119934/page-2#post-558898
 - https://www.3cx.com/community/threads/3cx-desktopapp-security-alert.119951/
-rba:
-  message: An instance $process_name$ was identified on endpoint $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 40
-  threat_objects:
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - 3CX Supply Chain Attack

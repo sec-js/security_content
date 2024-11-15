@@ -31,16 +31,6 @@ references:
 - https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html
 - https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1
 - https://docs.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights?redirectedfrom=MSDN
-rba:
-  message: A process, $SourceImage$, has requested access to LSASS on $dest$. Review
-    for further details.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 64
-  threat_objects:
-  - field: SourceImage
-    type: process
 tags:
   analytic_story:
   - CISA AA23-347A

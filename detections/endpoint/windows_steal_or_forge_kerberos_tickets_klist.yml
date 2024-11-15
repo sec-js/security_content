@@ -37,13 +37,6 @@ known_false_positives: unknown
 references:
 - https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS
 - https://www.microsoft.com/en-us/security/blog/2022/10/14/new-prestige-ransomware-impacts-organizations-in-ukraine-and-poland/
-rba:
-  message: process klist.exe executed in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 9
-  threat_objects: []
 tags:
   analytic_story:
   - Windows Post-Exploitation

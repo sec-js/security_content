@@ -28,14 +28,6 @@ known_false_positives: System Administrators may use looks like net.exe or "dir 
   only from certain users and certain systems that can be added to an allow list.
 references:
 - https://thedfirreport.com/2023/05/22/icedid-macro-ends-in-nokoyawa-ransomware/
-rba:
-  message: $user$ list executable files or directory in known sensitive SMB share.  Share
-    name=$ShareName$, Access mask=$AccessMask$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - IcedID

@@ -26,13 +26,6 @@ references:
 - https://docs.splunk.com/Documentation/Splunk/9.0.2/Data/MonitorWindowsdatawithPowerShellscripts
 - https://gist.github.com/MHaggis/64396dfd9fc3734e1d1901a8f2f07040
 - https://github.com/redcanaryco/atomic-red-team/tree/master/atomics/T1505.004
-rba:
-  message: IIS Modules have been listed on $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 1
-  threat_objects: []
 tags:
   analytic_story:
   - IIS Components

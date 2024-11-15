@@ -33,14 +33,6 @@ references:
 - https://www.horizon3.ai/papercut-cve-2023-27350-deep-dive-and-indicators-of-compromise/
 - https://www.bleepingcomputer.com/news/security/hackers-actively-exploit-critical-rce-bug-in-papercut-servers/
 - https://www.huntress.com/blog/critical-vulnerabilities-in-papercut-print-management-software
-rba:
-  message: Behavior related to exploitation of PaperCut NG has been identified on
-    $host$.
-  risk_objects:
-  - field: host
-    type: system
-    score: 64
-  threat_objects: []
 tags:
   analytic_story:
   - PaperCut MF NG Vulnerability

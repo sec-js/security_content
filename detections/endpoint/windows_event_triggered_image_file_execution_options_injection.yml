@@ -26,14 +26,6 @@ known_false_positives: False positives may be present and tuning will be require
 references:
 - https://blog.thinkst.com/2022/09/sensitive-command-token-so-much-offense.html
 - https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/registry-entries-for-silent-process-exit
-rba:
-  message: Windows eventcode 3000 triggered on $dest$ potentially indicating persistence
-    or a monitoring of a process has occurred.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Windows Persistence Techniques

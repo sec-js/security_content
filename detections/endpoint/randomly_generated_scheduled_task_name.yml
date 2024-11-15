@@ -26,13 +26,6 @@ references:
 - https://attack.mitre.org/techniques/T1053/005/
 - https://splunkbase.splunk.com/app/2734/
 - https://en.wikipedia.org/wiki/Entropy_(information_theory)
-rba:
-  message: A windows scheduled task with a suspicious task name was created on $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 45
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement

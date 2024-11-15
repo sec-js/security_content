@@ -28,13 +28,6 @@ known_false_positives: False positives will be present. Filter based on ActionNa
 references:
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1053.005/T1053.005.md
 - https://thedfirreport.com/2021/10/18/icedid-to-xinglocker-ransomware-in-24-hours/
-rba:
-  message: A Scheduled Task was scheduled and ran on $dvc$.
-  risk_objects:
-  - field: dvc
-    type: system
-    score: 80
-  threat_objects: []
 tags:
   analytic_story:
   - Qakbot

@@ -40,14 +40,6 @@ known_false_positives: false positive may vary depends on the score you want to 
   The bigger number of path traversal string count the better.
 references:
 - https://app.any.run/tasks/713f05d2-fe78-4b9d-a744-f7c133e3fafb/
-rba:
-  message: A parent process $parent_process_name$ has spawned a child $process_name$
-    with path traversal commandline $process$ in $dest$
-  risk_objects:
-  - field: dest
-    type: system
-    score: 36
-  threat_objects: []
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

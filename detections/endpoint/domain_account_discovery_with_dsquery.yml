@@ -36,18 +36,6 @@ known_false_positives: Administrators or power users may use this command for tr
 references:
 - https://jpcertcc.github.io/ToolAnalysisResultSheet/details/dsquery.htm
 - https://attack.mitre.org/techniques/T1087/002/
-rba:
-  message: an instance of process $process_name$ with commandline $process$ in $dest$
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  - field: dest
-    type: system
-    score: 25
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
 tags:
   analytic_story:
   - Active Directory Discovery

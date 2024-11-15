@@ -38,21 +38,6 @@ known_false_positives: It is possible false positives may be present based on th
 references:
 - https://thedfirreport.com/2021/11/15/exchange-exploit-leads-to-domain-wide-ransomware/
 - https://github.com/DavidXanatos/DiskCryptor
-rba:
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    on endpoint $dest$ by user $user$ attempting to encrypt disks.
-  risk_objects:
-  - field: user
-    type: user
-    score: 35
-  - field: dest
-    type: system
-    score: 35
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - Ransomware
