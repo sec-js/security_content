@@ -44,7 +44,7 @@ rba:
     score: 25
   threat_objects:
   - field: dest_ip
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Hidden Cobra Malware

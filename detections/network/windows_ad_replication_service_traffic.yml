@@ -36,7 +36,7 @@ rba:
     score: 100
   threat_objects:
   - field: src
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks

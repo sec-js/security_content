@@ -53,7 +53,7 @@ rba:
     score: 25
   threat_objects:
   - field: dest
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - SamSam Ransomware
