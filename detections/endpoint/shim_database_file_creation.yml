@@ -49,7 +49,7 @@ rba:
     score: 56
   threat_objects:
   - field: file_path
-    type: file
+    type: file_path
 tags:
   analytic_story:
   - Windows Persistence Techniques

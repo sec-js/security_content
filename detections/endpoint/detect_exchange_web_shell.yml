@@ -63,10 +63,9 @@ rba:
   - field: dest
     type: system
     score: 81
+  threat_objects:
   - field: file_name
-    type: file name
-    score: 81
-  threat_objects: []
+    type: file_name
 tags:
   analytic_story:
   - ProxyNotShell

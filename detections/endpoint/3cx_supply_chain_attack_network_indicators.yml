@@ -38,7 +38,7 @@ rba:
     score: 100
   threat_objects:
   - field: query
-    type: url string
+    type: domain
 tags:
   analytic_story:
   - 3CX Supply Chain Attack

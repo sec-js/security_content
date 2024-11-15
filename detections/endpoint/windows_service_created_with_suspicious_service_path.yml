@@ -51,7 +51,7 @@ rba:
     score: 56
   threat_objects:
   - field: ImagePath
-    type: file
+    type: service
 tags:
   analytic_story:
   - Clop Ransomware

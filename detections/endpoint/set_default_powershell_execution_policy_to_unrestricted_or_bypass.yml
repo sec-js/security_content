@@ -68,7 +68,7 @@ rba:
     score: 48
   threat_objects:
   - field: registry_path
-    type: other
+    type: registry_path
 tags:
   analytic_story:
   - HAFNIUM Group

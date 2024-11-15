@@ -64,8 +64,8 @@ rba:
     type: system
     score: 25
   threat_objects:
-  - field: dest
-    type: hostname
+  - field: dest_ip
+    type: ip_address
 tags:
   analytic_story:
   - Living Off The Land

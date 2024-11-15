@@ -51,7 +51,7 @@ rba:
     score: 49
   threat_objects:
   - field: IpAddress
-    type: endpoint
+    type: ip_address
 tags:
   analytic_story:
   - Active Directory Password Spraying

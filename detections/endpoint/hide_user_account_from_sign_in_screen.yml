@@ -57,7 +57,7 @@ rba:
     score: 72
   threat_objects:
   - field: registry_value_name
-    type: other
+    type: registry_value_name
 tags:
   analytic_story:
   - XMRig

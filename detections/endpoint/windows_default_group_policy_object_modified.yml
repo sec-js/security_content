@@ -54,9 +54,10 @@ rba:
   - field: Computer
     type: system
     score: 50
-  threat_objects:
   - field: SubjectUserSid
     type: user
+    score: 50
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Privilege Escalation

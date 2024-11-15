@@ -77,9 +77,9 @@ rba:
     score: 90
   threat_objects:
   - field: ssl_hash
-    type: other
+    type: tls_hash
   - field: ssl_serial
-    type: other
+    type: certificate_serial
 tags:
   analytic_story:
   - Windows Certificate Services

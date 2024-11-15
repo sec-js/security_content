@@ -53,9 +53,10 @@ rba:
   - field: user
     type: user
     score: 49
-  threat_objects:
   - field: Computer
-    type: endpoint
+    type: system
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Password Spraying

@@ -50,7 +50,7 @@ rba:
     score: 54
   threat_objects:
   - field: ServiceName
-    type: other
+    type: service
 tags:
   analytic_story:
   - Active Directory Lateral Movement

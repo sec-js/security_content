@@ -51,7 +51,7 @@ rba:
     score: 48
   threat_objects:
   - field: IpAddress
-    type: endpoint
+    type: ip_address
 tags:
   analytic_story:
   - Active Directory Privilege Escalation

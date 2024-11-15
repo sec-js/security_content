@@ -66,9 +66,10 @@ rba:
   - field: dest
     type: system
     score: 60
-  threat_objects:
   - field: src_user
     type: user
+    score: 60
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Certificate Services

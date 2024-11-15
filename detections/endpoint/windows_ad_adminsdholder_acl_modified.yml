@@ -79,9 +79,10 @@ rba:
   - field: user
     type: user
     score: 56
-  threat_objects:
   - field: src_user
     type: user
+    score: 56
+  threat_objects: []
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks

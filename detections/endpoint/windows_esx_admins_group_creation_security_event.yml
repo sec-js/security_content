@@ -52,9 +52,10 @@ rba:
   - field: dest
     type: system
     score: 25
-  threat_objects:
   - field: SubjectUserName
     type: user
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - VMware ESXi AD Integration Authentication Bypass CVE-2024-37085

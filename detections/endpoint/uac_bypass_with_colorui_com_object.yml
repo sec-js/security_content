@@ -47,9 +47,7 @@ rba:
   - field: dest
     type: system
     score: 48
-  threat_objects:
-  - field: ImageLoaded
-    type: other
+  threat_objects: []
 tags:
   analytic_story:
   - Ransomware

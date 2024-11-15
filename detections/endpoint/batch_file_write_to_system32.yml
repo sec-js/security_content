@@ -62,10 +62,9 @@ rba:
   - field: dest
     type: system
     score: 63
+  threat_objects:
   - field: file_name
-    type: file name
-    score: 63
-  threat_objects: []
+    type: file_name
 tags:
   analytic_story:
   - SamSam Ransomware

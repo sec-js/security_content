@@ -57,9 +57,7 @@ rba:
   - field: user
     type: user
     score: 40
-  threat_objects:
-  - field: object_name
-    type: other
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery
