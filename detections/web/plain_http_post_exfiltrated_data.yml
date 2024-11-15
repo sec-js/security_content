@@ -45,7 +45,7 @@ rba:
     in uri path $uri_path$
   risk_objects:
   - field: src_ip
-    type: ip address
+    type: system
     score: 63
   threat_objects: []
 tags:

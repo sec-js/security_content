@@ -45,7 +45,7 @@ rba:
   message: A URL was requested related to Spring4Shell POC code on $dest$ by $src$.
   risk_objects:
   - field: dest
-    type: ip address
+    type: system
     score: 36
   threat_objects:
   - field: src

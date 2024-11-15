@@ -50,7 +50,7 @@ rba:
     dest $dest$.
   risk_objects:
   - field: src
-    type: ip address
+    type: system
     score: 9
   threat_objects:
   - field: dest

@@ -45,7 +45,7 @@ rba:
   message: Potential Privacy Risk Destinations from dest -[$dest$] on $src$ for user-[$user$].
   risk_objects:
   - field: src
-    type: ip address
+    type: system
     score: 8
   - field: user
     type: user

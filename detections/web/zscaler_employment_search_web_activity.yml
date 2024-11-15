@@ -46,7 +46,7 @@ rba:
     user-[$user$].
   risk_objects:
   - field: src
-    type: ip address
+    type: system
     score: 4
   - field: user
     type: user

@@ -44,7 +44,7 @@ rba:
   message: Potential Legal Liability Threat from dest -[$dest$] on $src$ for user-[$user$].
   risk_objects:
   - field: src
-    type: ip address
+    type: system
     score: 16
   - field: user
     type: user
