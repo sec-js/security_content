@@ -64,7 +64,7 @@ rba:
     score: 25
   threat_objects:
   - field: url_domain
-    type: hostname
+    type: domain
 tags:
   analytic_story:
   - Insider Threat
