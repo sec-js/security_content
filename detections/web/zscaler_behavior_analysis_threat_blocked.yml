@@ -52,7 +52,7 @@ rba:
     score: 8
   threat_objects:
   - field: url
-    type: url string
+    type: url
 tags:
   analytic_story:
   - Zscaler Browser Proxy Threats
