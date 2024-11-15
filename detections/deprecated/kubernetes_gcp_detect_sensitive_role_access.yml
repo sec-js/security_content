@@ -23,7 +23,7 @@ rba:
   risk_objects: []
   threat_objects:
   - field: src_user
-    type: User
+    type: user
 tags:
   analytic_story:
   - Kubernetes Sensitive Role Activity

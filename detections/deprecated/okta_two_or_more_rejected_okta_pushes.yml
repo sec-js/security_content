@@ -31,7 +31,7 @@ rba:
   message: $user$ account has rejected multiple Okta pushes.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 64
   threat_objects: []
 tags:

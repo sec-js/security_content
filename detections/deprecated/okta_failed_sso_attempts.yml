@@ -24,7 +24,7 @@ rba:
   message: $src_user$ failed SSO authentication to the app.
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 16
   threat_objects: []
 tags:

@@ -28,10 +28,10 @@ rba:
     3, which may be indicative of the pass the hash technique.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   - field: dest
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects: []
 tags:

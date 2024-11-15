@@ -18,7 +18,7 @@ rba:
   message: Correlation triggered for user $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 70
   threat_objects: []
 tags:

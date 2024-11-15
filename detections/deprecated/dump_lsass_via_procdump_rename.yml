@@ -32,13 +32,13 @@ rba:
     $parent_process_name$ on $dest$, attempting to dump lsass.exe.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Credential Dumping

@@ -41,11 +41,11 @@ rba:
   message: tbd
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - AWS Suspicious Provisioning Activities

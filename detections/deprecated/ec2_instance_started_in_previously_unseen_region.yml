@@ -28,7 +28,7 @@ rba:
   message: tbd
   risk_objects:
   - field: awsRegion
-    type: Geo Location
+    type: geo location
     score: 25
   threat_objects: []
 tags:

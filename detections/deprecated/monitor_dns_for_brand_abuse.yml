@@ -25,11 +25,11 @@ rba:
   message: tbd
   risk_objects:
   - field: query
-    type: Other
+    type: other
     score: 25
   threat_objects:
   - field: IPs
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Brand Monitoring

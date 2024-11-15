@@ -49,9 +49,9 @@ rba:
   risk_objects: []
   threat_objects:
   - field: src_endpoint.ip
-    type: IP Address
+    type: ip address
   - field: identity.user.name
-    type: User
+    type: user
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation

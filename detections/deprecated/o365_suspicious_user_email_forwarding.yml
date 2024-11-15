@@ -47,11 +47,11 @@ rba:
     a forwarding rule to same destination $ForwardingSmtpAddress$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 48
   threat_objects:
   - field: ForwardingSmtpAddress
-    type: Email Address
+    type: email address
 tags:
   analytic_story:
   - Office 365 Collection Techniques

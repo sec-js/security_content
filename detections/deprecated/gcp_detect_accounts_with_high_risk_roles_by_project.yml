@@ -29,7 +29,7 @@ rba:
   message: tbd
   risk_objects:
   - field: data.protoPayload.authenticationInfo.principalEmail
-    type: User
+    type: user
     score: 25
   threat_objects: []
 tags:
