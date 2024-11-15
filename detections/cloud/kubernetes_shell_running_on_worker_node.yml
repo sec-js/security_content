@@ -46,7 +46,7 @@ rba:
   message: Kubernetes shell running on worker node on host $host$
   risk_objects:
   - field: host
-    type: hostname
+    type: system
     score: 25
   threat_objects: []
 tags:

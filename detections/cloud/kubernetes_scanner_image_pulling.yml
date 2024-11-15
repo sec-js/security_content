@@ -42,7 +42,7 @@ rba:
   message: Kubernetes Scanner image pulled on host $host$
   risk_objects:
   - field: host
-    type: hostname
+    type: system
     score: 81
   threat_objects: []
 tags:

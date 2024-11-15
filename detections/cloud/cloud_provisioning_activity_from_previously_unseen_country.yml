@@ -63,7 +63,7 @@ rba:
     time in Country $Country$ from IP address $src$
   risk_objects:
   - field: object
-    type: endpoint
+    type: system
     score: 42
   threat_objects:
   - field: user

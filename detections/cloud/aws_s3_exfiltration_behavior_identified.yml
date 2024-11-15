@@ -53,7 +53,7 @@ rba:
     trigged for risk object $risk_object$
   risk_objects:
   - field: risk_object
-    type: hostname
+    type: system
     score: 81
   threat_objects: []
 tags:

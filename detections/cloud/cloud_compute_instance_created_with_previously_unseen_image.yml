@@ -39,7 +39,7 @@ rba:
     previously seen.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 36
   threat_objects:
   - field: user

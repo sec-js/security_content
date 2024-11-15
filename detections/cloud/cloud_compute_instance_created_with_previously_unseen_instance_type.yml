@@ -40,7 +40,7 @@ rba:
     that has not been previously seen.
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 30
   threat_objects:
   - field: user
