@@ -36,7 +36,7 @@ rba:
     on $dest_ip$ by $src_ip$.
   risk_objects:
   - field: dest_ip
-    type: ip address
+    type: system
     score: 10
   threat_objects:
   - field: src_ip

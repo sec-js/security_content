@@ -57,7 +57,7 @@ rba:
     score: 64
   threat_objects:
   - field: Image
-    type: file name
+    type: file_name
 tags:
   analytic_story:
   - APT29 Diplomatic Deceptions with WINELOADER

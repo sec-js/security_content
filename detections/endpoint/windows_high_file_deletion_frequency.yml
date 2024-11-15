@@ -60,7 +60,7 @@ rba:
     score: 72
   threat_objects:
   - field: deleted_files
-    type: file name
+    type: file_name
   - field: process_name
     type: process_name
 tags:

@@ -50,7 +50,7 @@ rba:
     score: 63
   threat_objects:
   - field: file_name
-    type: file name
+    type: file_name
 tags:
   analytic_story:
   - XMRig

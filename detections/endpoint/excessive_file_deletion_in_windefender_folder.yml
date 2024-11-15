@@ -53,7 +53,7 @@ rba:
     score: 25
   threat_objects:
   - field: deleted_files
-    type: file name
+    type: file_name
 tags:
   analytic_story:
   - Data Destruction

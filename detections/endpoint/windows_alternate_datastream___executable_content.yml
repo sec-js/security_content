@@ -53,7 +53,7 @@ rba:
     score: 80
   threat_objects:
   - field: file_name
-    type: file name
+    type: file_name
   - field: file_hash
     type: file hash
 tags:
