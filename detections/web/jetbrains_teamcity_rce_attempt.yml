@@ -48,11 +48,11 @@ rba:
     $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 81
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   cve:
   - CVE-2023-42793

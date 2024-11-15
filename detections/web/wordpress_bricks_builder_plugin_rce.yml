@@ -51,11 +51,11 @@ rba:
     on $dest$ by $src$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 100
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - WordPress Vulnerabilities

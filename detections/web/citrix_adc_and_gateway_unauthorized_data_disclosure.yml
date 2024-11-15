@@ -50,11 +50,11 @@ rba:
     $src$.
   risk_objects:
   - field: dest
-    type: IP Address
+    type: ip address
     score: 90
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Citrix NetScaler ADC and NetScaler Gateway CVE-2023-4966

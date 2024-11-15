@@ -53,11 +53,11 @@ rba:
     code execution vulnerability,  on $dest$ by $src$.
   risk_objects:
   - field: dest
-    type: IP Address
+    type: ip address
     score: 100
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Atlassian Confluence Server and Data Center CVE-2022-26134

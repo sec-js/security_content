@@ -55,7 +55,7 @@ rba:
     $dest$. Review events and take action accordingly.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 72
   threat_objects: []
 tags:

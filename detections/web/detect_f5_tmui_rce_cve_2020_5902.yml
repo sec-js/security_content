@@ -30,7 +30,7 @@ rba:
   message: tbd
   risk_objects:
   - field: dest
-    type: IP Address
+    type: ip address
     score: 25
   threat_objects: []
 tags:

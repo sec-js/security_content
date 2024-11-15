@@ -57,14 +57,14 @@ rba:
     by $src$.
   risk_objects:
   - field: src
-    type: Hostname
+    type: hostname
     score: 25
   - field: user
-    type: User
+    type: user
     score: 25
   threat_objects:
   - field: url_domain
-    type: Hostname
+    type: hostname
 tags:
   analytic_story:
   - Insider Threat

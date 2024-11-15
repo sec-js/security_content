@@ -60,7 +60,7 @@ rba:
     Endpoint Manager (EPM), identified as CVE-2024-29824 against $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects: []
 tags:

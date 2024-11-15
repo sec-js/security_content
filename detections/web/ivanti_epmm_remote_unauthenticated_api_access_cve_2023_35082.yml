@@ -52,7 +52,7 @@ rba:
   message: Potential CVE-2023-35082 against an Ivanti EPMM appliance on $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects: []
 tags:

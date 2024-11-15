@@ -48,11 +48,11 @@ rba:
     in uri path $uri_path$
   risk_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
     score: 25
   threat_objects:
   - field: url
-    type: URL String
+    type: url string
 tags:
   analytic_story:
   - Data Exfiltration

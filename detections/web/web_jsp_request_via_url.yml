@@ -46,11 +46,11 @@ rba:
     web shell activity.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 72
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Spring4Shell CVE-2022-22965

@@ -50,7 +50,7 @@ rba:
   message: URIs specific to PaperCut NG have been access by a public IP against $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 63
   threat_objects: []
 tags:

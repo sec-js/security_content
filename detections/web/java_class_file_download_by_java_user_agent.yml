@@ -44,11 +44,11 @@ rba:
     a remote class file.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 40
   threat_objects:
   - field: http_user_agent
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Log4Shell CVE-2021-44228

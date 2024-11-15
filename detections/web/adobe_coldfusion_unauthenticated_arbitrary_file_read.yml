@@ -50,11 +50,11 @@ rba:
   message: Possible exploitation of CVE-2023-26360 against $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 45
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   cve:
   - CVE-2023-26360
