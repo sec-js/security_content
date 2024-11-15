@@ -56,7 +56,7 @@ rba:
     to determine if this was authorized.
   risk_objects:
   - field: risk_object
-    type: User
+    type: user
     score: 56
   threat_objects: []
 tags:

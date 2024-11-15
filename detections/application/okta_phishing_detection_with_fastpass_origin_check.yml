@@ -30,7 +30,7 @@ rba:
   message: Okta FastPass has prevented $user$ from authenticating to a malicious site.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 100
   threat_objects: []
 tags:

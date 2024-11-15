@@ -63,7 +63,7 @@ rba:
     across $aceAccessRights$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 80
   threat_objects: []
 tags:

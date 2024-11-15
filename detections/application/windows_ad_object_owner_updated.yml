@@ -55,10 +55,10 @@ rba:
   message: $src_user$ has made $user$ the owner of AD object $ObjectDN$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 100
   - field: src_user
-    type: User
+    type: user
     score: 100
   threat_objects: []
 tags:

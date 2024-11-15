@@ -44,7 +44,7 @@ rba:
   message: Spike in User Modification actions performed by $src_user$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 8
   threat_objects: []
 tags:

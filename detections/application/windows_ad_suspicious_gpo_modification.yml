@@ -59,10 +59,10 @@ rba:
     $gpo_guid$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 80
   - field: src_user
-    type: User
+    type: user
     score: 80
   threat_objects: []
 tags:

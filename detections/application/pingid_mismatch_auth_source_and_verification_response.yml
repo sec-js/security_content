@@ -61,14 +61,14 @@ rba:
     and the verification was received from [$src$ - $verify_Country$].
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   - field: src
-    type: IP Address
+    type: ip address
     score: 25
   threat_objects:
   - field: object
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Compromised User Account

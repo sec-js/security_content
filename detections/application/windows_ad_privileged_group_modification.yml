@@ -24,7 +24,7 @@ rba:
   message: $user$ was added to privileged AD Group $Group_Name$ by $src_user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 50
   threat_objects: []
 tags:

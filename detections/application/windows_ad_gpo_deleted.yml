@@ -46,7 +46,7 @@ rba:
   message: GPO $policyName$ was deleted by $src_user$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 64
   threat_objects: []
 tags:

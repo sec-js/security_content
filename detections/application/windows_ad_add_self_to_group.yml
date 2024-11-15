@@ -38,7 +38,7 @@ rba:
   message: $user$ added themselves to AD Group $Group_Name$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 50
   threat_objects: []
 tags:

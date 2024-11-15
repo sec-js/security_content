@@ -53,11 +53,11 @@ rba:
     on $dest$ by $src_ip$.
   risk_objects:
   - field: dest
-    type: IP Address
+    type: ip address
     score: 64
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - CrushFTP Vulnerabilities

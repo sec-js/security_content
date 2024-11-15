@@ -47,11 +47,11 @@ rba:
     to determine if this was authorized.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Okta Account Takeover

@@ -42,7 +42,7 @@ rba:
   message: Multiple Failed Requests to Access Applications via Okta for $actor.alternateId$.
   risk_objects:
   - field: actor.alternateId
-    type: User
+    type: user
     score: 56
   threat_objects: []
 tags:

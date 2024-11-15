@@ -47,7 +47,7 @@ rba:
     occurred for $actor.alternateId$
   risk_objects:
   - field: actor.alternateId
-    type: User
+    type: user
     score: 64
   threat_objects: []
 tags:

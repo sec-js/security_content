@@ -50,14 +50,14 @@ rba:
     was $action$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 10
   - field: src
-    type: IP Address
+    type: ip address
     score: 10
   threat_objects:
   - field: object
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Compromised User Account

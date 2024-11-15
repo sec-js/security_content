@@ -44,7 +44,7 @@ rba:
   message: $src_user$ has disabled GPO $policyName$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 64
   threat_objects: []
 tags:

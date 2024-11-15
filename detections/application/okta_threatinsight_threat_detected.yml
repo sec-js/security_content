@@ -46,11 +46,11 @@ rba:
     Investigate further to determine if this was authorized.
   risk_objects:
   - field: app
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Okta Account Takeover

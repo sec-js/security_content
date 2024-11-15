@@ -47,7 +47,7 @@ rba:
     without proper authentication, which may indicate exploitation of CVE-2024-7593.
   risk_objects:
   - field: MODUSER
-    type: User
+    type: user
     score: 72
   threat_objects: []
 tags:

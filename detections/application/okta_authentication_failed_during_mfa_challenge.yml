@@ -49,11 +49,11 @@ rba:
   message: A user [$user$] has failed to authenticate via MFA from IP Address - [$src$]"
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 48
   threat_objects:
   - field: src
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Okta Account Takeover
