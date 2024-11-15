@@ -42,7 +42,7 @@ known_false_positives: GCP Storage buckets can be accessed from any IP (if the A
 references: []
 rba:
   message: GCP Bucket $bucket_name$ accessed from a new IP ($remote_ip$)
-  risk_objects: 
+  risk_objects:
   - field: bucket_name
     type: system
     score: 25

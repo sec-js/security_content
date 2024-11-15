@@ -45,7 +45,7 @@ rba:
     score: 40
   threat_objects:
   - field: url
-    type: url string
+    type: url
 tags:
   analytic_story:
   - Office 365 Account Takeover
