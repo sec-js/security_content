@@ -31,14 +31,6 @@ references:
 - https://www.splunk.com/en_us/blog/security/nothing-puny-about-cve-2022-3602.html
 - https://www.openssl.org/blog/blog/2022/11/01/email-address-overflows/
 - https://docs.zeek.org/en/master/scripts/base/init-bare.zeek.html#type-X509::SubjectAlternativeName
-rba:
-  message: A x509 certificate has been identified to have punycode in the subject
-    alternative name on $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - OpenSSL CVE-2022-3602

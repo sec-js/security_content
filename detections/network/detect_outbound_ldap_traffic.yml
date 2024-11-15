@@ -30,16 +30,6 @@ known_false_positives: Unknown at this moment. Outbound LDAP traffic should not 
   verify if the activity is legitimate.
 references:
 - https://www.govcert.ch/blog/zero-day-exploit-targeting-popular-java-library-log4j/
-rba:
-  message: An outbound LDAP connection from $src_ip$ in your infrastructure connecting
-    to dest ip $dest_ip$
-  risk_objects:
-  - field: src_ip
-    type: system
-    score: 56
-  threat_objects:
-  - field: dest_ip
-    type: ip_address
 tags:
   analytic_story:
   - Log4Shell CVE-2021-44228

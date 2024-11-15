@@ -31,14 +31,6 @@ references:
 - https://www.openssl.org/blog/blog/2022/11/01/email-address-overflows/
 - https://community.emergingthreats.net/t/out-of-band-ruleset-update-summary-2022-11-01/117
 - https://github.com/corelight/CVE-2022-3602/tree/master/scripts
-rba:
-  message: A x509 certificate has been identified to have punycode in the SSL issuer
-    email domain on $dest$.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 15
-  threat_objects: []
 tags:
   analytic_story:
   - OpenSSL CVE-2022-3602
