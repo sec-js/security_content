@@ -53,7 +53,7 @@ rba:
   risk_objects:
   - field: recipientAccountId
     type: Other
-    risk_score: 64.0
+    risk_score: 64
   threat_objects:
   - field: sourceIPAddress
     type: IP Address

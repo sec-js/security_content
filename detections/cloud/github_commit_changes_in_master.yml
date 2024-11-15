@@ -44,7 +44,7 @@ rba:
   risk_objects:
   - field: commit.commit.author.email
     type: User
-    risk_score: 9.0
+    risk_score: 9
   threat_objects: []
 tags:
   analytic_story:

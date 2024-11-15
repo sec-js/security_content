@@ -45,7 +45,7 @@ rba:
   risk_objects:
   - field: repository
     type: Other
-    risk_score: 27.0
+    risk_score: 27
   threat_objects: []
 tags:
   analytic_story:

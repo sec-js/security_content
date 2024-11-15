@@ -54,7 +54,7 @@ rba:
   risk_objects:
   - field: destination{}.address
     type: Email Address
-    risk_score: 25.0
+    risk_score: 25
   threat_objects:
   - field: source.address
     type: Email Address

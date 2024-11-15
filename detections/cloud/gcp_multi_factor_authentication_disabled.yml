@@ -48,7 +48,7 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 45.0
+    risk_score: 45
   threat_objects:
   - field: actor.email
     type: User

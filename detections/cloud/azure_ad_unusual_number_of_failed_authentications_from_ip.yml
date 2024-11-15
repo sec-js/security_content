@@ -53,7 +53,7 @@ rba:
   risk_objects:
   - field: userPrincipalName
     type: User
-    risk_score: 54.0
+    risk_score: 54
   threat_objects:
   - field: ipAddress
     type: IP Address

@@ -44,7 +44,7 @@ rba:
   risk_objects:
   - field: aws_account_id
     type: Other
-    risk_score: 64.0
+    risk_score: 64
   threat_objects:
   - field: src_ip
     type: IP Address

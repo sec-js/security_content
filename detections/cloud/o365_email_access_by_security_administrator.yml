@@ -42,10 +42,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 25.0
+    risk_score: 25
   - field: src_user
     type: User
-    risk_score: 25.0
+    risk_score: 25
   threat_objects:
   - field: signature_id
     type: Other

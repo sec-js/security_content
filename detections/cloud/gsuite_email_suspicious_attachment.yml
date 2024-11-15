@@ -49,7 +49,7 @@ rba:
   risk_objects:
   - field: destination{}.address
     type: Email Address
-    risk_score: 49.0
+    risk_score: 49
   threat_objects:
   - field: source.address
     type: Email Address
