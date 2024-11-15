@@ -46,10 +46,10 @@ rba:
   risk_objects:
   - field: src
     type: IP Address
-    risk_score: 40
+    score: 40
   - field: user
     type: User
-    risk_score: 40
+    score: 40
   threat_objects:
   - field: url
     type: URL String

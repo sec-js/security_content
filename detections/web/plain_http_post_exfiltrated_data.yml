@@ -46,7 +46,7 @@ rba:
   risk_objects:
   - field: src_ip
     type: IP Address
-    risk_score: 63
+    score: 63
   threat_objects: []
 tags:
   analytic_story:

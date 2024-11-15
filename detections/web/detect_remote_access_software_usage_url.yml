@@ -58,10 +58,10 @@ rba:
   risk_objects:
   - field: src
     type: Hostname
-    risk_score: 25
+    score: 25
   - field: user
     type: User
-    risk_score: 25
+    score: 25
   threat_objects:
   - field: url_domain
     type: Hostname
