@@ -45,11 +45,11 @@ rba:
   message: tbd
   risk_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
     score: 25
   threat_objects:
   - field: dest_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Prohibited Traffic Allowed or Protocol Mismatch

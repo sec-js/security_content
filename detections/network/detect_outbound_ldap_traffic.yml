@@ -35,11 +35,11 @@ rba:
     to dest ip $dest_ip$
   risk_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
     score: 56
   threat_objects:
   - field: dest_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Log4Shell CVE-2021-44228

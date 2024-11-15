@@ -43,7 +43,7 @@ rba:
   message: An endpoint, $src$, is beaconing out to the reverse proxy service of Ngrok.
   risk_objects:
   - field: src
-    type: Hostname
+    type: hostname
     score: 50
   threat_objects: []
 tags:

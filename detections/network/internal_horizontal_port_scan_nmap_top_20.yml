@@ -51,7 +51,7 @@ rba:
     IPs
   risk_objects:
   - field: src_ip
-    type: Hostname
+    type: hostname
     score: 72
   threat_objects: []
 tags:

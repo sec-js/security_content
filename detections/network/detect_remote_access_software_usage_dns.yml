@@ -56,11 +56,11 @@ rba:
   message: A domain for a known remote access software $query$ was contacted by $src$.
   risk_objects:
   - field: src
-    type: Hostname
+    type: hostname
     score: 4
   threat_objects:
   - field: query
-    type: Hostname
+    type: hostname
 tags:
   analytic_story:
   - Insider Threat

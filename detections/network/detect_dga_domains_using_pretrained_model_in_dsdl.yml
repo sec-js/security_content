@@ -47,11 +47,11 @@ rba:
     $src$, kindly review.
   risk_objects:
   - field: src
-    type: Hostname
+    type: hostname
     score: 63
   threat_objects:
   - field: domain
-    type: URL String
+    type: url string
 tags:
   analytic_story:
   - Data Exfiltration

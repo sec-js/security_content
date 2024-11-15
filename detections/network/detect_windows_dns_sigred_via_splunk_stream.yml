@@ -28,7 +28,7 @@ rba:
   message: tbd
   risk_objects:
   - field: flow_id
-    type: Other
+    type: other
     score: 25
   threat_objects: []
 tags:

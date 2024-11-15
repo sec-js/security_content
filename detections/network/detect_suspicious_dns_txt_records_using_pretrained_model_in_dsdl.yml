@@ -50,11 +50,11 @@ rba:
   message: A suspicious DNS TXT response was detected on host $src$ , kindly review.
   risk_objects:
   - field: src
-    type: Hostname
+    type: hostname
     score: 45
   threat_objects:
   - field: answer
-    type: Other
+    type: other
 tags:
   analytic_story:
   - DNS Hijacking
