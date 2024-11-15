@@ -38,7 +38,7 @@ rba:
   message: Suspicious renamed rundll32.exe binary ran on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: endpoint
+    type: system
     score: 63
   - field: User
     type: user
