@@ -79,10 +79,6 @@ tags:
   - T1484
   - T1222
   - T1222.001
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
