@@ -23,17 +23,6 @@ how_to_implement: To successfully implement this search, you must ingest your Wi
 known_false_positives: Legitimate logon activity by authorized NTLM systems may be
   detected by this search. Please investigate as appropriate.
 references: []
-rba:
-  message: The following $EventCode$ occurred on $dest$ by $user$ with Logon Type
-    3, which may be indicative of the pass the hash technique.
-  risk_objects:
-  - field: user
-    type: user
-    score: 49
-  - field: dest
-    type: system
-    score: 49
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement

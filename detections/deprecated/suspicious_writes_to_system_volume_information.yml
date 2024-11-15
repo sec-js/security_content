@@ -20,13 +20,6 @@ known_false_positives: It is possible that other utilities or system processes m
   legitimately write to this folder. Investigate and modify the search to include
   exceptions as appropriate.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Collection and Staging

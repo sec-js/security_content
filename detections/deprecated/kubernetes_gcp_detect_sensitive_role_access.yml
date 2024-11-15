@@ -18,12 +18,6 @@ known_false_positives: Sensitive role resource access is necessary for cluster o
   however source IP, user agent, decision and reason may indicate possible malicious
   use.
 references: []
-rba:
-  message: tbd
-  risk_objects: []
-  threat_objects:
-  - field: src_user
-    type: user
 tags:
   analytic_story:
   - Kubernetes Sensitive Role Activity

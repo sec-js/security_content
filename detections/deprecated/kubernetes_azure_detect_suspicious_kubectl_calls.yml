@@ -20,13 +20,6 @@ known_false_positives: Kubectl calls are not malicious by nature. However source
   verb and Object can reveal potential malicious activity, specially suspicious IPs
   and sensitive objects such as configmaps or secrets
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: sourceIPs{}
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Kubernetes Sensitive Object Access Activity

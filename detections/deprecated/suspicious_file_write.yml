@@ -29,13 +29,6 @@ known_false_positives: It's possible for a legitimate file to be created with th
   the process responsible for the activity can help determine whether or not the activity
   is legitimate.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Hidden Cobra Malware

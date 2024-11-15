@@ -24,16 +24,6 @@ how_to_implement: The detection is based on data that originates from Endpoint D
   names and speed up the data modeling process.
 known_false_positives: None identified
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Monitor for Unauthorized Software

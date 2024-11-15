@@ -27,18 +27,6 @@ references:
 - https://attack.mitre.org/techniques/T1003/001/
 - https://docs.microsoft.com/en-us/sysinternals/downloads/procdump
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1003.001/T1003.001.md#atomic-test-2---dump-lsassexe-memory-using-procdump
-rba:
-  message: The following $process_name$ has been identified as renamed, spawning from
-    $parent_process_name$ on $dest$, attempting to dump lsass.exe.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 80
-  threat_objects:
-  - field: parent_process_name
-    type: parent_process_name
-  - field: process_name
-    type: process_name
 tags:
   analytic_story:
   - Credential Dumping

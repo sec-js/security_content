@@ -17,13 +17,6 @@ how_to_implement: You must install the Add-on for Microsoft Cloud Services and C
 known_false_positives: Not all unauthenticated requests are malicious, but source
   IPs, userAgent, verb, request URI and response status will provide context.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: sourceIPs{}
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Kubernetes Scanning Activity

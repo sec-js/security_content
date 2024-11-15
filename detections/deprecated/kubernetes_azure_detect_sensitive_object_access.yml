@@ -17,13 +17,6 @@ how_to_implement: You must install the Add-on for Microsoft Cloud Services and C
 known_false_positives: Sensitive object access is not necessarily malicious but user
   and object context can provide guidance for detection.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: user.username
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Kubernetes Sensitive Object Access Activity

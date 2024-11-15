@@ -25,13 +25,6 @@ references:
 - https://github.com/dxa4481/gcploit
 - https://www.youtube.com/watch?v=Ml09R38jpok
 - https://cloud.google.com/iam/docs/understanding-roles
-rba:
-  message: tbd
-  risk_objects:
-  - field: data.protoPayload.authenticationInfo.principalEmail
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - GCP Cross Account Activity

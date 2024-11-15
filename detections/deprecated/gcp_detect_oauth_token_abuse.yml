@@ -20,13 +20,6 @@ known_false_positives: GCP Oauth token abuse detection will only work if there a
 references:
 - https://www.netskope.com/blog/gcp-oauth-token-hijacking-in-google-cloud-part-1
 - https://www.netskope.com/blog/gcp-oauth-token-hijacking-in-google-cloud-part-2
-rba:
-  message: tbd
-  risk_objects:
-  - field: protoPayload.status.details{}.violations{}.callerIp
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - GCP Cross Account Activity

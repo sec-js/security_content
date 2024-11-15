@@ -35,13 +35,6 @@ known_false_positives: Legitimate programs can also use command-line arguments t
   is being executed. We recommend customizing the `first_time_seen_cmd_line_filter`
   macro to exclude legitimate parent_process_name
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: dest
-    type: system
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - DHS Report TA18-074A

@@ -20,13 +20,6 @@ known_false_positives: If the Identity_Management data model is not updated regu
   this search could give you false positive alerts. Please consider this and investigate
   appropriately.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: identity
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story: []
   asset_type: Domain Server

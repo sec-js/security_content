@@ -37,13 +37,6 @@ known_false_positives: It's likely that you'll find activity detected by users/s
   file. If the user is a legitimate service account, update the `aws_service_accounts.csv`
   table with that entry.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - AWS User Monitoring

@@ -18,13 +18,6 @@ how_to_implement: You must install splunk add on for GCP . This search works wit
 known_false_positives: Sensitive object access is not necessarily malicious but user
   and object context can provide guidance for detection.
 references: []
-rba:
-  message: tbd
-  risk_objects:
-  - field: src_user
-    type: user
-    score: 25
-  threat_objects: []
 tags:
   analytic_story:
   - Kubernetes Sensitive Object Access Activity
