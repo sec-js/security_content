@@ -51,7 +51,7 @@ rba:
   message: A DNS data exfiltration request was sent by this host $src$ , kindly review.
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 45
   threat_objects:
   - field: query

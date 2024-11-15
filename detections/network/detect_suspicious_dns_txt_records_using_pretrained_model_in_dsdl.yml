@@ -50,7 +50,7 @@ rba:
   message: A suspicious DNS TXT response was detected on host $src$ , kindly review.
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 45
   threat_objects:
   - field: answer

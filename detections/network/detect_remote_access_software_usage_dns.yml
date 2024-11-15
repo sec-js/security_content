@@ -56,7 +56,7 @@ rba:
   message: A domain for a known remote access software $query$ was contacted by $src$.
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 4
   threat_objects:
   - field: query

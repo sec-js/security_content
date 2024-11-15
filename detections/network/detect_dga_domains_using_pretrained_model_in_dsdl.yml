@@ -47,7 +47,7 @@ rba:
     $src$, kindly review.
   risk_objects:
   - field: src
-    type: hostname
+    type: system
     score: 63
   threat_objects:
   - field: domain

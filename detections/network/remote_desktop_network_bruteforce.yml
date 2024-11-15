@@ -30,10 +30,10 @@ rba:
   message: $dest$ may be the target of an RDP Bruteforce
   risk_objects:
   - field: dest
-    type: hostname
+    type: system
     score: 25
   - field: src
-    type: hostname
+    type: system
     score: 25
   threat_objects: []
 tags:
