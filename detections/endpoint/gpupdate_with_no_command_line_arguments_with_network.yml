@@ -69,7 +69,7 @@ rba:
   - field: parent_process_name
     type: process name
   - field: C2
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - BlackByte Ransomware

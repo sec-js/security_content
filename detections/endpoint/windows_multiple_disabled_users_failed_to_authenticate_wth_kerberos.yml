@@ -49,7 +49,7 @@ rba:
     score: 49
   threat_objects:
   - field: IpAddress
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Active Directory Password Spraying

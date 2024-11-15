@@ -53,7 +53,7 @@ rba:
     score: 9
   threat_objects:
   - field: src_ip
-    type: ip address
+    type: ip_address
 tags:
   analytic_story:
   - Information Sabotage
