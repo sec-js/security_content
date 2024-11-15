@@ -25,7 +25,7 @@ rba:
   risk_objects:
   - field: src_user
     type: User
-    risk_score: 16.0
+    risk_score: 16
   threat_objects: []
 tags:
   analytic_story:

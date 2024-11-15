@@ -22,7 +22,7 @@ rba:
   risk_objects:
   - field: sourceIPs{}
     type: IP Address
-    risk_score: 25.0
+    risk_score: 25
   threat_objects: []
 tags:
   analytic_story:
