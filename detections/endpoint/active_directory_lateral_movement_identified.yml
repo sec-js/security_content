@@ -54,13 +54,6 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-rba:
-  message: Activity related to lateral movement has been identified on $risk_object$.
-  risk_objects:
-  - field: risk_object
-    type: system
-    score: 64
-  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement

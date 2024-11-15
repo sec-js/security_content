@@ -56,14 +56,6 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-rba:
-  message: series of process commandline being abused by threat actor have been identified
-    on $risk_object$
-  risk_objects:
-  - field: risk_object
-    type: system
-    score: 49
-  threat_objects: []
 tags:
   analytic_story:
   - Azorult

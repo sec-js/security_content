@@ -48,13 +48,6 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-rba:
-  message: Steal or Forge Authentication Certificates Behavior Identified on $risk_object$.
-  risk_objects:
-  - field: risk_object
-    type: system
-    score: 72
-  threat_objects: []
 tags:
   analytic_story:
   - Windows Certificate Services

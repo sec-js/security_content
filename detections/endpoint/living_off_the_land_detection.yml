@@ -52,13 +52,6 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-rba:
-  message: An increase of Living Off The Land behavior has been detected on $risk_object$
-  risk_objects:
-  - field: risk_object
-    type: system
-    score: 63
-  threat_objects: []
 tags:
   analytic_story:
   - Living Off The Land
