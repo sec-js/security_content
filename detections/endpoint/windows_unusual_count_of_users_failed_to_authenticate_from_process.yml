@@ -51,11 +51,11 @@ rba:
   message: Potential password spraying attack from $Computer$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects:
   - field: Computer
-    type: Endpoint
+    type: endpoint
 tags:
   analytic_story:
   - Active Directory Password Spraying

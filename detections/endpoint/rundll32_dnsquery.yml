@@ -46,11 +46,11 @@ rba:
     $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - IcedID

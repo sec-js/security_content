@@ -58,10 +58,10 @@ rba:
     reg key $registry_path$ was deleted by $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 60
   - field: dest
-    type: Hostname
+    type: hostname
     score: 60
   threat_objects: []
 tags:

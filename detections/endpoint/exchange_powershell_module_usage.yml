@@ -54,7 +54,7 @@ rba:
   message: Suspicious Exchange PowerShell module usaged was identified on $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 32
   threat_objects: []
 tags:

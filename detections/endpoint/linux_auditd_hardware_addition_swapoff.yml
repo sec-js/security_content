@@ -52,7 +52,7 @@ rba:
     of paging devices on a Linux system.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 36
   threat_objects: []
 tags:

@@ -43,7 +43,7 @@ rba:
   message: Powershell Enable SMB1Protocol Feature on $Computer$
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

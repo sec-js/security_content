@@ -50,7 +50,7 @@ rba:
   message: AD Domain Controller Promotion Event Detected for $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects: []
 tags:

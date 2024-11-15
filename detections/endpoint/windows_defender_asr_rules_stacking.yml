@@ -47,11 +47,11 @@ rba:
   message: An ASR rule, $ASR_Rule$, was triggered on $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 50
   threat_objects:
   - field: ASR_Rule
-    type: Unknown
+    type: unknown
 tags:
   analytic_story:
   - Windows Attack Surface Reduction

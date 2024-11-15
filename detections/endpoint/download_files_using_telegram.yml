@@ -45,7 +45,7 @@ rba:
   message: Suspicious files were downloaded with the Telegram application on $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects: []
 tags:

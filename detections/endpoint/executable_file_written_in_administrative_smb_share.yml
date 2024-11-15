@@ -51,7 +51,7 @@ rba:
     share.  Share name=$ShareName$, Target name=$RelativeTargetName$, and Access mask=$AccessMask$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 70
   threat_objects: []
 tags:

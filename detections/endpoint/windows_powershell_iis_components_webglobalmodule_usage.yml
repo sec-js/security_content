@@ -50,7 +50,7 @@ rba:
     has occurred on $Computer$.
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects: []
 tags:

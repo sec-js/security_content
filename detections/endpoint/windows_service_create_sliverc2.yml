@@ -44,7 +44,7 @@ rba:
   message: A user mode service was created on $dest$ related to SliverC2.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 90
   threat_objects: []
 tags:

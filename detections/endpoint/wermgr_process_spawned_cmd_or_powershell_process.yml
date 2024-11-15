@@ -55,7 +55,7 @@ rba:
   message: Wermgr.exe spawning suspicious processes on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 56
   threat_objects: []
 tags:

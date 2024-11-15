@@ -55,11 +55,11 @@ rba:
     10 within 1m) has been detected on $dest$ with a parent process of $parent_process_name$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 28
   threat_objects:
   - field: parent_process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - XMRig

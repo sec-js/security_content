@@ -49,13 +49,13 @@ rba:
     on endpoint $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 32
   threat_objects:
   - field: SourceImage
-    type: Process
+    type: process
   - field: TargetImage
-    type: Process
+    type: process
 tags:
   analytic_story:
   - BishopFox Sliver Adversary Emulation Framework

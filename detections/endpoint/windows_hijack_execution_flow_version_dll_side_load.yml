@@ -44,7 +44,7 @@ rba:
   message: a process $Image$ loading $ImageLoaded$ as a side load dll in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 35
   threat_objects: []
 tags:

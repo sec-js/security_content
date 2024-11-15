@@ -55,16 +55,16 @@ rba:
     pkexec.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 56
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Linux Privilege Escalation

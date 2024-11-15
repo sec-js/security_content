@@ -39,7 +39,7 @@ rba:
     on an existing cronjob file.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 49
   threat_objects: []
 tags:

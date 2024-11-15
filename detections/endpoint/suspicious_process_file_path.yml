@@ -65,11 +65,11 @@ rba:
     $process_path$ on host- $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 35
   threat_objects:
   - field: process_path
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Double Zero Destructor

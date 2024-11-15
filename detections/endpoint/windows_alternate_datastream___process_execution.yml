@@ -51,14 +51,14 @@ rba:
     alternate data stream.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   - field: user
-    type: User
+    type: user
     score: 80
   threat_objects:
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

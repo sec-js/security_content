@@ -32,13 +32,13 @@ rba:
     this is indicative of a known ransomware note file and should be reviewed immediately.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 90
   - field: dest
-    type: Hostname
+    type: hostname
     score: 90
   - field: file_name
-    type: File Name
+    type: file name
     score: 90
   threat_objects: []
 tags:

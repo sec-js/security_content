@@ -46,11 +46,11 @@ rba:
   message: A Windows Service $ServiceName$ with a public path was created on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 54
   threat_objects:
   - field: ServiceName
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Active Directory Lateral Movement

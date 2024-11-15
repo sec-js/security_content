@@ -49,16 +49,16 @@ rba:
     on endpoint $dest$ by user $user$ utilizing a protocol handler.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 6
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 6
   threat_objects:
   - field: parent_process_name
-    type: Process Name
+    type: process name
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Living Off The Land

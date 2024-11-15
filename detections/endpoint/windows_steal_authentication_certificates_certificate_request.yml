@@ -43,7 +43,7 @@ rba:
   message: A certificate was requested by $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 8
   threat_objects: []
 tags:

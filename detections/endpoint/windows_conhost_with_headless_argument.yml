@@ -56,10 +56,10 @@ rba:
   message: Windows ConHost with Headless Argument detected on $dest$ by $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 70
   - field: dest
-    type: Hostname
+    type: hostname
     score: 70
   threat_objects: []
 tags:

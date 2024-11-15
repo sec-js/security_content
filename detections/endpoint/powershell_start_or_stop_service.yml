@@ -47,7 +47,7 @@ rba:
   message: PowerShell was identified attempting to start or stop a service on $Computer$.
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 10
   threat_objects: []
 tags:

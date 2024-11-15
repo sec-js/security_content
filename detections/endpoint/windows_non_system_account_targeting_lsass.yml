@@ -51,14 +51,14 @@ rba:
     related to credential dumping on $dest$. Review for further details.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 64
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 64
   threat_objects:
   - field: parent_process_path
-    type: Process
+    type: process
 tags:
   analytic_story:
   - CISA AA23-347A

@@ -60,10 +60,10 @@ rba:
   message: A pkgmgr.exe executed with package manager xml input file on $dest$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 9
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 9
   threat_objects: []
 tags:

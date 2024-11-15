@@ -51,11 +51,11 @@ rba:
   message: Winlogon.exe was accessed by $SourceImage$ on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 36
   threat_objects:
   - field: TargetImage
-    type: Process
+    type: process
 tags:
   analytic_story:
   - CISA AA23-347A

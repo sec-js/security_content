@@ -54,10 +54,10 @@ rba:
   message: wscript or cscript parent process spawned $process_name$ in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 49
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects: []
 tags:

@@ -62,10 +62,10 @@ rba:
     $process$ in host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 72
   - field: user
-    type: User
+    type: user
     score: 72
   threat_objects: []
 tags:

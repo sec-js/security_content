@@ -60,16 +60,16 @@ rba:
     port $dest_port$. This behaviour is seen with cobaltstrike.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 81
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 81
   threat_objects:
   - field: parent_process_name
-    type: Process Name
+    type: process name
   - field: C2
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - BlackByte Ransomware

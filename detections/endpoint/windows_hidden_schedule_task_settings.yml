@@ -44,7 +44,7 @@ rba:
   message: A schedule task with hidden setting enable in host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects: []
 tags:

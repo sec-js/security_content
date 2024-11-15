@@ -56,7 +56,7 @@ rba:
     $risk_object$.
   risk_objects:
   - field: risk_object
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects: []
 tags:

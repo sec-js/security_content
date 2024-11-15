@@ -55,10 +55,10 @@ rba:
   message: Process name $process_name$ with commandline $process$ to execute vbsscript
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 49
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects: []
 tags:

@@ -51,7 +51,7 @@ rba:
     $Computer$.
   risk_objects:
   - field: Computer
-    type: Endpoint
+    type: endpoint
     score: 36
   threat_objects: []
 tags:

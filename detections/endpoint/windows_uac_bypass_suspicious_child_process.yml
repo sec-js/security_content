@@ -55,14 +55,14 @@ rba:
     a suspicious child process - $process_name$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 45
   - field: user
-    type: User
+    type: user
     score: 45
   threat_objects:
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

@@ -49,11 +49,11 @@ rba:
   message: A services file $file_name$ deteted on host $dest$ by process GUID -  $process_guid$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - AwfulShred

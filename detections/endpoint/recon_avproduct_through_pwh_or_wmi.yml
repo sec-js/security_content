@@ -49,10 +49,10 @@ rba:
   message: A suspicious powershell script contains AV recon command on host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   - field: user
-    type: User
+    type: user
     score: 56
   threat_objects: []
 tags:

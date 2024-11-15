@@ -49,10 +49,10 @@ rba:
     by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 12
   - field: dest
-    type: Hostname
+    type: hostname
     score: 12
   threat_objects: []
 tags:

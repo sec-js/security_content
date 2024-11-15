@@ -56,10 +56,10 @@ rba:
     on $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 14
   - field: user
-    type: User
+    type: user
     score: 14
   threat_objects: []
 tags:

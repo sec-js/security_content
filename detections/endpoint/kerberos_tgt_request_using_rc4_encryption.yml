@@ -47,7 +47,7 @@ rba:
     from $src_ip$
   risk_objects:
   - field: src_ip
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects: []
 tags:

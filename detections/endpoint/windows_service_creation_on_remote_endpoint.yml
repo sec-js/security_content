@@ -57,7 +57,7 @@ rba:
   message: A Windows Service was created on a remote endpoint from $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 54
   threat_objects: []
 tags:

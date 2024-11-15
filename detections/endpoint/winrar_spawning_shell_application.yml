@@ -62,16 +62,16 @@ rba:
     on endpoint $dest$ by user $user$ attempting to decode a file.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 70
   - field: dest
-    type: Hostname
+    type: hostname
     score: 70
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - WinRAR Spoofing Attack CVE-2023-38831

@@ -46,7 +46,7 @@ rba:
   message: Several LOW severity alerts found in $src_host$
   risk_objects:
   - field: src_host
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects: []
 tags:

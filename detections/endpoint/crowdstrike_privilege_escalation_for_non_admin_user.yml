@@ -45,7 +45,7 @@ rba:
   message: A Privilege escalation happened in Non-Admin Account in $src_host$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects: []
 tags:

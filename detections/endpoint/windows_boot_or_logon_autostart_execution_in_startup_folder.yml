@@ -46,10 +46,10 @@ rba:
   message: a process dropped a file in %startup% folder in $dest$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 81
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 81
   threat_objects: []
 tags:

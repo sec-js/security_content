@@ -46,14 +46,14 @@ rba:
     on $dest$ by $user$. Investigate further to determine if this activity is malicious.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects:
   - field: deleted_files
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - Data Destruction

@@ -60,11 +60,11 @@ rba:
   message: An instance of $Image$ writing to $TargetFilename$ was detected on $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects:
   - field: Image
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - APT29 Diplomatic Deceptions with WINELOADER

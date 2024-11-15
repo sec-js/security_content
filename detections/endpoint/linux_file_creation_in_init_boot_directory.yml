@@ -44,7 +44,7 @@ rba:
   message: A file $file_name$ is created in $file_path$ on $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects: []
 tags:

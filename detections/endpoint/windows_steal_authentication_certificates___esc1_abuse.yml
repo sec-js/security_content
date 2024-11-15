@@ -61,14 +61,14 @@ rba:
   message: Possible AD CS ESC1 activity by $src_user$ - $flavor_text$
   risk_objects:
   - field: src
-    type: Hostname
+    type: hostname
     score: 60
   - field: dest
-    type: Hostname
+    type: hostname
     score: 60
   threat_objects:
   - field: src_user
-    type: User
+    type: user
 tags:
   analytic_story:
   - Windows Certificate Services

@@ -56,7 +56,7 @@ rba:
   message: Short Lived Domain Controller SPN AD Attribute Triggered by $src_user$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 100
   threat_objects: []
 tags:

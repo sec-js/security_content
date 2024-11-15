@@ -50,14 +50,14 @@ rba:
     by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 72
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 72
   threat_objects:
   - field: registry_value_name
-    type: Other
+    type: other
 tags:
   analytic_story:
   - XMRig

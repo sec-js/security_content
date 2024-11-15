@@ -38,7 +38,7 @@ rba:
   message: a commandline $process$ that redirect stdout to dev/null in $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 36
   threat_objects: []
 tags:

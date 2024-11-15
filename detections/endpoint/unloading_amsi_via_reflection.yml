@@ -47,7 +47,7 @@ rba:
   message: Possible AMSI Unloading via Reflection using PowerShell on $Computer$
   risk_objects:
   - field: Computer
-    type: Endpoint
+    type: endpoint
     score: 49
   threat_objects: []
 tags:

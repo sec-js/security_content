@@ -46,7 +46,7 @@ rba:
     remote URL.
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects: []
 tags:

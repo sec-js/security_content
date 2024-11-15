@@ -34,7 +34,7 @@ rba:
   message: Elevated group discovery using PowerView on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 21
   threat_objects: []
 tags:

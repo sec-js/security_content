@@ -47,11 +47,11 @@ rba:
     on $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects:
   - field: ImagePath
-    type: File
+    type: file
 tags:
   analytic_story:
   - Clop Ransomware

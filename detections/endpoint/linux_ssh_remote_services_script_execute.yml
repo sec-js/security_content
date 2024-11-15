@@ -53,14 +53,14 @@ rba:
     $user$ attempting to move laterally and download a file.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 56
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Linux Living Off The Land

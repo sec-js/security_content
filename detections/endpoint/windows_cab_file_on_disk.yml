@@ -51,7 +51,7 @@ rba:
   message: A .cab file was written to disk on endpoint $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 5
   threat_objects: []
 tags:

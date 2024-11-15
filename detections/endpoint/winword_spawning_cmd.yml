@@ -55,14 +55,14 @@ rba:
     which is very common in spearphishing attacks.'
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 70
   - field: user
-    type: User
+    type: user
     score: 70
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Spearphishing Attachments

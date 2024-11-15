@@ -42,7 +42,7 @@ rba:
   message: High Identity Risk Score Severity found on $domain$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 90
   threat_objects: []
 tags:

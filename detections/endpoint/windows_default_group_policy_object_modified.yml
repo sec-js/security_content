@@ -52,11 +52,11 @@ rba:
   message: A default group policy object was modified on $Computer$ by $SubjectUserSid$
   risk_objects:
   - field: Computer
-    type: Endpoint
+    type: endpoint
     score: 50
   threat_objects:
   - field: SubjectUserSid
-    type: User
+    type: user
 tags:
   analytic_story:
   - Active Directory Privilege Escalation

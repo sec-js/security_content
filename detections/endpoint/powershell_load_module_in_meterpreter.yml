@@ -46,10 +46,10 @@ rba:
     MetaSploit on endpoint $Computer$ by user $user_id$.
   risk_objects:
   - field: user_id
-    type: User
+    type: user
     score: 100
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 100
   threat_objects: []
 tags:

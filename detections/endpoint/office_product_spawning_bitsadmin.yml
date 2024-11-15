@@ -57,11 +57,11 @@ rba:
     process $process_name$ with process id $process_id$ in host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 63
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Spearphishing Attachments

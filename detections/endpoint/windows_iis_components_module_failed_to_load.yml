@@ -48,7 +48,7 @@ rba:
   message: A new IIS Module has been loaded and should be reviewed on $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

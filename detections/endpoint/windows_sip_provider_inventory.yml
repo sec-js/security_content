@@ -28,7 +28,7 @@ rba:
     non-standard paths for SIP providers on $host$.
   risk_objects:
   - field: host
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects: []
 tags:

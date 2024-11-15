@@ -56,16 +56,16 @@ rba:
     dllinstall parameter.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 36
   - field: dest
-    type: Hostname
+    type: hostname
     score: 36
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - AsyncRAT

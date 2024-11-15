@@ -57,16 +57,16 @@ rba:
     on endpoint $dest$ by user $user$ running the utility for possibly the first time.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 35
   - field: dest
-    type: Hostname
+    type: hostname
     score: 35
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - SamSam Ransomware

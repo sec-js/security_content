@@ -60,14 +60,14 @@ rba:
     $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 20
   - field: user
-    type: User
+    type: user
     score: 20
   threat_objects:
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Windows Persistence Techniques

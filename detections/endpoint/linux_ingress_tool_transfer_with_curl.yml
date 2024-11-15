@@ -55,14 +55,14 @@ rba:
     $user$ to download a remote file. Review activity for further details.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 12
   - field: dest
-    type: Hostname
+    type: hostname
     score: 12
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Linux Living Off The Land

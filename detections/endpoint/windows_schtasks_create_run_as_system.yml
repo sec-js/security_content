@@ -58,11 +58,11 @@ rba:
     SYSTEM.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 48
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Windows Persistence Techniques

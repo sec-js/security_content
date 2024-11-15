@@ -40,11 +40,11 @@ rba:
   message: Unusually long command line $process_name$ on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 42
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Suspicious Command-Line Executions

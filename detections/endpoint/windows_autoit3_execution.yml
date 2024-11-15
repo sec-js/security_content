@@ -55,16 +55,16 @@ rba:
     and the destination process is $process_name$ on $dest$ by
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 50
   - field: user
-    type: User
+    type: user
     score: 50
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - DarkGate Malware

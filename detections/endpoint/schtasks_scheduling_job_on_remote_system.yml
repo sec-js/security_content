@@ -55,14 +55,14 @@ rba:
     in host $dest$ by $user$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 63
   - field: user
-    type: User
+    type: user
     score: 63
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Active Directory Lateral Movement

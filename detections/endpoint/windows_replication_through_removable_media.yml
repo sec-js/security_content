@@ -53,11 +53,11 @@ rba:
     in $dest$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 64
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - Chaos Ransomware

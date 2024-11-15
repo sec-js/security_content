@@ -45,7 +45,7 @@ rba:
   message: Windows PowerShell [Adsisearcher] was used user enumeration on $user$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects: []
 tags:

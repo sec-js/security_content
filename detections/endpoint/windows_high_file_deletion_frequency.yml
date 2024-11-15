@@ -53,16 +53,16 @@ rba:
     $dest$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 72
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 72
   threat_objects:
   - field: deleted_files
-    type: File Name
+    type: file name
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Clop Ransomware

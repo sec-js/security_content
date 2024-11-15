@@ -56,7 +56,7 @@ rba:
   message: a Rar.exe commandline used in archiving collected data in $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects: []
 tags:

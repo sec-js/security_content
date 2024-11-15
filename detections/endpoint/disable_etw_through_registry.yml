@@ -48,7 +48,7 @@ rba:
   message: Disable ETW Through Registry on $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

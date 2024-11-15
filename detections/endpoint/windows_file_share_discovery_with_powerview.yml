@@ -47,10 +47,10 @@ rba:
   message: Invoke-ShareFinder commandlet was executed on $Computer$
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 48
   - field: UserID
-    type: User
+    type: user
     score: 48
   threat_objects: []
 tags:

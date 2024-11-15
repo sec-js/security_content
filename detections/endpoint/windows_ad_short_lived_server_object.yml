@@ -51,11 +51,11 @@ rba:
   message: Potential DCShadow Attack Detected on $Computer$
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects:
   - field: SubjectUserName
-    type: User
+    type: user
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks

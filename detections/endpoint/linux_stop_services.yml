@@ -54,7 +54,7 @@ rba:
     attempting to stop services on endpoint $dest$ by $user$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects: []
 tags:

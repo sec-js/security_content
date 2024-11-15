@@ -49,7 +49,7 @@ rba:
   message: User $user$ requested a service ticket for SPN $service_id$ with RC4 encryption
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 72
   threat_objects: []
 tags:

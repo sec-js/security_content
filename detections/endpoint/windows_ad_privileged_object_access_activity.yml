@@ -55,11 +55,11 @@ rba:
   message: The account $user$ accessed $object_count$ privileged AD object(s).
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 40
   threat_objects:
   - field: object_name
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Active Directory Discovery

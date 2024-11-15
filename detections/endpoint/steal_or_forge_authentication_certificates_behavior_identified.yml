@@ -52,7 +52,7 @@ rba:
   message: Steal or Forge Authentication Certificates Behavior Identified on $risk_object$.
   risk_objects:
   - field: risk_object
-    type: Hostname
+    type: hostname
     score: 72
   threat_objects: []
 tags:

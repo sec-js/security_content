@@ -54,14 +54,14 @@ rba:
     has been detected on $dest$ by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 28
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 28
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Prestige Ransomware

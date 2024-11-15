@@ -55,11 +55,11 @@ rba:
   message: A taskkill process to terminate process is executed on host- $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 36
   threat_objects:
   - field: parent_process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - NjRAT

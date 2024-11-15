@@ -49,10 +49,10 @@ rba:
   message: Commandlets leveraged to discover GPP credentials were executed on $Computer$
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 56
   - field: UserID
-    type: User
+    type: user
     score: 56
   threat_objects: []
 tags:

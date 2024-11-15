@@ -45,7 +45,7 @@ rba:
   message: Kerberos Pre Authentication was Disabled for $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 45
   threat_objects: []
 tags:

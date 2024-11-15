@@ -44,7 +44,7 @@ rba:
   message: PowerShell was identified running a Invoke-PSremoting on $Computer$.
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

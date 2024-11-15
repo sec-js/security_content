@@ -50,7 +50,7 @@ rba:
   message: A service was deleted on $dest$ within the Windows registry.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 18
   threat_objects: []
 tags:

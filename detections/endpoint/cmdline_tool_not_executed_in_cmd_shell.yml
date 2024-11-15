@@ -64,16 +64,16 @@ rba:
     $process_name$ to execute command-line tool on $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 56
   - field: user
-    type: User
+    type: user
     score: 56
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Volt Typhoon

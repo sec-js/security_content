@@ -49,7 +49,7 @@ rba:
     to $TargetImage$ process in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects: []
 tags:

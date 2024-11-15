@@ -49,11 +49,11 @@ rba:
     Service (LSASS).
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 63
   threat_objects:
   - field: TargetImage
-    type: Process
+    type: process
 tags:
   analytic_story:
   - CISA AA23-347A

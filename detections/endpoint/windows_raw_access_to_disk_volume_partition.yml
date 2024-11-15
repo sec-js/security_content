@@ -46,7 +46,7 @@ rba:
   message: Process accessing disk partition $Device$ in $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 90
   threat_objects: []
 tags:

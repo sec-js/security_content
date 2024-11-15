@@ -59,14 +59,14 @@ rba:
     $dest$ by $user$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   - field: user
-    type: User
+    type: user
     score: 25
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - Insider Threat

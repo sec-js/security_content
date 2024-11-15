@@ -50,14 +50,14 @@ rba:
     attack seen on $dest$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 90
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 90
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - SamSam Ransomware

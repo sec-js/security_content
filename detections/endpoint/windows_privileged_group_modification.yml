@@ -67,10 +67,10 @@ rba:
     was $change_type$ on $dest$ by user $src_user$.
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 80
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects: []
 tags:

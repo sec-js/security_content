@@ -52,7 +52,7 @@ rba:
     Linux kernel module using the modprobe utility.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 64
   threat_objects: []
 tags:

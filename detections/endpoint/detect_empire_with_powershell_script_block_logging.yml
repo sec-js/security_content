@@ -51,10 +51,10 @@ rba:
     on $Computer$ by $UserID$.
   risk_objects:
   - field: UserID
-    type: User
+    type: user
     score: 81
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 81
   threat_objects: []
 tags:

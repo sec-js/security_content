@@ -52,11 +52,11 @@ rba:
     of 5 minutes.
   risk_objects:
   - field: host_targets
-    type: Endpoint
+    type: endpoint
     score: 56
   threat_objects:
   - field: IpAddress
-    type: Endpoint
+    type: endpoint
 tags:
   analytic_story:
   - Active Directory Privilege Escalation

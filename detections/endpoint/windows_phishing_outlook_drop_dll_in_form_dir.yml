@@ -49,7 +49,7 @@ rba:
   message: an outlook process dropped dll file into $file_path$ on $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects: []
 tags:

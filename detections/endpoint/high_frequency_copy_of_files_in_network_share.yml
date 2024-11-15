@@ -49,11 +49,11 @@ rba:
   message: High frequency copy of document into a network share from $src_ip$ by $src_user$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 9
   threat_objects:
   - field: src_ip
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Information Sabotage

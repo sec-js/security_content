@@ -56,14 +56,14 @@ rba:
   message: an instance of process $process_name$ with commandline $process$ in $dest$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   - field: dest
-    type: Hostname
+    type: hostname
     score: 30
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Active Directory Discovery

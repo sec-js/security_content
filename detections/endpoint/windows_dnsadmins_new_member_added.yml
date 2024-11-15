@@ -47,7 +47,7 @@ rba:
   message: A new member $user$ added to the DnsAdmins group by $src_user$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 40
   threat_objects: []
 tags:

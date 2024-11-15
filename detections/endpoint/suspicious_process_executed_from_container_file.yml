@@ -55,14 +55,14 @@ rba:
   message: A suspicious process $process_name$ was launched from $file_name$ on $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 16
   - field: user
-    type: User
+    type: user
     score: 16
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - Unusual Processes

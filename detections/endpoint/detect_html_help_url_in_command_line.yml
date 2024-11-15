@@ -60,16 +60,16 @@ rba:
     download a malicious payload.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 90
   - field: dest
-    type: Hostname
+    type: hostname
     score: 90
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Suspicious Compiled HTML Activity

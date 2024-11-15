@@ -49,10 +49,10 @@ rba:
   message: Registry path $registry_path$ was modified, added, or deleted in $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 72
   - field: user
-    type: User
+    type: user
     score: 72
   threat_objects: []
 tags:

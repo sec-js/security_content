@@ -48,7 +48,7 @@ rba:
   message: PowerView commandlets used for SPN discovery executed on $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 27
   threat_objects: []
 tags:

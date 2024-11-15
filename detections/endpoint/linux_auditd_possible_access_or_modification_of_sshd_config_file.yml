@@ -52,7 +52,7 @@ rba:
     sshd_config file.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects: []
 tags:

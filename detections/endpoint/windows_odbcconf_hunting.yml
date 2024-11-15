@@ -41,16 +41,16 @@ rba:
     on endpoint $dest$ by user $user$ attempting to circumvent controls.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 6
   - field: dest
-    type: Hostname
+    type: hostname
     score: 6
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Living Off The Land

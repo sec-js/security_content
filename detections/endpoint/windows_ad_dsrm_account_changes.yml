@@ -56,10 +56,10 @@ rba:
   message: DSRM Account Changes Initiated on $dest$ by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 100
   - field: dest
-    type: Hostname
+    type: hostname
     score: 100
   threat_objects: []
 tags:

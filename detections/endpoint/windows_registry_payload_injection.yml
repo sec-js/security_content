@@ -62,16 +62,16 @@ rba:
     $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 60
   - field: user
-    type: User
+    type: user
     score: 60
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Unusual Processes

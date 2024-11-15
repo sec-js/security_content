@@ -45,10 +45,10 @@ rba:
   message: Potential mailsniper.ps1 functions executed on dest $dest$ by user $user$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 72
   - field: user
-    type: User
+    type: user
     score: 72
   threat_objects: []
 tags:

@@ -45,11 +45,11 @@ rba:
     on endpoint $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 48
   threat_objects:
   - field: ImageLoaded
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Ransomware

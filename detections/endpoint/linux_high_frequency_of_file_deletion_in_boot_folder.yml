@@ -48,7 +48,7 @@ rba:
   message: Multiple files detection in /boot/ folder on $dest$ by process GUID -  $process_guid$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects: []
 tags:

@@ -56,7 +56,7 @@ rba:
   message: An increase of Living Off The Land behavior has been detected on $risk_object$
   risk_objects:
   - field: risk_object
-    type: Hostname
+    type: hostname
     score: 63
   threat_objects: []
 tags:

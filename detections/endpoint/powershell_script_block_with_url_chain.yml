@@ -50,16 +50,16 @@ rba:
     URLs in an array, this is commonly used for malware.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 80
   - field: user
-    type: User
+    type: user
     score: 80
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
   - field: url
-    type: URL String
+    type: url string
 tags:
   analytic_story:
   - Malicious PowerShell

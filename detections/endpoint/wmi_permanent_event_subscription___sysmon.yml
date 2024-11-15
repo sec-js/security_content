@@ -46,10 +46,10 @@ rba:
   message: WMI Permanent Event Subscription detected on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 30
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects: []
 tags:

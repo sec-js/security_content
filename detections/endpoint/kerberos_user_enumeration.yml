@@ -47,7 +47,7 @@ rba:
   message: Potential Kerberos based user enumeration attack $src_ip$
   risk_objects:
   - field: src_ip
-    type: Endpoint
+    type: endpoint
     score: 24
   threat_objects: []
 tags:

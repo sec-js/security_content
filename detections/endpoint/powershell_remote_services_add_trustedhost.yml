@@ -45,10 +45,10 @@ rba:
   message: a powershell script adding a remote trustedhost on $dest$ .
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   - field: user
-    type: User
+    type: user
     score: 64
   threat_objects: []
 tags:

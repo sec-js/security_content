@@ -49,10 +49,10 @@ rba:
     being loaded within the context of PowerShell on $Computer$ by $UserID$.
   risk_objects:
   - field: UserID
-    type: User
+    type: user
     score: 90
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 90
   threat_objects: []
 tags:

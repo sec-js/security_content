@@ -49,10 +49,10 @@ rba:
     running services
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 20
   - field: user
-    type: User
+    type: user
     score: 20
   threat_objects: []
 tags:

@@ -53,10 +53,10 @@ rba:
     $dest$ by $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 56
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 56
   threat_objects: []
 tags:

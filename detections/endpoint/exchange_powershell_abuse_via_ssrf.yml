@@ -31,7 +31,7 @@ rba:
     and take action accordingly.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects: []
 tags:

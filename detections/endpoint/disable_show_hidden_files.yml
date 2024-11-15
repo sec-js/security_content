@@ -48,7 +48,7 @@ rba:
   message: Disabled 'Show Hidden Files' on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 40
   threat_objects: []
 tags:

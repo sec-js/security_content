@@ -56,16 +56,16 @@ rba:
     code or feature of its code related to Clop ransomware.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 100
   - field: dest
-    type: Hostname
+    type: hostname
     score: 100
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Clop Ransomware

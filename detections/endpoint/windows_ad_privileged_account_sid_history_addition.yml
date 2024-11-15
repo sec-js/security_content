@@ -48,7 +48,7 @@ rba:
     by $src_user$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 90
   threat_objects: []
 tags:

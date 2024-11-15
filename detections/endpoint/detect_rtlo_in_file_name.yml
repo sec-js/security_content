@@ -51,14 +51,14 @@ rba:
   message: Suspicious RTLO detected in $file_name$ on endpoint $dest$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 40
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 40
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - Spearphishing Attachments

@@ -54,7 +54,7 @@ rba:
   message: A process commandline $process$ to enumerate dns record in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects: []
 tags:

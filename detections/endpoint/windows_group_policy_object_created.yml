@@ -52,7 +52,7 @@ rba:
   message: A new group policy objected was created by $User$
   risk_objects:
   - field: User
-    type: User
+    type: user
     score: 40
   threat_objects: []
 tags:

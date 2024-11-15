@@ -43,7 +43,7 @@ rba:
   message: The MOVEit application on $dest$ has written a new ASPX file to disk.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 100
   threat_objects: []
 tags:

@@ -56,7 +56,7 @@ rba:
   message: Windows Registry SIP Provider Modification detected on $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 64
   threat_objects: []
 tags:

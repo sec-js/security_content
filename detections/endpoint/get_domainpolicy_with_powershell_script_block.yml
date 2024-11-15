@@ -47,10 +47,10 @@ rba:
     policy.
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 30
   - field: UserID
-    type: User
+    type: user
     score: 30
   threat_objects: []
 tags:

@@ -55,7 +55,7 @@ rba:
     user accounts.
   risk_objects:
   - field: src
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

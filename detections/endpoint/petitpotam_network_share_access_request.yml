@@ -46,7 +46,7 @@ rba:
     a precursor event to CVE-2021-36942, PetitPotam.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects: []
 tags:

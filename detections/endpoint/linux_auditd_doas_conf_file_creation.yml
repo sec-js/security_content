@@ -50,7 +50,7 @@ rba:
   message: A [$type$] event occured on host - [$dest$] to create a doas.conf file.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 64
   threat_objects: []
 tags:

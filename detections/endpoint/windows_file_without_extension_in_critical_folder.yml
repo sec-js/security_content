@@ -49,7 +49,7 @@ rba:
   message: Driver file with out file extension drop in $file_path$ in $dest$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 90
   threat_objects: []
 tags:

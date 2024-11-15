@@ -50,10 +50,10 @@ rba:
     occurred on $Computer$ by $user_id$.
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 25
   - field: user_id
-    type: User
+    type: user
     score: 25
   threat_objects: []
 tags:

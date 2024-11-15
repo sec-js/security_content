@@ -36,10 +36,10 @@ rba:
   message: a debugger $process_name$ is executed in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 9
   - field: user
-    type: User
+    type: user
     score: 9
   threat_objects: []
 tags:

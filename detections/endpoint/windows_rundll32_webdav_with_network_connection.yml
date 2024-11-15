@@ -47,16 +47,16 @@ rba:
     on endpoint $dest$ by user $user$ attempting to contact a remote WebDav server.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 48
   - field: dest
-    type: Hostname
+    type: hostname
     score: 48
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - CVE-2023-23397 Outlook Elevation of Privilege

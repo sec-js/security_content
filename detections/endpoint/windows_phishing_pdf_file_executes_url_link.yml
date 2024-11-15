@@ -54,7 +54,7 @@ rba:
     process of a browser $process_name$ in $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects: []
 tags:

@@ -44,11 +44,11 @@ rba:
   message: Process $process_name$ create a file $file_name$ in host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 9
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - IcedID

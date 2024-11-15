@@ -48,7 +48,7 @@ rba:
   message: a suspicious registry entry related to NjRAT keylloging registry in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 100
   threat_objects: []
 tags:

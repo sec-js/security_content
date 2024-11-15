@@ -48,10 +48,10 @@ rba:
   message: Modified/added/deleted registry entry $registry_path$ in $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 90
   - field: user
-    type: User
+    type: user
     score: 90
   threat_objects: []
 tags:

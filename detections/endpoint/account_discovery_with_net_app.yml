@@ -56,14 +56,14 @@ rba:
   message: Suspicious $process_name$ usage detected on endpoint $dest$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 5
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 5
   threat_objects:
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Trickbot

@@ -44,10 +44,10 @@ rba:
   message: A creation of ryuk test file $file_path$ in host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 70
   - field: user
-    type: User
+    type: user
     score: 70
   threat_objects: []
 tags:

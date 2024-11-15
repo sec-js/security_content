@@ -48,7 +48,7 @@ rba:
     windows OS installation folder in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 90
   threat_objects: []
 tags:

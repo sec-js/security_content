@@ -43,11 +43,11 @@ rba:
   message: The following Remote Access Software $process_name$ was identified on $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 1
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Insider Threat

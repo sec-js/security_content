@@ -57,14 +57,14 @@ rba:
     of $parent_process_name$ that has been executed on $dest$ by $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 81
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 81
   threat_objects:
   - field: parent_process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

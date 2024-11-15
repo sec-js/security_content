@@ -62,10 +62,10 @@ rba:
   message: $severity$ alert for $user$ from $sourcetype$ - $signature$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 50
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 50
   threat_objects: []
 tags:

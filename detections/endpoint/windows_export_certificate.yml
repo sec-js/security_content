@@ -42,7 +42,7 @@ rba:
   message: An certificate was exported on $dest$ from the Windows Certificate Store.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 36
   threat_objects: []
 tags:

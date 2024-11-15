@@ -36,11 +36,11 @@ rba:
     for further details.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects:
   - field: SourceImage
-    type: Process
+    type: process
 tags:
   analytic_story:
   - CISA AA23-347A

@@ -54,10 +54,10 @@ rba:
   message: sdelete process $process_name$ executed in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 49
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects: []
 tags:

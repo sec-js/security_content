@@ -44,10 +44,10 @@ rba:
   message: A samsam ransomware test file creation in $file_path$ in host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 12
   - field: user
-    type: User
+    type: user
     score: 12
   threat_objects: []
 tags:

@@ -42,7 +42,7 @@ rba:
     wmic.exe.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 15
   threat_objects: []
 tags:

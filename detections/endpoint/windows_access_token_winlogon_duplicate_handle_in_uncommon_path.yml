@@ -49,11 +49,11 @@ rba:
     on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 49
   threat_objects:
   - field: SourceImage
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Brute Ratel C4

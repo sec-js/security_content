@@ -61,10 +61,10 @@ rba:
     found on $dest$ with commandline value - [$process$]
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 12
   - field: user
-    type: User
+    type: user
     score: 12
   threat_objects: []
 tags:

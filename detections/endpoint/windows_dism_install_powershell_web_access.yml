@@ -55,7 +55,7 @@ rba:
   message: PowerShell Web Access has been installed on $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 72
   threat_objects: []
 tags:

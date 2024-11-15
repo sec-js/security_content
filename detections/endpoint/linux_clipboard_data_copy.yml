@@ -53,14 +53,14 @@ rba:
     $user$ adding or removing content from the clipboard.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 16
   - field: dest
-    type: Hostname
+    type: hostname
     score: 16
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Linux Living Off The Land

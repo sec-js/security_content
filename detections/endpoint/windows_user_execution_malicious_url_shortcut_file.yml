@@ -46,10 +46,10 @@ rba:
   message: a process created URL shortcut file in $file_path$ of $dest$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 64
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 64
   threat_objects: []
 tags:

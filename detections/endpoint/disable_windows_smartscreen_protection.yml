@@ -49,10 +49,10 @@ rba:
   message: The Windows Smartscreen was disabled on $dest$ by $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

@@ -50,7 +50,7 @@ rba:
     by the following command: $TaskContent$'
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 70
   threat_objects: []
 tags:

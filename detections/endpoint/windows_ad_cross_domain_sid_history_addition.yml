@@ -49,10 +49,10 @@ rba:
   message: Active Directory SID History Attribute was added to $user$ by $src_user$
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 80
   - field: user
-    type: User
+    type: user
     score: 80
   threat_objects: []
 tags:

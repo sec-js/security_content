@@ -48,7 +48,7 @@ rba:
     path $registry_path$ and key $registry_key_name$ in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 63
   threat_objects: []
 tags:

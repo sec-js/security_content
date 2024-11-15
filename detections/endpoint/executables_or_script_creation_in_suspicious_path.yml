@@ -59,11 +59,11 @@ rba:
     and process_id $process_id$ executed in suspicious file path in Windows by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 20
   threat_objects:
   - field: file_name
-    type: File Name
+    type: file name
 tags:
   analytic_story:
   - Double Zero Destructor

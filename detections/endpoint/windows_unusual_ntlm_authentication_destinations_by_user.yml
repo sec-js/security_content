@@ -55,7 +55,7 @@ rba:
     destinations.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   threat_objects: []
 tags:

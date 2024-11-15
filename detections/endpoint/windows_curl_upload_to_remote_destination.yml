@@ -56,16 +56,16 @@ rba:
     on endpoint $dest$ by user $user$ uploading a file to a remote destination.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 80
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Ingress Tool Transfer

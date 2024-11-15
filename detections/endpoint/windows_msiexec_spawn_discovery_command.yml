@@ -58,16 +58,16 @@ rba:
     on endpoint $dest$ by user $user$ running different discovery commands.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 35
   - field: dest
-    type: Hostname
+    type: hostname
     score: 35
   threat_objects:
   - field: parent_process_name
-    type: Process Name
+    type: process name
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Windows System Binary Proxy Execution MSIExec

@@ -63,7 +63,7 @@ rba:
     forged Kerberos ticket.
   risk_objects:
   - field: TargetUserName
-    type: User
+    type: user
     score: 80
   threat_objects: []
 tags:

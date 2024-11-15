@@ -42,14 +42,14 @@ rba:
     uninstall software.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   - field: user
-    type: User
+    type: user
     score: 25
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - IcedID

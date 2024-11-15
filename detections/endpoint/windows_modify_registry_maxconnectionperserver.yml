@@ -50,7 +50,7 @@ rba:
   message: A registry modification in max connection per server configuration in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects: []
 tags:

@@ -53,7 +53,7 @@ rba:
   message: A commandline $process$ that may modify at allow config file in $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 9
   threat_objects: []
 tags:

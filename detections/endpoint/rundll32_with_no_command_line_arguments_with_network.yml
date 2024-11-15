@@ -60,11 +60,11 @@ rba:
     process commandline $process$ in host $src$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 70
   threat_objects:
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Suspicious Rundll32 Activity

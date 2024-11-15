@@ -62,10 +62,10 @@ rba:
     commands.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 80
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 80
   threat_objects: []
 tags:

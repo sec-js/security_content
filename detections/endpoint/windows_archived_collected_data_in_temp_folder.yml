@@ -47,7 +47,7 @@ rba:
   message: A archive file [$file_name$] was creatd in %temp% folder on [$dest$].
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects: []
 tags:

@@ -49,10 +49,10 @@ rba:
     Defender
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 64
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects: []
 tags:

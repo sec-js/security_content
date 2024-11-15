@@ -58,7 +58,7 @@ rba:
     on endpoint $dest$ attempting to delete a service.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 49
   threat_objects: []
 tags:

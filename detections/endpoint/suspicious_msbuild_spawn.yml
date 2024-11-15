@@ -55,10 +55,10 @@ rba:
   message: Suspicious msbuild.exe process executed on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 42
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

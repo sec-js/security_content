@@ -50,11 +50,11 @@ rba:
   message: A Servince Principal Name for $ObjectDN$ was set by $user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 30
   threat_objects:
   - field: src_user
-    type: User
+    type: user
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks

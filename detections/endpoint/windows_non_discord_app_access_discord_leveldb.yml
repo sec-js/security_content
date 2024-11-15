@@ -45,7 +45,7 @@ rba:
     $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 9
   threat_objects: []
 tags:

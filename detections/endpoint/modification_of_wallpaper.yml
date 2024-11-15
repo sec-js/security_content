@@ -49,7 +49,7 @@ rba:
   message: Wallpaper modification on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 54
   threat_objects: []
 tags:

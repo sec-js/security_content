@@ -45,10 +45,10 @@ rba:
   message: The following $user$ was added to $dest$ as a local account.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 18
   - field: dest
-    type: Hostname
+    type: hostname
     score: 18
   threat_objects: []
 tags:

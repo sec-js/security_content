@@ -47,10 +47,10 @@ rba:
   message: The Windows notification center was disabled on $dest$ by $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 48
   - field: dest
-    type: Hostname
+    type: hostname
     score: 48
   threat_objects: []
 tags:

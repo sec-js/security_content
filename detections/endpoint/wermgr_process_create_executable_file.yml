@@ -44,7 +44,7 @@ rba:
   message: Wermgr.exe writing executable files on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 56
   threat_objects: []
 tags:

@@ -48,11 +48,11 @@ rba:
     [$file_path$] on host- [$dest$].
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects:
   - field: file_name
-    type: File
+    type: file
 tags:
   analytic_story:
   - APT29 Diplomatic Deceptions with WINELOADER

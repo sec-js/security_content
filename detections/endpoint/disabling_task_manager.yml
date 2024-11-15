@@ -48,10 +48,10 @@ rba:
   message: The Windows Task Manager was disabled on $dest$ by $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 42
   - field: dest
-    type: Hostname
+    type: hostname
     score: 42
   threat_objects: []
 tags:

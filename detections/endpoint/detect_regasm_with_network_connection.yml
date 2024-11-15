@@ -48,14 +48,14 @@ rba:
     on endpoint $dest$ by user $user$. This behavior is not normal for $process_name$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 80
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Suspicious Regsvcs Regasm Activity

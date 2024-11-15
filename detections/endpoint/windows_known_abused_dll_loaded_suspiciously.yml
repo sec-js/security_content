@@ -52,14 +52,14 @@ rba:
   message: The module [$loaded_file$] was loaded from an unusual location by [$process$]
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 10
   - field: user
-    type: User
+    type: user
     score: 10
   threat_objects:
   - field: process
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

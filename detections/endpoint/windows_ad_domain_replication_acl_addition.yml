@@ -77,10 +77,10 @@ rba:
   message: $src_user$ has granted $user$ permission to replicate AD objects
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 80
   - field: src_user
-    type: User
+    type: user
     score: 80
   threat_objects: []
 tags:

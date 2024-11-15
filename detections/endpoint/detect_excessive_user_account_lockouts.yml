@@ -43,7 +43,7 @@ rba:
   message: Excessive user account lockouts for $user$ in a short period of time
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 36
   threat_objects: []
 tags:

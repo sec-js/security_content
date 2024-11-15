@@ -49,13 +49,13 @@ rba:
     a AzureAD enumeration utility, has occurred on endpoint $dest$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 63
   - field: dest
-    type: Hostname
+    type: hostname
     score: 63
   - field: file_name
-    type: File Name
+    type: file name
     score: 63
   threat_objects: []
 tags:

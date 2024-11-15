@@ -59,7 +59,7 @@ rba:
   message: firewall allowed program commandline $process$ of $process_name$ on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 64
   threat_objects: []
 tags:

@@ -33,7 +33,7 @@ rba:
   message: A driver has loaded on $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 42
   threat_objects: []
 tags:

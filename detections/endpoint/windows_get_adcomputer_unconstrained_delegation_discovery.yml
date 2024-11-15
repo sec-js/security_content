@@ -49,10 +49,10 @@ rba:
   message: Suspicious PowerShell Get-ADComputer was identified on endpoint $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 35
   - field: user
-    type: User
+    type: user
     score: 35
   threat_objects: []
 tags:

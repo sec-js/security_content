@@ -59,7 +59,7 @@ rba:
     $dest$ indicative of suspicious behavior.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects: []
 tags:

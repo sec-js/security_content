@@ -51,11 +51,11 @@ rba:
   message: Potential NTLM based password spraying attack from $src$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects:
   - field: src
-    type: Endpoint
+    type: endpoint
 tags:
   analytic_story:
   - Active Directory Password Spraying

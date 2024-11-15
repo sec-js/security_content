@@ -58,7 +58,7 @@ rba:
   message: process with reg query command line $process$ in $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 9
   threat_objects: []
 tags:

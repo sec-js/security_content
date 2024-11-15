@@ -30,7 +30,7 @@ rba:
   message: A windows scheduled task with a suspicious task name was created on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 45
   threat_objects: []
 tags:

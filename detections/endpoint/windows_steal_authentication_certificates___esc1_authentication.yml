@@ -64,22 +64,22 @@ rba:
   message: Possible AD CS ESC1 authentication on $dest$
   risk_objects:
   - field: src
-    type: Hostname
+    type: hostname
     score: 90
   - field: dest
-    type: Hostname
+    type: hostname
     score: 90
   - field: src_user
-    type: User
+    type: user
     score: 90
   - field: user
-    type: User
+    type: user
     score: 90
   threat_objects:
   - field: ssl_hash
-    type: Other
+    type: other
   - field: ssl_serial
-    type: Other
+    type: other
 tags:
   analytic_story:
   - Windows Certificate Services

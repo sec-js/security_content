@@ -32,7 +32,7 @@ rba:
   message: A Scheduled Task was scheduled and ran on $dvc$.
   risk_objects:
   - field: dvc
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects: []
 tags:

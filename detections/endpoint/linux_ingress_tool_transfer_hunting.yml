@@ -42,14 +42,14 @@ rba:
     $user$ utilizing curl or wget.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 1
   - field: dest
-    type: Hostname
+    type: hostname
     score: 1
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Linux Living Off The Land

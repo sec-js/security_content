@@ -49,10 +49,10 @@ rba:
     with EventCode $EventCode$ in host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 42
   - field: user
-    type: User
+    type: user
     score: 42
   threat_objects: []
 tags:

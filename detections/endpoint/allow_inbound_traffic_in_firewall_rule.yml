@@ -44,10 +44,10 @@ rba:
   message: Suspicious firewall modification detected on endpoint $dest$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 3
   - field: dest
-    type: Hostname
+    type: hostname
     score: 3
   threat_objects: []
 tags:

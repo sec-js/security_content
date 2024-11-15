@@ -50,11 +50,11 @@ rba:
   message: ESX Admins group $EventCodeDescription$ on $dest$ by user $SubjectUserName$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects:
   - field: SubjectUserName
-    type: User
+    type: user
 tags:
   analytic_story:
   - VMware ESXi AD Integration Authentication Bypass CVE-2024-37085

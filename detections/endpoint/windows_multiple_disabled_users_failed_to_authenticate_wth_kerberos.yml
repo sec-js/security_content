@@ -45,11 +45,11 @@ rba:
   message: Potential Kerberos based password spraying attack from $IpAddress$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   threat_objects:
   - field: IpAddress
-    type: IP Address
+    type: ip address
 tags:
   analytic_story:
   - Active Directory Password Spraying

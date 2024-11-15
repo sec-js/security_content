@@ -41,7 +41,7 @@ rba:
   message: A service was created on $dest$, related to KrbRelayUp.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 64
   threat_objects: []
 tags:

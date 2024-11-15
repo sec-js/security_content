@@ -57,7 +57,7 @@ rba:
     $process$ to fetch env variables in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 56
   threat_objects: []
 tags:

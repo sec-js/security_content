@@ -44,7 +44,7 @@ rba:
   message: Remote system discovery with PowerView on $Computer$ by $UserID$
   risk_objects:
   - field: Computer
-    type: Endpoint
+    type: endpoint
     score: 24
   threat_objects: []
 tags:

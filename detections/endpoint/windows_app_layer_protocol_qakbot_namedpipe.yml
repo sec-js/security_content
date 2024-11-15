@@ -49,7 +49,7 @@ rba:
   message: $Image$ is creating or connecting to a named pipe $PipeName$ in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 49
   threat_objects: []
 tags:

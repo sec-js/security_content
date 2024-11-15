@@ -54,11 +54,11 @@ rba:
   message: Process $process_name$ with cmdline $process$ in host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects:
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Rhysida Ransomware

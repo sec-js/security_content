@@ -55,7 +55,7 @@ rba:
   message: The Program Compatability Assistant (pcalua.exe) launched the process $process_name$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

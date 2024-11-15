@@ -51,10 +51,10 @@ rba:
     $EventCode$ in host $Computer$
   risk_objects:
   - field: Computer
-    type: Hostname
+    type: hostname
     score: 40
   - field: UserID
-    type: User
+    type: user
     score: 40
   threat_objects: []
 tags:

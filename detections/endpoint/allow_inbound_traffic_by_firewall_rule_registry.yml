@@ -50,10 +50,10 @@ rba:
     on endpoint $dest$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 25
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

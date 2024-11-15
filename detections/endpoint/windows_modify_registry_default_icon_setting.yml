@@ -51,10 +51,10 @@ rba:
     of windows to ransomware was detected on endpoint $dest$ by user $user$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   - field: user
-    type: User
+    type: user
     score: 64
   threat_objects: []
 tags:

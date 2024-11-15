@@ -40,7 +40,7 @@ rba:
     needed.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 40
   threat_objects: []
 tags:

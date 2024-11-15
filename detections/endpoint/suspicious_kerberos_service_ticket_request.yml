@@ -48,7 +48,7 @@ rba:
   message: A suspicious Kerberos Service Ticket was requested by $user$ on host $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 60
   threat_objects: []
 tags:

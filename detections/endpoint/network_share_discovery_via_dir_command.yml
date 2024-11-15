@@ -33,7 +33,7 @@ rba:
     name=$ShareName$, Access mask=$AccessMask$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 25
   threat_objects: []
 tags:

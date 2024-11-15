@@ -61,11 +61,11 @@ rba:
     cab file to this. This is not typical of $process_name$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Spearphishing Attachments

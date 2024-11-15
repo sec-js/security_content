@@ -53,7 +53,7 @@ rba:
     SGID bit on files using the setcap utility.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 81
   threat_objects: []
 tags:

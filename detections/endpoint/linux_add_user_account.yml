@@ -37,7 +37,7 @@ rba:
   message: A commandline $process$ that may create user account on $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

@@ -58,14 +58,14 @@ rba:
     credentials executed on $dest$ by user $user$, with a parent process of $parent_process_id$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 56
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 56
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Volt Typhoon

@@ -54,16 +54,16 @@ rba:
     on endpoint $dest$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 50
   - field: dest
-    type: Hostname
+    type: hostname
     score: 50
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Reverse Network Proxy

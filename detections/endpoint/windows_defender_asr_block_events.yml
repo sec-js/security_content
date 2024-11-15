@@ -54,11 +54,11 @@ rba:
   message: ASR block event, $ASR_Rule$, was triggered on $dest$.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 45
   threat_objects:
   - field: ASR_Rule
-    type: Unknown
+    type: unknown
 tags:
   analytic_story:
   - Windows Attack Surface Reduction

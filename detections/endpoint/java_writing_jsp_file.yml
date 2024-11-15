@@ -55,11 +55,11 @@ rba:
     a jsp file $file_name$ to disk, potentially indicative of exploitation.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 42
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Spring4Shell CVE-2022-22965

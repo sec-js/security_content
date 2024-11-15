@@ -58,10 +58,10 @@ rba:
   message: The process $process_name$ was executed on $dest$ related to SOAPHound.
   risk_objects:
   - field: process_name
-    type: Process
+    type: process
     score: 80
   - field: dest
-    type: Hostname
+    type: hostname
     score: 80
   threat_objects: []
 tags:

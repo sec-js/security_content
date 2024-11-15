@@ -47,11 +47,11 @@ rba:
   message: a process $SourceImage$ terminates Lsass process in $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 64
   threat_objects:
   - field: TargetImage
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Data Destruction

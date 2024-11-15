@@ -49,7 +49,7 @@ rba:
   message: A Servince Principal Name for $user$ was set and shortly deleted
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 40
   threat_objects: []
 tags:

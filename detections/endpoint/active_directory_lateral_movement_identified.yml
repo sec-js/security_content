@@ -58,7 +58,7 @@ rba:
   message: Activity related to lateral movement has been identified on $risk_object$.
   risk_objects:
   - field: risk_object
-    type: Hostname
+    type: hostname
     score: 64
   threat_objects: []
 tags:

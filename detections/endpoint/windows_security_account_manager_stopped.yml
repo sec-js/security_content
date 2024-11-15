@@ -54,10 +54,10 @@ rba:
     on $dest$ by this command: $process$'
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 70
   - field: user
-    type: User
+    type: user
     score: 70
   threat_objects: []
 tags:

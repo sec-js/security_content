@@ -55,7 +55,7 @@ rba:
   message: Domain group discovery with PowerView on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 15
   threat_objects: []
 tags:

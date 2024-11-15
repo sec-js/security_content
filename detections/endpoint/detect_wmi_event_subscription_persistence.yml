@@ -48,7 +48,7 @@ rba:
   message: Possible malicious WMI Subscription created on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 63
   threat_objects: []
 tags:

@@ -56,7 +56,7 @@ rba:
   message: Modification of Outlook WebView registry values on $dest$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 100
   threat_objects: []
 tags:

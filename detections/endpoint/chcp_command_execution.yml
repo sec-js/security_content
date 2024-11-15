@@ -57,10 +57,10 @@ rba:
     with parent command line $parent_process$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 9
   - field: user
-    type: User
+    type: user
     score: 9
   threat_objects: []
 tags:

@@ -51,7 +51,7 @@ rba:
     Linux kernel module using the rmmod utility.
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 72
   threat_objects: []
 tags:

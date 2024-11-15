@@ -44,7 +44,7 @@ rba:
   message: User $src_user$ deleted multiple accounts in a short period of time.
   risk_objects:
   - field: src_user
-    type: User
+    type: user
     score: 18
   threat_objects: []
 tags:

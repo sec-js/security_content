@@ -59,14 +59,14 @@ rba:
     on $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 40
   - field: user
-    type: User
+    type: user
     score: 40
   threat_objects:
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Living Off The Land

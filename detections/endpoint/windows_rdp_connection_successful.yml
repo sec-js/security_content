@@ -29,7 +29,7 @@ rba:
   message: A successful RDP connection on $dest$ occurred.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 25
   threat_objects: []
 tags:

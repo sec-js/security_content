@@ -44,11 +44,11 @@ rba:
     on host $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 72
   threat_objects:
   - field: proc_terminated
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Clop Ransomware

@@ -29,7 +29,7 @@ rba:
   message: Local user discovery enumeration using PowerShell on $Computer$ by $UserID$
   risk_objects:
   - field: Computer
-    type: Endpoint
+    type: endpoint
     score: 15
   threat_objects: []
 tags:

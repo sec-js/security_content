@@ -54,13 +54,13 @@ rba:
     on endpoint $dest$ spawning a Linux shell, potentially indicative of exploitation.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 40
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Data Destruction

@@ -47,7 +47,7 @@ rba:
   message: A suspicious powershell script contains base64 command on host $dest$
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects: []
 tags:

@@ -58,16 +58,16 @@ rba:
     any command-line arguments on $dest$ by $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   - field: dest
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Suspicious Regsvcs Regasm Activity

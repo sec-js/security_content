@@ -40,10 +40,10 @@ rba:
     ransomware attack.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 90
   - field: dest
-    type: Hostname
+    type: hostname
     score: 90
   threat_objects: []
 tags:

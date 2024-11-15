@@ -58,13 +58,13 @@ rba:
     $dest$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 81
   - field: dest
-    type: Hostname
+    type: hostname
     score: 81
   - field: file_name
-    type: File Name
+    type: file name
     score: 81
   threat_objects: []
 tags:

@@ -62,16 +62,16 @@ rba:
     on host $dest$ possibly indicative of indirect command execution.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 100
   - field: dest
-    type: Hostname
+    type: hostname
     score: 100
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Microsoft Support Diagnostic Tool Vulnerability CVE-2022-30190

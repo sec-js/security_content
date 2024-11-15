@@ -57,13 +57,13 @@ rba:
     on endpoint $dest$ with no command line arguments.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 35
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - BishopFox Sliver Adversary Emulation Framework

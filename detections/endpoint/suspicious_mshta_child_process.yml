@@ -59,14 +59,14 @@ rba:
   message: suspicious mshta child process detected on host $dest$ by user $user$.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 40
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 40
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Suspicious MSHTA Activity

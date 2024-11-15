@@ -59,16 +59,16 @@ rba:
     on endpoint $dest$ by user $user$ attempting to download a file.
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 49
   - field: dest
-    type: Hostname
+    type: hostname
     score: 49
   threat_objects:
   - field: parent_process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process
+    type: process
 tags:
   analytic_story:
   - Ingress Tool Transfer

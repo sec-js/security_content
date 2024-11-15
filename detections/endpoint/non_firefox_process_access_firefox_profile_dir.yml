@@ -43,7 +43,7 @@ rba:
   message: a non firefox browser process $ProcessName$ accessing $ObjectName$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 35
   threat_objects: []
 tags:

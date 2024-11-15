@@ -51,10 +51,10 @@ rba:
   message: Potential SharpHound file modifications identified on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 24
   - field: user
-    type: User
+    type: user
     score: 24
   threat_objects: []
 tags:

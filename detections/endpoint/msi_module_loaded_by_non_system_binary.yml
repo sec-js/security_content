@@ -32,11 +32,11 @@ rba:
     normal system paths on endpoint $dest$, potentally related to DLL side-loading.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 56
   threat_objects:
   - field: process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Data Destruction

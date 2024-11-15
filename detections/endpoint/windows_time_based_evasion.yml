@@ -53,7 +53,7 @@ rba:
   message: A $process_name$ did a suspicious ping to invalid IP address on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 36
   threat_objects: []
 tags:

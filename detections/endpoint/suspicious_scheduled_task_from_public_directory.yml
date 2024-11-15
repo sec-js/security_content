@@ -57,10 +57,10 @@ rba:
   message: Suspicious scheduled task registered on $dest$ from Public Directory
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 35
   - field: user
-    type: User
+    type: user
     score: 35
   threat_objects: []
 tags:

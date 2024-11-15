@@ -49,10 +49,10 @@ rba:
     as a service $ImagePath$ by $user$ on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 72
   - field: user
-    type: User
+    type: user
     score: 72
   threat_objects: []
 tags:

@@ -40,7 +40,7 @@ rba:
   message: Remote system discovery using PowerView on $dest$ by $user$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 24
   threat_objects: []
 tags:

@@ -67,18 +67,18 @@ rba:
     on host $dest$ by $user$.
   risk_objects:
   - field: dest
-    type: Hostname
+    type: hostname
     score: 64
   - field: user
-    type: User
+    type: user
     score: 64
   threat_objects:
   - field: process_name
-    type: Process
+    type: process
   - field: process_name
-    type: Process Name
+    type: process name
   - field: parent_process_name
-    type: Process Name
+    type: process name
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics

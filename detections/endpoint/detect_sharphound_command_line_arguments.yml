@@ -57,7 +57,7 @@ rba:
   message: Possible SharpHound command-Line arguments identified on $dest$
   risk_objects:
   - field: dest
-    type: Endpoint
+    type: endpoint
     score: 24
   threat_objects: []
 tags:

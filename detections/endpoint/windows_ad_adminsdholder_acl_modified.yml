@@ -77,11 +77,11 @@ rba:
   message: The AdminSDHolder domain object $ObjectDN$ has been modified by $src_user$
   risk_objects:
   - field: user
-    type: User
+    type: user
     score: 56
   threat_objects:
   - field: src_user
-    type: User
+    type: user
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks
