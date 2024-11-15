@@ -43,7 +43,7 @@ rba:
   risk_objects:
   - field: dest
     type: Endpoint
-    risk_score: 25
+    score: 25
   threat_objects: []
 tags:
   analytic_story:

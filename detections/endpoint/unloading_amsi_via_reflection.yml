@@ -48,7 +48,7 @@ rba:
   risk_objects:
   - field: Computer
     type: Endpoint
-    risk_score: 49
+    score: 49
   threat_objects: []
 tags:
   analytic_story:

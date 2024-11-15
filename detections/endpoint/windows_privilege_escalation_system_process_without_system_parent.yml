@@ -51,10 +51,10 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 80
+    score: 80
   - field: src_user
     type: User
-    risk_score: 80
+    score: 80
   threat_objects:
   - field: process_name
     type: Other

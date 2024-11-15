@@ -46,7 +46,7 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 48
+    score: 48
   threat_objects:
   - field: ImageLoaded
     type: Other

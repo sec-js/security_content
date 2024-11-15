@@ -48,7 +48,7 @@ rba:
   risk_objects:
   - field: dest
     type: Endpoint
-    risk_score: 50
+    score: 50
   threat_objects:
   - field: ASR_Rule
     type: Unknown

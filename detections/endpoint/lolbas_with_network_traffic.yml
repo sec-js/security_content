@@ -62,7 +62,7 @@ rba:
   risk_objects:
   - field: src
     type: Hostname
-    risk_score: 25
+    score: 25
   threat_objects:
   - field: dest
     type: Hostname

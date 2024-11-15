@@ -65,16 +65,16 @@ rba:
   risk_objects:
   - field: src
     type: Hostname
-    risk_score: 90
+    score: 90
   - field: dest
     type: Hostname
-    risk_score: 90
+    score: 90
   - field: src_user
     type: User
-    risk_score: 90
+    score: 90
   - field: user
     type: User
-    risk_score: 90
+    score: 90
   threat_objects:
   - field: ssl_hash
     type: Other

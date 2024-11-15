@@ -65,7 +65,7 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 48
+    score: 48
   threat_objects:
   - field: registry_path
     type: Other

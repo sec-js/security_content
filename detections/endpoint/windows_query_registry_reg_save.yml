@@ -42,10 +42,10 @@ rba:
   risk_objects:
   - field: dest
     type: Hostname
-    risk_score: 9
+    score: 9
   - field: user
     type: User
-    risk_score: 9
+    score: 9
   threat_objects: []
 tags:
   analytic_story:

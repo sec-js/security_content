@@ -43,10 +43,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 25
+    score: 25
   - field: dest
     type: Hostname
-    risk_score: 25
+    score: 25
   threat_objects:
   - field: parent_process_name
     type: Process

@@ -48,7 +48,7 @@ rba:
   risk_objects:
   - field: host_targets
     type: Endpoint
-    risk_score: 48
+    score: 48
   threat_objects:
   - field: IpAddress
     type: Endpoint

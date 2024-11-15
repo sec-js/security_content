@@ -51,10 +51,10 @@ rba:
   risk_objects:
   - field: user
     type: User
-    risk_score: 72
+    score: 72
   - field: dest
     type: Endpoint
-    risk_score: 72
+    score: 72
   threat_objects:
   - field: registry_value_name
     type: Other
