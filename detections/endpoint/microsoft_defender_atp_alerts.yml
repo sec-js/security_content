@@ -90,9 +90,9 @@ tags:
   - annotations.mitre_attack
   - signature
   - user
-  risk_score: 20
+  risk_score: 81
   security_domain: endpoint
-  # manual_test: We are dynamically creating the risk_score field based on the severity of the alert in the SPL and that supersedes the risk score set in the detection. Setting these to manual test since otherwise we fail integration testing. 
+  manual_test: We are dynamically creating the risk_score field based on the severity of the alert in the SPL and that supersedes the risk score set in the detection. Setting these to manual test since otherwise we fail integration testing. 
 tests:
 - name: True Positive Test
   attack_data:
