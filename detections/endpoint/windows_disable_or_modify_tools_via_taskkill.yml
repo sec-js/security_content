@@ -27,6 +27,7 @@ drilldown_searches:
 tags:
   analytic_story:
   - NjRAT
+  - PXA Stealer
   asset_type: Endpoint
   confidence: 60
   impact: 60

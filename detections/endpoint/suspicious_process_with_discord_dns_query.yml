@@ -28,6 +28,7 @@ tags:
   analytic_story:
   - Data Destruction
   - WhisperGate
+  - PXA Stealer
   asset_type: Endpoint
   confidence: 80
   impact: 80

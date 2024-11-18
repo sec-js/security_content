@@ -36,6 +36,7 @@ tags:
   - Log4Shell CVE-2021-44228
   - Phemedrone Stealer
   - Braodo Stealer
+  - PXA Stealer
   asset_type: Endpoint
   confidence: 70
   cve:

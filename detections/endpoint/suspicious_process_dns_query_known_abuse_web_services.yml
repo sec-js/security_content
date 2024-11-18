@@ -30,6 +30,7 @@ tags:
   - Remcos
   - Phemedrone Stealer
   - Snake Keylogger
+  - PXA Stealer
   asset_type: Endpoint
   confidence: 80
   impact: 80

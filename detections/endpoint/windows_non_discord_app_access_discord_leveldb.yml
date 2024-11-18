@@ -25,6 +25,7 @@ drilldown_searches:
 tags:
   analytic_story:
   - Snake Keylogger
+  - PXA Stealer
   asset_type: Endpoint
   confidence: 30
   impact: 30
