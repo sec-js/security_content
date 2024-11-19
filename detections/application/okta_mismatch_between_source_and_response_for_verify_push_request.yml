@@ -49,7 +49,7 @@ tags:
   asset_type: Okta Tenant
   confidence: 80
   impact: 80
-  message: A mismatch between source and response for verifying a push request has occurred for $user$
+  message: A mismatch between source and response for verifying a push request has occurred for $user$ 
   mitre_attack_id:
   - T1621
   observable:
@@ -78,6 +78,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1556.006/okta_mfa_method_disabled/okta_mfa_method_disabled.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1621/okta_mismatch/okta_mismatch.log
     source: Okta
     sourcetype: OktaIM2:log
