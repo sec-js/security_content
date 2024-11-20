@@ -14,15 +14,6 @@ known_false_positives: False positives are likely, as BitLockerToGo.exe is a leg
 references:
 - https://any.run/report/5e9ba24639f70787e56f10a241271ae819ef9c573edb22b9eeade7cb40a2df2a/66f16c7b-2cfc-40c5-91cc-f1cbe9743fa3
 - https://securelist.com/fake-captcha-delivers-lumma-amadey/114312/
-drilldown_searches:
-- name: View the detection results for - "$dest$"
-  search: '%original_detection_search% | search  dest = "$dest$"'
-  earliest_offset: $info_min_time$
-  latest_offset: $info_max_time$
-- name: View risk events for the last 7 days for - "$dest$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
-  earliest_offset: $info_min_time$
-  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Lumma Stealer
@@ -53,7 +44,6 @@ tags:
   - dest
   risk_score: 70
   security_domain: endpoint
-  cve: []
 tests:
 - name: True Positive Test
   attack_data:
