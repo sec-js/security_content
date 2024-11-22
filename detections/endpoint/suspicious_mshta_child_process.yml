@@ -1,6 +1,6 @@
 name: Suspicious mshta child process
 id: 60023bb6-5500-11eb-ae93-0242ac130002
-version: 5
+version: 6
 date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
@@ -71,6 +71,7 @@ tags:
   analytic_story:
   - Suspicious MSHTA Activity
   - Living Off The Land
+  - Lumma Stealer
   asset_type: Endpoint
   confidence: 80
   impact: 50

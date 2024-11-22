@@ -1,7 +1,7 @@
 name: Malicious PowerShell Process - Encoded Command
 id: c4db14d9-7909-48b4-a054-aa14d89dbb19
-version: 11
-date: '2024-11-13'
+version: 12
+date: '2024-11-22'
 author: David Dorsey, Michael Haag, Splunk, SirDuckly, GitHub Community
 status: production
 type: Hunting
@@ -53,6 +53,7 @@ tags:
   - Sandworm Tools
   - Data Destruction
   - Volt Typhoon
+  - Lumma Stealer
   asset_type: Endpoint
   confidence: 50
   impact: 70

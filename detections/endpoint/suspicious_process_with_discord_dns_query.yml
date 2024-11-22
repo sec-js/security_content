@@ -1,7 +1,7 @@
 name: Suspicious Process With Discord DNS Query
 id: 4d4332ae-792c-11ec-89c1-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-11-22'
 author: Teoderick Contreras, Mauricio Velazco, Splunk
 status: production
 type: Anomaly
@@ -54,6 +54,7 @@ tags:
   analytic_story:
   - Data Destruction
   - WhisperGate
+  - PXA Stealer
   asset_type: Endpoint
   confidence: 80
   impact: 80
