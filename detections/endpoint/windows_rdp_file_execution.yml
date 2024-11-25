@@ -20,6 +20,7 @@ search: '| tstats count min(_time) as firstTime max(_time) as lastTime from data
       match(process, "\\\\Downloads\\\\"), "downloads_execution",
       match(process, "\\\\Temp\\\\"), "temp_execution",
       match(process, "\\\\Microsoft\\\\Outlook\\\\"), "outlook_execution",
+      match(process, "\\\\Olk\\\\Attachments\\\\"), "outlook_execution",
       match(process, "\\\\Content.Outlook\\\\"), "outlook_execution",
       true(), "other"
   ),
