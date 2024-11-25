@@ -26,28 +26,26 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba: 
+  message: An instance of $registry_value_data$ was identified on endpoint $dest$ by user $user$ attempting to execute a command through the Run dialog box.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 48
+  - field: user
+    type: user
+    score: 48
+  threat_objects:
+  - field: registry_value_data
+    type: registry_value_text
 tags:
   analytic_story:
   - Lumma Stealer
   asset_type: Endpoint
   confidence: 60
   impact: 80
-  message: An instance of $registry_value_data$ was identified on endpoint $dest$ by user $user$ attempting to execute a command through the Run dialog box.
   mitre_attack_id:
   - T1202
-  observable:
-  - name: registry_value_data
-    type: Registry Value
-    role:
-    - Attacker
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
