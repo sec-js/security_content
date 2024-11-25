@@ -16,7 +16,7 @@ search: '| tstats count min(_time) as firstTime max(_time) as lastTime from data
   | `security_content_ctime(lastTime)`
   | eval 
   execution_type=case(
-      match(process, "\\\\Temp\\\\.*\\.(zip|7z|rar|gz|tar|iso|img|vhd|vhdx).*\\.*\\.rdp"), "temp_archive_execution",
+      match(process, "\\\\Temp\\\\.*\\.(zip|7z|rar|cab|tgz|gz|tar|iso|img|vhd|vhdx).*\\.*\\.rdp"), "temp_archive_execution",
       match(process, "\\\\Downloads\\\\"), "downloads_execution",
       match(process, "\\\\Temp\\\\"), "temp_execution",
       match(process, "\\\\Microsoft\\\\Outlook\\\\"), "outlook_execution",
