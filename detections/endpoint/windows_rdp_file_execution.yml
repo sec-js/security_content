@@ -1,4 +1,7 @@
-data_source: []
+data_source:
+  - Sysmon EventID 1
+  - Windows Event Log Security 4688
+  - CrowdStrike ProcessRollup2
 name: Windows RDP File Execution
 id: 0b6b12b9-8ba9-48fe-b3b8-b4e3e1cd22b4
 version: 1
