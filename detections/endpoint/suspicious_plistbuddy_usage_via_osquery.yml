@@ -25,9 +25,9 @@ known_false_positives: Some legitimate applications may use PlistBuddy to create
 references:
 - https://www.marcosantadev.com/manage-plist-files-plistbuddy/
 rba:
-  message: tbd
+  message: Suspicious usage of plistbuddy on $host$
   risk_objects:
-  - field: dest
+  - field: host
     type: system
     score: 25
   threat_objects: []

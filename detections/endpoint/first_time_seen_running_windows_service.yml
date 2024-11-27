@@ -33,7 +33,7 @@ known_false_positives: A previously unseen service is not necessarily malicious.
   that the service is legitimate and that was installed by a legitimate process.
 references: []
 rba:
-  message: tbd
+  message: Windows Service observed running for first time on $dest$
   risk_objects:
   - field: dest
     type: system

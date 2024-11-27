@@ -22,10 +22,10 @@ how_to_implement: OSQuery installed and configured to pick up process events (in
 known_false_positives: unknown
 references: []
 rba:
-  message: tbd
+  message: Potential Baron Samedit behavior on $dest$ 
   risk_objects:
   - field: dest
-    type: other
+    type: system
     score: 25
   threat_objects: []
 tags:

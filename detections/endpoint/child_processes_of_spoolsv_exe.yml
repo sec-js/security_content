@@ -37,7 +37,7 @@ known_false_positives: Some legitimate printer-related processes may show up as 
   as exclusions in the search.
 references: []
 rba:
-  message: tbd
+  message: Potentially suspicious child processes of spoolsv.exe on $dest$
   risk_objects:
   - field: user
     type: user

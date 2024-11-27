@@ -39,7 +39,7 @@ known_false_positives: At this stage, there are no known false positives. During
   to an allow list.
 references: []
 rba:
-  message: tbd
+  message: Possible persistence mechanism via plists on $dest$
   risk_objects:
   - field: user
     type: user

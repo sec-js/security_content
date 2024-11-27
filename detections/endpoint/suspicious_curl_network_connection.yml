@@ -37,7 +37,7 @@ references:
 - https://redcanary.com/blog/clipping-silver-sparrows-wings/
 - https://www.marcosantadev.com/manage-plist-files-plistbuddy/
 rba:
-  message: tbd
+  message: Suspicious usage of curl on $dest$
   risk_objects:
   - field: user
     type: user

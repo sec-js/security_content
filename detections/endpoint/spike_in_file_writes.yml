@@ -31,7 +31,7 @@ known_false_positives: It is important to understand that if you happen to insta
   expect to see a large increase of file modifications.
 references: []
 rba:
-  message: tbd
+  message: Spike in File Writes observed on $dest$
   risk_objects:
   - field: dest
     type: system

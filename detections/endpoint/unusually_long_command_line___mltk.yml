@@ -42,7 +42,7 @@ known_false_positives: Some legitimate applications use long command lines for i
   build the associated model.
 references: []
 rba:
-  message: tbd
+  message: Unusually long command line usage on $dest$
   risk_objects:
   - field: user
     type: user

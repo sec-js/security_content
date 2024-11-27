@@ -30,7 +30,7 @@ known_false_positives: Some software may create WMI temporary event subscription
   create exceptions for other legitimate events.
 references: []
 rba:
-  message: tbd
+  message: WMI Temporary event subscription detected on $dest$
   risk_objects:
   - field: dest
     type: system

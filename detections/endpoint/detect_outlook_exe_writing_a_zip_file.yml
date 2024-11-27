@@ -37,7 +37,7 @@ known_false_positives: It is not uncommon for outlook to write legitimate zip fi
   to the disk.
 references: []
 rba:
-  message: tbd
+  message: ZIP file written by outlook.exe on $dest$
   risk_objects:
   - field: user
     type: user

@@ -29,10 +29,10 @@ known_false_positives: There might be some false positives as keyboard event tap
   comment.
 references: []
 rba:
-  message: tbd
+  message: Keyboard Event Tapping observed on $host$
   risk_objects:
-  - field: dest
-    type: other
+  - field: host
+    type: system
     score: 25
   threat_objects: []
 tags:

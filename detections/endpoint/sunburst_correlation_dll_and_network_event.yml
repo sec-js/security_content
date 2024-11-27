@@ -29,7 +29,7 @@ known_false_positives: unknown
 references:
 - https://www.mandiant.com/resources/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor
 rba:
-  message: tbd
+  message: Possible Sunburst activity on $dest$
   risk_objects:
   - field: dest
     type: system

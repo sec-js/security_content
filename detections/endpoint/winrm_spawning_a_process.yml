@@ -38,7 +38,7 @@ references:
 - https://www.zerodayinitiative.com/blog/2021/5/17/cve-2021-31166-a-wormable-code-execution-bug-in-httpsys
 - https://github.com/0vercl0k/CVE-2021-31166/blob/main/cve-2021-31166.py
 rba:
-  message: tbd
+  message: winrm.exe spawning a process observed on $dest$
   risk_objects:
   - field: user
     type: user

@@ -22,7 +22,7 @@ how_to_implement: Splunk Universal Forwarder running on Linux systems, capturing
 known_false_positives: unknown
 references: []
 rba:
-  message: tbd
+  message: Potential Baron Samedit behavior on $dest$
   risk_objects:
   - field: dest
     type: other
