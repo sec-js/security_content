@@ -42,6 +42,9 @@ drilldown_searches:
 rba:
   message: AWS Batch Job is created on account id - $aws_account_id$ from src_ip $src_ip$
   risk_objects:
+  - field: aws_account_id
+    type: other
+    score: 64
   threat_objects:
   - field: src_ip
     type: ip_address
