@@ -30,7 +30,7 @@ known_false_positives: It's possible that legitimate TXT record responses can be
   to help mitigate false positives.
 references: []
 rba:
-  message: tbd
+  message: Long DNS TXT Response observed
   risk_objects:
   - field: Destination IP
     type: system

@@ -39,7 +39,7 @@ known_false_positives: "This is a strictly behavioral search, so we define \"fal
   much less valuable to you."
 references: []
 rba:
-  message: tbd
+  message: AWS provisioning from new country ($Country$)
   risk_objects:
   - field: user
     type: user

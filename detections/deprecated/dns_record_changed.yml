@@ -34,7 +34,7 @@ known_false_positives: Legitimate DNS changes can be detected in this search. In
   as appropriate.
 references: []
 rba:
-  message: tbd
+  message: DNS Record Changed
   risk_objects:
   - field: src
     type: system

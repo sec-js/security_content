@@ -28,7 +28,7 @@ known_false_positives: It is possible that there are legitimate user roles makin
   trigger.
 references: []
 rba:
-  message: tbd
+  message: Never Before Seen API Call from $user$
   risk_objects:
   - field: user
     type: user

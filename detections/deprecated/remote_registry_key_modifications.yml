@@ -22,7 +22,7 @@ known_false_positives: This technique may be legitimately used by administrators
   modify remote registries, so it's important to filter these events out.
 references: []
 rba:
-  message: tbd
+  message: Registry remotely modified on $dest$
   risk_objects:
   - field: user
     type: user

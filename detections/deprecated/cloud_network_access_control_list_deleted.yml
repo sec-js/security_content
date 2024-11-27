@@ -23,7 +23,7 @@ known_false_positives: It's possible that a user has legitimately deleted a netw
   ACL.
 references: []
 rba:
-  message: tbd
+  message: AWS Network ACL Deleted by $userName$
   risk_objects:
   - field: userName
     type: user

@@ -25,7 +25,7 @@ known_false_positives: Not all unauthenticated requests are malicious, but frequ
   User Agent and source IPs will provide context.
 references: []
 rba:
-  message: tbd
+  message: Possible GKE Cluster Scan 
   risk_objects:
   - field: src_ip
     type: system

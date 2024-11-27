@@ -30,7 +30,7 @@ known_false_positives: This process should not be ran forcefully, we have not se
   any false positives for this detection
 references: []
 rba:
-  message: tbd
+  message: Potentially suspicious connhost.exe behavior on $dest$
   risk_objects:
   - field: dest
     type: system

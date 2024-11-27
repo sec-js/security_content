@@ -27,7 +27,7 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: None at the moment
 references: []
 rba:
-  message: tbd
+  message: Reg.exe used to hide a file or directory on $dest$
   risk_objects:
   - field: dest
     type: system

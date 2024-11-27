@@ -28,7 +28,7 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: No known false positives
 references: []
 rba:
-  message: tbd
+  message: Tasks being scheduled with names indicative of BadRabbit ransomware on $dest$
   risk_objects:
   - field: user
     type: user

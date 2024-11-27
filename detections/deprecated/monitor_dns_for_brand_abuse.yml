@@ -22,7 +22,7 @@ how_to_implement: You need to ingest data from your DNS logs. Specifically you m
 known_false_positives: None at this time
 references: []
 rba:
-  message: tbd
+  message: Potential brand abuse
   risk_objects:
   - field: query
     type: other

@@ -19,7 +19,7 @@ known_false_positives: It is possible that your vulnerability scanner is not det
   that the patches have been applied.
 references: []
 rba:
-  message: tbd
+  message: $dest$ enumerated as a Spectre or Meltdown vulnerable system 
   risk_objects:
   - field: dest
     type: system

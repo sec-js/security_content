@@ -32,10 +32,10 @@ references:
 - https://en.wikipedia.org/wiki/HTTP_cookie
 - https://splunkbase.splunk.com/app/1809/
 rba:
-  message: tbd
+  message: Web sessions exhibiting unauthentic characteristics
   risk_objects:
   - field: session_id
-    type: user
+    type: other
     score: 25
   threat_objects: []
 tags:

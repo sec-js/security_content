@@ -22,7 +22,7 @@ known_false_positives: Many service accounts configured within an AWS infrastruc
   human user.
 references: []
 rba:
-  message: tbd
+  message: Abnormal number of instances terminated by $src_user$
   risk_objects:
   - field: src_user
     type: user

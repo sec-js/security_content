@@ -27,7 +27,7 @@ known_false_positives: Legitimate USB activity will also be detected. Please ver
   and investigate as appropriate.
 references: []
 rba:
-  message: tbd
+  message: USB Device Activity detected on $dest$
   risk_objects:
   - field: dest
     type: system

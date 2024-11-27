@@ -24,7 +24,7 @@ known_false_positives: There may be legitimate reasons for system administrators
   add entries to this file.
 references: []
 rba:
-  message: tbd
+  message: Host file modified on $dest$
   risk_objects:
   - field: dest
     type: system

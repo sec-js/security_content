@@ -26,7 +26,7 @@ known_false_positives: This detection model will alert on any sender domain that
   legitimate sender.
 references: []
 rba:
-  message: tbd
+  message: Suspicious Email as detected by UBA for $user$
   risk_objects:
   - field: user
     type: user

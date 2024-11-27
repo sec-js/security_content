@@ -20,7 +20,7 @@ known_false_positives: Legitimate DNS activity can be detected in this search. I
   verify and update the list of authorized DNS servers as appropriate.
 references: []
 rba:
-  message: tbd
+  message: DNS Resolution from Unauthorized DNS Server
   risk_objects:
   - field: dest
     type: system

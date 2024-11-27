@@ -43,7 +43,7 @@ known_false_positives: It's possible that normal DNS traffic will exhibit this b
   can also be modified to better suit your environment.
 references: []
 rba:
-  message: tbd
+  message: Potential DNS Tunneling Detected
   risk_objects:
   - field: src
     type: system

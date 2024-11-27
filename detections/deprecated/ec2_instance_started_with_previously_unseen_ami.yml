@@ -29,7 +29,7 @@ known_false_positives: After a new AMI is created, the first systems created wit
   by a legitimate user.
 references: []
 rba:
-  message: tbd
+  message: EC2 Instance $dest$ launched with new AMI
   risk_objects:
   - field: dest
     type: system

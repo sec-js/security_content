@@ -36,7 +36,7 @@ known_false_positives: If a known good domain is not listed in the legit_domains
   to filter out DNS requests to legitimate domains.
 references: []
 rba:
-  message: tbd
+  message: DNS Request for EvilGinx2 Phishing Site
   risk_objects:
   - field: src
     type: system

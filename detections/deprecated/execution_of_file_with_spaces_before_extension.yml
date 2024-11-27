@@ -27,7 +27,7 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: None identified.
 references: []
 rba:
-  message: tbd
+  message: Execution of file with spaces before the extension on $dest$
   risk_objects:
   - field: dest
     type: system

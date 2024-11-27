@@ -23,7 +23,7 @@ known_false_positives: Other tools could load images into LSASS for legitimate r
 references:
 - https://2017.zeronights.org/wp-content/uploads/materials/ZN17_Kheirkhabarov_Hunting_for_Credentials_Dumping_in_Windows_Environment.pdf
 rba:
-  message: tbd
+  message: Unsigned image loaded by LSASS on $dest$
   risk_objects:
   - field: dest
     type: system

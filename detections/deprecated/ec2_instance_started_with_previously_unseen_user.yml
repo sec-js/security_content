@@ -27,7 +27,7 @@ known_false_positives: It's possible that a user will start to create EC2 instan
   launching instances that this is the intended behavior.
 references: []
 rba:
-  message: tbd
+  message: EC2 Instance $dest$ started by previously unseen user $user$
   risk_objects:
   - field: user
     type: user

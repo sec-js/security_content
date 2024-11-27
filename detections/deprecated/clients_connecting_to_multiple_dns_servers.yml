@@ -26,7 +26,7 @@ known_false_positives: It's possible that an enterprise has more than five DNS s
   that are configured in a round-robin rotation. Please customize the search, as appropriate.
 references: []
 rba:
-  message: tbd
+  message: Device ($src$) observed utilizing multiple DNS Servers
   risk_objects:
   - field: src
     type: system

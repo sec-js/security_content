@@ -38,7 +38,7 @@ known_false_positives: "This is a strictly behavioral search, so we define \"fal
   to you."
 references: []
 rba:
-  message: tbd
+  message: AWS provisioning from new Region ($Region$)
   risk_objects:
   - field: user
     type: user

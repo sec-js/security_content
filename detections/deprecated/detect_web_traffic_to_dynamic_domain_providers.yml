@@ -30,7 +30,7 @@ known_false_positives: It is possible that list of dynamic DNS providers is outd
   and/or that the URL being requested is legitimate.
 references: []
 rba:
-  message: tbd
+  message: Web traffic to Dynamic DNS Provider detected
   risk_objects:
   - field: dest
     type: system

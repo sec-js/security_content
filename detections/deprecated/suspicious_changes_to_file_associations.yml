@@ -33,7 +33,7 @@ known_false_positives: There may be other processes in your environment that use
   finding false positives, you can modify the search to add those processes as exceptions.
 references: []
 rba:
-  message: tbd
+  message: Suspicious changes to file association on $dest$
   risk_objects:
   - field: dest
     type: system

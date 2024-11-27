@@ -27,7 +27,7 @@ known_false_positives: The activity may be legitimate. PowerShell is often used 
   may need to tweak the search to eliminate noise.
 references: []
 rba:
-  message: tbd
+  message: Potential Mimikatz usage on $dest$
   risk_objects:
   - field: dest
     type: system

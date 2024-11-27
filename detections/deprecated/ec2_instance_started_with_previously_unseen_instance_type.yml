@@ -29,7 +29,7 @@ known_false_positives: It is possible that an admin will create a new system usi
   to create the system with the new instance type.
 references: []
 rba:
-  message: tbd
+  message: EC2 Instance $dest$ launched with previously unseen instance type $instanceType$
   risk_objects:
   - field: user
     type: user

@@ -37,7 +37,7 @@ known_false_positives: The false-positive rate may vary based on the values of`d
   and `deviationThreshold`. Please modify this according the your environment.
 references: []
 rba:
-  message: tbd
+  message: Spike in AWS API Activity related to Network ACLs from $user$
   risk_objects:
   - field: user
     type: user

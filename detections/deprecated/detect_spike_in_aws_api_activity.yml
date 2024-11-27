@@ -43,7 +43,7 @@ how_to_implement: "You must install the AWS App for Splunk (version 5.1.0 or lat
 known_false_positives: None.
 references: []
 rba:
-  message: tbd
+  message: Spike in AWS API Activity from $user$
   risk_objects:
   - field: user
     type: user

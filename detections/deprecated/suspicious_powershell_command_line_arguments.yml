@@ -33,7 +33,7 @@ known_false_positives: Legitimate process can have this combination of command-l
   options, but it's not common.
 references: []
 rba:
-  message: tbd
+  message: Suspicious Powershell Command Line Arguments observed on $dest$
   risk_objects:
   - field: dest
     type: system

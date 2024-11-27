@@ -34,7 +34,7 @@ known_false_positives: It is unusual for netsh.exe to have any child processes i
   process path since it is a legitimate process by Mircosoft.
 references: []
 rba:
-  message: tbd
+  message: Proccesses created by netsh.exe on $dest$
   risk_objects:
   - field: dest
     type: system
