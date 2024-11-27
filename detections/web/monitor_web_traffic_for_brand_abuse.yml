@@ -24,7 +24,7 @@ how_to_implement: You need to ingest data from your web traffic. This can be acc
 known_false_positives: None at this time
 references: []
 rba:
-  message: tbd
+  message: Potential Brand Abus discovered in web logs
   risk_objects:
   - field: src
     type: system

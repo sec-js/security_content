@@ -25,7 +25,7 @@ known_false_positives: It's possible for legitimate HTTP requests to be made to 
   containing the suspicious paths.
 references: []
 rba:
-  message: tbd
+  message: Potential Scanning for Vulnerable JBoss Servers
   risk_objects:
   - field: dest
     type: system

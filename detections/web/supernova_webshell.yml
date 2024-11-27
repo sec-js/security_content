@@ -29,7 +29,7 @@ references:
 - https://www.splunk.com/en_us/blog/security/detecting-supernova-malware-solarwinds-continued.html
 - https://www.guidepointsecurity.com/blog/supernova-solarwinds-net-webshell-analysis/
 rba:
-  message: tbd
+  message: Potential Supernova Webshell on $dest$
   risk_objects:
   - field: user
     type: user

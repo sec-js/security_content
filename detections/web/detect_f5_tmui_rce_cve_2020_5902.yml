@@ -27,7 +27,7 @@ references:
 - https://www.ptsecurity.com/ww-en/about/news/f5-fixes-critical-vulnerability-discovered-by-positive-technologies-in-big-ip-application-delivery-controller/
 - https://support.f5.com/csp/article/K52145254
 rba:
-  message: tbd
+  message: Potential F5 TMUI RCE traffic
   risk_objects:
   - field: dest
     type: system
