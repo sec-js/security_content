@@ -33,7 +33,7 @@ known_false_positives: Administrators and users sometimes prefer backing up thei
   be detected by the search.
 references: []
 rba:
-  message: tbd
+  message: Email files written outside of Outlook's Directory on $dest$
   risk_objects:
   - field: dest
     type: system

@@ -27,9 +27,9 @@ how_to_implement: You need to ingest email header data. Specifically the sender'
 known_false_positives: None at this time
 references: []
 rba:
-  message: tbd
+  message: Possible Brand Abuse from $email_domain$
   risk_objects:
-  - field: user
+  - field: src_user
     type: user
     score: 25
   threat_objects: []

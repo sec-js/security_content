@@ -36,9 +36,9 @@ how_to_implement: "You need to ingest data from emails. Specifically, the sender
 known_false_positives: None at this time
 references: []
 rba:
-  message: tbd
+  message: Abnormal number of spaces present in attachment filename from $src_user$
   risk_objects:
-  - field: user
+  - field: src_user
     type: user
     score: 25
   threat_objects: []

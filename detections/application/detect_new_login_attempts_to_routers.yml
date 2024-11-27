@@ -24,8 +24,8 @@ how_to_implement: To successfully implement this search, you must ensure the net
   to routing infrastructure.
 known_false_positives: Legitimate router connections may appear as new connections
 references: []
-rba:
-  message: tbd
+rba: 
+  message: New login on $dest$ from $user$
   risk_objects:
   - field: user
     type: user

@@ -33,7 +33,7 @@ how_to_implement: "You need to ingest data from emails. Specifically, the sender
 known_false_positives: None identified
 references: []
 rba:
-  message: tbd
+  message: Suspicious attachment from $src_user$
   risk_objects:
   - field: user
     type: user
