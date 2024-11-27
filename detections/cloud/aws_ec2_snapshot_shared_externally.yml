@@ -46,9 +46,6 @@ rba:
   message: AWS EC2 snapshot from account $aws_account_id$ is shared with $requested_account_id$
     by user $user_arn$ from $src_ip$
   risk_objects:
-  - field: aws_account_id
-    type: other
-    score: 48
   - field: user_arn
     type: user
     score: 48

@@ -45,9 +45,6 @@ rba:
   message: DataSync task created on account id - $aws_account_id$ by user $user_arn$
     from src_ip $src_ip$
   risk_objects:
-  - field: aws_account_id
-    type: other
-    score: 64
   - field: user_arn
     type: user
     score: 64

@@ -45,10 +45,10 @@ known_false_positives: The false-positive rate may vary based on the values of`d
   of blocked outbound connections.
 references: []
 rba:
-  message: Blocked outbound traffic from your AWS
+  message: Blocked outbound traffic from your AWS VPC
   risk_objects:
-  - field: resourceId
-    type: other
+  - field: src_ip
+    type: system
     score: 25
   threat_objects: []
 tags:

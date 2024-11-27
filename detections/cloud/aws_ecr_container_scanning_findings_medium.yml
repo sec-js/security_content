@@ -46,9 +46,6 @@ drilldown_searches:
 rba:
   message: Vulnerabilities with severity $severity$ found in repository $repository$
   risk_objects:
-  - field: repository
-    type: other
-    score: 21
   - field: user
     type: user
     score: 21

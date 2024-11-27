@@ -43,9 +43,6 @@ rba:
   - field: user
     type: user
     score: 15
-  - field: requestedAccountId
-    type: other
-    score: 15
   threat_objects: []
 tags:
   analytic_story:

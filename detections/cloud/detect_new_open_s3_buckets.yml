@@ -51,9 +51,6 @@ rba:
   - field: user_arn
     type: user
     score: 48
-  - field: bucketName
-    type: other
-    score: 48
   threat_objects: []
 tags:
   analytic_story:

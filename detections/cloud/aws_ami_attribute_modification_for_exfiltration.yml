@@ -48,9 +48,6 @@ rba:
   message: AWS AMI from account $aws_account_id$ is shared externally with $accounts_added$
     from $src_ip$ or AMI made is made Public.
   risk_objects:
-  - field: aws_account_id
-    type: other
-    score: 80
   - field: user_arn
     type: user
     score: 80

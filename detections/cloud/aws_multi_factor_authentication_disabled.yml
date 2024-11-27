@@ -45,9 +45,6 @@ rba:
   message: User $user_name$ has disabled Multi-Factor authentication for AWS account
     $aws_account_id$
   risk_objects:
-  - field: aws_account_id
-    type: other
-    score: 64
   - field: user_name
     type: user
     score: 64
