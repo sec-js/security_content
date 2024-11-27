@@ -27,9 +27,9 @@ references:
 - https://github.com/dxa4481/gcploit
 - https://www.youtube.com/watch?v=Ml09R38jpok
 rba:
-  message: tbd
+  message: Possible use of gcploit framework
   risk_objects:
-  - field: user
+  - field: src_user
     type: user
     score: 25
   threat_objects: []

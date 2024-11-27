@@ -35,7 +35,7 @@ known_false_positives: Many service accounts configured within an AWS infrastruc
   human user.
 references: []
 rba:
-  message: tbd
+  message: At least $instances_launched$ instances launched by $user$
   risk_objects:
   - field: user
     type: user

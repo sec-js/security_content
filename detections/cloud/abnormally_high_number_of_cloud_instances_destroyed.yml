@@ -36,13 +36,10 @@ known_false_positives: Many service accounts configured within a cloud infrastru
   human user.
 references: []
 rba:
-  message: tbd
+  message: At least $instances_destroyed$ instances destroyed by $user$
   risk_objects:
   - field: user
     type: user
-    score: 25
-  - field: dest
-    type: system
     score: 25
   threat_objects: []
 tags:

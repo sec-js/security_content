@@ -31,7 +31,7 @@ known_false_positives: While this search has no known false positives, it is pos
   group.
 references: []
 rba:
-  message: tbd
+  message: New Public GCP Storage Bucket Detected
   risk_objects:
   - field: user
     type: user

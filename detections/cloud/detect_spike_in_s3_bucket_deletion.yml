@@ -42,7 +42,7 @@ known_false_positives: Based on the values of`dataPointThreshold` and `deviation
   the false positive rate may vary. Please modify this according the your environment.
 references: []
 rba:
-  message: tbd
+  message: Spike in AWS S3 Bucket Deletion from $user$
   risk_objects:
   - field: user
     type: user
