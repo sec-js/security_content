@@ -39,9 +39,9 @@ references:
 - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6_fhsec/configuration/xe-16-12/ip6f-xe-16-12-book/ip6-src-guard.html
 - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6_fhsec/configuration/xe-16-12/ip6f-xe-16-12-book/ipv6-dest-guard.html
 rba:
-  message: tbd
+  message: Suspicious IPv6 Activity on $host$
   risk_objects:
-  - field: dest
+  - field: host
     type: system
     score: 25
   threat_objects: []

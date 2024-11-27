@@ -25,7 +25,7 @@ how_to_implement: You must be ingesting Splunk Stream DNS and Splunk Stream TCP.
 known_false_positives: unknown
 references: []
 rba:
-  message: tbd
+  message: Potential SIGRed activity detected
   risk_objects:
   - field: flow_id
     type: other

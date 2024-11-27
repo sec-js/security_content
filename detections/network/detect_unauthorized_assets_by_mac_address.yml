@@ -31,7 +31,7 @@ known_false_positives: This search might be prone to high false positives. Pleas
   framework with the proper information.
 references: []
 rba:
-  message: tbd
+  message: Potentially Unauthorized Device observed
   risk_objects:
   - field: dest
     type: system

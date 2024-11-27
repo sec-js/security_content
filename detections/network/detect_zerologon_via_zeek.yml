@@ -30,9 +30,9 @@ references:
 - https://msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-1472
 - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-319a
 rba:
-  message: tbd
+  message: Potential Zerologon activity detected
   risk_objects:
-  - field: dest
+  - field: dest_ip
     type: system
     score: 25
   threat_objects: []

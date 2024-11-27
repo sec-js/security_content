@@ -42,7 +42,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: tbd
+  message: Potentially Prohibited Network Traffic allowed
   risk_objects:
   - field: src_ip
     type: system

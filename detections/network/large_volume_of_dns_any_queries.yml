@@ -24,7 +24,7 @@ known_false_positives: Legitimate ANY requests may trigger this search, however 
   the threshold in the search to better suit your environment.
 references: []
 rba:
-  message: tbd
+  message: Large Volume of DNS ANY Queries by $dest$
   risk_objects:
   - field: dest
     type: system

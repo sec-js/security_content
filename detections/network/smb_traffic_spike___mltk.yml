@@ -43,7 +43,7 @@ known_false_positives: If you are seeing more results than desired, you may cons
   the `smb_traffic_spike_mltk_filter` macro to filter out false positive results
 references: []
 rba:
-  message: tbd
+  message: SMB Traffic Spike from $dest$
   risk_objects:
   - field: dest
     type: system

@@ -43,7 +43,7 @@ known_false_positives: If you are seeing more results than desired, you may cons
   the support search to re-build the ML model on the latest data.
 references: []
 rba:
-  message: tbd
+  message: DNS Query Length Outliers
   risk_objects:
   - field: dest
     type: system

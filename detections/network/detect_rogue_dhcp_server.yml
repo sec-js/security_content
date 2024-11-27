@@ -28,10 +28,10 @@ known_false_positives: This search might be prone to high false positives if DHC
   server has been moved to another network interface.
 references: []
 rba:
-  message: tbd
+  message: DHCP Snooping detected by $host$
   risk_objects:
-  - field: dest
-    type: other
+  - field: host
+    type: system
     score: 25
   threat_objects: []
 tags:

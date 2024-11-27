@@ -30,10 +30,10 @@ known_false_positives: This search will return false positives for any legitimat
   traffic captures by network administrators.
 references: []
 rba:
-  message: tbd
+  message: Traffic Mirroring Session observed on $host$
   risk_objects:
-  - field: dest
-    type: other
+  - field: host
+    type: system
     score: 25
   threat_objects: []
 tags:

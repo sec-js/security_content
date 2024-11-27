@@ -32,7 +32,7 @@ known_false_positives: This search will also report any legitimate attempts of s
   downloads to network devices as well as outbound SSH sessions from network devices.
 references: []
 rba:
-  message: tbd
+  message: Potentially unauthorized software download to $dest$
   risk_objects:
   - field: dest
     type: system

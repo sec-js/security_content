@@ -27,7 +27,7 @@ how_to_implement: You must be ingesting Zeek DNS and Zeek Conn data into Splunk.
 known_false_positives: unknown
 references: []
 rba:
-  message: tbd
+  message: Potential SIGRed activity detected
   risk_objects:
   - field: flow_id
     type: other

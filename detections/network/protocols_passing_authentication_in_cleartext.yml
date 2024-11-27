@@ -31,7 +31,7 @@ references:
 - https://www.rackaid.com/blog/secure-your-email-and-file-transfers/
 - https://www.infosecmatter.com/capture-passwords-using-wireshark/
 rba:
-  message: tbd
+  message: Potential Authentication in cleartext
   risk_objects:
   - field: user
     type: user
