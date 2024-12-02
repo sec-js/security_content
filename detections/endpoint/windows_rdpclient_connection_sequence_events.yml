@@ -1,5 +1,3 @@
-data_source:
-- Windows Event Log Microsoft Windows TerminalServices RDPClient 1024
 name: Windows RDPClient Connection Sequence Events
 id: 67340df1-3f1d-4470-93c8-9ac7249d11b0
 version: 1
@@ -8,6 +6,8 @@ author: Michael Haag, Splunk
 type: Anomaly
 status: production
 description: This analytic monitors Windows RDP client connection sequence events (EventCode 1024) from the Microsoft-Windows-TerminalServices-RDPClient/Operational log. These events track when RDP ClientActiveX initiates connection attempts to remote servers. The connection sequence is a critical phase of RDP where the client and server exchange settings and establish common parameters for the session. Monitoring these events can help identify unusual RDP connection patterns, potential lateral movement attempts, unauthorized remote access activity, and RDP connection chains that may indicate compromised systems. NOTE the analytic was written for Multi-Line as XML was not properly parsed out.
+data_source:
+- Windows Event Log Microsoft Windows TerminalServices RDPClient 1024
 search: '`wineventlog_rdp` EventCode=1024
   | rename host as dest
   | stats count as "Event Count", min(_time) as firstTime, max(_time) as lastTime, values(Message) as messages by dest, source, LogName, EventCode, category
@@ -23,7 +23,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$dest$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$<update>$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 tags:
