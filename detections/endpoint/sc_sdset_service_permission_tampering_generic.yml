@@ -4,7 +4,7 @@ version: 1
 date: '2024-12-05'
 author: Nasreddine Bencherchali, Michael Haag, Splunk
 status: production
-type: anomaly
+type: Anomaly
 description: The following analytic detects changes in a service security descriptor where a new deny ace has been added. It leverages data from Endpoint Detection and Response (EDR) agents, specifically searching for any process execution involving the "sc.exe" binary with the "sdset" flag targeting any service and adding a dedicated deny ace. If confirmed malicious, this could allow an attacker to escalate their privileges, blind defenses and more.
 data_source:
 - Sysmon EventID 1
@@ -30,8 +30,8 @@ tags:
   analytic_story:
   - Defense Evasion or Unauthorized Access Via SDDL Tampering
   asset_type: Endpoint
-  confidence: 50
-  impact: 40
+  confidence: 60
+  impact: 60
   message: An instance of $parent_process_name$ spawning $process_name$ was identified attempting to disable security services on endpoint $dest$ by user $user$.
   mitre_attack_id:
   - T1564
@@ -65,7 +65,7 @@ tags:
   - Processes.parent_process_path
   - Processes.process_path
   - Processes.parent_process_id
-  risk_score: 20
+  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test

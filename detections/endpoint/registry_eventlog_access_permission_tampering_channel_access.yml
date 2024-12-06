@@ -29,8 +29,8 @@ tags:
   - LockBit Ransomware
   - Defense Evasion or Unauthorized Access Via SDDL Tampering
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
+  confidence: 50
+  impact: 60
   message: modified/added/deleted registry entry $registry_path$ in $dest$
   mitre_attack_id:
   - T1562.002
@@ -55,7 +55,7 @@ tags:
   - Registry.registry_path
   - Registry.registry_value_data
   - Registry.process_guid
-  risk_score: 64
+  risk_score: 30
   security_domain: endpoint
 tests:
 - name: True Positive Test
