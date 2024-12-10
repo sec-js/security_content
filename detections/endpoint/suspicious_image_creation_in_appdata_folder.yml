@@ -49,7 +49,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: Process $process_name$ creating image file $file_path$ in $dest$
+  message: Process $process_name$ creating image file $file_path$ on $dest$
   risk_objects:
   - field: dest
     type: system

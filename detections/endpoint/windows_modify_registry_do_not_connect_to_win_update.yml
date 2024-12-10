@@ -47,7 +47,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: a registry modification in Windows auto update configuration in $dest$
+  message: a registry modification in Windows auto update configuration on $dest$
   risk_objects:
   - field: dest
     type: system

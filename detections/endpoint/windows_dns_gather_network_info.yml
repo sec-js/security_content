@@ -51,7 +51,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A process commandline $process$ to enumerate dns record in $dest$
+  message: A process commandline $process$ to enumerate dns record on $dest$
   risk_objects:
   - field: dest
     type: system

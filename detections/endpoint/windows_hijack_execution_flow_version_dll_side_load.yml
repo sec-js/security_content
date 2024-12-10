@@ -41,7 +41,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: a process $Image$ loading $ImageLoaded$ as a side load dll in $dest$
+  message: a process $Image$ loading $ImageLoaded$ as a side load dll on $dest$
   risk_objects:
   - field: dest
     type: system

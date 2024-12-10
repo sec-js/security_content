@@ -53,7 +53,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: process $process_name$ with commandline $process$ is executed in $dest$
+  message: process $process_name$ with commandline $process$ is executed on $dest$
   risk_objects:
   - field: dest
     type: system

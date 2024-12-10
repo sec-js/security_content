@@ -42,7 +42,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: Windows Domain Account Discovery Via Get-NetComputer in $dest$.
+  message: Windows Domain Account Discovery Via Get-NetComputer on $dest$.
   risk_objects:
   - field: dest
     type: system

@@ -51,7 +51,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: an instance of process $process_name$ with commandline $process$ in $dest$
+  message: an instance of process $process_name$ with commandline $process$ on $dest$
   risk_objects:
   - field: user
     type: user

@@ -53,7 +53,7 @@ drilldown_searches:
   latest_offset: $info_max_time$
 rba:
   message: modification or creation of transcodedwallpaper file by $process_name$
-    in $dest$
+    on $dest$
   risk_objects:
   - field: dest
     type: system

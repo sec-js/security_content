@@ -55,7 +55,7 @@ drilldown_searches:
   latest_offset: $info_max_time$
 rba:
   message: process with commandline $process$ set or change the file association of
-    a file with no file extension in $dest$
+    a file with no file extension on $dest$
   risk_objects:
   - field: dest
     type: system

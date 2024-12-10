@@ -45,7 +45,7 @@ drilldown_searches:
   latest_offset: $info_max_time$
 rba:
   message: a dll modules is loaded by calc.exe in $ImageLoaded$ that are not in common
-    windows OS installation folder in $dest$
+    windows OS installation folder on $dest$
   risk_objects:
   - field: dest
     type: system

@@ -51,7 +51,7 @@ drilldown_searches:
   latest_offset: $info_max_time$
 rba:
   message: a pdf file opened in pdf viewer process $parent_process_name$ has a child
-    process of a browser $process_name$ in $dest$
+    process of a browser $process_name$ on $dest$
   risk_objects:
   - field: dest
     type: system

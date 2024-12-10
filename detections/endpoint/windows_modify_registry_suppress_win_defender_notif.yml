@@ -47,7 +47,7 @@ drilldown_searches:
   latest_offset: $info_max_time$
 rba:
   message: the registry for suppresing windows fdefender notification settings was
-    modified to disabled in $dest$
+    modified to disabled on $dest$
   risk_objects:
   - field: dest
     type: system

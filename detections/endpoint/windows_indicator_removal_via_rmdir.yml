@@ -51,7 +51,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: a process execute rmdir command to delete files and directory tree in $dest$.
+  message: a process execute rmdir command to delete files and directory tree on $dest$.
   risk_objects:
   - field: dest
     type: system

@@ -35,7 +35,7 @@ references:
 - https://www.ncsc.gov.uk/files/Cyclops-Blink-Malware-Analysis-Report.pdf
 - https://www.trendmicro.com/en_us/research/22/c/cyclops-blink-sets-sights-on-asus-routers--.html
 rba:
-  message: a commandline $process$ that redirect stdout to dev/null in $dest$
+  message: a commandline $process$ that redirect stdout to dev/null on $dest$
   risk_objects:
   - field: dest
     type: system

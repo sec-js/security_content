@@ -50,7 +50,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A commandline $process$ that may modify at allow config file in $dest$
+  message: A commandline $process$ that may modify at allow config file on $dest$
   risk_objects:
   - field: dest
     type: system

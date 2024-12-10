@@ -55,7 +55,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: Execution of copy exe to copy file from $process$ in $dest$
+  message: Execution of copy exe to copy file from $process$ on $dest$
   risk_objects:
   - field: dest
     type: system
