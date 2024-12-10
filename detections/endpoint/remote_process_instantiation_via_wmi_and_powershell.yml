@@ -1,7 +1,7 @@
 name: Remote Process Instantiation via WMI and PowerShell
 id: 112638b4-4634-11ec-b9ab-3e22fbd008af
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -52,7 +52,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A process was started on a remote endpoint from $dest by abusing WMI using
+  message: A process was started on a remote endpoint from $dest$ by abusing WMI using
     PowerShell.exe
   risk_objects:
   - field: dest
@@ -62,6 +62,7 @@ rba:
 tags:
   analytic_story:
   - Active Directory Lateral Movement
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 70
   impact: 90

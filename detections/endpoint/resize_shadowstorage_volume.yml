@@ -1,7 +1,7 @@
 name: Resize ShadowStorage volume
 id: bc760ca6-8336-11eb-bcbb-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Teoderick Contreras
 status: production
 type: TTP
@@ -58,7 +58,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A process $parent_process_name$ attempt to resize shadow copy with commandline
+  message: A process $parent_process_name$ attempted to resize shadow copy with commandline
     $process$ in host $dest$
   risk_objects:
   - field: dest
@@ -70,6 +70,7 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
+  - Compromised Windows Host
   - Clop Ransomware
   - BlackByte Ransomware
   asset_type: Endpoint

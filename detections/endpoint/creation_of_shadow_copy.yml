@@ -1,7 +1,7 @@
 name: Creation of Shadow Copy
 id: eb120f5f-b879-4a63-97c1-93352b5df844
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Patrick Bareiss, Splunk
 status: production
 type: TTP
@@ -68,8 +68,9 @@ rba:
     type: parent_process_name
 tags:
   analytic_story:
-  - Credential Dumping
   - Volt Typhoon
+  - Compromised Windows Host
+  - Credential Dumping
   asset_type: Endpoint
   confidence: 90
   impact: 90

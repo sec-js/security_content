@@ -1,7 +1,7 @@
 name: Clop Ransomware Known Service Name
 id: 07e08a12-870c-11eb-b5f9-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Teoderick Contreras
 status: production
 type: TTP
@@ -49,6 +49,7 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
+  - Compromised Windows Host
   - Clop Ransomware
   asset_type: Endpoint
   confidence: 100

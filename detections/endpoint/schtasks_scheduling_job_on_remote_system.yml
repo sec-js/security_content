@@ -1,7 +1,7 @@
 name: Schtasks scheduling job on remote system
 id: 1297fb80-f42a-4b4a-9c8a-88c066237cf6
-version: 10
-date: '2024-11-13'
+version: 11
+date: '2024-12-10'
 author: David Dorsey, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -51,8 +51,8 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A schedule task process $process_name$ with remote job command-line $process$
-    in host $dest$ by $user$.
+  message: A scheduled task process $process_name$ with remote job command-line $process$
+    on host $dest$ by $user$.
   risk_objects:
   - field: dest
     type: system
@@ -66,12 +66,13 @@ rba:
 tags:
   analytic_story:
   - Active Directory Lateral Movement
-  - NOBELIUM Group
   - Living Off The Land
-  - Prestige Ransomware
-  - Scheduled Tasks
-  - RedLine Stealer
   - Phemedrone Stealer
+  - Prestige Ransomware
+  - NOBELIUM Group
+  - Scheduled Tasks
+  - Compromised Windows Host
+  - RedLine Stealer
   asset_type: Endpoint
   confidence: 90
   impact: 70

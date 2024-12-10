@@ -1,7 +1,7 @@
 name: Known Services Killed by Ransomware
 id: 3070f8e0-c528-11eb-b2a0-acde48001122
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -58,9 +58,10 @@ rba:
     type: service
 tags:
   analytic_story:
-  - Ransomware
-  - BlackMatter Ransomware
   - LockBit Ransomware
+  - Ransomware
+  - Compromised Windows Host
+  - BlackMatter Ransomware
   asset_type: Endpoint
   confidence: 80
   impact: 90

@@ -1,7 +1,7 @@
 name: Winword Spawning Windows Script Host
 id: 637e1b5c-9be1-11eb-9c32-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -65,6 +65,7 @@ rba:
 tags:
   analytic_story:
   - Spearphishing Attachments
+  - Compromised Windows Host
   - CVE-2023-21716 Word RTF Heap Corruption
   asset_type: Endpoint
   confidence: 100

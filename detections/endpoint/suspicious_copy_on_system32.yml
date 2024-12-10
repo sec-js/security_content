@@ -1,7 +1,7 @@
 name: Suspicious Copy on System32
 id: ce633e56-25b2-11ec-9e76-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -66,12 +66,13 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
-  - Unusual Processes
   - Qakbot
-  - IcedID
-  - AsyncRAT
   - Sandworm Tools
+  - IcedID
   - Volt Typhoon
+  - AsyncRAT
+  - Unusual Processes
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 90
   impact: 70

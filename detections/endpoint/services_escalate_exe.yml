@@ -1,7 +1,7 @@
 name: Services Escalate Exe
 id: c448488c-b7ec-11eb-8253-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -54,7 +54,7 @@ drilldown_searches:
   latest_offset: $info_max_time$
 rba:
   message: A service process $parent_process_name$ with process path $process_path$
-    in host $dest$
+    on host $dest$
   risk_objects:
   - field: dest
     type: system
@@ -65,10 +65,11 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
-  - BlackByte Ransomware
-  - Cobalt Strike
   - Graceful Wipe Out Attack
+  - Cobalt Strike
   - CISA AA23-347A
+  - Compromised Windows Host
+  - BlackByte Ransomware
   asset_type: Endpoint
   confidence: 95
   impact: 80

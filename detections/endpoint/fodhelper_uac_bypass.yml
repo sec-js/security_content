@@ -1,7 +1,7 @@
 name: FodHelper UAC Bypass
 id: 909f8fd8-7ac8-11eb-a1f3-acde48001122
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -53,7 +53,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: Suspicious registy keys added by process fodhelper.exe with a parent_process
+  message: Suspicious registry keys added by process fodhelper.exe with a parent_process
     of $parent_process_name$ that has been executed on $dest$ by $user$.
   risk_objects:
   - field: user
@@ -67,9 +67,10 @@ rba:
     type: parent_process_name
 tags:
   analytic_story:
-  - Windows Defense Evasion Tactics
   - IcedID
   - ValleyRAT
+  - Compromised Windows Host
+  - Windows Defense Evasion Tactics
   asset_type: Endpoint
   confidence: 90
   impact: 90

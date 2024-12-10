@@ -1,7 +1,7 @@
 name: Windows SOAPHound Binary Execution
 id: 8e53f839-e127-4d6d-a54d-a2f67044a57f
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -66,6 +66,7 @@ rba:
 tags:
   analytic_story:
   - Windows Discovery Techniques
+  - Compromised Windows Host
   asset_type: Endpoint
   atomic_guid: []
   confidence: 100

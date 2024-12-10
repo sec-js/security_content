@@ -1,7 +1,7 @@
 name: Windows InstallUtil URL in Command Line
 id: 28e06670-43df-11ec-a569-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -69,8 +69,9 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - Signed Binary Proxy Execution InstallUtil
   - Living Off The Land
+  - Compromised Windows Host
+  - Signed Binary Proxy Execution InstallUtil
   asset_type: Endpoint
   confidence: 100
   impact: 80

@@ -1,7 +1,7 @@
 name: Windows ConHost with Headless Argument
 id: d5039508-998d-4cfc-8b5e-9dcd679d9a62
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -65,6 +65,7 @@ rba:
 tags:
   analytic_story:
   - Spearphishing Attachments
+  - Compromised Windows Host
   asset_type: Endpoint
   atomic_guid: []
   confidence: 70

@@ -1,7 +1,7 @@
 name: Suspicious Process DNS Query Known Abuse Web Services
 id: 3cf0dc36-484d-11ec-a6bc-acde48001122
-version: 7
-date: '2024-11-22'
+version: 8
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -44,7 +44,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: suspicious process $process_name$ has a dns query in $QueryName$ on $dest$
+  message: Suspicious process $process_name$ made a DNS query for $QueryName$ on $dest$
   risk_objects:
   - field: dest
     type: system
@@ -60,6 +60,7 @@ tags:
   - Phemedrone Stealer
   - Snake Keylogger
   - PXA Stealer
+  - Meduza Stealer
   asset_type: Endpoint
   confidence: 80
   impact: 80

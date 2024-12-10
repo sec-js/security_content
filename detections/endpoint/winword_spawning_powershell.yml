@@ -1,7 +1,7 @@
 name: Winword Spawning PowerShell
 id: b2c950b8-9be2-11eb-8658-acde48001122
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -69,8 +69,9 @@ rba:
 tags:
   analytic_story:
   - Spearphishing Attachments
-  - DarkCrystal RAT
+  - Compromised Windows Host
   - CVE-2023-21716 Word RTF Heap Corruption
+  - DarkCrystal RAT
   asset_type: Endpoint
   confidence: 100
   impact: 70

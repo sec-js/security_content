@@ -1,7 +1,7 @@
 name: Detect Certify Command Line Arguments
 id: e6d2dc61-a8b9-4b03-906c-da0ca75d71b8
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Steven Dick
 status: production
 type: TTP
@@ -66,6 +66,7 @@ rba:
     type: process_name
 tags:
   analytic_story:
+  - Compromised Windows Host
   - Windows Certificate Services
   - Ingress Tool Transfer
   asset_type: Endpoint

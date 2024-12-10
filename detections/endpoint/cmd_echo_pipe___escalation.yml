@@ -1,7 +1,7 @@
 name: CMD Echo Pipe - Escalation
 id: eb277ba0-b96b-11eb-b00e-acde48001122
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -69,9 +69,10 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - BlackByte Ransomware
-  - Cobalt Strike
   - Graceful Wipe Out Attack
+  - Cobalt Strike
+  - Compromised Windows Host
+  - BlackByte Ransomware
   asset_type: Endpoint
   confidence: 80
   impact: 80

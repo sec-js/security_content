@@ -1,7 +1,7 @@
 name: Clop Common Exec Parameter
 id: 5a8a2a72-8322-11eb-9ee9-acde48001122
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -68,6 +68,7 @@ rba:
     type: process_name
 tags:
   analytic_story:
+  - Compromised Windows Host
   - Clop Ransomware
   asset_type: Endpoint
   confidence: 100

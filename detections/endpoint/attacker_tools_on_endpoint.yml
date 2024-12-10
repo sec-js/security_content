@@ -1,7 +1,7 @@
 name: Attacker Tools On Endpoint
 id: a51bfe1a-94f0-48cc-b4e4-16a110145893
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Bhavin Patel, Splunk
 status: production
 type: TTP
@@ -51,7 +51,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: An attacker tool $process_name$,listed in attacker_tools.csv is executed
+  message: An attacker tool $process_name$, listed in attacker_tools.csv is executed
     on host $dest$ by User $user$. This process $process_name$ is known to do- $description$
   risk_objects:
   - field: user
@@ -65,11 +65,12 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - Monitor for Unauthorized Software
   - XMRig
-  - SamSam Ransomware
+  - Monitor for Unauthorized Software
   - Unusual Processes
+  - SamSam Ransomware
   - CISA AA22-264A
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 80
   impact: 80

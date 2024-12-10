@@ -1,7 +1,7 @@
 name: Windows Scheduled Task with Highest Privileges
 id: 2f15e1a4-0fc2-49dd-919e-cbbe60699218
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -52,8 +52,8 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: a $process_name$ creating a schedule task $process$ with highest run level
-    privilege in $dest$
+  message: A $process_name$ process created a scheduled task $process$ with highest run level
+    privilege on $dest$
   risk_objects:
   - field: dest
     type: system
@@ -61,10 +61,11 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
+  - AsyncRAT
   - CISA AA23-347A
+  - Compromised Windows Host
   - Scheduled Tasks
   - RedLine Stealer
-  - AsyncRAT
   asset_type: Endpoint
   confidence: 80
   impact: 80

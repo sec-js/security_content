@@ -1,7 +1,7 @@
 name: Schedule Task with HTTP Command Arguments
 id: 523c2684-a101-11eb-916b-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -40,8 +40,8 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A schedule task process commandline arguments $Arguments$ with http string
-    on it in host $dest$
+  message: A scheduled task process commandline arguments $Arguments$ with http string
+    in it on host $dest$
   risk_objects:
   - field: dest
     type: system
@@ -49,10 +49,11 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
-  - Living Off The Land
-  - Winter Vivern
   - Windows Persistence Techniques
+  - Living Off The Land
+  - Compromised Windows Host
   - Scheduled Tasks
+  - Winter Vivern
   asset_type: Endpoint
   confidence: 90
   impact: 70

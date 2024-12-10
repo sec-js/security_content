@@ -1,7 +1,7 @@
 name: Windows AD Short Lived Server Object
 id: 193769d3-1e33-43a9-970e-ad4a88256cdb
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Mauricio Velazco, Splunk
 type: TTP
 status: production
@@ -59,6 +59,7 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
+  - Compromised Windows Host
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
   confidence: 80

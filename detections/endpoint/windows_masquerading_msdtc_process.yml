@@ -1,7 +1,7 @@
 name: Windows Masquerading Msdtc Process
 id: 238f3a07-8440-480b-b26f-462f41d9a47c
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -59,6 +59,7 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
+  - Compromised Windows Host
   - PlugX
   asset_type: Endpoint
   confidence: 80

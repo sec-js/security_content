@@ -1,7 +1,7 @@
 name: Ryuk Wake on LAN Command
 id: 538d0152-7aaa-11eb-beaa-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -52,7 +52,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A process $process_name$ with wake on LAN commandline $process$ in host
+  message: A process $process_name$ with wake on LAN commandline $process$ on host
     $dest$
   risk_objects:
   - field: dest
@@ -64,6 +64,7 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
+  - Compromised Windows Host
   - Ryuk Ransomware
   asset_type: Endpoint
   confidence: 90

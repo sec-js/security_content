@@ -1,7 +1,7 @@
 name: Schedule Task with Rundll32 Command Trigger
 id: 75b00fd8-a0ff-11eb-8b31-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -41,7 +41,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A schedule task process commandline rundll32 arguments $Arguments$ in host
+  message: A scheduled task process commandline rundll32 arguments $Arguments$ on host
     $dest$
   risk_objects:
   - field: dest
@@ -51,10 +51,11 @@ rba:
 tags:
   analytic_story:
   - Windows Persistence Techniques
-  - Trickbot
-  - IcedID
   - Living Off The Land
+  - IcedID
   - Scheduled Tasks
+  - Compromised Windows Host
+  - Trickbot
   asset_type: Endpoint
   confidence: 100
   impact: 70

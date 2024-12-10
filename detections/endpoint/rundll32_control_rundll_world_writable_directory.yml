@@ -1,7 +1,7 @@
 name: Rundll32 Control RunDLL World Writable Directory
 id: 1adffe86-10c3-11ec-8ce6-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -73,9 +73,10 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - Suspicious Rundll32 Activity
   - Microsoft MSHTML Remote Code Execution CVE-2021-40444
+  - Suspicious Rundll32 Activity
   - Living Off The Land
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 100
   cve:

@@ -1,7 +1,7 @@
 name: Windows Mimikatz Binary Execution
 id: a9e0d6d3-9676-4e26-994d-4e0406bb4467
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -69,12 +69,13 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - Volt Typhoon
   - Sandworm Tools
-  - Credential Dumping
+  - Volt Typhoon
   - Flax Typhoon
   - CISA AA22-320A
   - CISA AA23-347A
+  - Compromised Windows Host
+  - Credential Dumping
   asset_type: Endpoint
   confidence: 100
   impact: 100

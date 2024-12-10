@@ -1,7 +1,7 @@
 name: WinRAR Spawning Shell Application
 id: d2f36034-37fa-4bd4-8801-26807c15540f
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -74,6 +74,7 @@ rba:
     type: process_name
 tags:
   analytic_story:
+  - Compromised Windows Host
   - WinRAR Spoofing Attack CVE-2023-38831
   cve:
   - CVE-2023-38831

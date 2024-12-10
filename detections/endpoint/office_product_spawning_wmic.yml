@@ -1,7 +1,7 @@
 name: Office Product Spawning Wmic
 id: ffc236d6-a6c9-11eb-95f1-acde48001122
-version: 9
-date: '2024-11-13'
+version: 10
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -54,8 +54,8 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: office parent process $parent_process_name$ will execute a suspicious child
-    process $process_name$ with process id $process_id$ in host $dest$
+  message: Office process $parent_process_name$ observed executing a suspicious child
+    process $process_name$ with process id $process_id$ on host $dest$
   risk_objects:
   - field: dest
     type: system
@@ -66,8 +66,9 @@ rba:
 tags:
   analytic_story:
   - Spearphishing Attachments
-  - FIN7
+  - Compromised Windows Host
   - CVE-2023-36884 Office and Windows HTML RCE Vulnerability
+  - FIN7
   asset_type: Endpoint
   confidence: 90
   impact: 70

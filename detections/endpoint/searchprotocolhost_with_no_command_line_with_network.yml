@@ -1,7 +1,7 @@
 name: SearchProtocolHost with no Command Line with Network
 id: b690df8c-a145-11eb-a38b-acde48001122
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -52,7 +52,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A searchprotocolhost.exe process $process_name$ with no commandline in
+  message: A searchprotocolhost.exe process $process_name$ with no commandline on
     host $dest$
   risk_objects:
   - field: dest
@@ -63,9 +63,10 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - BlackByte Ransomware
-  - Cobalt Strike
   - Graceful Wipe Out Attack
+  - Cobalt Strike
+  - Compromised Windows Host
+  - BlackByte Ransomware
   asset_type: Endpoint
   confidence: 100
   impact: 70

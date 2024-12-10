@@ -1,7 +1,7 @@
 name: SLUI RunAs Elevated
 id: 8d124810-b3e4-11eb-96c7-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -55,7 +55,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A slui process $process_name$ with elevated commandline $process$ in host
+  message: A slui process $process_name$ with elevated commandline $process$ on host
     $dest$
   risk_objects:
   - field: dest
@@ -68,6 +68,7 @@ rba:
 tags:
   analytic_story:
   - DarkSide Ransomware
+  - Compromised Windows Host
   - Windows Defense Evasion Tactics
   asset_type: Endpoint
   confidence: 90

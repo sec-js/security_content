@@ -1,7 +1,7 @@
 name: Office Product Spawning Windows Script Host
 id: b3628a5b-8d02-42fa-a891-eebf2351cbe1
-version: 9
-date: '2024-11-13'
+version: 10
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -54,7 +54,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: office parent process $parent_process_name$ will execute a suspicious child
+  message: Office process $parent_process_name$ observed executing a suspicious child
     process $process_name$ on host $dest$.
   risk_objects:
   - field: dest
@@ -70,6 +70,7 @@ tags:
   - Spearphishing Attachments
   - Remcos
   - CVE-2023-36884 Office and Windows HTML RCE Vulnerability
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 90
   impact: 70

@@ -1,7 +1,7 @@
 name: DSQuery Domain Discovery
 id: cc316032-924a-11eb-91a2-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -70,8 +70,9 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - Domain Trust Discovery
   - Active Directory Discovery
+  - Domain Trust Discovery
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 90
   impact: 80

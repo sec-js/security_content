@@ -1,7 +1,7 @@
 name: Detect AzureHound Command-Line Arguments
 id: 26f02e96-c300-11eb-b611-acde48001122
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -69,6 +69,7 @@ rba:
 tags:
   analytic_story:
   - Windows Discovery Techniques
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 100
   impact: 80

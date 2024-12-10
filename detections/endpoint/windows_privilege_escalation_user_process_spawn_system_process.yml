@@ -1,7 +1,7 @@
 name: Windows Privilege Escalation User Process Spawn System Process
 id: c9687a28-39ad-43c6-8bcf-eaf061ba0cbe
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-10'
 author: Steven Dick
 status: production
 type: TTP
@@ -60,8 +60,8 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: The user $user$ launched a process [$process_name$] which spawned a system
-    level integrity process [$system_process$].
+  message: The user $user$ launched the process $process_name$ which spawned a system
+    level integrity process $system_process$ .
   risk_objects:
   - field: dest
     type: system
@@ -75,6 +75,7 @@ rba:
 tags:
   analytic_story:
   - Windows Privilege Escalation
+  - Compromised Windows Host
   - BlackSuit Ransomware
   asset_type: Endpoint
   confidence: 80

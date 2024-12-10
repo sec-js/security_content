@@ -1,7 +1,7 @@
 name: WMIC XSL Execution via URL
 id: 787e9dd0-4328-11ec-a029-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -69,6 +69,7 @@ rba:
     type: process_name
 tags:
   analytic_story:
+  - Compromised Windows Host
   - Suspicious WMI Use
   asset_type: Endpoint
   confidence: 100

@@ -1,7 +1,7 @@
 name: Excel Spawning PowerShell
 id: 42d40a22-9be3-11eb-8f08-acde48001122
-version: 6
-date: '2024-11-13'
+version: 7
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -69,6 +69,7 @@ rba:
 tags:
   analytic_story:
   - Spearphishing Attachments
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 100
   impact: 80

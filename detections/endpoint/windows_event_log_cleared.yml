@@ -1,7 +1,7 @@
 name: Windows Event Log Cleared
 id: ad517544-aff9-4c96-bd99-d6eb43bfbb6a
-version: 11
-date: '2024-11-13'
+version: 12
+date: '2024-12-10'
 author: Rico Valdez, Michael Haag, Splunk
 status: production
 type: TTP
@@ -50,11 +50,12 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
+  - ShrinkLocker
   - Windows Log Manipulation
   - Ransomware
-  - Clop Ransomware
   - CISA AA22-264A
-  - ShrinkLocker
+  - Compromised Windows Host
+  - Clop Ransomware
   asset_type: Endpoint
   confidence: 100
   impact: 70

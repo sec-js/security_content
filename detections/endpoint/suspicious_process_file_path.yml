@@ -1,7 +1,7 @@
 name: Suspicious Process File Path
 id: 9be25988-ad82-11eb-a14f-acde48001122
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -105,6 +105,7 @@ tags:
   - Handala Wiper
   - MoonPeak
   - ValleyRAT
+  - Meduza Stealer
   asset_type: Endpoint
   confidence: 50
   impact: 70

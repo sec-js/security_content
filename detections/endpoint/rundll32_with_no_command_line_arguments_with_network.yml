@@ -1,7 +1,7 @@
 name: Rundll32 with no Command Line Arguments with Network
 id: 35307032-a12d-11eb-835f-acde48001122
-version: 7
-date: '2024-11-13'
+version: 8
+date: '2024-12-10'
 author: Steven Dick,  Michael Haag, Splunk
 status: production
 type: TTP
@@ -67,12 +67,13 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - Suspicious Rundll32 Activity
-  - Cobalt Strike
-  - BlackByte Ransomware
-  - PrintNightmare CVE-2021-34527
-  - Graceful Wipe Out Attack
   - BlackSuit Ransomware
+  - Suspicious Rundll32 Activity
+  - Graceful Wipe Out Attack
+  - Cobalt Strike
+  - Compromised Windows Host
+  - PrintNightmare CVE-2021-34527
+  - BlackByte Ransomware
   asset_type: Endpoint
   confidence: 100
   cve:
