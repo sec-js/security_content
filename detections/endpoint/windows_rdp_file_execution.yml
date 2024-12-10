@@ -63,21 +63,22 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba: 
+  message: A Windows RDP client attempted to execute an RDP file from a temporary directory, downloads directory, or Outlook directories on the endpoint $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 42
+  threat_objects: []
 tags:
   analytic_story:
   - Spearphishing Attachments
   asset_type: Endpoint
   confidence: 70
   impact: 60
-  message: A Windows RDP client attempted to execute an RDP file from a temporary directory, downloads directory, or Outlook directories on the endpoint $dest$.
   mitre_attack_id:
   - T1598.002
   - T1021.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
