@@ -29,6 +29,7 @@ tags:
   - Windows Discovery Techniques
   - Gozi Malware
   - BlackSuit Ransomware
+  - Cleo File Transfer Software
   asset_type: Windows
   confidence: 50
   impact: 30

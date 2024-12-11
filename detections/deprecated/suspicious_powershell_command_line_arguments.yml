@@ -37,6 +37,7 @@ tags:
   - Malicious PowerShell
   - Hermetic Wiper
   - CISA AA22-320A
+  - Cleo File Transfer Software
   asset_type: Endpoint
   confidence: 50
   impact: 50

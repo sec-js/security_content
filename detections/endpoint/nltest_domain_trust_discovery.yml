@@ -38,6 +38,7 @@ tags:
   - Active Directory Discovery
   - Qakbot
   - Rhysida Ransomware
+  - Cleo File Transfer Software
   asset_type: Endpoint
   confidence: 50
   impact: 30

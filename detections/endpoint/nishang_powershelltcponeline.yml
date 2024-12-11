@@ -30,6 +30,7 @@ drilldown_searches:
 tags:
   analytic_story:
   - HAFNIUM Group
+  - Cleo File Transfer Software
   asset_type: Endpoint
   confidence: 60
   impact: 70

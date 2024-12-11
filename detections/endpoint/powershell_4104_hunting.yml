@@ -33,6 +33,7 @@ tags:
   - CISA AA24-241A
   - Braodo Stealer
   - Lumma Stealer
+  - Cleo File Transfer Software
   asset_type: Endpoint
   confidence: 100
   impact: 80
