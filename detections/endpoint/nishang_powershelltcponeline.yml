@@ -1,6 +1,6 @@
 name: Nishang PowershellTCPOneLine
 id: 1a382c6c-7c2e-11eb-ac69-acde48001122
-version: 4
+version: 5
 date: '2024-09-30'
 author: Michael Haag, Splunk
 status: production
