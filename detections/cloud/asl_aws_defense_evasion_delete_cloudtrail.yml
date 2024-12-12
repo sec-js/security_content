@@ -27,7 +27,7 @@ tags:
   asset_type: AWS Account
   confidence: 90
   impact: 100
-  message: User $user$ has deleted a CloudTrail logging for account id $aws_account_id$
+  message: User $user$ has deleted a CloudTrail
   mitre_attack_id:
   - T1562.008
   - T1562

@@ -27,7 +27,7 @@ tags:
   asset_type: AWS Account
   confidence: 90
   impact: 100
-  message: User $user$ has deleted a CloudWatch logging group for account id $aws_account_id$
+  message: User $user$ has deleted a CloudWatch
   mitre_attack_id:
   - T1562
   - T1562.008

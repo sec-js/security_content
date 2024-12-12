@@ -28,7 +28,7 @@ tags:
   asset_type: AWS Account
   confidence: 80
   impact: 80
-  message: User $user$ has disabled Multi-Factor authentication for AWS account $aws_account_id$
+  message: User $user$ has disabled Multi-Factor authentication
   mitre_attack_id:
   - T1586
   - T1586.003
