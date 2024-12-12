@@ -44,6 +44,13 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
+  required_fields:
+  - api.operation
+  - actor.user.uid
+  - http_request.user_agent
+  - src_endpoint.ip
+  - src_endpoint.domain
+  - cloud.region
   risk_score: 64
   security_domain: identity
 tests:
