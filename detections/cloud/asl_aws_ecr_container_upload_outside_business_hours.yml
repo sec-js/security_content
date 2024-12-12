@@ -1,6 +1,6 @@
 name: ASL AWS ECR Container Upload Outside Business Hours
 id: 739ed682-27e9-4ba0-80e5-a91b97698213
-version: 4
+version: 5
 date: '2024-09-30'
 author: Patrick Bareiss, Splunk
 status: production

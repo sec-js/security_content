@@ -1,6 +1,6 @@
 name: ASL AWS Multi-Factor Authentication Disabled
 id: 4d2df5e0-1092-4817-88a8-79c7fa054668
-version: 4
+version: 5
 date: '2024-09-30'
 author: Patrick Bareiss, Splunk
 status: production

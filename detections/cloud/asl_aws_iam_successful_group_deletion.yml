@@ -1,6 +1,6 @@
 name: ASL AWS IAM Successful Group Deletion
 id: 1bbe54f1-93d7-4764-8a01-ddaa12ece7ac
-version: 4
+version: 5
 date: '2024-10-22'
 author: Patrick Bareiss, Splunk
 status: production
