@@ -4,7 +4,7 @@ version: 8
 date: '2024-12-12'
 author: David Dorsey, Michael Haag, Splunk, Steven Dick
 status: production
-type: Hunting
+type: TTP
 description: The following analytic detects modifications to files with extensions commonly associated with ransomware. It leverages the Endpoint.Filesystem data model to identify changes in file extensions that match known ransomware patterns. This activity is significant because it suggests an attacker is attempting to encrypt or alter files, potentially leading to severe data loss and operational disruption. If confirmed malicious, this activity could result in the encryption of critical data, rendering it inaccessible and causing significant damage to the organization's data integrity and availability.
 data_source:
 - Sysmon EventID 11
