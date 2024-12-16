@@ -17,7 +17,7 @@ description: The following analytic detects the execution of the Invoke-ShareFin
   and sensitive data.
 search: '`powershell` EventCode=4104  (ScriptBlockText=Invoke-ShareFinder*) | stats
   count min(_time) as firstTime max(_time) as lastTime by Opcode Computer UserID EventCode
-  ScriptBlockText | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
+  ScriptBlockText | rename UserID as user | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
   | `windows_file_share_discovery_with_powerview_filter`'
 how_to_implement: To successfully implement this analytic, you will need to enable
   PowerShell Script Block Logging on some or all endpoints. Additional setup here
@@ -29,14 +29,14 @@ references:
 - https://thedfirreport.com/2023/01/23/sharefinder-how-threat-actors-discover-file-shares/
 - https://attack.mitre.org/techniques/T1135/
 drilldown_searches:
-- name: View the detection results for - "$Computer$" and "$UserID$"
-  search: '%original_detection_search% | search  Computer = "$Computer$" UserID =
-    "$UserID$"'
+- name: View the detection results for - "$Computer$" and "$user$"
+  search: '%original_detection_search% | search  Computer = "$Computer$" user =
+    "$user$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-- name: View risk events for the last 7 days for - "$Computer$" and "$UserID$"
+- name: View risk events for the last 7 days for - "$Computer$" and "$user$"
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$Computer$",
-    "$UserID$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
     as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
     Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
     as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
@@ -49,7 +49,7 @@ rba:
   - field: Computer
     type: system
     score: 48
-  - field: UserID
+  - field: User
     type: user
     score: 48
   threat_objects: []

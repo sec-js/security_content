@@ -17,7 +17,7 @@ data_source:
 search: '`powershell` EventCode=4104 ScriptBlockText = "*IO.Compression.*" OR ScriptBlockText
   = "*IO.StreamReader*" OR ScriptBlockText = "*]::Decompress*" | stats count min(_time)
   as firstTime max(_time) as lastTime by EventCode ScriptBlockText Computer UserID
-  | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)` | `powershell_processing_stream_of_data_filter`'
+  | rename UserID as user | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)` | `powershell_processing_stream_of_data_filter`'
 how_to_implement: To successfully implement this analytic, you will need to enable
   PowerShell Script Block Logging on some or all endpoints. Additional setup here
   https://docs.splunk.com/Documentation/UBA/5.0.4.1/GetDataIn/AddPowerShell#Configure_module_logging_for_PowerShell.
@@ -31,14 +31,14 @@ references:
 - https://www.splunk.com/en_us/blog/security/hunting-for-malicious-powershell-using-script-block-logging.html
 - https://thedfirreport.com/2023/05/22/icedid-macro-ends-in-nokoyawa-ransomware/
 drilldown_searches:
-- name: View the detection results for - "$Computer$" and "$UserID$"
-  search: '%original_detection_search% | search  Computer = "$Computer$" UserID =
-    "$UserID$"'
+- name: View the detection results for - "$Computer$" and "$user$"
+  search: '%original_detection_search% | search  Computer = "$Computer$" user =
+    "$user$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-- name: View risk events for the last 7 days for - "$Computer$" and "$UserID$"
+- name: View risk events for the last 7 days for - "$Computer$" and "$user$"
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$Computer$",
-    "$UserID$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
     as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
     Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
     as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
@@ -53,7 +53,7 @@ rba:
   - field: Computer
     type: system
     score: 40
-  - field: UserID
+  - field: user
     type: user
     score: 40
   threat_objects: []

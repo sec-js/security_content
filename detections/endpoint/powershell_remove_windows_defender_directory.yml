@@ -16,7 +16,7 @@ data_source:
 - Powershell Script Block Logging 4104
 search: '`powershell` EventCode=4104 ScriptBlockText = "*rmdir *" AND ScriptBlockText
   = "*\\Microsoft\\Windows Defender*" | stats count min(_time) as firstTime max(_time)
-  as lastTime by Opcode Computer UserID EventCode ScriptBlockText | `security_content_ctime(firstTime)`
+  as lastTime by Opcode Computer UserID EventCode ScriptBlockText | rename UserID as user | `security_content_ctime(firstTime)`
   | `security_content_ctime(lastTime)` | `powershell_remove_windows_defender_directory_filter`'
 how_to_implement: To successfully implement this analytic, you will need to enable
   PowerShell Script Block Logging on some or all endpoints. Additional setup here
@@ -25,14 +25,14 @@ known_false_positives: unknown
 references:
 - https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/
 drilldown_searches:
-- name: View the detection results for - "$Computer$" and "$UserID$"
-  search: '%original_detection_search% | search  Computer = "$Computer$" UserID =
-    "$UserID$"'
+- name: View the detection results for - "$Computer$" and "$user$"
+  search: '%original_detection_search% | search  Computer = "$Computer$" user =
+    "$user$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-- name: View risk events for the last 7 days for - "$Computer$" and "$UserID$"
+- name: View risk events for the last 7 days for - "$Computer$" and "$user$"
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$Computer$",
-    "$UserID$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
     as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
     Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
     as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
@@ -45,7 +45,7 @@ rba:
   - field: Computer
     type: system
     score: 90
-  - field: UserID
+  - field: user
     type: user
     score: 90
   threat_objects: []
