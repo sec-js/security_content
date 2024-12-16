@@ -48,6 +48,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/asl_ocsf_cloudtrail.json
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/aws_createaccesskey/asl_ocsf_cloudtrail.json
     sourcetype: aws:cloudtrail:lake
     source: aws_asl
