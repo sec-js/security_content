@@ -1,20 +1,20 @@
-name: 'Windows Account Access Removal via Quser LogOff'
+name: 'Windows Powershell Logoff User via Quser'
 id: 6d70780d-4cfe-4820-bafd-1b43941986b5
 version: 1
 date: '2024-12-12'
 author: Teoderick Contreras, Splunk
 data_sources:
 - Powershell Script Block Logging 4104
-type: TTP
+type: Anomaly
 status: production
 description: The following analytic detects the process of logging off a user through the use of the quser and logoff commands. By monitoring for these commands, the analytic identifies actions where a user session is forcibly terminated, which could be part of an administrative task or a potentially unauthorized access attempt. This detection helps identify potential misuse or malicious activity where a user’s access is revoked without proper authorization, providing insight into potential security incidents involving account management or session manipulation.
 kind: endpoint
-search: '`powershell` EventCode=4104 ScriptBlockText = "*quser*" ScriptBlockText = "*logoff*" 
+search: '`powershell` EventCode=4104 ScriptBlockText = "*quser*logoff*"
   | stats count min(_time) as firstTime max(_time) as lastTime by EventCode  ScriptBlockText UserID Computer 
   | rename Computer as dest, UserID as user 
   | `security_content_ctime(firstTime)` 
   | `security_content_ctime(lastTime)` 
-  | `windows_account_access_removal_via_quser_logoff_filter`'
+  | `windows_powershell_logoff_user_via_quser_filter`'
 how_to_implement: The following Hunting analytic requires PowerShell operational logs to be imported. Modify the powershell macro as needed to match the sourcetype or add index. This analytic is specific to 4104, or PowerShell Script Block Logging.
 known_false_positives: Administrators or power users may use this command.
 references:
@@ -32,11 +32,13 @@ tags:
   analytic_story:
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
+  confidence: 30
+  impact: 30
   message: Powershell process having commandline [$ScriptBlockText$] used to logoff user on [$dest$].
   mitre_attack_id:
   - T1531
+  - T1059.001
+  - T1059
   observable:
   - name: dest
     type: Hostname
@@ -56,7 +58,7 @@ tags:
   - Message
   - dest
   - user
-  risk_score: 49
+  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

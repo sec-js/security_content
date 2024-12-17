@@ -5,9 +5,9 @@ date: '2024-12-12'
 author: Teoderick Contreras, Splunk
 data_sources:
 - Sysmon Event ID 11
-type: TTP
+type: Anomaly
 status: production
-description: The following analytic detects the creation of RAR Self-Extracting (SFX) files by monitoring the generation of file related to rar sfx installation. This method leverages a heuristic to identify RAR SFX archives based on specific markers that indicate a combination of executable code and compressed RAR data. By tracking such activity, the analytic helps pinpoint potentially unauthorized or suspicious file creation events, which are often associated with malware packaging or data exfiltration. Legitimate usage may include custom installers or compressed file delivery.
+description: The following analytic detects the creation of RAR Self-Extracting (SFX) files by monitoring the generation of file related to rar sfx .tmp file creation during sfx installation. This method leverages a heuristic to identify RAR SFX archives based on specific markers that indicate a combination of executable code and compressed RAR data. By tracking such activity, the analytic helps pinpoint potentially unauthorized or suspicious file creation events, which are often associated with malware packaging or data exfiltration. Legitimate usage may include custom installers or compressed file delivery.
 kind: endpoint
 search: '`sysmon` EventCode=11 Image="*.exe" TargetFilename IN ("*__tmp_rar_sfx_access_check*") 
   | stats count min(_time) as firstTime max(_time) as lastTime by Image TargetFilename Computer 
