@@ -61,6 +61,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://github.com/splunk/contentctl/wiki
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1531/log_off_user/pwh_quser_logoff.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
     sourcetype: XmlWinEventLog
