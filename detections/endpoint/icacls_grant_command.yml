@@ -54,6 +54,7 @@ tags:
   - Ransomware
   - Crypto Stealer
   - XMRig
+  - Defense Evasion or Unauthorized Access Via SDDL Tampering
   asset_type: Endpoint
   confidence: 50
   impact: 50
