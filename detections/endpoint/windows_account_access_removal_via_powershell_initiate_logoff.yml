@@ -36,7 +36,7 @@ tags:
   asset_type: Endpoint
   confidence: 50
   impact: 50
-  message: Powershell process having commandline [$ScriptBlockText$] used to logoff user on [$dest$].
+  message: Powershell process having child process [$process_name$] used to logoff user on [$dest$].
   mitre_attack_id:
   - T1531
   - T1059.001
