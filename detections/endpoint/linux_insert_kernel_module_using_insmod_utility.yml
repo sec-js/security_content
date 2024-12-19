@@ -1,7 +1,7 @@
 name: Linux Insert Kernel Module Using Insmod Utility
 id: 18b5a1a0-6326-11ec-943a-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-17'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -59,9 +59,10 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
-  - Linux Privilege Escalation
   - Linux Persistence Techniques
+  - XorDDos
   - Linux Rootkit
+  - Linux Privilege Escalation
   asset_type: Endpoint
   confidence: 80
   impact: 80

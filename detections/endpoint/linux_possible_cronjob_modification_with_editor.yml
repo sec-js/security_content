@@ -1,7 +1,7 @@
 name: Linux Possible Cronjob Modification With Editor
 id: dcc89bde-5f24-11ec-87ca-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-19'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -36,10 +36,11 @@ references:
 - https://attack.mitre.org/techniques/T1053/003/
 tags:
   analytic_story:
-  - Linux Privilege Escalation
-  - Linux Persistence Techniques
+  - XorDDos
   - Linux Living Off The Land
+  - Linux Privilege Escalation
   - Scheduled Tasks
+  - Linux Persistence Techniques
   asset_type: Endpoint
   confidence: 30
   impact: 20

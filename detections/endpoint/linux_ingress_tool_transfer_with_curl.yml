@@ -1,7 +1,7 @@
 name: Linux Ingress Tool Transfer with Curl
 id: 8c1de57d-abc1-4b41-a727-a7a8fc5e0857
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-12-19'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -65,8 +65,9 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - Linux Living Off The Land
   - Ingress Tool Transfer
+  - Linux Living Off The Land
+  - XorDDos
   asset_type: Endpoint
   confidence: 30
   impact: 40

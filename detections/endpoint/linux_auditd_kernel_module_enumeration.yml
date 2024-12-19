@@ -1,7 +1,7 @@
 name: Linux Auditd Kernel Module Enumeration
 id: d1b088de-c47a-4572-9339-bdcc26493b32
-version: 3
-date: '2024-11-13'
+version: 4
+date: '2024-12-17'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -55,8 +55,9 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
-  - Linux Rootkit
   - Compromised Linux Host
+  - XorDDos
+  - Linux Rootkit
   asset_type: Endpoint
   confidence: 50
   impact: 30

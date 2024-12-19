@@ -1,7 +1,7 @@
 name: Linux Add Files In Known Crontab Directories
 id: 023f3452-5f27-11ec-bf00-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2024-12-19'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -51,10 +51,11 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
-  - Linux Privilege Escalation
-  - Linux Persistence Techniques
+  - XorDDos
   - Linux Living Off The Land
+  - Linux Privilege Escalation
   - Scheduled Tasks
+  - Linux Persistence Techniques
   asset_type: Endpoint
   confidence: 50
   impact: 50

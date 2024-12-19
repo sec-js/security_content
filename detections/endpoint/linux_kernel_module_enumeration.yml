@@ -1,7 +1,7 @@
 name: Linux Kernel Module Enumeration
 id: 6df99886-0e04-4c11-8b88-325747419278
-version: 5
-date: '2024-11-13'
+version: 6
+date: '2024-11-17'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -64,6 +64,7 @@ rba:
     type: process_name
 tags:
   analytic_story:
+  - XorDDos
   - Linux Rootkit
   asset_type: Endpoint
   confidence: 50
