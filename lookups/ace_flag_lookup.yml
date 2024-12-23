@@ -1,3 +1,7 @@
-description: A lookup file that will contain translations for AD object ace flags strings
-filename: ace_flag_lookup.csv
 name: ace_flag_lookup
+date: 2024-12-23
+version: 2
+id: 6f4b0d42-5f24-4992-98f9-aebbc7ced9bf
+author: Splunk Threat Research Team
+lookup_type: csv
+description: A lookup file that will contain translations for AD object ace flags strings
