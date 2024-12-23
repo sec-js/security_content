@@ -1,6 +1,6 @@
 name: Detect Exchange Web Shell
 id: 8c14eeee-2af1-4a4b-bda8-228da0f4862a
-version: 10
+version: 9
 date: '2024-12-12'
 author: Michael Haag, Shannon Davis, David Dorsey, Splunk
 status: production
