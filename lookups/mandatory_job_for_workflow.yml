@@ -5,5 +5,3 @@ id: 76d805e3-b538-43c7-bd8b-f5fd62af596a
 author: Splunk Threat Research Team
 lookup_type: csv
 description: A lookup file that will be used to define the mandatory job for workflow
-
-

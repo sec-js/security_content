@@ -6,7 +6,6 @@ author: Splunk Threat Research Team
 lookup_type: csv
 default_match: false
 description: A list of file extensions that are associated with ransomware
-filename: ransomware_extensions_20241212.csv
 match_type: 
 - WILDCARD(Extensions)
 min_matches: 1
