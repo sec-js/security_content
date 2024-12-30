@@ -9,7 +9,7 @@ description: The following analytic detects the use of NetExec (formally Crackma
 data_source: 
 - Windows Security EID 4688
 - Sysmon EID 1
-search: '|  tstats `security_content_summariesonly` values(Processes.parent_process) as Processes.parent_process, values(Processes.process) as Processes.process values(Processes.process_current_directory) AS process_current_directory, values(Processes.process_id) as Processes.process_id, values(Processes.process_guid) as Processes.process_guid, count min(_time) AS firstTime, max(_time) AS lastTime FROM datamodel=Endpoint.Processes where Processes.process IN ("* smb *","* ssh *","* ldap *","* ftp *","* wmi *","* winrm *","* rdp *","* vnc *","* mssql *","* nfs *") AND Processes.process IN ("* -p *","* -u *","* -x *","* --*") BY _time span=1h Processes.user Processes.dest Processes.process_name Processes.parent_process_name  
+search: '|  tstats `security_content_summariesonly` values(Processes.parent_process) as Processes.parent_process, values(Processes.process) as Processes.process values(Processes.process_current_directory) AS process_current_directory, values(Processes.process_id) as Processes.process_id, values(Processes.process_guid) as Processes.process_guid, count min(_time) AS firstTime, max(_time) AS lastTime FROM datamodel=Endpoint.Processes where Processes.process_name IN ("nxc.exe") OR Processes.original_file_name IN ("nxc.exe") OR (Processes.process IN ("* smb *","* ssh *","* ldap *","* ftp *","* wmi *","* winrm *","* rdp *","* vnc *","* mssql *","* nfs *") AND Processes.process IN ("* -p *","* -u *","* -x *","* -M *","* --*")) BY _time span=1h Processes.user Processes.dest Processes.process_name Processes.parent_process_name  
 |`drop_dm_object_name(Processes)`
 | `security_content_ctime(firstTime)`
 | `security_content_ctime(lastTime)`
@@ -25,7 +25,7 @@ tags:
   - Active Directory Kerberos Attacks
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 100
+  confidence: 80
   impact: 80
   message: NetExec command line parameters were used on $dest$ by $user$
   mitre_attack_id: 
@@ -58,7 +58,7 @@ tags:
   - Processes.dest
   - Processes.process_name
   - Processes.parent_process_name
-  risk_score: 80
+  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test
