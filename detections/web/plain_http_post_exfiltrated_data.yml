@@ -53,8 +53,6 @@ tags:
   - Data Exfiltration
   - Command And Control
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
   mitre_attack_id:
   - T1048.003
   - T1048
@@ -62,15 +60,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - http_method
-  - http_user_agent
-  - uri_path
-  - url
-  - bytes_in
-  - bytes_out
-  risk_score: 63
   security_domain: network
 tests:
 - name: True Positive Test

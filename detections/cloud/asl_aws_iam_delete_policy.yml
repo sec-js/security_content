@@ -36,23 +36,12 @@ tags:
   analytic_story:
   - AWS IAM Privilege Escalation
   asset_type: AWS Account
-  confidence: 50
-  impact: 20
   mitre_attack_id:
   - T1098
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - api.operation
-  - actor.user.account_uid
-  - actor.user.name
-  - actor.user.uid
-  - http_request.user_agent
-  - src_endpoint.ip
-  - cloud.region
-  risk_score: 10
   security_domain: access
 tests:
 - name: True Positive Test

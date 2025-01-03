@@ -56,25 +56,12 @@ tags:
   analytic_story:
   - Azure Active Directory Persistence
   asset_type: O365 Tenant
-  confidence: 100
-  impact: 75
   mitre_attack_id:
   - T1136.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - ModifiedProperties{}.Name
-  - CorrelationId
-  - ClientIP
-  - UserId
-  - ModifiedProperties{}.NewValue
-  - ModifiedProperties{}.OldValue
-  risk_score: 75
   security_domain: threat
 tests:
 - name: True Positive Test

@@ -50,17 +50,12 @@ tags:
   analytic_story:
   - Dev Sec Ops
   asset_type: GitHub
-  confidence: 30
-  impact: 30
   mitre_attack_id:
   - T1199
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -61,24 +61,12 @@ tags:
   - Compromised User Account
   - AWS Identity and Access Management Account Takeover
   asset_type: AWS Account
-  confidence: 60
-  impact: 70
   mitre_attack_id:
   - T1185
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - api.operation
-  - actor.user.account_uid
-  - actor.user.name
-  - actor.user.uid
-  - http_request.user_agent
-  - src_endpoint.ip
-  - src_endpoint.domain
-  - cloud.region
-  risk_score: 42
   security_domain: threat
   manual_test: Can't be tested automatically because of time span.
 tests:

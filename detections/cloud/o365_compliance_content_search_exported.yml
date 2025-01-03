@@ -52,8 +52,6 @@ tags:
   analytic_story:
   - Office 365 Collection Techniques
   asset_type: O365 Tenant
-  confidence: 70
-  impact: 60
   mitre_attack_id:
   - T1114
   - T1114.002
@@ -61,15 +59,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - ObjectId
-  - ExchangeLocations
-  - Query
-  - user_id
-  risk_score: 42
   security_domain: identity
 tests:
 - name: True Positive Test

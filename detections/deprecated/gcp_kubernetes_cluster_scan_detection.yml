@@ -25,7 +25,7 @@ known_false_positives: Not all unauthenticated requests are malicious, but frequ
   User Agent and source IPs will provide context.
 references: []
 rba:
-  message: Possible GKE Cluster Scan 
+  message: Possible GKE Cluster Scan
   risk_objects:
   - field: src_ip
     type: system
@@ -35,15 +35,10 @@ tags:
   analytic_story:
   - Kubernetes Scanning Activity
   asset_type: GCP Kubernetes cluster
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1526
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: threat

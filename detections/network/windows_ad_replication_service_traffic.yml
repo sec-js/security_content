@@ -41,8 +41,6 @@ tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1003
   - T1003.006
@@ -51,9 +49,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - All_Traffic.src
-  - All_Traffic.dest
-  - All_Traffic.app
-  risk_score: 100
   security_domain: network

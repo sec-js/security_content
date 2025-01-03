@@ -33,8 +33,6 @@ tags:
   analytic_story:
   - Suspicious Okta Activity
   asset_type: Infrastructure
-  confidence: 100
-  impact: 50
   mitre_attack_id:
   - T1078
   - T1078.001
@@ -43,12 +41,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventType
-  - client.userAgent.rawUserAgent
-  - client.userAgent.browser
-  - outcome.reason
-  - displayMessage
-  risk_score: 50
   security_domain: access

@@ -28,7 +28,8 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: No known false positives
 references: []
 rba:
-  message: Tasks being scheduled with names indicative of BadRabbit ransomware on $dest$
+  message: Tasks being scheduled with names indicative of BadRabbit ransomware on
+    $dest$
   risk_objects:
   - field: user
     type: user
@@ -41,15 +42,10 @@ tags:
   analytic_story:
   - Ransomware
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1053.005
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: endpoint

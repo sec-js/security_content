@@ -53,8 +53,6 @@ tags:
   - Azure Active Directory Account Takeover
   - Office 365 Account Takeover
   asset_type: O365 Tenant
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1567
   - T1114
@@ -63,14 +61,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - MailboxId
-  - InternetMessageId
-  - UserId
-  risk_score: 25
   security_domain: threat
 tests:
 - name: True Positive Test

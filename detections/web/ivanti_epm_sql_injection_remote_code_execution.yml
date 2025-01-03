@@ -67,24 +67,12 @@ tags:
   analytic_story:
   - Ivanti EPM Vulnerabilities
   asset_type: Web Server
-  confidence: 80
-  impact: 100
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Web.http_user_agent
-  - Web.status
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - sourcetype
-  risk_score: 80
   security_domain: network
   cve:
   - CVE-2024-29824

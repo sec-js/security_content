@@ -61,8 +61,6 @@ tags:
   analytic_story:
   - AWS Network ACL Activity
   asset_type: AWS Instance
-  confidence: 80
-  impact: 60
   mitre_attack_id:
   - T1562.007
   - T1562
@@ -70,19 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - requestParameters.ruleAction
-  - requestParameters.egress
-  - requestParameters.aclProtocol
-  - requestParameters.portRange.to
-  - requestParameters.portRange.from
-  - requestParameters.cidrBlock
-  - userName
-  - userIdentity.principalId
-  - userAgent
-  risk_score: 48
   security_domain: network
 tests:
 - name: True Positive Test
@@ -91,4 +76,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.007/aws_create_acl/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

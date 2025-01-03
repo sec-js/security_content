@@ -37,17 +37,12 @@ tags:
   analytic_story:
   - F5 TMUI RCE CVE-2020-5902
   asset_type: Network
-  confidence: 50
   cve:
   - CVE-2020-5902
-  impact: 50
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: network

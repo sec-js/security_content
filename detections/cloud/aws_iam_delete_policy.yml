@@ -34,21 +34,12 @@ tags:
   analytic_story:
   - AWS IAM Privilege Escalation
   asset_type: AWS Account
-  confidence: 50
-  impact: 20
   mitre_attack_id:
   - T1098
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - userAgent
-  - errorCode
-  - requestParameters.policyArn
-  risk_score: 10
   security_domain: access
 tests:
 - name: True Positive Test
@@ -57,4 +48,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1098/aws_iam_delete_policy/aws_iam_delete_policy.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

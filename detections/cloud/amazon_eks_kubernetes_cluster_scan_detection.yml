@@ -29,25 +29,10 @@ tags:
   analytic_story:
   - Kubernetes Scanning Activity
   asset_type: Amazon EKS Kubernetes cluster
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1526
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user.username
-  - userAgent
-  - sourceIPs{}
-  - responseStatus.reason
-  - source
-  - responseStatus.code
-  - verb
-  - requestURI
-  - src_ip
-  - user.groups{}
-  risk_score: 25
   security_domain: threat

@@ -59,21 +59,12 @@ tags:
   - Azure Active Directory Persistence
   - NOBELIUM Group
   asset_type: Azure Active Directory
-  confidence: 90
-  impact: 50
   mitre_attack_id:
   - T1136.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - properties.targetResources{}.displayName
-  - properties.targetResources{}.type
-  - user
-  - properties.result
-  risk_score: 45
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -82,4 +73,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1136.003/azure_ad_add_service_principal/azure-audit.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

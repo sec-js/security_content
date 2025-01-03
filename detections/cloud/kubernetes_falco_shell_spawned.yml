@@ -58,23 +58,12 @@ tags:
   analytic_story:
   - Kubernetes Security
   asset_type: Kubernetes
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1204
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - container_image
-  - container_image_tag
-  - container_name
-  - parent
-  - proc_exepath
-  - process
-  - user
-  risk_score: 49
   security_domain: network
 tests:
 - name: True Positive Test

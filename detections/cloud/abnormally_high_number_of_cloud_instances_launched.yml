@@ -46,8 +46,6 @@ tags:
   - Cloud Cryptomining
   - Suspicious Cloud Instance Activities
   asset_type: Cloud Instance
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1078.004
   - T1078
@@ -55,12 +53,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.object_id
-  - All_Changes.action
-  - All_Changes.status
-  - All_Changes.object_category
-  - All_Changes.user
-  risk_score: 25
   security_domain: threat

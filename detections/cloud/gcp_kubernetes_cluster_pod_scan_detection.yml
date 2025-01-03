@@ -26,23 +26,10 @@ tags:
   analytic_story:
   - Kubernetes Scanning Activity
   asset_type: GCP Kubernetes cluster
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1526
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - category
-  - responseStatus.code
-  - sourceIPs{}
-  - userAgent
-  - verb
-  - requestURI
-  - responseStatus.reason
-  - properties.pod
-  risk_score: 25
   security_domain: threat

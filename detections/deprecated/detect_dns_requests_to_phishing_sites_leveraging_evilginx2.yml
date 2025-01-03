@@ -46,20 +46,10 @@ tags:
   analytic_story:
   - Common Phishing Frameworks
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1566.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.answer
-  - DNS.dest
-  - DNS.src
-  - DNS.query
-  - host
-  risk_score: 25
   security_domain: network

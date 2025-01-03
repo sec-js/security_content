@@ -64,20 +64,12 @@ tags:
   - CISA AA24-241A
   asset_type: VPN Appliance
   atomic_guid: []
-  confidence: 90
-  impact: 100
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 90
-  required_fields:
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  - Web.url
   security_domain: network
 tests:
 - name: True Positive Test

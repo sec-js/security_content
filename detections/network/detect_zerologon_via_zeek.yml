@@ -41,18 +41,12 @@ tags:
   - Detect Zerologon Attack
   - Rhysida Ransomware
   asset_type: Network
-  confidence: 50
   cve:
   - CVE-2020-1472
-  impact: 50
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - operation
-  risk_score: 25
   security_domain: network

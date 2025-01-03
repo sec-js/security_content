@@ -54,8 +54,6 @@ tags:
   analytic_story:
   - AWS Defense Evasion
   asset_type: AWS Account
-  confidence: 90
-  impact: 100
   mitre_attack_id:
   - T1562.008
   - T1562
@@ -63,16 +61,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - eventSource
-  - requestParameters.name
-  - userAgent
-  - aws_account_id
-  - src
-  - region
-  risk_score: 90
   security_domain: threat
 tests:
 - name: True Positive Test

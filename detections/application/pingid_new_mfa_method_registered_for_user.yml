@@ -55,13 +55,11 @@ rba:
   - field: src
     type: system
     score: 10
-  threat_objects: [] 
+  threat_objects: []
 tags:
   analytic_story:
   - Compromised User Account
   asset_type: Identity
-  confidence: 50
-  impact: 20
   mitre_attack_id:
   - T1621
   - T1556.006
@@ -70,14 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - resources{}.ipaddress
-  - actors{}.name
-  - result.message
-  - resources{}.devicemodel
-  - result.status
-  risk_score: 10
   security_domain: access
 tests:
 - name: True Positive Test
@@ -86,4 +76,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1621/pingid/pingid.log
     source: PINGID
     sourcetype: _json
-    update_timestamp: true

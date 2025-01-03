@@ -59,8 +59,6 @@ tags:
   analytic_story:
   - Azure Active Directory Account Takeover
   asset_type: Azure Active Directory
-  confidence: 90
-  impact: 60
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -70,15 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - properties.appDisplayName
-  - category
-  - user
-  - src_ip
-  - properties.appDisplayName
-  - properties.userAgent
-  risk_score: 54
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -87,4 +76,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078.004/azuread_pws/azure-audit.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

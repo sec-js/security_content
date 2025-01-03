@@ -61,8 +61,6 @@ tags:
   - Azure Active Directory Persistence
   - NOBELIUM Group
   asset_type: Azure Tenant
-  confidence: 50
-  impact: 90
   mitre_attack_id:
   - T1098
   - T1098.003
@@ -70,14 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 45
-  required_fields:
-  - _time
-  - operationName
-  - user
-  - properties.targetResources{}.modifiedProperties{}.newValue
-  - properties.targetResources{}.displayName
-  - properties.targetResources{}.id
   security_domain: identity
 tests:
 - name: True Positive Test

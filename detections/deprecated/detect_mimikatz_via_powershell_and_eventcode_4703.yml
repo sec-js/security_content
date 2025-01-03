@@ -37,20 +37,10 @@ tags:
   analytic_story:
   - Cloud Federated Credential Abuse
   asset_type: Windows
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1003.001
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - signature_id
-  - Process_Name
-  - Message
-  - dest
-  - Process_ID
-  risk_score: 25
   security_domain: access

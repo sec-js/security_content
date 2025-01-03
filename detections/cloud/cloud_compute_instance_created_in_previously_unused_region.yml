@@ -48,21 +48,12 @@ tags:
   analytic_story:
   - Cloud Cryptomining
   asset_type: Cloud Compute Instance
-  confidence: 60
-  impact: 70
   mitre_attack_id:
   - T1535
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.object_id
-  - All_Changes.action
-  - All_Changes.vendor_region
-  - All_Changes.user
-  risk_score: 42
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -71,4 +62,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

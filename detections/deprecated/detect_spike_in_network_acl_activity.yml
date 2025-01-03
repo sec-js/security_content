@@ -47,16 +47,10 @@ tags:
   analytic_story:
   - AWS Network ACL Activity
   asset_type: AWS Instance
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1562.007
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - userIdentity.arn
-  risk_score: 25.0
   security_domain: network

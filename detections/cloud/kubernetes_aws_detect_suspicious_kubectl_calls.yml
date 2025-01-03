@@ -46,26 +46,8 @@ tags:
   analytic_story:
   - Kubernetes Security
   asset_type: Kubernetes
-  confidence: 50
-  impact: 50
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - objectRef.resource
-  - verb
-  - objectRef.name
-  - objectRef.namespace
-  - requestReceivedTimestamp
-  - requestURI
-  - responseStatus.code
-  - sourceIPs{}
-  - stage
-  - user.groups{}
-  - user.uid
-  - user.username
-  - userAgent
-  - verb
-  risk_score: 25
   security_domain: threat

@@ -56,25 +56,12 @@ tags:
   analytic_story:
   - Zscaler Browser Proxy Threats
   asset_type: Web Server
-  confidence: 80
-  impact: 20
   mitre_attack_id:
   - T1566
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 16
-  required_fields:
-  - action
-  - threatname
-  - deviceowner
-  - user
-  - urlcategory
-  - url
-  - dest
-  - dest_ip
-  - action
   security_domain: threat
 tests:
 - name: True Positive Test

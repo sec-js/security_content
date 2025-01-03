@@ -60,22 +60,12 @@ tags:
   - Ivanti Connect Secure VPN Vulnerabilities
   asset_type: VPN Appliance
   atomic_guid: []
-  confidence: 90
-  impact: 90
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 81
-  required_fields:
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  - Web.url
-  - Web.status
-  - Web.http_method
   security_domain: network
 tests:
 - name: True Positive Test

@@ -43,8 +43,6 @@ tags:
   - Possible Backdoor Activity Associated With MUDCARP Espionage Campaigns
   - Hidden Cobra Malware
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1059.001
   - T1059.003
@@ -52,11 +50,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.dest
-  risk_score: 25
   security_domain: endpoint

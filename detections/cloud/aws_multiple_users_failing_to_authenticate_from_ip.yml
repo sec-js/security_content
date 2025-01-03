@@ -56,8 +56,6 @@ tags:
   - AWS Identity and Access Management Account Takeover
   - Compromised User Account
   asset_type: AWS Account
-  confidence: 90
-  impact: 60
   mitre_attack_id:
   - T1110
   - T1110.003
@@ -66,13 +64,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - action
-  - eventName
-  - src_ip
-  risk_score: 54
   security_domain: threat
   manual_test: This search needs a specific number of events in a time window for
     the alert to trigger and events split up in CI testing while updating timestamp.

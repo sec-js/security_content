@@ -39,21 +39,8 @@ tags:
   analytic_story:
   - Apache Struts Vulnerability
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - http_method
-  - http_content_length
-  - src_ip
-  - url
-  - status
-  - http_user_agent
-  - src
-  - dest
-  risk_score: 25
   security_domain: threat

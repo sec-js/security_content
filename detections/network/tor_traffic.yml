@@ -58,8 +58,6 @@ tags:
   - NOBELIUM Group
   - Command And Control
   asset_type: Endpoint
-  confidence: 80
-  impact: 100
   mitre_attack_id:
   - T1090
   - T1090.003
@@ -67,14 +65,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.app
-  - All_Traffic.action
-  - All_Traffic.src_ip
-  - All_Traffic.dest_ip
-  - All_Traffic.dest_port
-  risk_score: 80
   security_domain: network
 tests:
 - name: True Positive Test

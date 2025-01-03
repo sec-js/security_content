@@ -60,24 +60,12 @@ tags:
   - WS FTP Server Critical Vulnerabilities
   asset_type: Web Server
   atomic_guid: []
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 72
-  required_fields:
-  - Web.http_user_agent
-  - Web.status
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - sourcetype
   security_domain: network
 tests:
 - name: True Positive Test

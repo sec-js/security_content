@@ -52,8 +52,6 @@ tags:
   - NOBELIUM Group
   asset_type: Azure Tenant
   atomic_guid: []
-  confidence: 60
-  impact: 70
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -64,15 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 42
-  required_fields:
-  - _time
-  - category
-  - properties.authenticationDetails{}.succeeded
-  - properties.location.countryOrRegion
-  - user_agent
-  - src_ip
-  - user
   security_domain: identity
 tests:
 - name: True Positive Test

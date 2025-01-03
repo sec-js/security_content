@@ -47,8 +47,6 @@ tags:
   - Living Off The Land
   - Windows Defense Evasion Tactics
   asset_type: Endpoint
-  confidence: 10
-  impact: 10
   mitre_attack_id:
   - T1574.001
   - T1574
@@ -56,14 +54,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process_path
-  risk_score: 1
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -72,4 +62,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.001/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

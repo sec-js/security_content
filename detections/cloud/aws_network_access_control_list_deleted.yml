@@ -52,8 +52,6 @@ tags:
   analytic_story:
   - AWS Network ACL Activity
   asset_type: AWS Instance
-  confidence: 50
-  impact: 10
   mitre_attack_id:
   - T1562.007
   - T1562
@@ -61,15 +59,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - requestParameters.egress
-  - userName
-  - userIdentity.principalId
-  - src
-  - userAgent
-  risk_score: 5
   security_domain: network
 tests:
 - name: True Positive Test
@@ -78,4 +67,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.007/aws_delete_acl/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

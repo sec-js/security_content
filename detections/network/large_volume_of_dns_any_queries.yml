@@ -34,8 +34,6 @@ tags:
   analytic_story:
   - DNS Amplification Attacks
   asset_type: DNS Servers
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1498
   - T1498.002
@@ -43,10 +41,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.message_type
-  - DNS.record_type
-  - DNS.dest
-  risk_score: 25
   security_domain: network

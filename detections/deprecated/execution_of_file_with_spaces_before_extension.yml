@@ -38,20 +38,10 @@ tags:
   - Windows File Extension and Association Abuse
   - Masquerading - Rename System Utilities
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1036.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_path
-  - Processes.process
-  - Processes.dest
-  - Processes.user
-  - Processes.process_name
-  risk_score: 25
   security_domain: endpoint

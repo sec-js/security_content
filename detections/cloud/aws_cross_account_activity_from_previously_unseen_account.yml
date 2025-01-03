@@ -48,20 +48,10 @@ tags:
   analytic_story:
   - Suspicious Cloud Authentication Activities
   asset_type: AWS Instance
-  confidence: 50
-  impact: 30
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Authentication.signature
-  - Authentication.vendor_account
-  - Authentication.user
-  - Authentication.user_role
-  - Authentication.src
-  risk_score: 15
   security_domain: network
 tests:
 - name: True Positive Test
@@ -70,4 +60,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

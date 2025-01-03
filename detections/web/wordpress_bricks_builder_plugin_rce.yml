@@ -60,25 +60,12 @@ tags:
   analytic_story:
   - WordPress Vulnerabilities
   asset_type: Web Server
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  - Web.url
-  - Web.status
-  - Web.http_method
-  - sourcetype
-  - source
-  risk_score: 100
   security_domain: network
   cve:
   - CVE-2024-25600

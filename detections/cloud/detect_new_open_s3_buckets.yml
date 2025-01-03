@@ -56,25 +56,12 @@ tags:
   analytic_story:
   - Suspicious AWS S3 Activities
   asset_type: S3 Bucket
-  confidence: 80
-  impact: 60
   mitre_attack_id:
   - T1530
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventSource
-  - eventName
-  - requestParameters.bucketName
-  - user_arn
-  - userIdentity.principalId
-  - userAgent
-  - uri
-  - permission
-  risk_score: 48
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -83,4 +70,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1530/aws_s3_public_bucket/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

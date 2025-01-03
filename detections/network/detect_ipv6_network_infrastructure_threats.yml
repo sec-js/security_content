@@ -49,8 +49,6 @@ tags:
   analytic_story:
   - Router and Infrastructure Security
   asset_type: Infrastructure
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1200
   - T1498
@@ -60,17 +58,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - facility
-  - mnemonic
-  - src_int_prefix_long
-  - src_int_suffix
-  - dest_int_prefix_long
-  - dest_int_suffix
-  - src_mac
-  - src_vlan
-  - vendor_explanation
-  - action
-  risk_score: 25
   security_domain: network

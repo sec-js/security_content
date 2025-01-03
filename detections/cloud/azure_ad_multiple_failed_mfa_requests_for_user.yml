@@ -61,8 +61,6 @@ tags:
   analytic_story:
   - Azure Active Directory Account Takeover
   asset_type: Azure Active Directory
-  confidence: 90
-  impact: 60
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -73,15 +71,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - properties.status.errorCode
-  - category
-  - properties.authenticationDetails
-  - user
-  - user_agent
-  - operationName
-  risk_score: 54
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -90,4 +79,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1621/multiple_failed_mfa_requests/azure-audit.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

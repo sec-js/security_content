@@ -50,17 +50,10 @@ tags:
   analytic_story:
   - AWS Suspicious Provisioning Activities
   asset_type: AWS Instance
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1535
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - sourceIPAddress
-  risk_score: 25
   security_domain: endpoint

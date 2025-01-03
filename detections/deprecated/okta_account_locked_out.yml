@@ -23,7 +23,7 @@ references:
 - https://developer.okta.com/docs/reference/api/event-types/?q=user.acount.lock
 rba:
   message: $user$ account has been locked out.
-  risk_objects: 
+  risk_objects:
   - field: user
     type: user
     score: 64
@@ -35,21 +35,12 @@ tags:
   - Suspicious Okta Activity
   - Okta MFA Exhaustion
   asset_type: Infrastructure
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1110
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - src_user
-  - src_ip
-  - eventType
-  - status
-  risk_score: 64
   security_domain: access
 tests:
 - name: True Positive Test

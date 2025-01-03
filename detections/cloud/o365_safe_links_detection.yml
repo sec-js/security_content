@@ -51,8 +51,6 @@ tags:
   - Office 365 Account Takeover
   - Spearphishing Attachments
   asset_type: O365 Tenant
-  confidence: 100
-  impact: 40
   mitre_attack_id:
   - T1566
   - T1566.001
@@ -60,15 +58,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - AlertId
-  - Operation
-  - Name
-  - AlertId
-  - trc
-  - ot
-  risk_score: 40
   security_domain: threat
 tests:
 - name: True Positive Test

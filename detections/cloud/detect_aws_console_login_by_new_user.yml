@@ -37,8 +37,6 @@ tags:
   - Suspicious Cloud Authentication Activities
   - AWS Identity and Access Management Account Takeover
   asset_type: AWS Instance
-  confidence: 60
-  impact: 50
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -47,11 +45,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Authentication.signature
-  - Authentication.user
-  risk_score: 30
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -60,4 +53,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

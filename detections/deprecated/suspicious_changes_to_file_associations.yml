@@ -44,15 +44,10 @@ tags:
   - Suspicious Windows Registry Activities
   - Windows File Extension and Association Abuse
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1546.001
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: endpoint

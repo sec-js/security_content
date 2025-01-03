@@ -52,22 +52,12 @@ tags:
   analytic_story:
   - AWS User Monitoring
   asset_type: AWS Account
-  confidence: 60
-  impact: 30
   mitre_attack_id:
   - T1526
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - src
-  - userAgent
-  - user
-  - userIdentity.arn
-  risk_score: 18
   security_domain: network
 tests:
 - name: True Positive Test
@@ -76,4 +66,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1526/aws_security_scanner/aws_security_scanner.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

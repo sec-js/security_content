@@ -28,8 +28,6 @@ tags:
   - Active Directory Lateral Movement
   - BlackSuit Ransomware
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1550
   - T1550.002
@@ -37,15 +35,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Logon_Type
-  - Logon_Process
-  - WorkstationName
-  - user
-  - dest
-  risk_score: 49
   security_domain: access
 tests:
 - name: True Positive Test
@@ -54,4 +43,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1550.002/atomic_red_team/windows-security.log
     source: WinEventLog:Security
     sourcetype: WinEventLog
-    update_timestamp: true

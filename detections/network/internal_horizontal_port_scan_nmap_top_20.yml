@@ -58,21 +58,12 @@ tags:
   analytic_story:
   - Network Discovery
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1046
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 72
-  required_fields:
-  - _time
-  - All_Traffic.action
-  - All_Traffic.src_ip
-  - All_Traffic.dest_ip
-  - All_Traffic.dest_port
   security_domain: network
 tests:
 - name: True Positive Test
@@ -81,4 +72,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1046/nmap/horizontal.log
     source: aws:cloudwatchlogs:vpcflow
     sourcetype: aws:cloudwatchlogs:vpcflow
-    update_timestamp: true

@@ -59,8 +59,6 @@ tags:
   - Compromised User Account
   - Azure Active Directory Account Takeover
   asset_type: Azure Active Directory
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1556
   - T1556.006
@@ -68,16 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - category
-  - operationName
-  - properties.operationType
-  - user
-  - resultDescription
-  - result
-  - src_ip
-  risk_score: 64
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -86,4 +74,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1556.006/azure_ad_new_mfa_method_registered_for_user/azuread.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

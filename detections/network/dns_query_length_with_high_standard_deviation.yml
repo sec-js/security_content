@@ -54,8 +54,6 @@ tags:
   - Suspicious DNS Traffic
   - Command And Control
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
   mitre_attack_id:
   - T1048.003
   - T1048
@@ -63,10 +61,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.query
-  risk_score: 56
   security_domain: network
 tests:
 - name: True Positive Test

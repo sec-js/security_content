@@ -33,16 +33,8 @@ tags:
   analytic_story:
   - Monitor for Updates
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Updates.status
-  - Updates.vendor_product
-  - Updates.dest
-  risk_score: 25
   security_domain: endpoint

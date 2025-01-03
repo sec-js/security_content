@@ -44,8 +44,6 @@ tags:
   - NOBELIUM Group
   asset_type: O365 Tenant
   atomic_guid: []
-  confidence: 60
-  impact: 70
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -56,15 +54,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 42
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - ErrorNumber
-  - user
-  - src_ip
-  - user_agent
   security_domain: identity
 tests:
 - name: True Positive Test

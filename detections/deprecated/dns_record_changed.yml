@@ -44,20 +44,10 @@ tags:
   analytic_story:
   - DNS Hijacking
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1071.004
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.record_type
-  - DNS.answer
-  - DNS.src
-  - DNS.message_type
-  - DNS.query
-  risk_score: 25
   security_domain: network

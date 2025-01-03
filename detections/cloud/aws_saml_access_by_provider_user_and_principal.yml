@@ -61,25 +61,12 @@ tags:
   analytic_story:
   - Cloud Federated Credential Abuse
   asset_type: AWS Federated Account
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1078
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - requestParameters.principalArn
-  - requestParameters.roleArn
-  - requestParameters.roleSessionName
-  - recipientAccountId
-  - responseElements.issuer
-  - sourceIPAddress
-  - userAgent
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -88,4 +75,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/assume_role_with_saml/assume_role_with_saml.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

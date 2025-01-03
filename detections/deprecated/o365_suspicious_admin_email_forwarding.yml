@@ -31,8 +31,6 @@ tags:
   - Office 365 Collection Techniques
   - Data Exfiltration
   asset_type: O365 Tenant
-  confidence: 60
-  impact: 80
   mitre_attack_id:
   - T1114.003
   - T1114
@@ -40,11 +38,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Operation
-  - Parameters
-  risk_score: 48
   security_domain: threat
 tests:
 - name: True Positive Test

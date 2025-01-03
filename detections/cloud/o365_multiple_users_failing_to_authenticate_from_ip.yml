@@ -57,8 +57,6 @@ tags:
   - Office 365 Account Takeover
   - NOBELIUM Group
   asset_type: O365 Tenant
-  confidence: 90
-  impact: 70
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -69,17 +67,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 63
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - record_type
-  - user
-  - LogonError
-  - signature
-  - UserAgent
-  - ErrorNumber
   security_domain: identity
 tests:
 - name: True Positive Test

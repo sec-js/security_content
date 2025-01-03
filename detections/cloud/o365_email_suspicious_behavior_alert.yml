@@ -53,8 +53,6 @@ tags:
   - Office 365 Collection Techniques
   - Office 365 Account Takeover
   asset_type: O365 Tenant
-  confidence: 100
-  impact: 90
   mitre_attack_id:
   - T1114
   - T1114.003
@@ -62,14 +60,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - AlertId
-  - ObjectId
-  - Operation
-  - Name
-  - Workload
-  risk_score: 90
   security_domain: threat
 tests:
 - name: True Positive Test

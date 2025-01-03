@@ -59,8 +59,6 @@ tags:
   - Azure Active Directory Account Takeover
   - Data Exfiltration
   asset_type: O365 Tenant
-  confidence: 100
-  impact: 50
   mitre_attack_id:
   - T1098.003
   - T1098
@@ -68,15 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Operation
-  - ModifiedProperties{}.NewValue
-  - ModifiedProperties{}.Name
-  - UserId
-  - Workload
-  - Target{}.ID
-  risk_score: 50
   security_domain: threat
 tests:
 - name: True Positive Test

@@ -35,19 +35,10 @@ tags:
   analytic_story:
   - AWS User Monitoring
   asset_type: AWS Account
-  confidence: 60
-  impact: 30
   mitre_attack_id:
   - T1526
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - api.operation
-  - identity.user.account_uid
-  - identity.user.name
-  - http_request.user_agent
-  - src_endpoint.ip
-  risk_score: 18
   security_domain: network

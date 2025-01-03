@@ -57,8 +57,6 @@ tags:
   - Okta MFA Exhaustion
   - Suspicious Okta Activity
   asset_type: Okta Tenant
-  confidence: 80
-  impact: 70
   mitre_attack_id:
   - T1078
   - T1110
@@ -66,16 +64,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - All_Risk.risk_object
-  - All_Risk.risk_object_type
-  - All_Risk.analyticstories
-  - All_Risk.calculated_risk_score
-  - All_Risk.annotations.mitre_attack.mitre_tactic_id
-  - All_Risk.annotations.mitre_attack.mitre_technique_id
-  - All_Risk.tag
-  - _time
-  risk_score: 56
   security_domain: access
 tests:
 - name: True Positive Test

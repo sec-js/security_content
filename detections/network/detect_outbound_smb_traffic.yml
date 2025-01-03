@@ -51,8 +51,6 @@ tags:
   - DHS Report TA18-074A
   - NOBELIUM Group
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1071.002
   - T1071
@@ -60,16 +58,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.action
-  - All_Traffic.app
-  - All_Traffic.dest_ip
-  - All_Traffic.dest_port
-  - sourcetype
-  - All_Traffic.src_ip
-  - All_Traffic.direction
-  risk_score: 25
   security_domain: network
 tests:
 - name: True Positive Test

@@ -39,18 +39,10 @@ tags:
   - Host Redirection
   - Command And Control
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1048.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.dest
-  - DNS.message_type
-  - DNS.src
-  risk_score: 25
   security_domain: network

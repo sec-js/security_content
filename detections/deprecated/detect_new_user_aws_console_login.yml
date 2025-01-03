@@ -31,17 +31,10 @@ tags:
   analytic_story:
   - Suspicious AWS Login Activities
   asset_type: AWS Instance
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1078.004
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - userIdentity.arn
-  risk_score: 25
   security_domain: network

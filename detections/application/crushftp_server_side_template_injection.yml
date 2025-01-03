@@ -62,25 +62,12 @@ tags:
   analytic_story:
   - CrushFTP Vulnerabilities
   asset_type: Web Application
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - source
-  - src_ip
-  - http_method
-  - uri_query
-  - user
-  - action
-  - message
-  risk_score: 64
   security_domain: network
   cve:
   - CVE-2024-4040

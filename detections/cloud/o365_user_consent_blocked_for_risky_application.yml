@@ -59,23 +59,12 @@ tags:
   analytic_story:
   - Office 365 Account Takeover
   asset_type: O365 Tenant
-  confidence: 100
-  impact: 30
   mitre_attack_id:
   - T1528
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 30
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - ResultStatus
-  - ModifiedProperties{}.NewValue
-  - object
-  - ObjectId
   security_domain: identity
 tests:
 - name: True Positive Test

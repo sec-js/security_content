@@ -57,10 +57,8 @@ tags:
   analytic_story:
   - VMware Server Side Injection and Privilege Escalation
   asset_type: Web Server
-  confidence: 70
   cve:
   - CVE-2022-22954
-  impact: 70
   mitre_attack_id:
   - T1190
   - T1133
@@ -68,14 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  risk_score: 49
   security_domain: network
 tests:
 - name: True Positive Test
@@ -84,4 +74,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1190/vmware/vmware_scanning_pan_threat.log
     source: pan:threat
     sourcetype: pan:threat
-    update_timestamp: true
