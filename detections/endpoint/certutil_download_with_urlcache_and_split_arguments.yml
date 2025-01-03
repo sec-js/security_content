@@ -6,13 +6,13 @@ author: Michael Haag, Splunk
 status: production
 type: TTP
 description: The following analytic detects the use of certutil.exe to download files
-  using the `-urlcache` and `-f` arguments. It leverages Endpoint Detection and
-  Response (EDR) data, focusing on command-line executions that include these specific
-  arguments. This activity is significant because certutil.exe is typically used for
-  certificate services, and its use to download files from remote locations is uncommon
-  and potentially malicious. If confirmed, this behavior could indicate an attempt
-  to download and execute malicious payloads, leading to potential system compromise
-  and unauthorized data access.
+  using the `-urlcache` and `-f` arguments. It leverages Endpoint Detection and Response
+  (EDR) data, focusing on command-line executions that include these specific arguments.
+  This activity is significant because certutil.exe is typically used for certificate
+  services, and its use to download files from remote locations is uncommon and potentially
+  malicious. If confirmed, this behavior could indicate an attempt to download and
+  execute malicious payloads, leading to potential system compromise and unauthorized
+  data access.
 data_source:
 - Sysmon EventID 1
 - Windows Event Log Security 4688
@@ -80,28 +80,12 @@ tags:
   - Compromised Windows Host
   - CISA AA22-277A
   asset_type: Endpoint
-  confidence: 100
-  impact: 90
   mitre_attack_id:
   - T1105
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 90
   security_domain: endpoint
 tests:
 - name: True Positive Test

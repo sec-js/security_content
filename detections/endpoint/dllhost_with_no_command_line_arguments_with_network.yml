@@ -60,23 +60,12 @@ tags:
   - Cobalt Strike
   - Graceful Wipe Out Attack
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1055
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventID
-  - process_name
-  - process_id
-  - parent_process_name
-  - dest_port
-  - process_path
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test

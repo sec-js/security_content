@@ -62,20 +62,12 @@ tags:
   analytic_story:
   - Meterpreter
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
   mitre_attack_id:
   - T1059
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.dest
-  - Processes.user
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

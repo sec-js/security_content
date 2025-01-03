@@ -46,8 +46,6 @@ tags:
   - Warzone RAT
   - Gozi Malware
   asset_type: Endpoint
-  confidence: 80
-  impact: 50
   mitre_attack_id:
   - T1566.001
   - T1566
@@ -55,15 +53,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.user
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.action
-  - Registry.dest
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -64,23 +64,12 @@ tags:
   - Forest Blizzard
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 70
-  impact: 80
   mitre_attack_id:
   - T1564.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 56
-  required_fields:
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
   security_domain: endpoint
 tests:
 - name: True Positive Test

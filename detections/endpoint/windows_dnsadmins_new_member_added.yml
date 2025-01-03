@@ -54,23 +54,12 @@ tags:
   analytic_story:
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 50
-  impact: 80
   mitre_attack_id:
   - T1098
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - TargetUserName
-  - SubjectUserName
-  - Computer
-  - MemberSid
-  - TargetUserName
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test

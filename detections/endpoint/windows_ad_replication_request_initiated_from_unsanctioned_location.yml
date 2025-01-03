@@ -75,8 +75,6 @@ tags:
   - Sneaky Active Directory Persistence Tricks
   - Credential Dumping
   asset_type: Endpoint
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1003.006
   - T1003
@@ -84,23 +82,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ObjectType
-  - Properties
-  - AccessMask
-  - SubjectDomainName
-  - SubjectUserName
-  - SubjectUserSid
-  - Computer
-  - Logon_ID
-  - ObjectName
-  - ObjectServer
-  - ObjectType
-  - OperationType
-  - status
-  risk_score: 100
   security_domain: endpoint
   manual_test: This detection runs correctly when run manually and given some time
     is given for data to settle in the splunk index.

@@ -60,8 +60,6 @@ tags:
   - Compromised Windows Host
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 80
-  impact: 100
   mitre_attack_id:
   - T1134.005
   - T1134
@@ -69,16 +67,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - SidHistory
-  - TargetSid
-  - TargetDomainName
-  - user
-  - src_user
-  - Logon_ID
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

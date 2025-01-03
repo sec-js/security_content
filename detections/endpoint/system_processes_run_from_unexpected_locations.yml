@@ -71,8 +71,6 @@ tags:
   - Windows Error Reporting Service Elevation of Privilege Vulnerability
   - DarkGate Malware
   asset_type: Endpoint
-  confidence: 50
-  impact: 60
   mitre_attack_id:
   - T1036
   - T1036.003
@@ -80,16 +78,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_path
-  - Processes.user
-  - Processes.dest
-  - Processes.process_name
-  - Processes.process_id
-  - Processes.parent_process_name
-  - Processes.process_hash
-  risk_score: 30
   security_domain: endpoint
 tests:
 - name: True Positive Test

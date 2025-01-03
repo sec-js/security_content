@@ -62,8 +62,6 @@ tags:
   analytic_story:
   - Active Directory Password Spraying
   asset_type: Endpoint
-  confidence: 100
-  impact: 25
   mitre_attack_id:
   - T1110
   - T1110.003
@@ -71,13 +69,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - DomainName
-  - Security
-  - WorkstationName
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

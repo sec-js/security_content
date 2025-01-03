@@ -56,8 +56,6 @@ tags:
   - Active Directory Password Spraying
   - CISA AA24-241A
   asset_type: Endpoint
-  confidence: 90
-  impact: 20
   mitre_attack_id:
   - T1136.001
   - T1136
@@ -65,12 +63,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - All_Changes.user
-  - All_Changes.dest
-  - All_Changes.result
-  - All_Changes.action
-  risk_score: 18
   security_domain: endpoint
 tests:
 - name: True Positive Test

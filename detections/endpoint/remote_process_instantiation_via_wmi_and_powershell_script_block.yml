@@ -56,21 +56,12 @@ tags:
   analytic_story:
   - Active Directory Lateral Movement
   asset_type: Endpoint
-  confidence: 70
-  impact: 90
   mitre_attack_id:
   - T1047
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Message
-  - Computer
-  - UserID
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -55,23 +55,12 @@ tags:
   analytic_story:
   - Azorult
   asset_type: Endpoint
-  confidence: 90
-  impact: 100
   mitre_attack_id:
   - T1219
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.user
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.action
-  risk_score: 90
   security_domain: endpoint
 tests:
 - name: True Positive Test

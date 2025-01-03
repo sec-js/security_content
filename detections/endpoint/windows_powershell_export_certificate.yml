@@ -53,8 +53,6 @@ tags:
   analytic_story:
   - Windows Certificate Services
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
   mitre_attack_id:
   - T1552.004
   - T1552
@@ -63,12 +61,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - dest
-  - EventCode
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test

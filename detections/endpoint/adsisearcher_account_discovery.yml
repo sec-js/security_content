@@ -60,8 +60,6 @@ tags:
   - CISA AA23-347A
   - Data Destruction
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1087.002
   - T1087
@@ -69,13 +67,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Message
-  - ComputerName
-  - User
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

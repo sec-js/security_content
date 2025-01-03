@@ -70,8 +70,6 @@ tags:
   - CVE-2023-21716 Word RTF Heap Corruption
   - DarkCrystal RAT
   asset_type: Endpoint
-  confidence: 100
-  impact: 70
   mitre_attack_id:
   - T1566
   - T1566.001
@@ -79,20 +77,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 70
   security_domain: endpoint
 tests:
 - name: True Positive Test

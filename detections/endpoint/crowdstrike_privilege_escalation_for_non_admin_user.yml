@@ -52,24 +52,12 @@ tags:
   analytic_story:
   - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1110
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - event.EndpointIp
-  - event.EndpointName
-  - event.UserName
-  - event.IncidentDescription
-  - event.IncidentType
-  - event.NumbersOfAlerts
-  - event.SeverityName
-  risk_score: 49
   security_domain: endpoint
   manual_test: This detection is marked manual test because the attack_data file and
     TA do not provide the event.EndpointIp and event.EndpointName fields. event.EndpointName

@@ -57,8 +57,6 @@ tags:
   analytic_story:
   - IIS Components
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1505
   - T1505.004
@@ -66,12 +64,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Computer
-  - EventCode
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

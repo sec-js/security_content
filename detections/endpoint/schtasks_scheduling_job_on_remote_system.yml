@@ -74,8 +74,6 @@ tags:
   - Compromised Windows Host
   - RedLine Stealer
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
   mitre_attack_id:
   - T1053.005
   - T1053
@@ -83,14 +81,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.dest
-  - Processes.user
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

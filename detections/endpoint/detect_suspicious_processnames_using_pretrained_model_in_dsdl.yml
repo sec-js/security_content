@@ -52,24 +52,10 @@ tags:
   analytic_story:
   - Suspicious Command-Line Executions
   asset_type: Endpoint
-  confidence: 90
-  context:
-  - Source:Endpoint
-  - Stage:Execution
-  impact: 50
   mitre_attack_id:
   - T1059
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.parent_process
-  - Processes.user
-  - Processes.dest
-  risk_score: 45
   security_domain: endpoint

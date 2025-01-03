@@ -16,8 +16,9 @@ data_source:
 - Powershell Script Block Logging 4104
 search: '`powershell` EventCode=4104 ScriptBlockText = "*rmdir *" AND ScriptBlockText
   = "*\\Microsoft\\Windows Defender*" | stats count min(_time) as firstTime max(_time)
-  as lastTime by Opcode Computer UserID EventCode ScriptBlockText | rename UserID as user | `security_content_ctime(firstTime)`
-  | `security_content_ctime(lastTime)` | `powershell_remove_windows_defender_directory_filter`'
+  as lastTime by Opcode Computer UserID EventCode ScriptBlockText | rename UserID
+  as user | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
+  | `powershell_remove_windows_defender_directory_filter`'
 how_to_implement: To successfully implement this analytic, you will need to enable
   PowerShell Script Block Logging on some or all endpoints. Additional setup here
   https://docs.splunk.com/Documentation/UBA/5.0.4.1/GetDataIn/AddPowerShell#Configure_module_logging_for_PowerShell.
@@ -26,8 +27,7 @@ references:
 - https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/
 drilldown_searches:
 - name: View the detection results for - "$Computer$" and "$user$"
-  search: '%original_detection_search% | search  Computer = "$Computer$" user =
-    "$user$"'
+  search: '%original_detection_search% | search  Computer = "$Computer$" user = "$user$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$Computer$" and "$user$"
@@ -54,8 +54,6 @@ tags:
   - Data Destruction
   - WhisperGate
   asset_type: Endpoint
-  confidence: 90
-  impact: 100
   mitre_attack_id:
   - T1562.001
   - T1562
@@ -63,14 +61,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 90
   security_domain: endpoint
 tests:
 - name: True Positive Test

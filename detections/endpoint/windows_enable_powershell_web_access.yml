@@ -51,21 +51,12 @@ tags:
   - CISA AA24-241A
   - Malicious PowerShell
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1059.001
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - dest
-  - UserID
-  risk_score: 72
   security_domain: endpoint
   cve: []
 tests:

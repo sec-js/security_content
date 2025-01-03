@@ -54,8 +54,6 @@ tags:
   - Linux Privilege Escalation
   - Linux Persistence Techniques
   asset_type: Endpoint
-  confidence: 90
-  impact: 80
   mitre_attack_id:
   - T1548.003
   - T1548
@@ -63,14 +61,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.dest
-  - Filesystem.file_create_time
-  - Filesystem.file_name
-  - Filesystem.process_guid
-  - Filesystem.file_path
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test

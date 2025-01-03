@@ -59,20 +59,12 @@ tags:
   - DarkGate Malware
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 10
-  impact: 50
   mitre_attack_id:
   - T1566.001
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 5
-  required_fields:
-  - Filesystem.dest
-  - Filesystem.action
-  - Filesystem.process_id
-  - Filesystem.file_name
   security_domain: endpoint
 tests:
 - name: True Positive Test

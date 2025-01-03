@@ -64,8 +64,6 @@ tags:
   - ValleyRAT
   - Meduza Stealer
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
   mitre_attack_id:
   - T1134.002
   - T1134
@@ -73,18 +71,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ProcessName
-  - Security_ID
-  - action
-  - result
-  - Process_ID
-  - Message
-  - member_dn
-  - ComputerName
-  - user
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test

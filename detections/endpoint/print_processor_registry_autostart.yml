@@ -49,8 +49,6 @@ tags:
   - Hermetic Wiper
   - Windows Persistence Techniques
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
   mitre_attack_id:
   - T1547.012
   - T1547
@@ -58,14 +56,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.user
-  - Registry.registry_path
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

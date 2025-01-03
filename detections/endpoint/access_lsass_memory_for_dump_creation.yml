@@ -59,8 +59,6 @@ tags:
   - CISA AA23-347A
   - Credential Dumping
   asset_type: Windows
-  confidence: 90
-  impact: 70
   mitre_attack_id:
   - T1003.001
   - T1003
@@ -68,16 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - TargetImage
-  - CallTrace
-  - dest
-  - TargetProcessId
-  - SourceImage
-  - SourceProcessId
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

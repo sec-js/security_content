@@ -60,10 +60,8 @@ tags:
   - Microsoft MSHTML Remote Code Execution CVE-2021-40444
   - CVE-2023-36884 Office and Windows HTML RCE Vulnerability
   asset_type: Endpoint
-  confidence: 100
   cve:
   - CVE-2021-40444
-  impact: 80
   mitre_attack_id:
   - T1566
   - T1566.001
@@ -71,14 +69,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ImageLoaded
-  - process_name
-  - OriginalFileName
-  - process_id
-  - dest
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

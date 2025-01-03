@@ -58,8 +58,6 @@ tags:
   - NjRAT
   - Snake Keylogger
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1204.002
   - T1204
@@ -67,16 +65,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.file_create_time
-  - Filesystem.process_id
-  - Filesystem.file_name
-  - Filesystem.user
-  - Filesystem.file_path
-  - Filesystem.process_guid
-  - Filesystem.dest
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

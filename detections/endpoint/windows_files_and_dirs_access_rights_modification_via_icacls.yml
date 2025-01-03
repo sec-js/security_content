@@ -70,8 +70,6 @@ tags:
   asset_type: Endpoint
   atomic_guid:
   - 3309f53e-b22b-4eb6-8fd2-a6cf58b355a9
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1222.001
   - T1222
@@ -79,18 +77,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
-  required_fields:
-  - _time
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_guid
-  - Processes.dest
-  - Processes.user
-  - Processes.process_id
-  - Processes.process
   security_domain: endpoint
 tests:
 - name: True Positive Test

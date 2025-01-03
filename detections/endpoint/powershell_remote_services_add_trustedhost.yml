@@ -55,8 +55,6 @@ tags:
   analytic_story:
   - DarkGate Malware
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1021.006
   - T1021
@@ -64,14 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 64
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - UserID
-  - Score
   security_domain: endpoint
 tests:
 - name: True Positive Test

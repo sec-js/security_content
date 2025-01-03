@@ -57,24 +57,12 @@ tags:
   asset_type: Endpoint
   atomic_guid:
   - 12e03af7-79f9-4f95-af48-d3f12f28a260
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1112
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.user
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.action
-  - Registry.registry_value_data
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

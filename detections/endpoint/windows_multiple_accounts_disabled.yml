@@ -52,8 +52,6 @@ tags:
   analytic_story:
   - Azure Active Directory Persistence
   asset_type: Endpoint
-  confidence: 60
-  impact: 30
   mitre_attack_id:
   - T1098
   - T1078
@@ -61,18 +59,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - success
-  - TargetUserName
-  - SubjectUserName
-  - src_user
-  - SubjectDomainName
-  - TargetDomainName
-  - Logon_ID
-  - user
-  risk_score: 18
   security_domain: endpoint
 tests:
 - name: True Positive Test

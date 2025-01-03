@@ -32,8 +32,6 @@ tags:
   analytic_story:
   - IcedID
   asset_type: Endpoint
-  confidence: 90
-  impact: 80
   mitre_attack_id:
   - T1560.001
   - T1560
@@ -41,14 +39,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - TargetFilename
-  - EventCode
-  - process_id
-  - process_name
-  - dest
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test

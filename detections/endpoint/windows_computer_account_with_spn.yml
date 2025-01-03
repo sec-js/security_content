@@ -57,25 +57,12 @@ tags:
   - Active Directory Kerberos Attacks
   - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1558
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - MSADChangedAttributes
-  - New_UAC_Value
-  - Security_ID
-  - Account_Domain
-  - SAM_Account_Name
-  - DNS_Host_Name
-  - Logon_Id
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

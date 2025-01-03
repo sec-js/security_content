@@ -53,23 +53,12 @@ tags:
   analytic_story:
   - Warzone RAT
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1553.005
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
-  required_fields:
-  - EventCode
-  - TargetFilename
-  - dest
-  - user
-  - Image
-  - ProcessID
-  - _time
   security_domain: endpoint
 tests:
 - name: True Positive Test

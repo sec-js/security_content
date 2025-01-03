@@ -57,11 +57,9 @@ tags:
   - Active Directory Kerberos Attacks
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 60
   cve:
   - CVE-2021-42287
   - CVE-2021-42278
-  impact: 100
   mitre_attack_id:
   - T1078
   - T1078.002
@@ -69,14 +67,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Service_Name
-  - Account_Name
-  - Client_Address
-  - Failure_Code
-  risk_score: 60
   security_domain: endpoint
 tests:
 - name: True Positive Test

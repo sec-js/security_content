@@ -69,8 +69,6 @@ tags:
   - Data Exfiltration
   - Ingress Tool Transfer
   asset_type: Endpoint
-  confidence: 90
-  impact: 50
   mitre_attack_id:
   - T1649
   - T1560
@@ -78,25 +76,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.user
-  - Processes.dest
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_path
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_guid
-  - Processes.action
-  - Filesystem.file_create_time
-  - Filesystem.process_id
-  - Filesystem.process_guid
-  - Filesystem.file_name
-  - Filesystem.file_path
-  - Filesystem.dest
-  risk_score: 45
   security_domain: endpoint
 tests:
 - name: True Positive Test

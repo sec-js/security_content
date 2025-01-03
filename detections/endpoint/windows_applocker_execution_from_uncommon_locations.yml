@@ -38,19 +38,12 @@ tags:
   analytic_story:
   - Windows AppLocker
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1218
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - FullFilePath
-  - dest
-  - user
-  risk_score: 49
   security_domain: endpoint
   cve: []
 tests:

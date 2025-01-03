@@ -71,23 +71,12 @@ tags:
   analytic_story:
   - Suspicious Command-Line Executions
   asset_type: Endpoint
-  confidence: 20
-  impact: 60
   mitre_attack_id:
   - T1059.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.parent_process
-  - Processes.user
-  - Processes.dest
-  risk_score: 12
   security_domain: endpoint
 tests:
 - name: True Positive Test

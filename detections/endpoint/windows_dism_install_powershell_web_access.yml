@@ -62,25 +62,12 @@ tags:
   analytic_story:
   - CISA AA24-241A
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1548.002
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - user
-  - parent_process_name
-  - process_name
-  - original_file_name
-  - process
-  - process_id
-  - parent_process_id
-  risk_score: 72
   security_domain: endpoint
   cve: []
 tests:

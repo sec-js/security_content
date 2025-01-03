@@ -72,8 +72,6 @@ tags:
   - Snake Keylogger
   - ShrinkLocker
   asset_type: Endpoint
-  confidence: 70
-  impact: 20
   mitre_attack_id:
   - T1562.004
   - T1562
@@ -81,15 +79,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.user
-  - Processes.dest
-  risk_score: 14
   security_domain: endpoint
 tests:
 - name: True Positive Test

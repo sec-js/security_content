@@ -59,8 +59,6 @@ tags:
   - Windows Drivers
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 70
-  impact: 60
   mitre_attack_id:
   - T1553.004
   - T1553
@@ -68,13 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_path
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  - Registry.dest
-  risk_score: 42
   security_domain: endpoint
 tests:
 - name: True Positive Test

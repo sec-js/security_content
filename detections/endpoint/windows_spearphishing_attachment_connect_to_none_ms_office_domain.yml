@@ -34,8 +34,6 @@ tags:
   - Spearphishing Attachments
   - AsyncRAT
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
   mitre_attack_id:
   - T1566.001
   - T1566
@@ -43,14 +41,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - QueryName
-  - QueryResults
-  - QueryStatus
-  - dest
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

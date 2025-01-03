@@ -50,22 +50,12 @@ tags:
   analytic_story:
   - Windows Certificate Services
   asset_type: Endpoint
-  confidence: 80
-  impact: 10
   mitre_attack_id:
   - T1649
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - name
-  - Requester
-  - action
-  - Attributes
-  risk_score: 8
   security_domain: endpoint
 tests:
 - name: True Positive Test

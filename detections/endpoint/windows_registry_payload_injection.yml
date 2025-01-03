@@ -76,8 +76,6 @@ tags:
   analytic_story:
   - Unusual Processes
   asset_type: Endpoint
-  confidence: 60
-  impact: 100
   mitre_attack_id:
   - T1027
   - T1027.011
@@ -85,22 +83,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - dest
-  - process_id
-  - process_name
-  - process
-  - process_path
-  - parent_process_name
-  - parent_process
-  - process_guid
-  - registry_path
-  - registry_value_name
-  - registry_value_data
-  - registry_key_name
-  risk_score: 60
   security_domain: endpoint
 tests:
 - name: True Positive Test

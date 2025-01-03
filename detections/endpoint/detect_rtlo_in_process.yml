@@ -70,8 +70,6 @@ tags:
   analytic_story:
   - Spearphishing Attachments
   asset_type: Endpoint
-  confidence: 80
-  impact: 50
   mitre_attack_id:
   - T1036.002
   - T1036
@@ -79,19 +77,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.process_guid
-  - Processes.parent_process_id
-  - Processes.parent_process_name
-  - Processes.parent_process
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test

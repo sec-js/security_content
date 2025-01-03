@@ -52,8 +52,8 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A $process_name$ process created a scheduled task $process$ with highest run level
-    privilege on $dest$
+  message: A $process_name$ process created a scheduled task $process$ with highest
+    run level privilege on $dest$
   risk_objects:
   - field: dest
     type: system
@@ -67,8 +67,6 @@ tags:
   - Scheduled Tasks
   - RedLine Stealer
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1053
   - T1053.005
@@ -76,20 +74,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

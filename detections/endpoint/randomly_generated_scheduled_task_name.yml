@@ -32,8 +32,6 @@ tags:
   - CISA AA22-257A
   - Scheduled Tasks
   asset_type: Endpoint
-  confidence: 50
-  impact: 90
   mitre_attack_id:
   - T1053
   - T1053.005
@@ -41,11 +39,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - Task_Name
-  - Description
-  - Command
-  risk_score: 45
   security_domain: endpoint

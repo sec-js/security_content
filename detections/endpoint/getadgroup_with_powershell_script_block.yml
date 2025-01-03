@@ -30,8 +30,6 @@ tags:
   analytic_story:
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
   mitre_attack_id:
   - T1069
   - T1069.002
@@ -39,13 +37,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Message
-  - Computer
-  - UserID
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test

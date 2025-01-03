@@ -46,8 +46,6 @@ tags:
   - Amadey
   - Gozi Malware
   asset_type: Endpoint
-  confidence: 50
-  impact: 80
   mitre_attack_id:
   - T1566.001
   - T1566
@@ -57,13 +55,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Filesystem.file_create_time
-  - Filesystem.process_id
-  - Filesystem.file_name
-  - Filesystem.file_path
-  - Filesystem.dest
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test

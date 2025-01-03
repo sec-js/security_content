@@ -60,8 +60,6 @@ tags:
   analytic_story:
   - VMware ESXi AD Integration Authentication Bypass CVE-2024-37085
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1136.001
   - T1136.002
@@ -69,15 +67,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - TargetUserName
-  - TargetDomainName
-  - SubjectUserName
-  - SubjectDomainName
-  - Computer
-  risk_score: 25
   security_domain: endpoint
   cve:
   - CVE-2024-37085

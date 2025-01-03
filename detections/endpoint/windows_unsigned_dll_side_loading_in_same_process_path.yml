@@ -57,8 +57,6 @@ tags:
   - DarkGate Malware
   - PlugX
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1574.002
   - T1574
@@ -66,20 +64,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - Signed
-  - SignatureStatus
-  - OriginalFileName
-  - process_name
-  - dest
-  - EventCode
-  - ProcessId
-  - Hashes
-  - IMPHASH
   security_domain: endpoint
 tests:
 - name: True Positive Test

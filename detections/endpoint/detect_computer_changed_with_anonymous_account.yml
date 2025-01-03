@@ -31,22 +31,12 @@ tags:
   analytic_story:
   - Detect Zerologon Attack
   asset_type: Windows
-  confidence: 70
   cve:
   - CVE-2020-1472
-  impact: 70
   mitre_attack_id:
   - T1210
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - TargetUserName
-  - LogonType
-  - TargetDomainName
-  - user
-  risk_score: 49
   security_domain: endpoint

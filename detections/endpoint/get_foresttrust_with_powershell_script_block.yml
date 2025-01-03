@@ -55,8 +55,6 @@ tags:
   analytic_story:
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 40
-  impact: 30
   mitre_attack_id:
   - T1482
   - T1059.001
@@ -64,15 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Path
-  - Opcode
-  - Computer
-  - UserID
-  risk_score: 12
   security_domain: endpoint
 tests:
 - name: True Positive Test

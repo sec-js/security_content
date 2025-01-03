@@ -77,24 +77,12 @@ tags:
   - Disabling Security Tools
   - DHS Report TA18-074A
   asset_type: Endpoint
-  confidence: 50
-  impact: 70
   mitre_attack_id:
   - T1112
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.dest
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test

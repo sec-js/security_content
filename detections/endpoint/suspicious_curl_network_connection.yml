@@ -52,22 +52,10 @@ tags:
   - Ingress Tool Transfer
   - Linux Living Off The Land
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1105
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.process
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 25
   security_domain: endpoint

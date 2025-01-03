@@ -70,27 +70,12 @@ tags:
   analytic_story:
   - Windows System Binary Proxy Execution MSIExec
   asset_type: Endpoint
-  confidence: 50
-  impact: 70
   mitre_attack_id:
   - T1218.007
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.dest
-  - Processes.process_path
-  - Processes.process
-  - Processes.parent_process_name
-  - All_Traffic.process_id
-  - All_Traffic.dest
-  - All_Traffic.dest_port
-  - All_Traffic.dest_ip
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -61,8 +61,6 @@ tags:
   - Rhysida Ransomware
   - Malicious PowerShell
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1569
   - T1569.002
@@ -70,16 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - Service_File_Name
-  - Service_Type
-  - _time
-  - Service_Name
-  - Service_Start_Type
-  - Service_Account
-  - user
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test

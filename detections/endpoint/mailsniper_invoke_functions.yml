@@ -55,8 +55,6 @@ tags:
   analytic_story:
   - Data Exfiltration
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1114
   - T1114.001
@@ -64,14 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test

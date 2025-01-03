@@ -54,8 +54,6 @@ tags:
   analytic_story:
   - Active Directory Kerberos Attacks
   asset_type: Endpoint
-  confidence: 80
-  impact: 30
   mitre_attack_id:
   - T1589
   - T1589.002
@@ -63,13 +61,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Result_Code
-  - Account_Name
-  - Client_Address
-  risk_score: 24
   security_domain: endpoint
 tests:
 - name: True Positive Test

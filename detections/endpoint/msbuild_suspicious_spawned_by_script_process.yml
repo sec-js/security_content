@@ -67,8 +67,6 @@ tags:
   analytic_story:
   - Trusted Developer Utilities Proxy Execution MSBuild
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1127.001
   - T1127
@@ -76,15 +74,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.parent_process
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.original_file_name
-  - Processes.user
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test

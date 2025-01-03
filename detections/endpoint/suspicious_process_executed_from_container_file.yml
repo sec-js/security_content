@@ -70,8 +70,6 @@ tags:
   - Remcos
   - Snake Keylogger
   asset_type: Endpoint
-  confidence: 20
-  impact: 80
   mitre_attack_id:
   - T1204.002
   - T1036.008
@@ -79,13 +77,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.parent_process
-  - Processes.process
-  - Processes.user
-  risk_score: 16
   security_domain: endpoint
 tests:
 - name: True Positive Test

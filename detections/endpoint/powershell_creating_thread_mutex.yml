@@ -58,8 +58,6 @@ tags:
   analytic_story:
   - Malicious PowerShell
   asset_type: Endpoint
-  confidence: 80
-  impact: 50
   mitre_attack_id:
   - T1027
   - T1027.005
@@ -68,13 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - UserID
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test

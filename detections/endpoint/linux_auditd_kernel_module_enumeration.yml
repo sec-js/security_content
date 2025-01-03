@@ -59,8 +59,6 @@ tags:
   - XorDDos
   - Linux Rootkit
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
   mitre_attack_id:
   - T1082
   - T1014
@@ -68,15 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - comm
-  - exe
-  - SYSCALL
-  - UID
-  - ppid
-  - pid
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -43,24 +43,12 @@ tags:
   - BlackLotus Campaign
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1542.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 25
-  required_fields:
-  - dest
-  - parent_process_name
-  - process_name
-  - process_path
-  - process
-  - process_id
-  - dest_port
-  - publicIp
   security_domain: endpoint
 tests:
 - name: True Positive Test

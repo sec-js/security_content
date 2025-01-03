@@ -62,24 +62,12 @@ tags:
   - Data Destruction
   - Handala Wiper
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1485
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - TargetFilename
-  - dest
-  - user
-  - signature_id
-  - process_name
-  - process_guid
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

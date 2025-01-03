@@ -56,8 +56,6 @@ tags:
   - IcedID
   - Living Off The Land
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
   mitre_attack_id:
   - T1218
   - T1218.011
@@ -65,14 +63,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - QueryName
-  - QueryStatus
-  - ProcessId
-  - dest
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

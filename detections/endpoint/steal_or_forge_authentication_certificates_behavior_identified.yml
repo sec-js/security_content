@@ -56,21 +56,12 @@ tags:
   - 290df60e-4b5d-4a5e-b0c7-dc5348ea0c86
   - 78b274f8-acb0-428b-b1f7-7b0d0e73330a
   - 7617f689-bbd8-44bc-adcd-6f8968897848
-  confidence: 90
-  impact: 80
   mitre_attack_id:
   - T1649
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 72
-  required_fields:
-  - All_Risk.analyticstories
-  - All_Risk.risk_object_type
-  - All_Risk.risk_object
-  - All_Risk.annotations.mitre_attack.mitre_tactic
-  - source
   security_domain: endpoint
 tests:
 - name: True Positive Test

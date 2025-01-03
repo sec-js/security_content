@@ -60,22 +60,12 @@ tags:
   analytic_story:
   - ConnectWise ScreenConnect Vulnerabilities
   asset_type: Endpoint
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Filesystem.file_create_time
-  - Filesystem.process_id
-  - Filesystem.process_guid
-  - Filesystem.file_name
-  - Filesystem.file_path
-  - Filesystem.dest
-  risk_score: 100
   security_domain: endpoint
   cve:
   - CVE-2024-1708

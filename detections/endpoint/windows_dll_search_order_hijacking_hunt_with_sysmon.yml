@@ -33,8 +33,6 @@ tags:
   - Windows Defense Evasion Tactics
   - Qakbot
   asset_type: Endpoint
-  confidence: 10
-  impact: 10
   mitre_attack_id:
   - T1574.001
   - T1574
@@ -42,12 +40,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - ImageLoaded
-  - Module_Path
-  risk_score: 1
   security_domain: endpoint
 tests:
 - name: True Positive Test

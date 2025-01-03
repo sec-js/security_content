@@ -41,8 +41,8 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: A scheduled task process commandline rundll32 arguments $Arguments$ on host
-    $dest$
+  message: A scheduled task process commandline rundll32 arguments $Arguments$ on
+    host $dest$
   risk_objects:
   - field: dest
     type: system
@@ -57,24 +57,12 @@ tags:
   - Compromised Windows Host
   - Trickbot
   asset_type: Endpoint
-  confidence: 100
-  impact: 70
   mitre_attack_id:
   - T1053
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - Task_Name
-  - Command
-  - Author
-  - Enabled
-  - Hidden
-  - Arguments
-  risk_score: 70
   security_domain: endpoint
 tests:
 - name: True Positive Test

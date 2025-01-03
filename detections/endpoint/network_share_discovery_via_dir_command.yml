@@ -34,25 +34,12 @@ tags:
   asset_type: Endpoint
   atomic_guid:
   - 13daa2cf-195a-43df-a8bd-7dd5ffb607b5
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1135
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 25
-  required_fields:
-  - _time
-  - ShareName
-  - IpAddress
-  - ObjectType
-  - SubjectUserName
-  - SubjectDomainName
-  - IpPort
-  - AccessMask
-  - Computer
   security_domain: endpoint
 tests:
 - name: True Positive Test
