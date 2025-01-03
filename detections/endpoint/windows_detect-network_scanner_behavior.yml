@@ -7,7 +7,7 @@ status: production
 type: Anomaly
 description: The following analytic detects when an application is used to connect a large number of unique ports/targets within a short time frame. Network enumeration may be used by adversaries as a method of discovery, lateral movement, or remote execution. This analytic may require significant tuning depending on the organization and applications being actively used, highly recommended to pre-populate the filter macro prior to activation.
 data_source: 
-- Sysmon EID 3
+- Sysmon EventID 3
 search: '| tstats `security_content_summariesonly` count latest(All_Traffic.dest_port) as dest_port dc(All_Traffic.dest_port) as port_count dc(All_Traffic.dest) as dest_count min(_time) as firstTime max(_time) as lastTime values(All_Traffic.process_id) as process_id from datamodel=Network_Traffic.All_Traffic where sourcetype=XmlWinEventLog All_Traffic.app = "*\\*" All_Traffic.dest_port < 32000 NOT All_Traffic.dest_port IN (8443,8080,5353,3268,443,389,88,80,53,25) by host,All_Traffic.app,All_Traffic.src,All_Traffic.src_ip,All_Traffic.user _time span=5m
 | `drop_dm_object_name(All_Traffic)`
 | rex field=app ".*\\\(?<process_name>.*)$"
