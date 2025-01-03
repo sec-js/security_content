@@ -5,7 +5,6 @@ id: 308257b9-a0c6-4ca5-9602-efcab78f45ff
 author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A table of users seen doing console logins, and the first and last time that the activity was observed
-collection: previously_seen_users_console_logins
 fields: 
 - _key
 - firstTime

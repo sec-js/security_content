@@ -5,7 +5,6 @@ id: 804c385e-5942-4e0c-87eb-69890483fe73
 author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A place holder for a list of used AWS regions
-collection: previously_seen_aws_regions
 fields: 
 - _key
 - earliest

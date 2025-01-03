@@ -5,7 +5,6 @@ id: 264e5f12-ba04-47d1-bb88-f355a9b2b0e8
 author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A placeholder for a list of IPs that have access S3
-collection: previously_seen_S3_access_from_remote_ip
 fields: 
 - _key
 - bucket_name

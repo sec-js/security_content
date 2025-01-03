@@ -4,7 +4,6 @@ version: 2
 id: cfd1a79b-0b98-42b9-bc0d-2464f74321e5
 author: Splunk Threat Research Team
 description: A table of previously seen users creating cloud instances
-collection: previously_seen_cloud_compute_creations_by_user
 lookup_type: kvstore
 fields: 
 - _key

@@ -5,7 +5,6 @@ id: 3684fed6-6f6a-4830-a3b3-453898fc2a46
 author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A table of users, commands, and the first and last time that they have been seen
-collection: previously_seen_cloud_api_calls_per_user_role
 fields: 
 - _key
 - user

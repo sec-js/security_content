@@ -6,7 +6,6 @@ author: Splunk Threat Research Team
 lookup_type: kvstore
 default_match: false
 description: A lookup to determine if you have a sufficient amount of time has passed to collect cloud instance data for behavioral searches
-collection: cloud_instances_enough_data
 fields: 
  - _key
  - filter

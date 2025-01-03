@@ -5,9 +5,8 @@ id: 7bfd9071-fb1f-4673-ab84-6396a0d3d412
 author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A place holder for a list of used Kuberntes Process Ratios
-collection: k8s_process_resource_ratio_baseline
 fields: 
-- key
+- _key
 - avg_cpu:mem
 - stdev_cpu:mem
 - avg_cpu:disk
