@@ -41,7 +41,6 @@ tags:
   - T1595
   - T1595.001
   - T1595.002
-  - T1423
   observable: 
   - name: src
     type: IP Address
