@@ -6,7 +6,7 @@ author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A list used to provide global exceptions to remote access monitoring content.
 collection: remote_access_software_exceptions
-fields_list: 
+fields: 
 - _key
 - asset
 -  software

@@ -7,7 +7,7 @@ lookup_type: kvstore
 description: A collection that will contain the baseline information for number of
   AWS API calls per user
 collection: api_call_by_user_baseline
-fields_list: 
+fields: 
 - arn
 - latestCount
 - numDataPoints

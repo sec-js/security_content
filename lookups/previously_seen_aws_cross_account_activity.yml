@@ -6,7 +6,7 @@ author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A placeholder for a list of AWS accounts and assumed roles
 collection: previously_seen_aws_cross_account_activity
-fields_list: 
+fields: 
 - _key
 - firstTime
 - lastTime

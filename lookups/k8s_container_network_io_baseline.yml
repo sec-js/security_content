@@ -6,7 +6,7 @@ author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A place holder for a list of used Kuberntes Container Network IO
 collection: k8s_container_network_io_baseline
-fields_list: 
+fields: 
 - key
 - avg_outbound_network_io
 - avg_inbound_network_io

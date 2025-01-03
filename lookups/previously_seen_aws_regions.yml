@@ -6,7 +6,7 @@ author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A place holder for a list of used AWS regions
 collection: previously_seen_aws_regions
-fields_list: 
+fields: 
 - _key
 - earliest
 - latest

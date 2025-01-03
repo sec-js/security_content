@@ -6,7 +6,7 @@ author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A table of vendor_region values and the first and last time that they have been observed in cloud provisioning activities
 collection: previously_seen_cloud_regions
-fields_list: 
+fields: 
 - _key
 - firstTimeSeen
 - lastTimeSeen

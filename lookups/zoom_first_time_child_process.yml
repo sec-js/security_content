@@ -6,7 +6,7 @@ author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A list of suspicious file names
 collection: zoom_first_time_child_process
-fields_list: 
+fields: 
 - _key
 - dest
 - process_name

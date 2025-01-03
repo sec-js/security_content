@@ -6,7 +6,7 @@ author: Splunk Threat Research Team
 lookup_type: kvstore
 description: A placeholder for the baseline information for AWS S3 deletions
 collection: s3_deletion_baseline
-fields_list: 
+fields: 
 - _key
 - arn
 - latestCount
