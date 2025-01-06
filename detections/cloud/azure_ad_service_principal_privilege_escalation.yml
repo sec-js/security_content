@@ -3,53 +3,63 @@ id: 29eb39d3-2bc8-49cc-99b3-35593191a588
 version: 1
 date: '2025-01-06'
 author: Dean Luxton
-data_sources: []
+data_sources:
+- Azure Active Directory Add app role assignment to service principal
 type: TTP
 status: production
-description: UPDATE_DESCRIPTION
-search: "`azure_monitor_aad` category=AuditLogs operationName=\"Add app role assignment\
-  \ to service principal\" properties.initiatedBy.app.displayName=* properties.result=Success\
-  \ \n| spath path=properties{}.targetResources{}.modifiedProperties{} output=targetResources\n\
-  | stats min(_time) as _time values(eval(mvfilter(match(targetResources, \"AppRole.Value\"\
-  )))) as appRole, values(eval(mvfilter(match(targetResources, \"ServicePrincipal.DisplayName\"\
-  )))) as targetServicePrincipal values(eval(mvindex('properties.targetResources{}.displayName',0)))\
-  \ as targetAppContext values(user_agent) as user_agent values(identity) as servicePrincipal\
-  \ values(properties.initiatedBy.app.servicePrincipalId) as servicePrincipalId by\
-  \ operationName tenantId correlationId\n| spath input=appRole path=newValue output=appRole\n\
-  | spath input=targetServicePrincipal path=newValue output=targetServicePrincipal\n\
-  | eval appRole=trim(replace(appRole, \"\\\"\", \"\")), targetServicePrincipal=trim(replace(targetServicePrincipal,\
-  \ \"\\\"\", \"\"))\n| where servicePrincipal=targetServicePrincipal\n| table _time\
-  \ operationName servicePrincipal servicePrincipalId targetServicePrincipal appRole\
-  \ targetAppContext user_agent tenantId correlationId\n | `azure_ad_service_principal_privilege_escalation_filter`"
-how_to_implement: UPDATE_HOW_TO_IMPLEMENT
-known_false_positives: UPDATE_KNOWN_FALSE_POSITIVES
+description: This detection identifies when an Azure Service Principal elevates privileges by adding themself to a new app role assignment.
+search: >-
+  `azure_monitor_aad` category=AuditLogs operationName="Add app role assignment to service principal" properties.initiatedBy.app.displayName=* properties.result=Success 
+  | spath path=properties{}.targetResources{}.modifiedProperties{} output=targetResources
+  | stats min(_time) as _time values(eval(mvfilter(match(targetResources, "AppRole.Value")))) as appRole, values(eval(mvfilter(match(targetResources, "ServicePrincipal.DisplayName")))) as targetServicePrincipal values(eval(mvindex('properties.targetResources{}.displayName',0))) as targetAppContext values(user_agent) as user_agent values(identity) as servicePrincipal values(properties.initiatedBy.app.servicePrincipalId) as servicePrincipalId by operationName tenantId correlationId
+  | spath input=appRole path=newValue output=appRole
+  | spath input=targetServicePrincipal path=newValue output=targetServicePrincipal
+  | eval appRole=trim(replace(appRole, "\"", "")), targetServicePrincipal=trim(replace(targetServicePrincipal, "\"", ""))
+  | where servicePrincipal=targetServicePrincipal
+  | table _time operationName servicePrincipal servicePrincipalId appRole targetAppContext user_agent tenantId correlationId
+  | `azure_ad_service_principal_privilege_escalation_filter`
+how_to_implement: The Splunk Add-on for Microsoft Cloud Services add-on is required to ingest EntraID audit logs via Azure EventHub. See reference for links for further details on how to onboard this log source. 
+known_false_positives: Unknown
 references:
-- REFERENCE
+- https://splunkbase.splunk.com/app/3110
+- https://docs.splunk.com/Documentation/AddOns/released/MSCloudServices/Install
 tags:
   analytic_story:
-  - UPDATE_STORY_NAME
-  asset_type: UPDATE asset_type
-  confidence: UPDATE value between 1-100
-  impact: UPDATE value between 1-100
-  message: UPDATE message
+  - Azure Active Directory Privilege Escalation
+  asset_type: Azure Tenant
+  confidence: 100
+  impact: 100
+  message: Service Principal $servicePrincipal$ has elevated privileges by adding themself to app role $appRole$
   mitre_attack_id:
   - T1098.001
   - T1098
   observable:
-  - name: UPDATE
-    type: UPDATE
+  - name: servicePrincipal
+    type: User
     role:
-    - UPDATE
+    - Attacker
+  - name: user_agent
+    type: User Agent
+    role:
+    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
   required_fields:
-  - UPDATE
-  risk_score: UPDATE (impact * confidence)/100
+  - user_agent
+  - identity
+  - properties.initiatedBy.app.servicePrincipalId
+  - operationName
+  - tenantId 
+  - correlationId
+  - category
+  - properties.initiatedBy.app.displayName
+  - properties.result
+  - properties{}.targetResources{}.modifiedProperties{}
+  - properties.targetResources{}.displayName
+  risk_score: 100
   security_domain: identity
-  cve:
-  - UPDATE WITH CVE(S) IF APPLICABLE
 tests:
 - name: True Positive Test
   attack_data:
