@@ -44,7 +44,7 @@ tags:
     role:
     - Victim
   - name: parent_process_name
-    type: process
+    type: Process
     role:
     - Attacker
   product: 
