@@ -1,0 +1,58 @@
+name: Azure AD Service Principal Privilege Escalation
+id: 29eb39d3-2bc8-49cc-99b3-35593191a588
+version: 1
+date: '2025-01-06'
+author: Dean Luxton
+data_sources: []
+type: TTP
+status: production
+description: UPDATE_DESCRIPTION
+search: "`azure_monitor_aad` category=AuditLogs operationName=\"Add app role assignment\
+  \ to service principal\" properties.initiatedBy.app.displayName=* properties.result=Success\
+  \ \n| spath path=properties{}.targetResources{}.modifiedProperties{} output=targetResources\n\
+  | stats min(_time) as _time values(eval(mvfilter(match(targetResources, \"AppRole.Value\"\
+  )))) as appRole, values(eval(mvfilter(match(targetResources, \"ServicePrincipal.DisplayName\"\
+  )))) as targetServicePrincipal values(eval(mvindex('properties.targetResources{}.displayName',0)))\
+  \ as targetAppContext values(user_agent) as user_agent values(identity) as servicePrincipal\
+  \ values(properties.initiatedBy.app.servicePrincipalId) as servicePrincipalId by\
+  \ operationName tenantId correlationId\n| spath input=appRole path=newValue output=appRole\n\
+  | spath input=targetServicePrincipal path=newValue output=targetServicePrincipal\n\
+  | eval appRole=trim(replace(appRole, \"\\\"\", \"\")), targetServicePrincipal=trim(replace(targetServicePrincipal,\
+  \ \"\\\"\", \"\"))\n| where servicePrincipal=targetServicePrincipal\n| table _time\
+  \ operationName servicePrincipal servicePrincipalId targetServicePrincipal appRole\
+  \ targetAppContext user_agent tenantId correlationId\n | `azure_ad_service_principal_privilege_escalation_filter`"
+how_to_implement: UPDATE_HOW_TO_IMPLEMENT
+known_false_positives: UPDATE_KNOWN_FALSE_POSITIVES
+references:
+- REFERENCE
+tags:
+  analytic_story:
+  - UPDATE_STORY_NAME
+  asset_type: UPDATE asset_type
+  confidence: UPDATE value between 1-100
+  impact: UPDATE value between 1-100
+  message: UPDATE message
+  mitre_attack_id:
+  - T1098.001
+  - T1098
+  observable:
+  - name: UPDATE
+    type: UPDATE
+    role:
+    - UPDATE
+  product:
+  - Splunk Enterprise
+  - Splunk Enterprise Security
+  - Splunk Cloud
+  required_fields:
+  - UPDATE
+  risk_score: UPDATE (impact * confidence)/100
+  security_domain: identity
+  cve:
+  - UPDATE WITH CVE(S) IF APPLICABLE
+tests:
+- name: True Positive Test
+  attack_data:
+  - data: https://github.com/splunk/contentctl/wiki
+    sourcetype: UPDATE SOURCETYPE
+    source: UPDATE SOURCE
