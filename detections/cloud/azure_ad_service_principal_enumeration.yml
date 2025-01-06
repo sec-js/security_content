@@ -1,0 +1,68 @@
+name: Azure AD Service Principal Enumeration
+id: 3f0647ce-add5-4436-8039-cbd1abe74563
+version: 1
+date: '2025-01-06'
+author: Dean Luxton
+data_source:
+- Azure Active Directory MicrosoftGraphActivityLogs
+type: TTP
+status: production
+description: >-
+  This detection leverages azure graph activity logs to identify when graph APIs have been used to identify 10 or more service principals. 
+  This type of behaviour is associated with tools such as Azure enumberation tools such as AzureHound or ROADtools.
+search: >-
+  `azure_monitor_aad` category IN (MicrosoftGraphActivityLogs) TERM(servicePrincipals)
+  | rex field="properties.requestUri" "https\:\/\/graph.microsoft.com\/beta\/servicePrincipals\/(?P<servicePrincipalb>.*?)\/"
+  | rex field="properties.requestUri" "https\:\/\/graph.microsoft.com\/v1.0\/servicePrincipals\/(?P<servicePrincipalv1>.*?)\/"
+  | eval spn=coalesce(servicePrincipalb,servicePrincipalv1) | stats min(_time) as _time dc(spn) as spn_count values(user) as user values(user_category) as user_category values(src_category) as src_category count by src tenantId properties.userAgent
+  | rename properties.userAgent as user_agent
+  | where spn_count>9 | `azure_ad_service_principal_enumeration_filter`
+how_to_implement: Run this detection over historical data to identify then tune out any known services which may be performing this action. Thresholds can be lowered or raised to meet requirements. 
+The Splunk Add-on for Microsoft Cloud Services add-on is required to ingest MicrosoftGraphActivityLogs via Azure EventHub. See reference for links for further details on how to onboard this log source. 
+known_false_positives: Unknown
+references:
+- https://github.com/SpecterOps/AzureHound
+- https://github.com/dirkjanm/ROADtools
+- https://splunkbase.splunk.com/app/3110
+- https://docs.splunk.com/Documentation/AddOns/released/MSCloudServices/Install
+tags:
+  analytic_story:
+  - Azure Active Directory Privilege Escalation
+  - Compromised User Account
+  asset_type: Azure Tenant
+  confidence: 100
+  impact: 80
+  message: $spn_count$ Service Principals have been enumerated by $user$ from IP $src$
+  mitre_attack_id:
+  - T1087.004
+  - T1526
+  observable:
+  - name: src
+    type: IP Address
+    role:
+    - Attacker
+  - name: user
+    type: User
+    role:
+    - Attacker
+  - name: user_agent
+    type: User Agent
+    role:
+    - Attacker
+  product:
+  - Splunk Enterprise
+  - Splunk Enterprise Security
+  - Splunk Cloud
+  required_fields:
+  - category
+  - properties.requestUri
+  - src
+  - user
+  risk_score: 80
+  security_domain: identity
+tests:
+- name: True Positive Test
+  attack_data:
+  - data: https://github.com/splunk/contentctl/wiki
+    sourcetype: UPDATE SOURCETYPE
+    source: UPDATE SOURCE

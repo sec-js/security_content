@@ -1,0 +1,49 @@
+name: Azure Intune New Device Health Script Created
+id: 6fe42e07-15b1-4caa-b547-7885666cb1bd
+version: 1
+date: '2025-01-06'
+author: Dean Luxton
+data_sources: []
+type: Hunting
+status: production
+description: Intune Remediation Scripts can be used to move laterally to intune managed devices. This detection identifies when a new device health script has been created. 
+search: >-
+  `azure_monitor_activity` operationName="createDeviceHealthScript DeviceHealthScript" 
+  | rename identity as user, properties.TargetObjectIds{} as TargetObjectId
+  | table _time correlationId resultType user TargetObjectId
+  | `azure_intune_new_device_health_script_created_filter`
+how_to_implement: The Splunk Add-on for Microsoft Cloud Services add-on is required to ingest In-Tune audit logs via Azure EventHub. To configure this logging, visit Intune > Tenant administration > Diagnostic settings > Add diagnostic setting & send events to the activity audit event hub. 
+known_false_positives: False positives are expected from this detection. 
+references:
+- https://posts.specterops.io/death-from-above-lateral-movement-from-azure-to-on-prem-ad-d18cb3959d4d
+tags:
+  analytic_story:
+  - Azure Active Directory Account Takeover
+  asset_type: Azure Tenant
+  confidence: 20
+  impact: 100
+  message: Intune device health script $TargetObjectId$ was created by user $user$
+  mitre_attack_id:
+  - T1072
+  - T1021.007
+  observable:
+  - name: user
+    type: User
+    role:
+    - Attacker
+  product:
+  - Splunk Enterprise
+  - Splunk Enterprise Security
+  - Splunk Cloud
+  required_fields:
+  - operationName
+  - identity
+  - properties.TargetObjectIds{}
+  risk_score: 20
+  security_domain: audit
+tests:
+- name: True Positive Test
+  attack_data:
+  - data: https://github.com/splunk/contentctl/wiki
+    sourcetype: UPDATE SOURCETYPE
+    source: UPDATE SOURCE
