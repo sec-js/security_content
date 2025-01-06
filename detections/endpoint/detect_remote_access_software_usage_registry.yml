@@ -53,7 +53,7 @@ tags:
     role:
     - Attacker
   - name: signature
-    type: signature
+    type: Other
     role:
     - Attacker
   product: 
