@@ -59,6 +59,5 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://github.com/splunk/contentctl/wiki
-    sourcetype: UPDATE SOURCETYPE
-    source: UPDATE SOURCE
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1087.004/azurehound/azurehound.log
+    sourcetype: azure:monitor:aad
