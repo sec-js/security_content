@@ -43,11 +43,11 @@ tags:
   - name: user
     type: User
     role:
-    - Attacker
+    - Victim
   - name: TargetObjectId
-    type: TargetObjectId
+    type: Other
     role:
-    - Object
+    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -63,3 +63,4 @@ tests:
   attack_data:
   - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1072/intune/intune.log
     sourcetype: azure:monitor:activity
+    source: Azure AD
