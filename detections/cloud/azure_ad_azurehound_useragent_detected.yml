@@ -21,6 +21,15 @@ references:
 - https://github.com/SpecterOps/AzureHound
 - https://splunkbase.splunk.com/app/3110
 - https://docs.splunk.com/Documentation/AddOns/released/MSCloudServices/Install
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Azure Active Directory Privilege Escalation
@@ -33,16 +42,16 @@ tags:
   - T1087.004
   - T1526
   observable:
+  - name: user
+    type: User
+    role:
+    - Victim
   - name: src
     type: IP Address
     role:
     - Attacker
-  - name: user
-    type: User
-    role:
-    - Attacker
   - name: user_agent
-    type: User Agent
+    type: Other
     role:
     - Attacker
   product:
@@ -61,3 +70,4 @@ tests:
   attack_data:
   - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1087.004/azurehound/azurehound.log
     sourcetype: azure:monitor:aad
+    source: Azure AD

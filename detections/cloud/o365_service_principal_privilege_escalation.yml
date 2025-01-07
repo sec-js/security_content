@@ -15,7 +15,7 @@ search: >-
   | spath input=targetServicePrincipal path=NewValue output=targetServicePrincipal
   | where servicePrincipal=targetServicePrincipal
   | table _time Operation servicePrincipal servicePrincipalId appRole targetAppContext user_agent tenant_id InterSystemsId
-  | `o365_service_principal_privilege_escalation_filter
+  | `o365_service_principal_privilege_escalation_filter`
 how_to_implement: The Splunk Add-on for Microsoft Office 365 add-on is required to ingest EntraID audit logs via the 365 API. See references for links for further details on how to onboard this log source. 
 known_false_positives: Unknown
 references:
@@ -23,6 +23,15 @@ references:
 - https://github.com/mvelazc0/BadZure
 - https://www.splunk.com/en_us/blog/security/hunting-m365-invaders-navigating-the-shadows-of-midnight-blizzard.html
 - https://posts.specterops.io/microsoft-breach-what-happened-what-should-azure-admins-do-da2b7e674ebc
+drilldown_searches:
+- name: View the detection results for - "$servicePrincipal$"
+  search: '%original_detection_search% | search  servicePrincipal = "$servicePrincipal$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$servicePrincipal$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$servicePrincipal$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Azure Active Directory Privilege Escalation
@@ -38,9 +47,9 @@ tags:
   - name: servicePrincipal
     type: User
     role:
-    - Attacker
+    - Victim
   - name: user_agent
-    type: User Agent
+    type: Other
     role:
     - Attacker
   product:
@@ -63,3 +72,4 @@ tests:
   attack_data:
   - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1098.003/o365_spn_privesc/o365_spn_privesc.log
     sourcetype: o365:management:activity
+    source: Office 365
