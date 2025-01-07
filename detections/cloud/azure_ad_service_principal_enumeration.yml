@@ -17,8 +17,9 @@ search: >-
   | eval spn=coalesce(servicePrincipalb,servicePrincipalv1) | stats min(_time) as _time dc(spn) as spn_count values(user) as user values(user_category) as user_category values(src_category) as src_category count by src tenantId properties.userAgent
   | rename properties.userAgent as user_agent
   | where spn_count>9 | `azure_ad_service_principal_enumeration_filter`
-how_to_implement: Run this detection over historical data to identify then tune out any known services which may be performing this action. Thresholds can be lowered or raised to meet requirements. 
-The Splunk Add-on for Microsoft Cloud Services add-on is required to ingest MicrosoftGraphActivityLogs via Azure EventHub. See reference for links for further details on how to onboard this log source. 
+how_to_implement: >-
+  Run this detection over historical data to identify then tune out any known services which may be performing this action. Thresholds can be lowered or raised to meet requirements. 
+  The Splunk Add-on for Microsoft Cloud Services add-on is required to ingest MicrosoftGraphActivityLogs via Azure EventHub. See reference for links for further details on how to onboard this log source. 
 known_false_positives: Unknown
 references:
 - https://github.com/SpecterOps/AzureHound
