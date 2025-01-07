@@ -10,6 +10,7 @@ description: The following analytic detects the execution of `query.exe` with co
 data_source: 
 - Sysmon Event ID 1
 - Windows Security Event ID 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` values(Processes.process_current_directory) as Processes.process_current_directory values(Processes.process_id) as Processes.process_id values(Processes.process) as Processes.process values(Processes.parent_process_id) as Processes.parent_process_id values(Processes.parent_process) as Processes.parent_process count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where (Processes.process_name="query.exe" OR Processes.original_file_name="query.exe") AND (Processes.process=*/server*) by Processes.dest Processes.user Processes.process_name Processes.parent_process_name 
 | `drop_dm_object_name(Processes)` 
 | `security_content_ctime(firstTime)` 
