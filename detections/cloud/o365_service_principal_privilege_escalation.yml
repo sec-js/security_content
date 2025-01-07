@@ -15,19 +15,24 @@ search: >-
   | spath input=targetServicePrincipal path=NewValue output=targetServicePrincipal
   | where servicePrincipal=targetServicePrincipal
   | table _time Operation servicePrincipal servicePrincipalId appRole targetAppContext user_agent tenant_id InterSystemsId
+  | `o365_service_principal_privilege_escalation_filter
 how_to_implement: The Splunk Add-on for Microsoft Office 365 add-on is required to ingest EntraID audit logs via the 365 API. See references for links for further details on how to onboard this log source. 
 known_false_positives: Unknown
 references:
 - https://splunkbase.splunk.com/app/4055
+- https://github.com/mvelazc0/BadZure
+- https://www.splunk.com/en_us/blog/security/hunting-m365-invaders-navigating-the-shadows-of-midnight-blizzard.html
+- https://posts.specterops.io/microsoft-breach-what-happened-what-should-azure-admins-do-da2b7e674ebc
 tags:
   analytic_story:
   - Azure Active Directory Privilege Escalation
+  - Office 365 Account Takeover
   asset_type: Azure Tenant
   confidence: 100
   impact: 100
   message: Service Principal $servicePrincipal$ has elevated privileges by adding themself to app role $appRole$
   mitre_attack_id:
-  - T1098.001
+  - T1098.003
   - T1098
   observable:
   - name: servicePrincipal
@@ -56,6 +61,5 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://github.com/splunk/contentctl/wiki
-    sourcetype: UPDATE SOURCETYPE
-    source: UPDATE SOURCE
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1098.003/o365_spn_privesc/o365_spn_privesc.log
+    sourcetype: o365:management:activity
