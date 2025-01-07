@@ -5,7 +5,6 @@ date: '2025-01-06'
 author: Steven Dick
 status: production
 type: Anomaly
-
 description: The following analytic detects the execution of `query.exe` with command-line arguments aimed at discovering data on remote devices. It leverages data from Endpoint Detection and Response (EDR) agents, focusing on process names and command-line executions. This activity is significant as adversaries may use `query.exe` to gain situational awareness and perform Active Directory discovery on compromised endpoints. If confirmed malicious, this behavior could allow attackers to identify various details about a system, aiding in further lateral movement and privilege escalation within the network.
 data_source: 
 - Sysmon Event ID 1
@@ -20,16 +19,26 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: Administrators or power users may use this command for troubleshooting.
 references:
 - https://attack.mitre.org/techniques/T1033/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$","$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: Investigate processes on $dest$ 
+  search: '| from datamodel:Endpoint.Processes | search dest=$dest$ process_name = $process_name|s$'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story: 
   - Active Directory Discovery
   asset_type: Endpoint
   confidence: 49
-
   impact: 49
-
   message: The user $user$ ran the Query command to query information from a remote system from $dest$
-
   mitre_attack_id: 
   - T1033
   observable: 
@@ -53,7 +62,6 @@ tags:
   - Processes.process_name 
   - Processes.parent_process_name
   risk_score: 24
-
   security_domain: endpoint
 tests:
 - name: True Positive Test
