@@ -42,7 +42,7 @@ tags:
   - T1087.004
   - T1526
   observable:
-  - name: user
+  - name: tenantId
     type: User
     role:
     - Victim

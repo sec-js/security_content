@@ -51,7 +51,7 @@ tags:
     type: IP Address
     role:
     - Attacker
-  - name: user
+  - name: tenantId
     type: User
     role:
     - Victim
