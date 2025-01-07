@@ -1,7 +1,7 @@
 name: Windows New Custom Security Descriptor Set On EventLog Channel
 id: c0e5dd5a-2117-41d5-a04c-82a762a86a38
-version: 1
-date: '2024-12-06'
+version: 2
+date: '2025-01-07'
 author: Nasreddine Bencherchali, Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -23,6 +23,16 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$", "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: modified/added/deleted registry entry $registry_path$ in $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  - field: user
+    type: user
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - LockBit Ransomware
@@ -30,18 +40,8 @@ tags:
   asset_type: Endpoint
   confidence: 80
   impact: 80
-  message: modified/added/deleted registry entry $registry_path$ in $dest$
   mitre_attack_id:
   - T1562.002
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
