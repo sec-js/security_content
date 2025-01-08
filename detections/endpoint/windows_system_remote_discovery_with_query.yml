@@ -43,7 +43,7 @@ tags:
   - T1033
   observable: 
   - name: dest
-    type: System
+    type: Hostname
     role:
     - Victim
   - name: user
