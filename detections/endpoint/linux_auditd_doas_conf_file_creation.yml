@@ -9,7 +9,7 @@ description: The following analytic detects the creation of the doas.conf file o
 data_source:
 - Linux Auditd Path
 search: '`linux_auditd` type=PATH name ="/etc/doas.conf*" | rename host as dest | stats count min(_time) as firstTime max(_time) as lastTime by name nametype OGID type dest | `security_content_ctime(firstTime)`| `security_content_ctime(lastTime)`| `linux_auditd_doas_conf_file_creation_filter`'
-how_to_implement: To implement this detection, the process begins by ingesting auditd data, that consist SYSCALL, TYPE, EXECVE and PROCTITLE events, which captures command-line executions and process details on Unix/Linux systems. These logs should be ingested and processed using Splunk Add-on for Unix and Linux (https://splunkbase.splunk.com/app/833), which is essential for correctly parsing and categorizing the data. The next step involves normalizing the field names  to match the field names set by the Splunk Common Information Model (CIM) to ensure consistency across different data sources and enhance the efficiency of data modeling. This approach enables effective monitoring and detection of linux endpoints where auditd is deployed
+how_to_implement: To implement this detection, the process begins by ingesting auditd data, that consists of SYSCALL, TYPE, EXECVE and PROCTITLE events, which captures command-line executions and process details on Unix/Linux systems. These logs should be ingested and processed using Splunk Add-on for Unix and Linux (https://splunkbase.splunk.com/app/833), which is essential for correctly parsing and categorizing the data. The next step involves normalizing the field names  to match the field names set by the Splunk Common Information Model (CIM) to ensure consistency across different data sources and enhance the efficiency of data modeling. This approach enables effective monitoring and detection of linux endpoints where auditd is deployed
 known_false_positives: Administrator or network operator can execute this command. Please update the filter macros to remove false positives.
 references:
 - https://wiki.gentoo.org/wiki/Doas
@@ -31,7 +31,7 @@ tags:
   asset_type: Endpoint
   confidence: 80
   impact: 80
-  message: A [$type$] event occured on host - [$dest$] to create a doas.conf file.
+  message: A [$type$] event occurred on host - [$dest$] to create a doas.conf file.
   mitre_attack_id:
   - T1548.003
   - T1548

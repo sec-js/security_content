@@ -34,7 +34,7 @@ tags:
   - CVE-2021-34527
   - CVE-2021-1675
   impact: 80
-  message: Suspicious printer spooler errors have occured on endpoint $ComputerName$ with EventCode $EventCode$.
+  message: Suspicious printer spooler errors have occurred on endpoint $ComputerName$ with EventCode $EventCode$.
   mitre_attack_id:
   - T1547.012
   - T1547

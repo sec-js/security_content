@@ -579,7 +579,7 @@ def on_finish(container, summary):
 	
     # Error handling in case of playbook not being able to import data properly
     if not format_summary_note:
-        raise RuntimeError("Error occured during import data and summary note is missing")
+        raise RuntimeError("Error occurred during import data and summary note is missing")
     
     # This function is called after all actions are completed.
     # summary of all the action and/or all details of actions
