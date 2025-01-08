@@ -58,5 +58,5 @@ tests:
 - name: True Positive Test
   attack_data:
   - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1098/aws_iam_failure_group_deletion/asl_ocsf_cloudtrail.json
-    sourcetype: aws:cloudtrail:lake
+    sourcetype: aws:asl
     source: aws_asl
