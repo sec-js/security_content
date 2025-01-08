@@ -15,8 +15,9 @@ search: '| tstats `security_content_summariesonly` min(_time) as firstTime max(_
   by Processes.parent_process_name Processes.parent_process Processes.process_name Processes.process Processes.process_guid Processes.dest Processes.user 
   | `drop_dm_object_name(Processes)`
   | rex field=process ":\\((?<permission>[^)]+)\\)"
-  | eval has_write_execute=if(match(permission, "(W|G|X|M|F|AD|DC)"), "true", "false")
-  | where has_write_execute="false"
+  | eval has_read_execute=if(match(permission, "R"), "true", "false")
+  | eval has_write_execute=if(match(permission, "(W|G|X|M|F|AD|DC|DE)"), "true", "false")
+  | where has_write_execute="false" and has_read_execute = "true"
   | `security_content_ctime(firstTime)` 
   | `security_content_ctime(lastTime)`
   | `windows_file_and_directory_enable_readonly_permissions_filter`'
