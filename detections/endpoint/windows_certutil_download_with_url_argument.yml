@@ -1,7 +1,7 @@
 name: Windows CertUtil Download With URL Argument
 id: 4fc5ca00-4c7c-46b3-8772-c98a4b8bd944
-version: 1
-date: '2024-12-08'
+version: 2
+date: '2025-01-07'
 author: Nasreddine Bencherchali, Splunk
 status: production
 type: TTP
@@ -51,6 +51,21 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: An instance of $parent_process_name$ spawning $process_name$ was identified
+    on endpoint $dest$ by user $user$ attempting to download a file.
+  risk_objects:
+  - field: user
+    type: user
+    score: 90
+  - field: dest
+    type: system
+    score: 90
+  threat_objects:
+  - field: parent_process_name
+    type: parent_process_name
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Living Off The Land
@@ -58,23 +73,6 @@ tags:
   asset_type: Endpoint
   mitre_attack_id:
   - T1105
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process
-    role:
-    - Attacker
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

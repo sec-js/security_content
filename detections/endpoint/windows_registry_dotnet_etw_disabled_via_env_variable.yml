@@ -1,7 +1,7 @@
 name: Windows Registry Dotnet ETW Disabled Via ENV Variable
 id: 55502381-5cce-491b-9277-7cb1d10bc0df
-version: 1
-date: '2024-12-08'
+version: 2
+date: '2025-01-07'
 author: Nasreddine Bencherchali, Splunk
 status: production
 type: TTP
@@ -48,6 +48,16 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Modified registry entry $registry_path$ in $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 90
+  - field: user
+    type: user
+    score: 90
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Registry Abuse
@@ -56,15 +66,6 @@ tags:
   mitre_attack_id:
   - T1562.006
   - T1562
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security

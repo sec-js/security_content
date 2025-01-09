@@ -1,7 +1,7 @@
 name: Common Ransomware Extensions
 id: a9e5c5db-db11-43ca-86a8-c852d1b2c0ec
-version: 9
-date: '2024-12-16'
+version: 10
+date: '2025-01-07'
 author: David Dorsey, Michael Haag, Splunk, Steven Dick
 status: production
 type: TTP
@@ -48,6 +48,16 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba: 
+  message: The device $dest$ wrote $file_count$ files to $path_count$ path(s) with the $Extensions$ extension. This extension and behavior may indicate a $Name$ ransomware attack.
+  risk_objects:
+  - field: user
+    type: user
+    score: 90
+  - field: dest
+    type: system
+    score: 90
+  threat_objects: []
 tags:
   analytic_story:
   - SamSam Ransomware
