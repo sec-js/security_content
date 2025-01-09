@@ -204,6 +204,6 @@ apps:
   title: Python for Scientific Computing (for Linux 64-bit)
   appid: Splunk_SA_Scientific_Python_linux_x86_64
   version: 4.2.2
-  description: description of app
+  description: PSC for MLTK
   hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/python-for-scientific-computing-for-linux-64-bit_422.tgz
 githash: d6fac80e6d50ae06b40f91519a98489d4ce3a3fd
