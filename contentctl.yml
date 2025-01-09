@@ -32,9 +32,9 @@ apps:
 - uid: 1621
   title: Splunk Common Information Model (CIM)
   appid: Splunk_SA_CIM
-  version: 6.0.0
+  version: 6.0.1
   description: description of app
-  hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/splunk-common-information-model-cim_600.tgz
+  hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/splunk-common-information-model-cim_601.tgz
 - uid: 6553
   title: Splunk Add-on for Okta Identity Cloud
   appid: Splunk_TA_okta_identity_cloud
@@ -139,7 +139,7 @@ apps:
   appid: Splunk_TA_aws
   version: 7.9.0
   description: description of app
-  hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/splunk-add-on-for-amazon-web-services-(aws)_790.tgz
+  hardcoded_path: https://attack-range-appbinaries.s3.us-west-2.amazonaws.com/splunk-add-on-for-amazon-web-services-aws_790.tgz
 - uid: 3088
   title: Splunk Add-on for Google Cloud Platform
   appid: SPLUNK_ADD_ON_FOR_GOOGLE_CLOUD_PLATFORM
