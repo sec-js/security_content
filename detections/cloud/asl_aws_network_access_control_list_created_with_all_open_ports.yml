@@ -41,7 +41,7 @@ tags:
   - T1562.007
   - T1562
   observable:
-  - name: src
+  - name: src_ip
     type: IP Address
     role:
     - Attacker
