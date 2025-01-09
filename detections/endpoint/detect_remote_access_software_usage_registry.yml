@@ -36,7 +36,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: Investigate registry changes on $dest$ 
-  search: '| from datamodel:Endpoint.Registry| search dest=$dest$ registry_path=$registry_path|s$'
+  search: '| from datamodel:Endpoint.Registry| search dest=$dest$ registry_path=$registry_path$'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 tags:
