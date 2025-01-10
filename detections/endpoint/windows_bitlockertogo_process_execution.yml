@@ -4,7 +4,7 @@ version: 1
 date: '2024-11-13'
 author: Michael Haag, Nasreddine Bencherchali, Splunk
 data_sources:
-- Sysmon Event ID 1
+- Sysmon EventID 1
 - Windows Event Log Security 4688
 type: Hunting
 status: production
