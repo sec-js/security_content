@@ -3,7 +3,8 @@ id: 98e6b389-2806-4426-a580-8a92cb0d9710
 version: 1
 date: '2025-01-07'
 author: Dean Luxton
-data_sources: []
+data_sources:
+- Azure Monitor Activity
 type: Hunting
 status: experimental
 description: >-
