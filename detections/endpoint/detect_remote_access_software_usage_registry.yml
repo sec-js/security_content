@@ -61,23 +61,12 @@ tags:
   - Gozi Malware
   - CISA AA24-241A
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id: 
   - T1219
   product: 
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields: 
-  - _time
-  - Registry.dest 
-  - Registry.user 
-  - Registry.registry_path 
-  - Registry.registry_value_name 
-  - Registry.registry_value_data 
-  - Registry.registry_key_name
-  risk_score: 25
   security_domain: endpoint
   manual_test: This detection uses A&I lookups from Enterprise Security.
 tests:
