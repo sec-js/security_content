@@ -6,7 +6,8 @@ author: Patrick Bareiss, Splunk
 status: production
 type: Anomaly
 description: The following analytic identifies excessive AccessDenied events within an hour timeframe for IAM users in AWS. It leverages AWS CloudTrail logs to detect multiple failed access attempts from the same source IP and user identity. This activity is significant as it may indicate that an access key has been compromised and is being misused for unauthorized discovery actions. If confirmed malicious, this could allow attackers to gather information about the AWS environment, potentially leading to further exploitation or privilege escalation.
-data_source: []
+data_source: 
+- ASL AWS CloudTrail
 search: '`amazon_security_lake` api.response.error=AccessDenied OR api.response.error=OperationNotPermittedException OR api.response.error=*Unauthorized* actor.user.type=IAMUser 
   | bucket _time span=1h 
   | stats count as failures min(_time) as firstTime max(_time) as lastTime, dc(api.operation) as dc_operation, dc(api.service.name) as dc_service values(api.operation) as api.operation values(src_endpoint.ip) as src_endpoint.ip values(cloud.region) as cloud.region by actor.user.uid _time
