@@ -1,11 +1,12 @@
 name: Winword Spawning Cmd
 id: 6fcbaedc-a37b-11eb-956b-acde48001122
-version: '6'
-date: '2024-11-28'
+version: 7
+date: '2025-01-13'
 author: Michael Haag, Splunk
-status: production
+status: deprecated
 type: TTP
-description: The following analytic identifies instances where Microsoft Word (winword.exe)
+description: The following analytic has been deprecated in favour of a more generic approach in "Windows Office Product Spawned Uncommon Process".
+  The following analytic identifies instances where Microsoft Word (winword.exe)
   spawns the command prompt (cmd.exe). This behavior is detected using Endpoint Detection
   and Response (EDR) telemetry, focusing on process creation events where the parent
   process is winword.exe. This activity is significant because it is uncommon and

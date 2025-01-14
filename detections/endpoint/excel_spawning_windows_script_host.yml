@@ -1,11 +1,12 @@
 name: Excel Spawning Windows Script Host
 id: 57fe880a-9be3-11eb-9bf3-acde48001122
-version: '6'
-date: '2024-11-28'
+version: 7
+date: '2025-01-13'
 author: Michael Haag, Splunk
 status: production
 type: TTP
-description: The following analytic identifies instances where Microsoft Excel spawns
+description: The following analytic has been deprecated in favour of a more generic approach. 
+  The following analytic identifies instances where Microsoft Excel spawns
   Windows Script Host processes (`cscript.exe` or `wscript.exe`). This behavior is
   detected using Endpoint Detection and Response (EDR) telemetry, focusing on process
   creation events where the parent process is `excel.exe`. This activity is significant

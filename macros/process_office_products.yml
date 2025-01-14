@@ -1,0 +1,12 @@
+definition: (Processes.process_name=ping.exe OR Processes.original_file_name=ping.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_office_products
+
+
+("excel.exe", "Graph.exe", "msaccess.exe", "mspub.exe", "onenote.exe", "onenoteim.exe", "onenotem.exe", "onenoteviewer.exe", "outlook.exe", "powerpnt.exe", "visio.exe", "winproj.exe", "winword.exe")
+
+(Processes.parent_process_name IN ("excel.exe", "Graph.exe", "msaccess.exe", "mspub.exe", "onenote.exe", "onenoteim.exe", "onenotem.exe", "onenoteviewer.exe", "outlook.exe", "powerpnt.exe", "visio.exe", "winproj.exe", "winword.exe"))
+
+
+Processes.process_name
+Processes.original_file_name
