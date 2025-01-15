@@ -28,7 +28,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: User $user$ has deleted a CloudWatch logging group for account id $aws_account_id$
+  message: User $user$ has deleted a CloudWatch logging group
   risk_objects:
   - field: user
     type: user

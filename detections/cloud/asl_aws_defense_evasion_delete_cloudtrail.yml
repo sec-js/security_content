@@ -28,7 +28,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: User $user$ has deleted a CloudTrail logging
+  message: User $user$ has deleted CloudTrail logging
   risk_objects:
   - field: user
     type: user
