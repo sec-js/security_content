@@ -34,7 +34,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: Investigate logons from $user$ 
-  search: '`o365_management_activity` Operation IN (UserLoginFailed,UserLoggedIn) $user|s$'
+  search: '`o365_management_activity` Operation IN (UserLoginFailed,UserLoggedIn) "$user$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 tags:
