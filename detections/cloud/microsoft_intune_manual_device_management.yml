@@ -33,20 +33,10 @@ tags:
   asset_type: Azure Tenant
   confidence: 70
   impact: 20
-  message: Microsoft Intune device management configuration policy action $action$ was performed on $TargetObjectId$ by user $user$
   mitre_attack_id:
   - T1021.007
   - T1072
   - T1529
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: TargetObjectId
-    type: Other
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -55,7 +45,6 @@ tags:
   - operationName
   - identity
   - properties.TargetObjectIds{}
-  risk_score: 14
   security_domain: audit
 tests:
 - name: True Positive Test

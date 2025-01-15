@@ -20,19 +20,9 @@ tags:
   asset_type: AWS Account
   confidence: 90
   impact: 70
-  message: User $user$ is attempting to create access keys
   mitre_attack_id:
   - T1136.003
   - T1136
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -45,7 +35,6 @@ tags:
   - src_endpoint.ip
   - src_endpoint.domain
   - cloud.region
-  risk_score: 63
   security_domain: network
 tests:
 - name: True Positive Test

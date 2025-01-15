@@ -13,27 +13,26 @@ how_to_implement: The detection is based on Amazon Security Lake events from Ama
 known_false_positives: While this search has no known false positives, it is possible that it is a legitimate admin activity. Please consider filtering out these noisy events using userAgent, user_arn field names.
 references:
 - https://stratus-red-team.cloud/attack-techniques/AWS/aws.defense-evasion.cloudtrail-lifecycle-rule/
+rba:
+  message: User $user$ has created a new rule to on an S3 bucket $bucketName$ with short expiration days
+  risk_objects:
+  - field: user
+    type: user
+    score: 20
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - AWS Defense Evasion
   asset_type: AWS Account
   confidence: 40
   impact: 50
-  message: User $user$ has created a new rule to on an S3 bucket $bucketName$ with short expiration days
   mitre_attack_id:
   - T1562.008
   - T1562
   - T1485.001
   - T1485
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: user
-    type: User
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -47,7 +46,6 @@ tags:
   - src_endpoint.ip
   - src_endpoint.domain
   - cloud.region
-  risk_score: 20
   security_domain: threat
 tests:
 - name: True Positive Test
