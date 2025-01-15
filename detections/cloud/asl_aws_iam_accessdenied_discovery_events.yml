@@ -41,19 +41,12 @@ tags:
   analytic_story:
   - Suspicious Cloud User Activities
   asset_type: AWS Account
-  confidence: 50
-  impact: 20
   mitre_attack_id:
   - T1580
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - api.operation
-  - actor.user.uid
-  - src_endpoint.ip
-  - cloud.region
   security_domain: access
 tests:
 - name: True Positive Test

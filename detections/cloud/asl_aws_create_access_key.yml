@@ -18,8 +18,6 @@ tags:
   analytic_story:
   - AWS IAM Privilege Escalation
   asset_type: AWS Account
-  confidence: 90
-  impact: 70
   mitre_attack_id:
   - T1136.003
   - T1136
@@ -27,14 +25,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - api.operation
-  - actor.user.uid
-  - actor.user.account.uid
-  - http_request.user_agent
-  - src_endpoint.ip
-  - src_endpoint.domain
-  - cloud.region
   security_domain: network
 tests:
 - name: True Positive Test
