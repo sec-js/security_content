@@ -1,4 +1,4 @@
-name: O365 Excessive OS Vendors Authenticating From User
+name: O365 Multiple OS Vendors Authenticating From User
 id: 3451e58a-9457-4985-a600-b616b0cbfda1
 version: 1
 date: '2024-12-19'
@@ -16,7 +16,7 @@ search: '`o365_management_activity` Operation IN (UserLoginFailed,UserLoggedIn)
 | eval src = ClientIP, user = UserId
 | `security_content_ctime(firstTime)` 
 | `security_content_ctime(lastTime)`
-| `o365_excessive_os_vendors_authenticating_from_user_filter`'
+| `o365_multiple_os_vendors_authenticating_from_user_filter`'
 how_to_implement: You must install the Splunk Microsoft Office 365 Add-on and ingest Office 365 management activity events. The thresholds set within the analytic (such as unique OS) are initial guidelines and should be customized based on the organization's user behavior and risk profile. Security teams are encouraged to adjust these thresholds to optimize the balance between detecting genuine threats and minimizing false positives, ensuring the detection is tailored to their specific environment.
 known_false_positives: IP or users where the usage of multiple Operating systems is expected, filter accordingly. 
 references:
@@ -54,7 +54,7 @@ tags:
   - name: user
     type: User
     role:
-    - Victim
+    - Attacker
   product: 
   - Splunk Enterprise
   - Splunk Enterprise Security
