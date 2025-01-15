@@ -32,7 +32,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: Investigate search behavior by $user$ 
-  search: '`o365_management_activity` Workload=SharePoint Operation="SearchQueryPerformed" SearchQueryText=* EventData=*search* AND UserId = $user|s$'
+  search: '`o365_management_activity` Workload=SharePoint Operation="SearchQueryPerformed" SearchQueryText=* EventData=*search* AND UserId = "$user$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 tags:
