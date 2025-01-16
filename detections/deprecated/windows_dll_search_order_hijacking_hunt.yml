@@ -1,7 +1,7 @@
 name: Windows DLL Search Order Hijacking Hunt
 id: 79c7d0fc-60c7-41be-a616-ccda752efe89
-version: 3
-date: '2023-11-07'
+version: 4
+date: '2024-10-17'
 author: Michael Haag, Splunk
 status: deprecated
 type: Hunting
@@ -17,6 +17,9 @@ description: The following hunting analytic is an experimental query built again
   the Hijacklibs.net project.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
+- Windows Event Log Security 4688
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime values(Processes.process_name) as process_name from datamodel=Endpoint.Processes
   where Processes.dest!=unknown Processes.user!=unknown NOT (Processes.process_path
@@ -76,5 +79,5 @@ tests:
   attack_data:
   - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.001/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
     update_timestamp: true

@@ -1,7 +1,7 @@
 name: Linux Insert Kernel Module Using Insmod Utility
 id: 18b5a1a0-6326-11ec-943a-acde48001122
-version: 2
-date: '2024-05-15'
+version: '4'
+date: '2024-12-17'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -36,11 +36,26 @@ references:
 - https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/kernel-module-driver-configuration/Working_with_Kernel_Modules/
 - https://security.stackexchange.com/questions/175953/how-to-load-a-malicious-lkm-at-startup
 - https://0x00sec.org/t/kernel-rootkits-getting-your-hands-dirty/1485
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
-  - Linux Privilege Escalation
   - Linux Persistence Techniques
+  - XorDDos
   - Linux Rootkit
+  - Linux Privilege Escalation
   asset_type: Endpoint
   confidence: 80
   impact: 80
@@ -71,7 +86,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1547.006/loading_linux_kernel_module/sysmon_linux.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1547.006/loading_linux_kernel_module/sysmon_linux.log
     source: Syslog:Linux-Sysmon/Operational
     sourcetype: sysmon:linux

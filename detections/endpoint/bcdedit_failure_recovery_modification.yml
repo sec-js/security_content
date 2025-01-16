@@ -1,7 +1,7 @@
 name: BCDEdit Failure Recovery Modification
 id: 809b31d2-5462-11eb-ae93-0242ac130002
-version: 2
-date: '2024-05-15'
+version: '5'
+date: '2024-11-28'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -15,6 +15,8 @@ description: The following analytic detects modifications to the Windows error r
   complicate remediation.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime from datamodel=Endpoint.Processes where Processes.process_name = bcdedit.exe
   Processes.process="*recoveryenabled*" (Processes.process="* no*") by Processes.process_name
@@ -33,10 +35,25 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: Administrators may modify the boot configuration.
 references:
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1490/T1490.md#atomic-test-4---windows---disable-windows-recovery-console-repair
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
-  - Ryuk Ransomware
   - Ransomware
+  - Compromised Windows Host
+  - Ryuk Ransomware
   asset_type: Endpoint
   confidence: 80
   impact: 100
@@ -57,11 +74,11 @@ tags:
   - name: parent_process_name
     type: Process
     role:
-    - Parent Process
+    - Attacker
   - name: process_name
     type: Process
     role:
-    - Child Process
+    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -78,8 +95,7 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1490/atomic_red_team/windows-sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1490/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
     update_timestamp: true

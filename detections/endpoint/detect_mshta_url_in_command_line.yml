@@ -1,7 +1,7 @@
 name: Detect MSHTA Url in Command Line
 id: 9b3af1e6-5b68-11eb-ae93-0242ac130002
-version: 3
-date: '2024-05-26'
+version: '7'
+date: '2024-11-28'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -14,6 +14,8 @@ description: The following analytic detects the use of Microsoft HTML Applicatio
   leading to system compromise, data exfiltration, or further network infiltration.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count values(Processes.process)
   as process values(Processes.parent_process) as parent_process min(_time) as firstTime
   max(_time) as lastTime from datamodel=Endpoint.Processes where `process_mshta` (Processes.process="*http://*"
@@ -35,10 +37,28 @@ references:
 - https://github.com/redcanaryco/AtomicTestHarnesses
 - https://redcanary.com/blog/introducing-atomictestharnesses/
 - https://docs.microsoft.com/en-us/windows/win32/search/-search-3x-wds-extidx-prot-implementing
+- https://denwp.com/dissecting-lumma-malware/
+- https://www.mcafee.com/blogs/other-blogs/mcafee-labs/behind-the-captcha-a-clever-gateway-of-malware/
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Suspicious MSHTA Activity
+  - Lumma Stealer
   - Living Off The Land
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 100
   impact: 80
@@ -60,11 +80,11 @@ tags:
   - name: parent_process_name
     type: Process
     role:
-    - Parent Process
+    - Attacker
   - name: process_name
     type: Process
     role:
-    - Child Process
+    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -87,7 +107,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1218.005/atomic_red_team/windows-sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1218.005/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

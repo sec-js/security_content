@@ -1,7 +1,7 @@
 name: Windows AD Same Domain SID History Addition
 id: 5fde0b7c-df7a-40b1-9b3a-294c00f0289d
-version: 3
-date: '2024-05-22'
+version: '5'
+date: '2024-11-28'
 author: Dean Luxton
 type: TTP
 status: production
@@ -31,10 +31,25 @@ references:
 - https://learn.microsoft.com/en-us/windows/win32/adschema/a-sidhistory?redirectedfrom=MSDN
 - https://learn.microsoft.com/en-us/defender-for-identity/security-assessment-unsecure-sid-history-attribute
 - https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/sid-history-injection
+drilldown_searches:
+- name: View the detection results for - "$src_user$" and "$user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
-  - Sneaky Active Directory Persistence Tricks
+  - Compromised Windows Host
   - Windows Persistence Techniques
+  - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
   confidence: 100
   impact: 100
@@ -69,7 +84,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1134.005/mimikatz/windows-security-xml.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1134.005/mimikatz/windows-security-xml.log
     source: XmlWinEventLog:Security
     sourcetype: XmlWinEventLog

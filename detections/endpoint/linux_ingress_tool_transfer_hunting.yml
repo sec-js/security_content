@@ -1,7 +1,7 @@
 name: Linux Ingress Tool Transfer Hunting
 id: 52fd468b-cb6d-48f5-b16a-92f1c9bb10cf
-version: 2
-date: '2024-05-10'
+version: '5'
+date: '2024-12-17'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -39,8 +39,9 @@ references:
 - https://github.com/rapid7/metasploit-framework/search?q=curl
 tags:
   analytic_story:
-  - Linux Living Off The Land
   - Ingress Tool Transfer
+  - Linux Living Off The Land
+  - XorDDos
   asset_type: Endpoint
   confidence: 10
   impact: 10
@@ -60,7 +61,7 @@ tags:
   - name: process_name
     type: Process
     role:
-    - Child Process
+    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -83,8 +84,7 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1105/atomic_red_team/curl-linux-sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1105/atomic_red_team/curl-linux-sysmon.log
     source: Syslog:Linux-Sysmon/Operational
     sourcetype: sysmon:linux
     update_timestamp: true

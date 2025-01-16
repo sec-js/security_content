@@ -1,7 +1,7 @@
 name: Batch File Write to System32
 id: 503d17cb-9eab-4cf8-a20e-01d5c6987ae3
-version: 5
-date: '2024-05-19'
+version: '7'
+date: '2024-11-28'
 author: Steven Dick, Michael Haag, Rico Valdez, Splunk
 status: production
 type: TTP
@@ -14,7 +14,7 @@ description: The following analytic detects the creation of a batch file (.bat) 
   to execute arbitrary commands with elevated privileges, potentially compromising
   the entire system.
 data_source:
-- Sysmon Event ID 1
+- Sysmon EventID 1 AND Sysmon EventID 11
 search: '| tstats `security_content_summariesonly` count FROM datamodel=Endpoint.Processes
   where Processes.process_name=* by _time span=1h Processes.process_guid Processes.process_name
   Processes.dest Processes.user | `drop_dm_object_name(Processes)` | join process_guid
@@ -38,9 +38,24 @@ known_false_positives: It is possible for this search to generate a notable even
   should confirm that the activity is legitimate and modify the search to add exclusions,
   as necessary.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - SamSam Ransomware
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 90
   impact: 70
@@ -84,7 +99,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1204.002/batch_file_in_system32/windows-sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1204.002/batch_file_in_system32/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,12 +1,14 @@
 name: Windows Service Create with Tscon
 id: c13b3d74-6b63-4db5-a841-4206f0370077
-version: 2
-date: '2024-05-30'
+version: '5'
+date: '2024-11-28'
 author: Michael Haag, Splunk
 type: TTP
 status: production
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic detects potential RDP Hijacking attempts by identifying
   the creation of a Windows service using sc.exe with a binary path that includes
   tscon.exe. This detection leverages data from Endpoint Detection and Response (EDR)
@@ -44,9 +46,24 @@ known_false_positives: False positives may arise in the RDP Hijacking analytic w
 references:
 - https://doublepulsar.com/rdp-hijacking-how-to-hijack-rds-and-remoteapp-sessions-transparently-to-move-through-an-da2a1e73a5f6
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1563.002/T1563.002.md
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Active Directory Lateral Movement
+  - Compromised Windows Host
   asset_type: Endpoint
   confidence: 80
   impact: 80
@@ -68,11 +85,11 @@ tags:
   - name: parent_process_name
     type: Process
     role:
-    - Parent Process
+    - Attacker
   - name: process_name
     type: Process
     role:
-    - Child Process
+    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -95,7 +112,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1563.002/rdphijack/tscon_windows-sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1563.002/rdphijack/tscon_windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

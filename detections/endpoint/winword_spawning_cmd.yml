@@ -1,7 +1,7 @@
 name: Winword Spawning Cmd
 id: 6fcbaedc-a37b-11eb-956b-acde48001122
-version: 3
-date: '2024-05-29'
+version: '6'
+date: '2024-11-28'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -15,6 +15,8 @@ description: The following analytic identifies instances where Microsoft Word (w
   or lateral movement within the network.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime from datamodel=Endpoint.Processes where Processes.parent_process_name=winword.exe
   `process_cmd` by Processes.dest Processes.user Processes.parent_process_name Processes.parent_process
@@ -34,11 +36,26 @@ known_false_positives: False positives should be limited, but if any are present
   filter as needed.
 references:
 - https://app.any.run/tasks/73af0064-a785-4c0a-ab0d-cde593fe16ef/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Spearphishing Attachments
-  - DarkCrystal RAT
+  - Compromised Windows Host
   - CVE-2023-21716 Word RTF Heap Corruption
+  - DarkCrystal RAT
   asset_type: Endpoint
   confidence: 100
   impact: 70
@@ -59,7 +76,7 @@ tags:
   - name: process_name
     type: Process
     role:
-    - Target
+    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -82,7 +99,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1566.001/macro/windows-sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1566.001/macro/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

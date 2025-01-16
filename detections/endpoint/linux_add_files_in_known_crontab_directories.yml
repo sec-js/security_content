@@ -1,7 +1,7 @@
 name: Linux Add Files In Known Crontab Directories
 id: 023f3452-5f27-11ec-bf00-acde48001122
-version: 2
-date: '2024-05-15'
+version: '4'
+date: '2024-12-17'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -28,12 +28,27 @@ known_false_positives: Administrator or network operator can create file in cron
 references:
 - https://www.sandflysecurity.com/blog/detecting-cronrat-malware-on-linux-instantly/
 - https://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
-  - Linux Privilege Escalation
-  - Linux Persistence Techniques
+  - XorDDos
   - Linux Living Off The Land
+  - Linux Privilege Escalation
   - Scheduled Tasks
+  - Linux Persistence Techniques
   asset_type: Endpoint
   confidence: 50
   impact: 50
@@ -62,7 +77,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1053.003/cronjobs_entry/sysmon_linux.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1053.003/cronjobs_entry/sysmon_linux.log
     source: Syslog:Linux-Sysmon/Operational
     sourcetype: sysmon:linux
