@@ -67,8 +67,6 @@ tags:
   - Graceful Wipe Out Attack
   - Rhysida Ransomware
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1087.002
   - T1087
@@ -76,17 +74,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  - Processes.parent_process_name
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

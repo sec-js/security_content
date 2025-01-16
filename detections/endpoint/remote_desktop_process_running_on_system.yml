@@ -38,8 +38,6 @@ tags:
   - Hidden Cobra Malware
   - Active Directory Lateral Movement
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1021.001
   - T1021
@@ -47,11 +45,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.dest_category
-  - Processes.dest
-  - Processes.user
-  risk_score: 25
   security_domain: endpoint

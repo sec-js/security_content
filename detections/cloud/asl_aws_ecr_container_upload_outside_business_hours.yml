@@ -38,8 +38,6 @@ tags:
   analytic_story:
   - Dev Sec Ops
   asset_type: AWS Account
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1204.003
   - T1204
@@ -47,7 +45,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
   security_domain: network
   manual_test: Can't be tested automatically because of outside of business hours time
 tests:

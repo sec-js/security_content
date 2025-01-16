@@ -55,8 +55,6 @@ tags:
   analytic_story:
   - AWS Identity and Access Management Account Takeover
   asset_type: AWS Account
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -67,19 +65,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - src
-  - eventName
-  - eventSource
-  - aws_account_id
-  - errorCode
-  - errorMessage
-  - userAgent
-  - eventID
-  - awsRegion
-  - user_name
-  - userIdentity.arn
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -88,4 +73,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1621/aws_mfa_disabled/cloudtrail.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

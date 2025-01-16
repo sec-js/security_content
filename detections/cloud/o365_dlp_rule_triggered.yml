@@ -59,8 +59,6 @@ tags:
   analytic_story:
   - Data Exfiltration
   asset_type: O365 Tenant
-  confidence: 50
-  impact: 40
   mitre_attack_id:
   - T1048
   - T1567
@@ -68,17 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Operation
-  - ExchangeMetaData.To{}
-  - ExchangeMetaData.UniqueID
-  - PolicyDetails{}.Rules{}.RuleName
-  - UserId
-  - PolicyDetails{}.Rules{}.ConditionsMatched.SensitiveInformation{}.SensitiveInformationTypeName
-  - PolicyDetails{}.Rules{}.Actions{}
-  - PolicyDetails{}.Rules{}.ConditionsMatched.SensitiveInformation{}.Location
-  risk_score: 20
   security_domain: threat
 tests:
 - name: True Positive Test

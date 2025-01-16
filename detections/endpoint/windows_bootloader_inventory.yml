@@ -31,8 +31,6 @@ tags:
   - Windows BootKits
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 90
-  impact: 90
   mitre_attack_id:
   - T1542.001
   - T1542
@@ -40,8 +38,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - _raw
-  risk_score: 81
   security_domain: endpoint

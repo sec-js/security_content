@@ -57,16 +57,8 @@ tags:
   - Suspicious AWS Traffic
   - Command And Control
   asset_type: AWS Instance
-  confidence: 50
-  impact: 50
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - action
-  - src_ip
-  - dest_ip
-  risk_score: 25.0
   security_domain: network

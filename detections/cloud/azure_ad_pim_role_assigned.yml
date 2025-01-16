@@ -56,8 +56,6 @@ tags:
   - Azure Active Directory Privilege Escalation
   - Azure Active Directory Persistence
   asset_type: Azure Active Directory
-  confidence: 50
-  impact: 70
   mitre_attack_id:
   - T1098
   - T1098.003
@@ -65,14 +63,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 35
-  required_fields:
-  - _time
-  - properties
-  - operationName
-  - user
-  - initiatedBy.user.userPrincipalName
-  - result
   security_domain: identity
 tests:
 - name: True Positive Test

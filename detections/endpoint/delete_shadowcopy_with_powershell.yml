@@ -58,22 +58,12 @@ tags:
   - Revil Ransomware
   - DarkGate Malware
   asset_type: Endpoint
-  confidence: 90
-  impact: 90
   mitre_attack_id:
   - T1490
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 81
   security_domain: endpoint
 tests:
 - name: True Positive Test

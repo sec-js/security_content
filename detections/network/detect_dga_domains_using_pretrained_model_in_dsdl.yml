@@ -60,19 +60,10 @@ tags:
   - Dynamic DNS
   - Command And Control
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
   mitre_attack_id:
   - T1568.002
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - IPs
-  - src
-  - domain
-  - firstTime
-  - lastTime
-  risk_score: 63
   security_domain: network

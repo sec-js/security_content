@@ -62,8 +62,6 @@ tags:
   asset_type: Endpoint
   atomic_guid:
   - af9fd58f-c4ac-4bf2-a9ba-224b71ff25fd
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1053.005
   - T1059.001
@@ -72,13 +70,7 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Computer
-  - EventCode
   security_domain: endpoint
-  risk_score: 25
 tests:
 - name: True Positive Test
   attack_data:

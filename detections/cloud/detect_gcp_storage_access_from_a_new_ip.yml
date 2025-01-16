@@ -53,20 +53,10 @@ tags:
   analytic_story:
   - Suspicious GCP Storage Activities
   asset_type: GCP Storage Bucket
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1530
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - sc_status_
-  - cs_object_
-  - c_ip_
-  - cs_uri_
-  - cs_method_
-  risk_score: 25
   security_domain: network

@@ -27,18 +27,12 @@ tags:
   analytic_story:
   - MOVEit Transfer Authentication Bypass
   asset_type: Web Server
-  confidence: 30
-  impact: 30
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - source
-  - _raw
-  risk_score: 9
   security_domain: endpoint
   cve:
   - CVE-2024-5806

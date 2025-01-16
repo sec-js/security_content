@@ -36,8 +36,6 @@ tags:
   - JBoss Vulnerability
   - SamSam Ransomware
   asset_type: Web Server
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1082
   - T1133
@@ -45,11 +43,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Web.http_method
-  - Web.url
-  - Web.src
-  - Web.dest
-  risk_score: 25
   security_domain: network

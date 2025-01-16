@@ -22,7 +22,7 @@ how_to_implement: OSQuery installed and configured to pick up process events (in
 known_false_positives: unknown
 references: []
 rba:
-  message: Potential Baron Samedit behavior on $dest$ 
+  message: Potential Baron Samedit behavior on $dest$
   risk_objects:
   - field: dest
     type: system
@@ -32,18 +32,12 @@ tags:
   analytic_story:
   - Baron Samedit CVE-2021-3156
   asset_type: Endpoint
-  confidence: 50
   cve:
   - CVE-2021-3156
-  impact: 50
   mitre_attack_id:
   - T1068
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - columns.cmdline
-  risk_score: 25
   security_domain: endpoint

@@ -55,8 +55,6 @@ tags:
   analytic_story:
   - Dev Sec Ops
   asset_type: AWS Account
-  confidence: 50
-  impact: 10
   mitre_attack_id:
   - T1204.003
   - T1204
@@ -64,17 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - eventSource
-  - eventName
-  - responseElements.imageScanFindings.findings{}
-  - awsRegion
-  - requestParameters.imageId.imageDigest
-  - requestParameters.repositoryName
-  - user
-  - userName
-  - src_ip
-  risk_score: 5
   security_domain: network
 tests:
 - name: True Positive Test

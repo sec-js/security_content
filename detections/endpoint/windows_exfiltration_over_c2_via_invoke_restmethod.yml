@@ -53,21 +53,12 @@ tags:
   analytic_story:
   - Winter Vivern
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1041
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test

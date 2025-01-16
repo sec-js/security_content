@@ -88,22 +88,12 @@ tags:
   - Compromised Windows Host
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 80
-  impact: 100
   mitre_attack_id:
   - T1484
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - OperationType
-  - src_user
-  - AttributeLDAPDisplayName
-  - AttributeValue
-  - ObjectClass
-  risk_score: 80
   security_domain: endpoint
   manual_test: This search uses a lookup provided by Enterprise Security and needs
     to be manually tested.

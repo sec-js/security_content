@@ -53,11 +53,9 @@ tags:
   analytic_story:
   - PrintNightmare CVE-2021-34527
   asset_type: Endpoint
-  confidence: 90
   cve:
   - CVE-2021-34527
   - CVE-2021-1675
-  impact: 80
   mitre_attack_id:
   - T1547.012
   - T1547
@@ -65,13 +63,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - OpCode
-  - EventCode
-  - ComputerName
-  - Message
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test

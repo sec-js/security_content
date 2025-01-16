@@ -56,21 +56,12 @@ tags:
   - Ransomware
   - Command And Control
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1048
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.action
-  - All_Traffic.src_ip
-  - All_Traffic.dest_ip
-  - All_Traffic.dest_port
-  risk_score: 25
   security_domain: network
   manual_test: This detection uses builtin lookup from Enterprise Security.
 tests:

@@ -61,10 +61,8 @@ tags:
   analytic_story:
   - CVE-2022-40684 Fortinet Appliance Auth bypass
   asset_type: Network
-  confidence: 90
   cve:
   - CVE-2022-40684
-  impact: 90
   mitre_attack_id:
   - T1190
   - T1133
@@ -72,15 +70,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Web.http_user_agent
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - sourcetype
-  risk_score: 81
   security_domain: network
 tests:
 - name: True Positive Test
@@ -89,4 +78,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1190/fortigate/fortinetcve202240684.log
     source: pan:threat
     sourcetype: pan:threat
-    update_timestamp: true

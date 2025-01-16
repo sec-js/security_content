@@ -46,8 +46,6 @@ tags:
   - Network Discovery
   - Windows Discovery Techniques
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id: 
   - T1595
   - T1595.001
@@ -56,15 +54,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields: 
-  - All_Traffic.dest_port
-  - host
-  - All_Traffic.app
-  - All_Traffic.src
-  - All_Traffic.src_ip
-  - All_Traffic.user 
-  - _time
-  risk_score: 25
   security_domain: network
 tests:
 - name: True Positive Test

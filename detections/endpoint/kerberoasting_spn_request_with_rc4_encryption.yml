@@ -60,8 +60,6 @@ tags:
   - Compromised Windows Host
   - Hermetic Wiper
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1558
   - T1558.003
@@ -69,15 +67,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - TicketOptions
-  - TicketEncryptionType
-  - Computer
-  - service
-  - service_id
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test

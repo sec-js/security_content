@@ -60,8 +60,6 @@ tags:
   analytic_story:
   - Azure Active Directory Account Takeover
   asset_type: Azure Tenant
-  confidence: 50
-  impact: 70
   mitre_attack_id:
   - T1528
   - T1566
@@ -70,16 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 35
-  required_fields:
-  - _time
-  - category
-  - user
-  - properties.authenticationProtocol
-  - properties.ipAddress
-  - properties.status.additionalDetails
-  - properties.appDisplayName
-  - properties.userAgent
   security_domain: identity
 tests:
 - name: True Positive Test

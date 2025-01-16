@@ -37,26 +37,12 @@ tags:
   - DarkGate Malware
   - PlugX
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
   mitre_attack_id:
   - T1036
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process_id
-  - Processes.process
-  - Processes.dest
-  - Processes.user
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

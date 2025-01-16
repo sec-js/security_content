@@ -54,8 +54,6 @@ tags:
   - Hermetic Wiper
   - Data Destruction
   asset_type: Endpoint
-  confidence: 50
-  impact: 10
   mitre_attack_id:
   - T1546.015
   - T1546
@@ -64,12 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Computer
-  - EventCode
-  risk_score: 5
   security_domain: endpoint
 tests:
 - name: True Positive Test

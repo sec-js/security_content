@@ -62,8 +62,6 @@ tags:
   - Remcos
   - AsyncRAT
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
   mitre_attack_id:
   - T1055
   - T1055.001
@@ -71,18 +69,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - OriginalFileName
-  - Product
-  - process_name
-  - dest
-  - EventCode
-  - Signed
-  - ProcessId
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

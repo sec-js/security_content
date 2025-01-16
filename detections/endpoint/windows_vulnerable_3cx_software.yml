@@ -60,25 +60,14 @@ tags:
   analytic_story:
   - 3CX Supply Chain Attack
   asset_type: Endpoint
-  confidence: 90
   cve:
   - CVE-2023-29059
-  impact: 100
   mitre_attack_id:
   - T1195.002
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - OriginalFileName
-  - process_name
-  - EventID
-  - CommandLine
-  - dest
-  - parent_process_name
-  risk_score: 90
   security_domain: endpoint
 tests:
 - name: True Positive Test

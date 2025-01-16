@@ -57,8 +57,6 @@ tags:
   - Cloud Federated Credential Abuse
   - NOBELIUM Group
   asset_type: O365 Tenant
-  confidence: 60
-  impact: 70
   mitre_attack_id:
   - T1136.003
   - T1136
@@ -66,16 +64,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Workload
-  - signature
-  - src_user
-  - src_user_type
-  - action
-  - Operation
-  - authentication_service
-  risk_score: 42
   security_domain: threat
 tests:
 - name: True Positive Test

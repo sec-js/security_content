@@ -70,8 +70,6 @@ tags:
   - Cozy Bear
   - Midnight Blizzard
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
   mitre_attack_id:
   - T1574.002
   - T1547
@@ -79,13 +77,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Image
-  - ImageLoaded
-  - user
-  - Computer
-  - EventCode
-  risk_score: 9
   security_domain: endpoint
   cve: []
 tests:

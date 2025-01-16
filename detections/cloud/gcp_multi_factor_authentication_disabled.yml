@@ -57,8 +57,6 @@ tags:
   analytic_story:
   - GCP Account Takeover
   asset_type: GCP
-  confidence: 90
-  impact: 50
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -68,13 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - actor.email
-  - user
-  - command
-  - status
-  risk_score: 45
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -83,4 +74,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1556/gcp_disable_mfa/gws_admin.log
     source: gws:reports:admin
     sourcetype: gws:reports:admin
-    update_timestamp: true

@@ -62,25 +62,12 @@ tags:
   - Adobe ColdFusion Arbitrary Code Execution CVE-2023-29298 CVE-2023-26360
   asset_type: Network
   atomic_guid: []
-  confidence: 50
-  impact: 90
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 45
-  required_fields:
-  - _time
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  - Web.status
-  - sourcetype
   security_domain: network
 tests:
 - name: True Positive Test

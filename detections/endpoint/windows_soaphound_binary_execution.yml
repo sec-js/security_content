@@ -60,7 +60,7 @@ rba:
   - field: dest
     type: system
     score: 80
-  threat_objects: 
+  threat_objects:
   - field: process_name
     type: process
 tags:
@@ -69,8 +69,6 @@ tags:
   - Compromised Windows Host
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 100
-  impact: 80
   mitre_attack_id:
   - T1087.002
   - T1069.001
@@ -83,21 +81,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 80
-  required_fields:
-  - Processes.process
-  - Processes.dest
-  - Processes.process_current_directory
-  - Processes.process_path
-  - Processes.process_integrity_level
-  - Processes.parent_process
-  - Processes.parent_process_path
-  - Processes.parent_process_guid
-  - Processes.parent_process_id
-  - Processes.process_guid
-  - Processes.process_id
-  - Processes.user
-  - Processes.original_file_nam
   security_domain: endpoint
 tests:
 - name: True Positive Test

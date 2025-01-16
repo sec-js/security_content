@@ -24,15 +24,10 @@ tags:
   analytic_story:
   - GCP Cross Account Activity
   asset_type: GCP Account
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1078
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: threat

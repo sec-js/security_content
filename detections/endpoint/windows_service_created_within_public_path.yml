@@ -56,8 +56,6 @@ tags:
   - Active Directory Lateral Movement
   - Snake Malware
   asset_type: Endpoint
-  confidence: 60
-  impact: 90
   mitre_attack_id:
   - T1543
   - T1543.003
@@ -65,14 +63,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - Service_File_Name
-  - Service_Type
-  - _time
-  - Service_Name
-  - Service_Start_Type
-  risk_score: 54
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -54,21 +54,12 @@ tags:
   analytic_story:
   - SamSam Ransomware
   asset_type: Endpoint
-  confidence: 20
-  impact: 60
   mitre_attack_id:
   - T1486
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.user
-  - Filesystem.dest
-  - Filesystem.file_name
-  - Filesystem.file_path
-  risk_score: 12
   security_domain: endpoint
 tests:
 - name: True Positive Test

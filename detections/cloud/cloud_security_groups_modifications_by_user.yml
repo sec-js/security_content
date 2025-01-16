@@ -57,22 +57,12 @@ tags:
   analytic_story:
   - Suspicious Cloud User Activities
   asset_type: Cloud Instance
-  confidence: 50
-  impact: 70
   mitre_attack_id:
   - T1578.005
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.object_id
-  - All_Changes.action
-  - All_Changes.status
-  - All_Changes.object_category
-  - All_Changes.user
-  risk_score: 35
   security_domain: threat
 tests:
 - name: True Positive Test

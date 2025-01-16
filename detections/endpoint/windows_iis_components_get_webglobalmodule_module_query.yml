@@ -31,8 +31,6 @@ tags:
   - IIS Components
   - WS FTP Server Critical Vulnerabilities
   asset_type: Endpoint
-  confidence: 10
-  impact: 10
   mitre_attack_id:
   - T1505.004
   - T1505
@@ -40,12 +38,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - host
-  - name
-  - image
-  risk_score: 1
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -54,4 +46,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1505.004/pwsh_installediismodules.log
     source: powershell://AppCmdModules
     sourcetype: Pwsh:InstalledIISModules
-    update_timestamp: true

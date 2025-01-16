@@ -73,29 +73,14 @@ tags:
   - Linux Living Off The Land
   - Ingress Tool Transfer
   asset_type: Endpoint
-  confidence: 100
   cve:
   - CVE-2021-44228
-  impact: 80
   mitre_attack_id:
   - T1105
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 80
   security_domain: endpoint
   manual_test: Due to current limitations in command line extraction capabilities
     with Sysmon for Linux, full CommandLine data cannot be collected for complete

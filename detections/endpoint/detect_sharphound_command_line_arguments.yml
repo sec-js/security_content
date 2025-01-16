@@ -66,8 +66,6 @@ tags:
   - Ransomware
   - BlackSuit Ransomware
   asset_type: Endpoint
-  confidence: 80
-  impact: 30
   mitre_attack_id:
   - T1087.002
   - T1069.001
@@ -80,16 +78,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 24
   security_domain: endpoint
 tests:
 - name: True Positive Test

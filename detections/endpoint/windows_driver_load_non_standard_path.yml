@@ -59,8 +59,6 @@ tags:
   - BlackByte Ransomware
   - BlackSuit Ransomware
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
   mitre_attack_id:
   - T1014
   - T1068
@@ -68,14 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Computer
-  - EventCode
-  - ImagePath
-  - ServiceName
-  - ServiceType
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -84,4 +74,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1068/drivers/xml7045_windows-system.log
     source: XmlWinEventLog:System
     sourcetype: XmlWinEventLog
-    update_timestamp: true

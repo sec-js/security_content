@@ -73,27 +73,11 @@ tags:
   - Critical Alerts
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 100
-  impact: 50
   mitre_attack_id: []
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Alerts.description
-  - Alerts.mitre_technique_id
-  - Alerts.severity
-  - Alerts.type
-  - Alerts.severity_id
-  - Alerts.signature
-  - Alerts.dest
-  - Alerts.src
-  - Alerts.user
-  - Alerts.id
-  - Alerts.vendor
-  - sourcetype
-  risk_score: 50
   security_domain: endpoint
 tests:
 - name: True Positive Test

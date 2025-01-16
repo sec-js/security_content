@@ -54,8 +54,6 @@ tags:
   analytic_story:
   - Prohibited Traffic Allowed or Protocol Mismatch
   asset_type: Endpoint
-  confidence: 30
-  impact: 10
   mitre_attack_id:
   - T1021.001
   - T1021
@@ -63,13 +61,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - UserID
-  risk_score: 3
   security_domain: endpoint
 tests:
 - name: True Positive Test

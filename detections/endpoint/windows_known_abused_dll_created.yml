@@ -84,8 +84,6 @@ tags:
   - Windows Defense Evasion Tactics
   - Living Off The Land
   asset_type: Endpoint
-  confidence: 25
-  impact: 40
   mitre_attack_id:
   - T1574.001
   - T1574.002
@@ -94,21 +92,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.process_guid
-  - Processes.process_name
-  - Processes.process
-  - Processes.parent_process
-  - Processes.parent_process_name
-  - Filesystem.dest
-  - Filesystem.file_create_time
-  - Filesystem.file_name
-  - Filesystem.file_path
-  - Filesystem.process_guid
-  risk_score: 10
   security_domain: endpoint
 tests:
 - name: True Positive Test

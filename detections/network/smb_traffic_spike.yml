@@ -41,8 +41,6 @@ tags:
   - Ransomware
   - DHS Report TA18-074A
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1021.002
   - T1021
@@ -50,10 +48,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.dest_port
-  - All_Traffic.app
-  - All_Traffic.src
-  risk_score: 25
   security_domain: network

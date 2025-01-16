@@ -66,10 +66,8 @@ tags:
   - PrintNightmare CVE-2021-34527
   - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 90
   cve:
   - CVE-2021-34527
-  impact: 80
   mitre_attack_id:
   - T1547.012
   - T1547
@@ -77,17 +75,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.dest
-  - Filesystem.file_create_time
-  - Filesystem.file_name
-  - Filesystem.file_path
-  - Processes.process_name
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.dest
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -46,8 +46,6 @@ tags:
   - Hermetic Wiper
   - Suspicious Emails
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1566.001
   - T1566
@@ -55,10 +53,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Email.file_name
-  - All_Email.src_user
-  - All_Email.message_id
-  risk_score: 25
   security_domain: network

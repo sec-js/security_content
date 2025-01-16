@@ -31,8 +31,6 @@ tags:
   - Active Directory Discovery
   - Malicious PowerShell
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
   mitre_attack_id:
   - T1087
   - T1087.001
@@ -41,13 +39,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - UserID
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test

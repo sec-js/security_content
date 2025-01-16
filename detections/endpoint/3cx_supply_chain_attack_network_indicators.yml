@@ -43,21 +43,14 @@ tags:
   analytic_story:
   - 3CX Supply Chain Attack
   asset_type: Network
-  confidence: 100
   cve:
   - CVE-2023-29059
-  impact: 100
   mitre_attack_id:
   - T1195.002
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - DNS.src
-  - DNS.query
-  - _time
-  risk_score: 100
   security_domain: network
 tests:
 - name: True Positive Test

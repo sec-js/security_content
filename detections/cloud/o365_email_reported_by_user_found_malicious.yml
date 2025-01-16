@@ -58,8 +58,6 @@ tags:
   - Spearphishing Attachments
   - Suspicious Emails
   asset_type: O365 Tenant
-  confidence: 100
-  impact: 75
   mitre_attack_id:
   - T1566
   - T1566.001
@@ -68,17 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - Name
-  - Data
-  - AlertId
-  - AlertEntityId
-  - tsd
-  - etps
-  risk_score: 75
   security_domain: threat
 tests:
 - name: True Positive Test

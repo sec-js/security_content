@@ -37,8 +37,6 @@ tags:
   analytic_story:
   - Okta Account Takeover
   asset_type: Infrastructure
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1078
   - T1078.001
@@ -47,12 +45,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventType
-  - client.userAgent.rawUserAgent
-  - client.userAgent.browser
-  - outcome.reason
-  - displayMessage
-  risk_score: 100
   security_domain: access

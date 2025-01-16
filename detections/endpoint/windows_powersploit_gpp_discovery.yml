@@ -17,8 +17,8 @@ description: The following analytic detects the execution of the Get-GPPPassword
   by exploiting exposed credentials.
 search: '`powershell` EventCode=4104  (ScriptBlockText=Get-GPPPassword OR ScriptBlockText=Get-CachedGPPPassword)
   | stats count min(_time) as firstTime max(_time) as lastTime by Opcode Computer
-  UserID EventCode ScriptBlockText | rename UserID as user | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
-  | `windows_powersploit_gpp_discovery_filter`'
+  UserID EventCode ScriptBlockText | rename UserID as user | `security_content_ctime(firstTime)`
+  | `security_content_ctime(lastTime)` | `windows_powersploit_gpp_discovery_filter`'
 how_to_implement: To successfully implement this analytic, you will need to enable
   PowerShell Script Block Logging on some or all endpoints. Additional setup here
   https://docs.splunk.com/Documentation/UBA/5.0.4.1/GetDataIn/AddPowerShell#Configure_module_logging_for_PowerShell.
@@ -32,8 +32,7 @@ references:
 - https://support.microsoft.com/en-us/topic/ms14-025-vulnerability-in-group-policy-preferences-could-allow-elevation-of-privilege-may-13-2014-60734e15-af79-26ca-ea53-8cd617073c30
 drilldown_searches:
 - name: View the detection results for - "$Computer$" and "$user$"
-  search: '%original_detection_search% | search  Computer = "$Computer$" user =
-    "$user$"'
+  search: '%original_detection_search% | search  Computer = "$Computer$" user = "$user$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$Computer$" and "$user$"
@@ -59,8 +58,6 @@ tags:
   analytic_story:
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
   mitre_attack_id:
   - T1552
   - T1552.006
@@ -68,14 +65,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

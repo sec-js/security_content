@@ -61,8 +61,6 @@ tags:
   analytic_story:
   - Azure Active Directory Account Takeover
   asset_type: Azure Active Directory
-  confidence: 90
-  impact: 60
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -73,14 +71,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - properties.status.errorCode
-  - category
-  - properties.authenticationDetails
-  - properties.userPrincipalName
-  - properties.ipAddress
-  risk_score: 54
   security_domain: access
 tests:
 - name: True Positive Test
@@ -89,4 +79,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1110.003/password_spraying_azuread/azuread_signin.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

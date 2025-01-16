@@ -51,8 +51,6 @@ tags:
   - XMRig
   - CISA AA22-320A
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
   mitre_attack_id:
   - T1543.003
   - T1543
@@ -60,15 +58,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - ImageLoaded
-  - Hashes
-  - IMPHASH
-  - Signature
-  - Signed
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

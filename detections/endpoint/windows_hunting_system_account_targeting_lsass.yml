@@ -36,8 +36,6 @@ tags:
   - CISA AA23-347A
   - Credential Dumping
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1003.001
   - T1003
@@ -45,16 +43,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - TargetImage
-  - GrantedAccess
-  - SourceImage
-  - SourceProcessId
-  - SourceUser
-  - TargetUser
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

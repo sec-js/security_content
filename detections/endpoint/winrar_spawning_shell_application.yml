@@ -80,23 +80,12 @@ tags:
   - CVE-2023-38831
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 70
-  impact: 100
   mitre_attack_id:
   - T1105
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 70
-  required_fields:
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
   security_domain: endpoint
 tests:
 - name: True Positive Test

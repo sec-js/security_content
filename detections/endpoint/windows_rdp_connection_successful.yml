@@ -31,21 +31,12 @@ tags:
   - BlackByte Ransomware
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1563.002
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - ComputerName
-  - Source_Network_Address
-  - User
-  - Message
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

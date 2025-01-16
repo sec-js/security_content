@@ -37,16 +37,8 @@ tags:
   - AWS Security Hub Alerts
   - Critical Alerts
   asset_type: AWS Instance
-  confidence: 50
-  impact: 50
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - findings{}.Resources{}.Type
-  - indings{}.Resources{}.Id
-  - user
-  risk_score: 25
   security_domain: network

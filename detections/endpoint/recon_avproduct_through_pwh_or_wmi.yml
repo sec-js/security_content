@@ -66,21 +66,12 @@ tags:
   - Data Destruction
   - MoonPeak
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
   mitre_attack_id:
   - T1592
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - UserID
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

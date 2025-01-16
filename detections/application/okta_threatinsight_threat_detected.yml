@@ -55,8 +55,6 @@ tags:
   analytic_story:
   - Okta Account Takeover
   asset_type: Infrastructure
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1078
   - T1078.004
@@ -64,20 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - signature
-  - eventType
-  - displayMessage
-  - client.device
-  - city
-  - state
-  - country
-  - user_agent
-  - outcome.reason
-  - outcome.result
-  - severity
-  risk_score: 25
   security_domain: access
 tests:
 - name: True Positive Test

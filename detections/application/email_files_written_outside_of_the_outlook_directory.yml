@@ -43,8 +43,6 @@ tags:
   analytic_story:
   - Collection and Staging
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1114
   - T1114.001
@@ -52,12 +50,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.file_path
-  - Filesystem.file_name
-  - Filesystem.action
-  - Filesystem.process_id
-  - Filesystem.dest
-  risk_score: 25
   security_domain: endpoint

@@ -61,8 +61,6 @@ tags:
   analytic_story:
   - Office 365 Persistence Mechanisms
   asset_type: O365 Tenant
-  confidence: 60
-  impact: 70
   mitre_attack_id:
   - T1562.007
   - T1562
@@ -70,18 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - signature
-  - ModifiedProperties{}.Name
-  - ModifiedProperties{}.NewValue
-  - ModifiedProperties{}.OldValue
-  - user
-  - vendor_account
-  - status
-  - user_id
-  - action
-  risk_score: 42
   security_domain: threat
 tests:
 - name: True Positive Test

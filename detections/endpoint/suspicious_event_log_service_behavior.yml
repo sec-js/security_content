@@ -32,8 +32,6 @@ tags:
   - Ransomware
   - Clop Ransomware
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
   mitre_attack_id:
   - T1070
   - T1070.001
@@ -41,11 +39,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - dest
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

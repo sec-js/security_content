@@ -23,15 +23,10 @@ references: []
 tags:
   analytic_story: []
   asset_type: Domain Server
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1078.002
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: access

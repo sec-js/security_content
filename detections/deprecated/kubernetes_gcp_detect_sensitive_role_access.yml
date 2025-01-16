@@ -22,13 +22,8 @@ tags:
   analytic_story:
   - Kubernetes Sensitive Role Activity
   asset_type: GCP GKE EKS Kubernetes cluster
-  confidence: 50
-  impact: 50
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: threat

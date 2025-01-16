@@ -56,8 +56,6 @@ tags:
   analytic_story:
   - Compromised User Account
   asset_type: Identity
-  confidence: 50
-  impact: 100
   mitre_attack_id:
   - T1621
   - T1078
@@ -66,14 +64,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - resources{}.ipaddress
-  - actors{}.name
-  - result.message
-  - resources{}.devicemodel
-  - result.status
-  risk_score: 50
   security_domain: access
 tests:
 - name: True Positive Test

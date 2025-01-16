@@ -31,23 +31,12 @@ tags:
   analytic_story:
   - Outlook RCE CVE-2024-21378
   asset_type: Endpoint
-  confidence: 20
-  impact: 10
   mitre_attack_id:
   - T1112
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Registry.registry_path
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  - Registry.registry_value_data
-  - Registry.dest
-  - Registry.process_guid
-  - Registry.user
-  risk_score: 2
   security_domain: endpoint
   cve:
   - CVE-2024-21378

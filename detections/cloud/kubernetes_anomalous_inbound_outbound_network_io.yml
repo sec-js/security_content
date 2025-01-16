@@ -61,19 +61,10 @@ tags:
   analytic_story:
   - Abnormal Kubernetes Behavior using Splunk Infrastructure Monitoring
   asset_type: Kubernetes
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1204
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - k8s.pod.network.io
-  - direction
-  - k8s.cluster.name
-  - k8s.node.name
-  - k8s.pod.name
-  risk_score: 25
   security_domain: network

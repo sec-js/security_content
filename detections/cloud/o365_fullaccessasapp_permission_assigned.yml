@@ -58,8 +58,6 @@ tags:
   - Office 365 Persistence Mechanisms
   - NOBELIUM Group
   asset_type: O365 Tenant
-  confidence: 60
-  impact: 80
   mitre_attack_id:
   - T1098.002
   - T1098.003
@@ -67,15 +65,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 48
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - ModifiedProperties{}.NewValue
-  - object
-  - user
-  - user_agent
   security_domain: identity
 tests:
 - name: True Positive Test

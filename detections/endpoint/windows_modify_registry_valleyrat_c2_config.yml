@@ -60,22 +60,12 @@ tags:
   analytic_story:
   - ValleyRAT
   asset_type: Endpoint
-  confidence: 100
-  impact: 90
   mitre_attack_id:
   - T1112
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.process_guid
-  risk_score: 90
   security_domain: endpoint
 tests:
 - name: True Positive Test

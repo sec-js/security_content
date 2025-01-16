@@ -59,8 +59,6 @@ tags:
   - BlackByte Ransomware
   - Snake Keylogger
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
   mitre_attack_id:
   - T1543.003
   - T1543
@@ -68,15 +66,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - ImageLoaded
-  - Hashes
-  - IMPHASH
-  - Signature
-  - Signed
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

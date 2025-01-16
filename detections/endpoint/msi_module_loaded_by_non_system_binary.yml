@@ -33,10 +33,8 @@ tags:
   - Hermetic Wiper
   - Windows Privilege Escalation
   asset_type: Endpoint
-  confidence: 70
   cve:
   - CVE-2021-41379
-  impact: 80
   mitre_attack_id:
   - T1574.002
   - T1574
@@ -44,15 +42,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - process_name
-  - dest
-  - EventCode
-  - ProcessId
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

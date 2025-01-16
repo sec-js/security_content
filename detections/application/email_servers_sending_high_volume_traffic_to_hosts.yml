@@ -50,8 +50,6 @@ tags:
   - Collection and Staging
   - HAFNIUM Group
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1114
   - T1114.002
@@ -59,10 +57,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.bytes_out
-  - All_Traffic.src_category
-  - All_Traffic.dest_ip
-  risk_score: 25
   security_domain: network

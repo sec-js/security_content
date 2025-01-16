@@ -61,8 +61,6 @@ tags:
   - Azure Active Directory Account Takeover
   - NOBELIUM Group
   asset_type: Azure Tenant
-  confidence: 70
-  impact: 50
   mitre_attack_id:
   - T1110
   - T1110.001
@@ -71,14 +69,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - properties.status.errorCode
-  - category
-  - properties.authenticationDetails
-  - user
-  - src_ip
-  risk_score: 35
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -87,4 +77,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1110.001/azure_ad_high_number_of_failed_authentications_for_user/azuread.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

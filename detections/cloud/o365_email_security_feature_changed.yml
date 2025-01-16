@@ -50,8 +50,6 @@ tags:
   - Office 365 Persistence Mechanisms
   - Office 365 Account Takeover
   asset_type: O365 Tenant
-  confidence: 25
-  impact: 100
   mitre_attack_id:
   - T1562
   - T1562.008
@@ -60,13 +58,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Id
-  - UserId
-  - Operation
-  - Workload
-  risk_score: 25
   security_domain: threat
 tests:
 - name: True Positive Test

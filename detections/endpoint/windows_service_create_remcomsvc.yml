@@ -51,8 +51,6 @@ tags:
   analytic_story:
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 80
-  impact: 40
   mitre_attack_id:
   - T1543.003
   - T1543
@@ -60,14 +58,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - EventCode
-  - ImagePath
-  - ServiceName
-  - ServiceType
-  risk_score: 32
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -76,4 +66,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1543.003/atomic_red_team/remcom_windows-system.log
     source: XmlWinEventLog:System
     sourcetype: XmlWinEventLog
-    update_timestamp: true

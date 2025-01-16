@@ -82,8 +82,6 @@ tags:
   - CISA AA22-277A
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 70
-  impact: 90
   mitre_attack_id:
   - T1021
   - T1021.002
@@ -94,15 +92,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Processes.process_name
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

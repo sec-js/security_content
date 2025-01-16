@@ -61,26 +61,12 @@ tags:
   analytic_story:
   - ConnectWise ScreenConnect Vulnerabilities
   asset_type: Web Proxy
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - src
-  - dest
-  - http_user_agent
-  - url
-  - uri_path
-  - status
-  - http_method
-  - sourcetype
-  - source
-  risk_score: 100
   security_domain: network
   cve:
   - CVE-2024-1708

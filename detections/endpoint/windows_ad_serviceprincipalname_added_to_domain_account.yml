@@ -60,22 +60,12 @@ tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 50
-  impact: 60
   mitre_attack_id:
   - T1098
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ObjectDN
-  - signature
-  - SubjectUserName
-  - Computer
-  risk_score: 30
   security_domain: endpoint
 tests:
 - name: True Positive Test

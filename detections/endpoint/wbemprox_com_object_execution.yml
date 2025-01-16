@@ -56,8 +56,6 @@ tags:
   - Revil Ransomware
   - LockBit Ransomware
   asset_type: Endpoint
-  confidence: 50
-  impact: 70
   mitre_attack_id:
   - T1218
   - T1218.003
@@ -65,18 +63,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - process_name
-  - dest
-  - EventCode
-  - Signed
-  - ProcessId
-  - Hashes
-  - IMPHASH
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test

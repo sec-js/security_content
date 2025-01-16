@@ -57,25 +57,12 @@ tags:
   - Suspicious Okta Activity
   - Okta Account Takeover
   asset_type: Okta Tenant
-  confidence: 70
-  impact: 80
   mitre_attack_id:
   - T1539
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - client.ipAddress
-  - client.userAgent.rawUserAgent
-  - client.userAgent.os
-  - client.geographicalContext.city
-  - client.userAgent.browser
-  - device.os_platform
-  - debugContext.debugData.dtHash
-  - actor.alternateId
-  risk_score: 56
   security_domain: identity
 tests:
 - name: True Positive Test

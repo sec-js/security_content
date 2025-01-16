@@ -42,17 +42,10 @@ tags:
   analytic_story:
   - Web Fraud Detection
   asset_type: Account
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1078
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - http_content_type
-  - cookie
-  risk_score: 25
   security_domain: threat

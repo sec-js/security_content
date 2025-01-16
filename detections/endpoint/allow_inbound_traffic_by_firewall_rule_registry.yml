@@ -64,8 +64,6 @@ tags:
   - NjRAT
   - PlugX
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1021.001
   - T1021
@@ -73,15 +71,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.process_guid
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

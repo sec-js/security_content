@@ -65,10 +65,8 @@ tags:
   analytic_story:
   - Log4Shell CVE-2021-44228
   asset_type: Endpoint
-  confidence: 60
   cve:
   - CVE-2021-44228
-  impact: 90
   mitre_attack_id:
   - T1190
   - T1133
@@ -76,18 +74,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.dest
-  - Processes.process_path
-  - Processes.process
-  - Processes.parent_process_name
-  - All_Traffic.process_id
-  - All_Traffic.dest
-  - All_Traffic.dest_port
-  risk_score: 54
   security_domain: endpoint
 tests:
 - name: True Positive Test

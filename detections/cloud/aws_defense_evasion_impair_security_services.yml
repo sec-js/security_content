@@ -40,8 +40,6 @@ tags:
   analytic_story:
   - AWS Defense Evasion
   asset_type: AWS Account
-  confidence: 60
-  impact: 70
   mitre_attack_id:
   - T1562.008
   - T1562
@@ -49,17 +47,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - eventSource
-  - user_agent
-  - user_type
-  - aws_account_id
-  - src
-  - region
-  - errorCode
-  risk_score: 42
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -68,4 +55,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.008/aws_delete_security_services/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

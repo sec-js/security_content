@@ -54,23 +54,12 @@ tags:
   - NjRAT
   - CISA AA24-241A
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
   mitre_attack_id:
   - T1102
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 36
-  required_fields:
-  - _time
-  - Image
-  - QueryName
-  - QueryStatus
-  - process_name
-  - QueryResults
-  - Computer
   security_domain: endpoint
 tests:
 - name: True Positive Test

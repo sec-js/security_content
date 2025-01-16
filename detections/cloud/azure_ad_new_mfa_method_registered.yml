@@ -61,8 +61,6 @@ tags:
   analytic_story:
   - Azure Active Directory Persistence
   asset_type: Azure Tenant
-  confidence: 50
-  impact: 60
   mitre_attack_id:
   - T1098
   - T1098.005
@@ -70,14 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 30
-  required_fields:
-  - _time
-  - operationName
-  - properties.targetResources{}.modifiedProperties{}.displayName
-  - properties.targetResources{}.modifiedProperties{}.oldValue
-  - properties.targetResources{}.modifiedProperties{}.newValue
-  - user
   security_domain: identity
 tests:
 - name: True Positive Test

@@ -69,21 +69,12 @@ tags:
   - Windows Defense Evasion Tactics
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 100
-  impact: 60
   mitre_attack_id:
   - T1556
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.action
-  - Registry.registry_path
-  - Registry.dest
-  - Registry.user
-  risk_score: 60
   security_domain: endpoint
 tests:
 - name: True Positive Test

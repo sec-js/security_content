@@ -58,29 +58,12 @@ tags:
   - Brute Ratel C4
   - PlugX
   asset_type: Endpoint
-  confidence: 30
-  impact: 60
   mitre_attack_id:
   - T1489
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.user
-  - Registry.dest
-  - Registry.registry_value_name
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.process
-  - Processes.dest
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_guid
-  risk_score: 18
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -89,4 +72,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/brute_ratel/service_deletion/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

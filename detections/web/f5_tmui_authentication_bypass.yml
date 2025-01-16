@@ -59,22 +59,10 @@ tags:
   atomic_guid: []
   cve:
   - CVE-2023-46747
-  confidence: 90
-  impact: 100
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 90
-  required_fields:
-  - Web.http_user_agent
-  - Web.status
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - sourcetype
   security_domain: endpoint
 tests:
 - name: True Positive Test

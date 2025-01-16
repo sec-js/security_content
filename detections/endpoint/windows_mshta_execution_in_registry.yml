@@ -61,22 +61,12 @@ tags:
   - Suspicious Windows Registry Activities
   - Windows Persistence Techniques
   asset_type: Endpoint
-  confidence: 90
-  impact: 80
   mitre_attack_id:
   - T1218.005
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.dest
-  - Registry.registry_value_data
-  - Registry.action
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -85,4 +75,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1218.005/mshta_in_registry/sysmon3.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

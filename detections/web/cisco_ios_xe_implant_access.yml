@@ -59,22 +59,12 @@ tags:
   - Cisco IOS XE Software Web Management User Interface vulnerability
   asset_type: Network
   atomic_guid: []
-  confidence: 90
-  impact: 90
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 81
-  required_fields:
-  - _time
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
   security_domain: network
 tests:
 - name: True Positive Test

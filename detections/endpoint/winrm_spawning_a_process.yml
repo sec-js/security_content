@@ -53,24 +53,12 @@ tags:
   - Rhysida Ransomware
   - Unusual Processes
   asset_type: Endpoint
-  confidence: 50
   cve:
   - CVE-2021-31166
-  impact: 50
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 25
   security_domain: endpoint

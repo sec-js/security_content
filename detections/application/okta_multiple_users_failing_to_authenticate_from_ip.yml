@@ -57,24 +57,12 @@ tags:
   analytic_story:
   - Okta Account Takeover
   asset_type: Okta Tenant
-  confidence: 90
-  impact: 60
   mitre_attack_id:
   - T1110.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Authentication.user
-  - Authentication.signature
-  - Authentication.user
-  - Authentication.app
-  - Authentication.authentication_method
-  - Authentication.action
-  - Authentication.src
-  risk_score: 54
   security_domain: identity
 tests:
 - name: True Positive Test

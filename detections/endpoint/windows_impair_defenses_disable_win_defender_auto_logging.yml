@@ -60,8 +60,6 @@ tags:
   - CISA AA23-347A
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 80
-  impact: 30
   mitre_attack_id:
   - T1562.001
   - T1562
@@ -69,15 +67,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  - Registry.dest
-  - Registry.user
-  - Registry.registry_path
-  - Registry.action
-  risk_score: 24
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -86,4 +75,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/disable_defender_logging/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

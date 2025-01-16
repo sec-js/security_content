@@ -55,8 +55,6 @@ tags:
   analytic_story:
   - Trickbot
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
   mitre_attack_id:
   - T1590
   - T1590.005
@@ -64,17 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - process_path
-  - process_name
-  - process_id
-  - QueryName
-  - QueryStatus
-  - QueryResults
-  - dest
-  - EventCode
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

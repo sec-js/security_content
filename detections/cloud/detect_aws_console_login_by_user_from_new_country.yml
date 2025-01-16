@@ -44,8 +44,6 @@ tags:
   - AWS Identity and Access Management Account Takeover
   - Compromised User Account
   asset_type: AWS Instance
-  confidence: 60
-  impact: 70
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -54,12 +52,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Authentication.signature
-  - Authentication.user
-  - Authentication.src
-  risk_score: 42
   security_domain: threat
   manual_test: This search needs the baseline to be run first to create a lookup.
     It also requires that the timestamps in the dataset be updated.
@@ -70,4 +62,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

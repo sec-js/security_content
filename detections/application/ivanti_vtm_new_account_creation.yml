@@ -54,22 +54,12 @@ tags:
   analytic_story:
   - Ivanti Virtual Traffic Manager CVE-2024-7593
   asset_type: Web Application
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - IP
-  - MODUSER
-  - OPERATION
-  - MODGROUP
-  - AUTH
-  risk_score: 72
   security_domain: access
   cve:
   - CVE-2024-7593

@@ -57,8 +57,6 @@ tags:
   - Office 365 Collection Techniques
   - NOBELIUM Group
   asset_type: O365 Tenant
-  confidence: 70
-  impact: 80
   mitre_attack_id:
   - T1098
   - T1098.002
@@ -66,16 +64,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 56
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - Role
-  - user
-  - User
-  - object
-  - ObjectId
   security_domain: threat
 tests:
 - name: True Positive Test

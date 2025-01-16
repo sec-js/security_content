@@ -41,21 +41,12 @@ tags:
   - Okta Account Takeover
   - Okta MFA Exhaustion
   asset_type: Okta Tenant
-  confidence: 60
-  impact: 30
   mitre_attack_id:
   - T1110
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - src_ip
-  - eventType
-  - status
-  risk_score: 18
   security_domain: access
 tests:
 - name: True Positive Test

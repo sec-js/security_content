@@ -61,19 +61,12 @@ tags:
   - Linux Living Off The Land
   - Compromised Linux Host
   asset_type: Endpoint
-  confidence: 40
-  impact: 40
   mitre_attack_id:
   - T1115
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - argc
-  - process_exec
-  risk_score: 16
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -82,4 +75,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1115/linux_auditd_xclip/linux_auditd_xclip.log
     source: /var/log/audit/audit.log
     sourcetype: linux:audit
-    update_timestamp: true

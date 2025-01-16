@@ -63,21 +63,12 @@ tags:
   analytic_story:
   - Suspicious Windows Registry Activities
   asset_type: Endpoint
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1112
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Registry.dest
-  - Registry.user
-  - Registry.registry_path
-  - Registry.registry_value_name
-  - Registry.registry_value_data
-  risk_score: 100
   security_domain: endpoint
   cve: []
 tests:

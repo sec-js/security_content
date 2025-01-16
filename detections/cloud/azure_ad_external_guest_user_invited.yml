@@ -58,21 +58,12 @@ tags:
   analytic_story:
   - Azure Active Directory Persistence
   asset_type: Azure Active Directory
-  confidence: 90
-  impact: 50
   mitre_attack_id:
   - T1136.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - properties.targetResources{}.type
-  - properties.initiatedBy.user.userPrincipalName
-  - properties.result
-  risk_score: 45
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -81,4 +72,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1136.003/azure_ad_external_guest_user_invited/azure-audit.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

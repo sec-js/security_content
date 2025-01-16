@@ -38,18 +38,10 @@ tags:
   analytic_story:
   - Data Exfiltration
   asset_type: Network
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1041
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - server_name
-  - src_ip
-  - dest_ip
-  risk_score: 25
   security_domain: network

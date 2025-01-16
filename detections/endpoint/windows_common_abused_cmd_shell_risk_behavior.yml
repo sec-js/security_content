@@ -70,8 +70,6 @@ tags:
   - CISA AA23-347A
   - Disabling Security Tools
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1222
   - T1049
@@ -83,14 +81,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
-  required_fields:
-  - _time
-  - All_Risk.analyticstories
-  - All_Risk.risk_object_type
-  - All_Risk.risk_object
-  - All_Risk.annotations.mitre_attack.mitre_tactic
-  - source
   security_domain: endpoint
 tests:
 - name: True Positive Test

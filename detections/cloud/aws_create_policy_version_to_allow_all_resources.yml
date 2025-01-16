@@ -56,8 +56,6 @@ tags:
   analytic_story:
   - AWS IAM Privilege Escalation
   asset_type: AWS Account
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1078.004
   - T1078
@@ -65,18 +63,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - userAgent
-  - errorCode
-  - eventSource
-  - requestParameters.userName
-  - requestParameters.policyDocument
-  - aws_account_id
-  - awsRegion
-  - eventID
-  risk_score: 49
   security_domain: network
 tests:
 - name: True Positive Test
@@ -85,4 +71,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/aws_create_policy_version/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

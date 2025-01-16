@@ -58,24 +58,12 @@ tags:
   - ConnectWise ScreenConnect Vulnerabilities
   - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1190
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - ObjectName
-  - ObjectType
-  - ProcessName
-  - AccessMask
-  - process_id
-  - EventCode
-  - Computer
-  - Caller_User_Name
-  risk_score: 100
   security_domain: endpoint
   cve:
   - CVE-2024-1708

@@ -76,25 +76,12 @@ tags:
   - DarkSide Ransomware
   - Ransomware
   asset_type: Endpoint
-  confidence: 70
-  impact: 50
   mitre_attack_id:
   - T1020
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  - Processes.original_file_name
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test

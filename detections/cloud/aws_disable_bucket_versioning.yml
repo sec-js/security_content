@@ -55,25 +55,12 @@ tags:
   - Suspicious AWS S3 Activities
   - Data Exfiltration
   asset_type: AWS Account
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1490
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - user_arn
-  - src_ip
-  - aws_account_id
-  - destinationLocationArn
-  - sourceLocationArn
-  - userAgent
-  - userIdentity.principalId
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -82,4 +69,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1490/aws_bucket_version/cloudtrail.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

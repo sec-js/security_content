@@ -42,8 +42,6 @@ tags:
   analytic_story:
   - Okta Account Takeover
   asset_type: Okta Tenant
-  confidence: 70
-  impact: 80
   mitre_attack_id:
   - T1550.004
   - T1538
@@ -51,12 +49,4 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - authenticationContext.externalSessionId
-  - targets
-  - actor.alternateId
-  - client.ipAddress
-  - eventType
-  risk_score: 56
   security_domain: access

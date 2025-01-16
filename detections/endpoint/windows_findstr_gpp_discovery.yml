@@ -69,8 +69,6 @@ tags:
   analytic_story:
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
   mitre_attack_id:
   - T1552
   - T1552.006
@@ -78,20 +76,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.user
-  - Processes.dest
-  - Processes.process_name
-  - Processes.process
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process_id
-  - Processes.parent_process_id
-  - Processes.original_file_name
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

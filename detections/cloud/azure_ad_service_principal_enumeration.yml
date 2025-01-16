@@ -39,7 +39,7 @@ rba:
   message: $spn_count$ Service Principals have been enumerated by $user$ from IP $src$
   risk_objects:
   - field: tenantId
-    type: Other
+    type: other
     score: 80
   threat_objects:
   - field: src
@@ -51,8 +51,6 @@ tags:
   - Azure Active Directory Privilege Escalation
   - Compromised User Account
   asset_type: Azure Tenant
-  confidence: 100
-  impact: 80
   mitre_attack_id:
   - T1087.004
   - T1526
@@ -60,11 +58,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - category
-  - properties.requestUri
-  - src
-  - user
   security_domain: identity
 tests:
 - name: True Positive Test

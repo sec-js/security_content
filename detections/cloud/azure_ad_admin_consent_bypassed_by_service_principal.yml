@@ -65,20 +65,12 @@ tags:
   - Azure Active Directory Privilege Escalation
   - NOBELIUM Group
   asset_type: Azure Active Directory
-  confidence: 60
-  impact: 90
   mitre_attack_id:
   - T1098.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - operationName
-  - targetResources{}.modifiedProperties{}.newValue
-  - targetResources{}.id
-  risk_score: 54
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -87,4 +79,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1098.003/azure_ad_bypass_admin_consent/azure_ad_bypass_admin_consent.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

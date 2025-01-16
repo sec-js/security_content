@@ -36,8 +36,6 @@ tags:
   - Windows Discovery Techniques
   asset_type: Network
   atomic_guid: []
-  confidence: 50
-  impact: 20
   mitre_attack_id:
   - T1087.002
   - T1069.001
@@ -50,13 +48,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 10
-  required_fields:
-  - All_Traffic.src_ip
-  - All_Traffic.dest_ip
-  - All_Traffic.app
-  - All_Traffic.user
-  - All_Traffic.dest_port
   security_domain: endpoint
 tests:
 - name: True Positive Test

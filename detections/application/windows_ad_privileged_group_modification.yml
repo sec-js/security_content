@@ -32,22 +32,12 @@ tags:
   - Active Directory Privilege Escalation
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 100
-  impact: 50
   mitre_attack_id:
   - T1098
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 50
-  required_fields:
-  - EventCode
-  - user
-  - src_user
-  - signature
-  - Group_Name
-  - dest
   security_domain: identity
   manual_test: This search uses a lookup provided by Enterprise Security and needs
     to be manually tested.

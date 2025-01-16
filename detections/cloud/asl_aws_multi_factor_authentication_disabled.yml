@@ -41,8 +41,6 @@ tags:
   analytic_story:
   - AWS Identity and Access Management Account Takeover
   asset_type: AWS Account
-  confidence: 80
-  impact: 80
   mitre_attack_id:
   - T1586
   - T1586.003
@@ -53,15 +51,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - api.operation
-  - actor.user.uid
-  - actor.user.account.uid
-  - http_request.user_agent
-  - src_endpoint.ip
-  - src_endpoint.domain
-  - cloud.region
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test

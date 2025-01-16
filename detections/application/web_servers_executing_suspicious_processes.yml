@@ -47,20 +47,10 @@ tags:
   analytic_story:
   - Apache Struts Vulnerability
   asset_type: Web Server
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1082
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest_category
-  - Processes.process
-  - Processes.process_name
-  - Processes.dest
-  - Processes.user
-  risk_score: 25
   security_domain: endpoint

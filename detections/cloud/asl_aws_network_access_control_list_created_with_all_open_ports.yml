@@ -44,8 +44,6 @@ tags:
   analytic_story:
   - AWS Network ACL Activity
   asset_type: AWS Instance
-  confidence: 80
-  impact: 60
   mitre_attack_id:
   - T1562.007
   - T1562
@@ -53,14 +51,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - api.operation
-  - api.request.data
-  - actor.user.uid
-  - actor.user.account.uid
-  - http_request.user_agent
-  - src_endpoint.ip
-  - cloud.region
   security_domain: network
 tests:
 - name: True Positive Test

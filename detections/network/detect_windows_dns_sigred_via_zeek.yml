@@ -37,21 +37,12 @@ tags:
   analytic_story:
   - Windows DNS SIGRed CVE-2020-1350
   asset_type: Endpoint
-  confidence: 50
   cve:
   - CVE-2020-1350
-  impact: 50
   mitre_attack_id:
   - T1203
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.query_type
-  - DNS.flow_id
-  - All_Traffic.bytes_in
-  - All_Traffic.flow_id
-  risk_score: 25
   security_domain: endpoint

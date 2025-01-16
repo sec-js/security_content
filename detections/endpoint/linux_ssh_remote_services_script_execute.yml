@@ -65,28 +65,12 @@ tags:
   analytic_story:
   - Linux Living Off The Land
   asset_type: Endpoint
-  confidence: 70
-  impact: 80
   mitre_attack_id:
   - T1021.004
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -95,4 +79,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1021.004/atomic_red_team/linux-sysmon.log
     source: Syslog:Linux-Sysmon/Operational
     sourcetype: sysmon:linux
-    update_timestamp: true

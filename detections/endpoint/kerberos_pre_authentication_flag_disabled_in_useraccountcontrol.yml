@@ -53,8 +53,6 @@ tags:
   - Active Directory Kerberos Attacks
   - BlackSuit Ransomware
   asset_type: Endpoint
-  confidence: 90
-  impact: 50
   mitre_attack_id:
   - T1558
   - T1558.004
@@ -62,13 +60,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Account_Name
-  - Security_ID
-  - MSADChangedAttributes
-  risk_score: 45
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -77,4 +68,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1558.004/powershell/windows-security.log
     source: WinEventLog:Security
     sourcetype: WinEventLog
-    update_timestamp: true

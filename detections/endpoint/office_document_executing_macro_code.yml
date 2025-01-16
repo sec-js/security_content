@@ -68,8 +68,6 @@ tags:
   - PlugX
   - NjRAT
   asset_type: Endpoint
-  confidence: 50
-  impact: 70
   mitre_attack_id:
   - T1566
   - T1566.001
@@ -77,17 +75,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - ImageLoaded
-  - AllImageLoaded
-  - dest
-  - EventCode
-  - Image
-  - process_name
-  - ProcessId
-  - ProcessGuid
-  - _time
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test

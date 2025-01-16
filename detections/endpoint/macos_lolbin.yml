@@ -56,8 +56,6 @@ tags:
   analytic_story:
   - Living Off The Land
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1059.004
   - T1059
@@ -65,16 +63,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - columns.cmdline
-  - columns.pid
-  - columns.parent
-  - columns.path
-  - columns.signing_id
-  - columns.username
-  - host
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

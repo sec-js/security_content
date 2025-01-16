@@ -3,7 +3,7 @@ id: 29eb39d3-2bc8-49cc-99b3-35593191a588
 version: 1
 date: '2025-01-06'
 author: Dean Luxton
-data_sources:
+data_source:
 - Azure Active Directory Add app role assignment to service principal
 type: TTP
 status: production
@@ -48,8 +48,6 @@ tags:
   analytic_story:
   - Azure Active Directory Privilege Escalation
   asset_type: Azure Tenant
-  confidence: 100
-  impact: 100
   mitre_attack_id:
   - T1098.003
   - T1098
@@ -57,18 +55,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - user_agent
-  - identity
-  - properties.initiatedBy.app.servicePrincipalId
-  - operationName
-  - tenantId 
-  - correlationId
-  - category
-  - properties.initiatedBy.app.displayName
-  - properties.result
-  - properties{}.targetResources{}.modifiedProperties{}
-  - properties.targetResources{}.displayName
   security_domain: identity
 tests:
 - name: True Positive Test

@@ -61,8 +61,6 @@ tags:
   - Linux Persistence Techniques
   - Compromised Linux Host
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
   mitre_attack_id:
   - T1547.006
   - T1547
@@ -70,15 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - comm
-  - exe
-  - SYSCALL
-  - UID
-  - ppid
-  - pid
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -56,10 +56,8 @@ tags:
   - Log4Shell CVE-2021-44228
   - CISA AA22-320A
   asset_type: Endpoint
-  confidence: 30
   cve:
   - CVE-2021-44228
-  impact: 50
   mitre_attack_id:
   - T1190
   - T1133
@@ -67,21 +65,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - action
-  - category
-  - dest
-  - dest_port
-  - http_content_type
-  - http_method
-  - http_referrer
-  - http_user_agent
-  - site
-  - src
-  - url
-  - url_domain
-  - user
-  risk_score: 15
   security_domain: threat
 tests:
 - name: True Positive Test

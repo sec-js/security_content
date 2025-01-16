@@ -30,13 +30,8 @@ tags:
   - Emotet Malware DHS Report TA18-201A
   - SamSam Ransomware
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _times
-  risk_score: 25
   security_domain: endpoint

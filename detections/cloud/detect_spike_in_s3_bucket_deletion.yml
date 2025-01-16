@@ -52,17 +52,10 @@ tags:
   analytic_story:
   - Suspicious AWS S3 Activities
   asset_type: S3 Bucket
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1530
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - userIdentity.arn
-  risk_score: 25
   security_domain: network

@@ -55,8 +55,6 @@ tags:
   - Active Directory Privilege Escalation
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 50
-  impact: 100
   mitre_attack_id:
   - T1484
   - T1484.001
@@ -64,14 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - admonEventType
-  - objectCategory
-  - displayName
-  - gPCFileSysPath
-  - dcName
-  risk_score: 50
   security_domain: endpoint
 tests:
 - name: True Positive Test

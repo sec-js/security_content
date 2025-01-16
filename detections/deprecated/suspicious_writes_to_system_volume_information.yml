@@ -24,15 +24,10 @@ tags:
   analytic_story:
   - Collection and Staging
   asset_type: Windows
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1036
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: endpoint

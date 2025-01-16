@@ -55,10 +55,8 @@ tags:
   analytic_story:
   - Spring4Shell CVE-2022-22965
   asset_type: Web Server
-  confidence: 80
   cve:
   - CVE-2022-22965
-  impact: 90
   mitre_attack_id:
   - T1190
   - T1133
@@ -66,16 +64,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - http_request_body
-  - http_method
-  - http_user_agent
-  - uri_path
-  - url
-  - bytes_in
-  - bytes_out
-  risk_score: 72
   security_domain: network
 tests:
 - name: True Positive Test

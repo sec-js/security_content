@@ -61,8 +61,6 @@ tags:
   - Windows Persistence Techniques
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
   mitre_attack_id:
   - T1546.011
   - T1546
@@ -70,15 +68,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.process_guid
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

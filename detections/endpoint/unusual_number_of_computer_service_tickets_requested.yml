@@ -36,22 +36,10 @@ tags:
   - Active Directory Kerberos Attacks
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 60
-  impact: 70
-  message: ''
   mitre_attack_id:
   - T1078
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Ticket_Options
-  - Ticket_Encryption_Type
-  - dest
-  - service
-  - service_id
-  risk_score: 42
   security_domain: endpoint

@@ -72,8 +72,6 @@ tags:
   - Graceful Wipe Out Attack
   - BlackSuit Ransomware
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   atomic_guid:
   - 736b4f53-f400-4c22-855d-1a6b5a551600
   - b95fd967-4e62-4109-b48d-265edfd28c3a
@@ -87,16 +85,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.dest
-  - Processes.user
-  - Processes.process_name
-  - Processes.parent_process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 25.0
   security_domain: endpoint
 tests:
 - name: True Positive Test

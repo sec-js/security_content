@@ -37,21 +37,12 @@ tags:
   - LockBit Ransomware
   - Rhysida Ransomware
   asset_type: Endpoint
-  confidence: 100
-  impact: 90
   mitre_attack_id:
   - T1485
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.user
-  - Filesystem.dest
-  - Filesystem.file_path
-  - Filesystem.file_name
-  risk_score: 90
   security_domain: endpoint
 tests:
 - name: True Positive Test

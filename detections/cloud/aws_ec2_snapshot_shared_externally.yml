@@ -57,25 +57,12 @@ tags:
   - Suspicious Cloud Instance Activities
   - Data Exfiltration
   asset_type: EC2 Snapshot
-  confidence: 80
-  impact: 60
   mitre_attack_id:
   - T1537
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - user_arn
-  - src_ip
-  - requestParameters.attributeType
-  - aws_account_id
-  - vendor_region
-  - user_agent
-  - userIdentity.principalId
-  risk_score: 48
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -84,4 +71,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1537/aws_snapshot_exfil/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

@@ -61,8 +61,6 @@ tags:
   analytic_story:
   - Windows Discovery Techniques
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
   mitre_attack_id:
   - T1087.002
   - T1069.001
@@ -75,14 +73,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - file_path
-  - dest
-  - file_name
-  - process_id
-  - file_create_time
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -5,7 +5,6 @@ date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
-datamodel: []
 description: The following analytic detects the creation of scheduled tasks designed
   to execute commands using native Windows shells like PowerShell, Cmd, Wscript, or
   Cscript. It leverages Windows Security EventCode 4698 to identify when such tasks
@@ -64,8 +63,6 @@ tags:
   - Compromised Windows Host
   - Winter Vivern
   asset_type: Endpoint
-  confidence: 100
-  impact: 70
   mitre_attack_id:
   - T1053.005
   - T1053
@@ -73,13 +70,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - Task_Name
-  - Description
-  - Command
-  risk_score: 70
   security_domain: endpoint
 tests:
 - name: True Positive Test

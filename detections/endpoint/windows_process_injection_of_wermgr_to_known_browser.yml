@@ -55,8 +55,6 @@ tags:
   analytic_story:
   - Qakbot
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1055.001
   - T1055
@@ -64,19 +62,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - SourceImage
-  - TargetImage
-  - SourceProcessGuid
-  - SourceProcessId
-  - StartAddress
-  - StartFunction
-  - TargetProcessGuid
-  - TargetProcessId
-  - EventCode
-  - dest
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -85,4 +70,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/qakbot/remote_thread/sysmon_wermgr_remote.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

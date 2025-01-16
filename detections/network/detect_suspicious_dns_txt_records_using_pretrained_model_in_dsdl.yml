@@ -59,20 +59,10 @@ tags:
   - Suspicious DNS Traffic
   - Command And Control
   asset_type: Endpoint
-  confidence: 90
-  impact: 50
   mitre_attack_id:
   - T1568.002
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.message_type
-  - DNS.record_type
-  - DNS.src
-  - DNS.dest
-  - DNS.answer
-  risk_score: 45
   security_domain: network

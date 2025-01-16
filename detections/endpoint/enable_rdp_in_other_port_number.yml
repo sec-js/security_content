@@ -16,12 +16,13 @@ description: The following analytic detects modifications to the registry that e
 data_source:
 - Sysmon EventID 12
 - Sysmon EventID 13
-search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Registry 
-  WHERE (Registry.registry_path="*\\CurrentControlSet\\Control\\Terminal
-  Server\\WinStations\\RDP-Tcp*" Registry.registry_value_name = "PortNumber") BY Registry.dest Registry.user Registry.registry_path Registry.registry_key_name
-  Registry.registry_value_name Registry.registry_value_data Registry.process_guid
-  | `drop_dm_object_name(Registry)` | where isnotnull(registry_value_data) | `security_content_ctime(firstTime)`
-  | `security_content_ctime(lastTime)` | `enable_rdp_in_other_port_number_filter`'
+search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
+  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.registry_path="*\\CurrentControlSet\\Control\\Terminal
+  Server\\WinStations\\RDP-Tcp*" Registry.registry_value_name = "PortNumber") BY Registry.dest
+  Registry.user Registry.registry_path Registry.registry_key_name Registry.registry_value_name
+  Registry.registry_value_data Registry.process_guid | `drop_dm_object_name(Registry)`
+  | where isnotnull(registry_value_data) | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
+  | `enable_rdp_in_other_port_number_filter`'
 how_to_implement: To successfully implement this search, you need to be ingesting
   logs with the registry value name, registry path, and registry value data from your
   endpoints. If you are using Sysmon, you must have at least version 2.0 of the official
@@ -58,23 +59,12 @@ tags:
   - Prohibited Traffic Allowed or Protocol Mismatch
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
   mitre_attack_id:
   - T1021
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.process_guid
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

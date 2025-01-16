@@ -28,26 +28,10 @@ tags:
   analytic_story:
   - AWS Cross Account Activity
   asset_type: AWS Account
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1078
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user_type
-  - userIdentity.sessionContext.sessionIssuer.type
-  - sourceIPAddress
-  - userIdentity.arn
-  - user_agent
-  - user_access_key
-  - status
-  - action
-  - requestParameters.roleName
-  - esponseElements.role.roleName
-  - esponseElements.role.createDate
-  risk_score: 25
   security_domain: threat

@@ -68,21 +68,12 @@ tags:
   - BlackSuit Ransomware
   - Cleo File Transfer Software
   asset_type: Windows
-  confidence: 50
-  impact: 30
   mitre_attack_id:
   - T1082
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.user
-  - Processes.process_name
-  - Processes.dest
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test

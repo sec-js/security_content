@@ -63,8 +63,6 @@ tags:
   - Insider Threat
   - Volt Typhoon
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
   mitre_attack_id:
   - T1110.003
   - T1110
@@ -72,15 +70,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Logon_Type
-  - ProcessName
-  - SubjectUserName
-  - TargetUserName
-  - Computer
-  risk_score: 49
   security_domain: endpoint
 tests:
 - attack_data:

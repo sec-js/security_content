@@ -40,8 +40,6 @@ tags:
   - PXA Stealer
   - Meduza Stealer
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
   mitre_attack_id:
   - T1590.005
   - T1590
@@ -49,16 +47,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - ProcessId
-  - QueryName
-  - QueryStatus
-  - QueryResults
-  - dest
-  - EventCode
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -67,4 +55,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/azorult/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true
