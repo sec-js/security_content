@@ -23,7 +23,7 @@ references:
 - https://www.bleepingcomputer.com/news/security/fbi-hackers-use-badusb-to-target-defense-firms-with-ransomware/
  drilldown_searches:
 - name: View the detection results for - "$dest$"
-  search: '%original_detection_search% | search dest = "$dets$"'
+  search: '%original_detection_search% | search dest = "$dest$"'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$dest$"
