@@ -1,7 +1,7 @@
 name: Linux Auditd Setuid Using Chmod Utility
 id: 8230c407-1b47-4d95-ac2e-718bd6381386
-version: 2
-date: '2024-09-30'
+version: 3
+date: '2025-01-20'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly

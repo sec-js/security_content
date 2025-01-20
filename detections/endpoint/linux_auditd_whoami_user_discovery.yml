@@ -1,7 +1,7 @@
 name: Linux Auditd Whoami User Discovery
 id: d1ff2e22-310d-446a-80b3-faedaa7b3b52
-version: 2
-date: '2024-09-30'
+version: 3
+date: '2025-01-20'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly

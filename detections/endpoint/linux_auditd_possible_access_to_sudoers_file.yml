@@ -1,7 +1,7 @@
 name: Linux Auditd Possible Access To Sudoers File
 id: 8be88f46-f7e8-4ae6-b15e-cf1b13392834
-version: 2
-date: '2024-09-30'
+version: 3
+date: '2025-01-20'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly

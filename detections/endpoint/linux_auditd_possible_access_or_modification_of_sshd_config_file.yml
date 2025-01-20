@@ -1,7 +1,7 @@
 name: Linux Auditd Possible Access Or Modification Of Sshd Config File
 id: acb3ea33-70f7-47aa-b335-643b3aebcb2f
-version: 2
-date: '2024-09-30'
+version: 3
+date: '2025-01-20'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly

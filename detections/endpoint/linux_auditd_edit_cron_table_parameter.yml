@@ -1,7 +1,7 @@
 name: Linux Auditd Edit Cron Table Parameter
 id: f4bb7321-7e64-4d1e-b1aa-21f8b019a91f
-version: 2
-date: '2024-09-30'
+version: 3
+date: '2025-01-20'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP

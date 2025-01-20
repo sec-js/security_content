@@ -1,7 +1,7 @@
 name: Linux Auditd Osquery Service Stop
 id: 0c320fea-6e87-4b99-a884-74d09d4b655d
-version: 2
-date: '2024-09-30'
+version: 3
+date: '2025-01-20'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP

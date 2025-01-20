@@ -1,7 +1,7 @@
 name: Linux Auditd Sysmon Service Stop
 id: 20901256-633a-40de-8753-7b88811a460f
-version: 2
-date: '2024-09-30'
+version: 3
+date: '2025-01-20'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
