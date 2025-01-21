@@ -1,7 +1,7 @@
 name: Okta User Logins from Multiple Cities
 id: a3d1df37-c2a9-41d0-aa8f-59f82d6192a8
-version: 3
-date: '2024-09-30'
+version: 4
+date: '2025-01-21'
 author: Bhavin Patel, Splunk
 data_source:
 - Okta
