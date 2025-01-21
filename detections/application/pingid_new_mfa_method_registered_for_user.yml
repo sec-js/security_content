@@ -1,7 +1,7 @@
 name: PingID New MFA Method Registered For User
 id: 892dfeaf-461d-4a78-aac8-b07e185c9bce
-version: 3
-date: '2024-09-30'
+version: 4
+date: '2025-01-21'
 author: Steven Dick
 status: production
 type: TTP
