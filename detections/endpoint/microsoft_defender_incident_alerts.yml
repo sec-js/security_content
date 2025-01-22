@@ -37,6 +37,26 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$","$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: $severity$ alert for $dest$ - $signature$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 81
+  - field: user
+    type: user
+    score: 81
+  threat_objects:
+  - field: file_name
+    type: file_name
+  - field: process
+    type: process_name
+  - field: ip_address
+    type: ip_address
+  - field: registry_key
+    type: registry_path
+  - field: url
+    type: url
 tags:
   analytic_story:
   - Critical Alerts

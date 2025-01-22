@@ -30,6 +30,15 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: process $process_name$ drops a file $file_name$ in host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - CVE-2023-21716 Word RTF Heap Corruption

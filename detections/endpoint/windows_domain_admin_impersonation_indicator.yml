@@ -58,6 +58,14 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: $TargetUserName$ may be impersonating a Domain Administrator through a
+    forged Kerberos ticket.
+  risk_objects:
+  - field: TargetUserName
+    type: user
+    score: 80
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Kerberos Attacks

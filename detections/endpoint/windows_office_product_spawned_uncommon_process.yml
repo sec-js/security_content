@@ -43,6 +43,18 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: User $user$ on $dest$ spawned Windows Script Host from Winword.exe
+  risk_objects:
+  - field: dest
+    type: system
+    score: 70
+  - field: user
+    type: user
+    score: 70
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - AgentTesla

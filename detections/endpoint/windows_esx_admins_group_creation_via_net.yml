@@ -26,6 +26,17 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$", "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: An attempt to create an "ESX Admins" group was detected on $dest$ by user
+    $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 56
+  - field: dest
+    type: system
+    score: 56
+  threat_objects: []
 tags:
   analytic_story:
   - VMware ESXi AD Integration Authentication Bypass CVE-2024-37085
@@ -37,7 +48,6 @@ tags:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 56
   security_domain: endpoint
   cve:
   - CVE-2024-37085

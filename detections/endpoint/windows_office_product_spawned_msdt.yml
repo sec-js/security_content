@@ -50,6 +50,21 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Office process $parent_process_name$ has spawned a child process $process_name$
+    on host $dest$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 100
+  - field: dest
+    type: system
+    score: 100
+  threat_objects:
+  - field: parent_process_name
+    type: parent_process_name
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Spearphishing Attachments

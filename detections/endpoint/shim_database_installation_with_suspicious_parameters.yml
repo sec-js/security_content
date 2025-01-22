@@ -35,6 +35,17 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: A process $process_name$ that possibly creates a shim db silently in host
+    $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 63
+  - field: user
+    type: user
+    score: 63
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Persistence Techniques

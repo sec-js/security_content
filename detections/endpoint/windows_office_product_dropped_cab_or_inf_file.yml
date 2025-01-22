@@ -35,6 +35,16 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: An instance of $process_name$ was identified on $dest$ writing an inf or
+    cab file to this. This is not typical of $process_name$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 80
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Spearphishing Attachments

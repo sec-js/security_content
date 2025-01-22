@@ -51,44 +51,31 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: User $user$ on $dest$ spawned Windows Script Host from Winword.exe
+  risk_objects:
+  - field: dest
+    type: system
+    score: 70
+  - field: user
+    type: user
+    score: 70
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Spearphishing Attachments
   - Compromised Windows Host
   - CVE-2023-21716 Word RTF Heap Corruption
   asset_type: Endpoint
-  confidence: 100
-  impact: 70
-  message: User $user$ on $dest$ spawned Windows Script Host from Winword.exe
   mitre_attack_id:
   - T1566
   - T1566.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - process_name
-  - process_id
-  - parent_process_name
-  - dest
-  - user
-  - parent_process_id
-  risk_score: 70
   security_domain: endpoint
 tests:
 - name: True Positive Test
