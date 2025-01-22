@@ -1,7 +1,7 @@
 name: Windows Disable or Modify Tools Via Taskkill
 id: a43ae66f-c410-4b3d-8741-9ce1ad17ddb0
-version: '6'
-date: '2024-12-17'
+version: 6
+date: '2024-11-22'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -51,46 +51,33 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: A taskkill process to terminate process is executed on host- $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects:
+  - field: parent_process_name
+    type: parent_process_name
 tags:
   analytic_story:
   - PXA Stealer
   - NjRAT
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: A taskkill process to terminate process is executed on host- $dest$
   mitre_attack_id:
   - T1562
   - T1562.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process Name
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 36
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/taskkill/taskkill_im.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/taskkill/taskkill_im.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

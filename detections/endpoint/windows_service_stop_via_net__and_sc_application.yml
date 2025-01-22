@@ -1,7 +1,7 @@
 name: Windows Service Stop Via Net  and SC Application
 id: 827af04b-0d08-479b-9b84-b7d4644e4b80
-version: '4'
-date: '2024-12-17'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -50,45 +50,30 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: $process$ was executed on $dest$ attempting to stop service.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - Prestige Ransomware
   - Graceful Wipe Out Attack
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: $process$ was executed on $dest$ attempting to stop service.
   mitre_attack_id:
   - T1489
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/prestige_ransomware/sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/prestige_ransomware/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

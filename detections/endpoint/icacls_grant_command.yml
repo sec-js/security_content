@@ -49,6 +49,17 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Process name $process_name$ with grant argument executed by $user$ to change
+    security permission of a specific file or directory on host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  - field: user
+    type: user
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - Ransomware
@@ -56,38 +67,17 @@ tags:
   - XMRig
   - Defense Evasion or Unauthorized Access Via SDDL Tampering
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Process name $process_name$ with grant argument executed by $user$ to change
-    security permission of a specific file or directory on host $dest$
   mitre_attack_id:
   - T1222
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.dest
-  - Processes.user
-  - Processes.process_id
-  - Processes.process
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

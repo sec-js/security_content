@@ -1,7 +1,7 @@
 name: Windows Service Created with Suspicious Service Path
 id: 429141be-8311-11eb-adb6-acde48001122
-version: '8'
-date: '2024-12-17'
+version: 8
+date: '2024-11-13'
 author: Teoderick Contreras, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -42,6 +42,16 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: A service $ImagePath$ was created from a non-standard path using $ServiceName$
+    on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 56
+  threat_objects:
+  - field: ImagePath
+    type: service
 tags:
   analytic_story:
   - Qakbot
@@ -54,39 +64,18 @@ tags:
   - Crypto Stealer
   - Snake Malware
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
-  message: A service $ImagePath$ was created from a non-standard path using $ServiceName$
-    on $dest$
   mitre_attack_id:
   - T1569
   - T1569.002
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: ImagePath
-    type: File
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - Service_File_Name
-  - Service_Type
-  - _time
-  - Service_Name
-  - Service_Start_Type
-  - dest
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1569.002/windows_service_created_with_suspicious_service_path/windows-xml.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1569.002/windows_service_created_with_suspicious_service_path/windows-xml.log
     source: XmlWinEventLog:System
     sourcetype: XmlWinEventLog

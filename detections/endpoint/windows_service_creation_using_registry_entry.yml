@@ -43,6 +43,14 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: A Windows Service was created on a endpoint from $dest$ using a registry
+    entry
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Persistence Techniques
@@ -54,34 +62,17 @@ tags:
   - Active Directory Lateral Movement
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: A Windows Service was created on a endpoint from $dest$ using a registry
-    entry
   mitre_attack_id:
   - T1574.011
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.process_guid
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.011/change_registry_path_service/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.011/change_registry_path_service/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

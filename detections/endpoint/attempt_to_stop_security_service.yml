@@ -1,7 +1,7 @@
 name: Attempt To Stop Security Service
 id: c8e349c6-b97c-486e-8949-bd7bcd1f3910
-version: '8'
-date: '2024-12-17'
+version: 8
+date: '2024-11-13'
 author: Rico Valdez, Splunk
 status: production
 type: TTP
@@ -54,6 +54,21 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: An instance of $parent_process_name$ spawning $process_name$ was identified
+    attempting to disable security services on endpoint $dest$ by user $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 20
+  - field: dest
+    type: system
+    score: 20
+  threat_objects:
+  - field: parent_process_name
+    type: parent_process_name
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Azorult
@@ -64,52 +79,18 @@ tags:
   - WhisperGate
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 50
-  impact: 40
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    attempting to disable security services on endpoint $dest$ by user $user$.
   mitre_attack_id:
   - T1562.001
   - T1562
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process
-    role:
-    - Attacker
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 20
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_defend_service_stop/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/win_defend_service_stop/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

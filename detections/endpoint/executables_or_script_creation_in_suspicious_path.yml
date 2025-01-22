@@ -1,7 +1,7 @@
 name: Executables Or Script Creation In Suspicious Path
 id: a7e3f0f0-ae42-11eb-b245-acde48001122
-version: '6'
-date: '2024-12-17'
+version: 6
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -49,6 +49,16 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Suspicious executable or scripts with file name $file_name$, $file_path$
+    and process_id $process_id$ executed in suspicious file path in Windows by $user$
+  risk_objects:
+  - field: user
+    type: user
+    score: 20
+  threat_objects:
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
   - Volt Typhoon
@@ -88,37 +98,17 @@ tags:
   - MoonPeak
   - WhisperGate
   asset_type: Endpoint
-  confidence: 50
-  impact: 40
-  message: Suspicious executable or scripts with file name $file_name$, $file_path$
-    and process_id $process_id$ executed in suspicious file path in Windows by $user$
   mitre_attack_id:
   - T1036
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: file_name
-    type: File Name
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.file_path
-  - Filesystem.file_create_time
-  - Filesystem.process_id
-  - Filesystem.file_name
-  - Filesystem.user
-  risk_score: 20
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

@@ -3,12 +3,11 @@ id: 86f66f44-94d9-412d-a71d-5d8ed0fef72e
 version: 1
 date: '2024-12-12'
 author: Teoderick Contreras, Splunk
-data_sources:
+data_source:
 - Sysmon EventID 22
 type: Anomaly
 status: production
 description: The following analytic detects the execution of a DNS query by a process to the associated Telegram API domain, which could indicate access via a Telegram bot commonly used by malware for command and control (C2) communications. By monitoring DNS queries related to Telegram's infrastructure, the detection identifies potential attempts to establish covert communication channels between a compromised system and external malicious actors. This behavior is often observed in cyberattacks where Telegram bots are used to receive commands or exfiltrate data, making it a key indicator of suspicious or malicious activity within a network.
-kind: endpoint
 search: '`sysmon` EventCode=22  query = "api.telegram.org" process_name != "telegram.exe"
   | stats count min(_time) as firstTime max(_time) as lastTime  by query answer QueryResults QueryStatus process_name process_guid Computer 
   | rename Computer as dest 
@@ -28,39 +27,26 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: DNS query by a telegram bot [$query$] on [$dest$].
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: a DNS query to [$query$] on [$dest$].
   mitre_attack_id:
   - T1102.002
   - T1071.004
   - T1071
   - T1102
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - QueryName
-  - QueryStatus
-  - ProcessId
-  - dest
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

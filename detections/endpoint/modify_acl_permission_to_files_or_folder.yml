@@ -1,7 +1,7 @@
 name: Modify ACL permission To Files Or Folder
 id: 7e8458cc-acca-11eb-9e3f-acde48001122
-version: '6'
-date: '2024-12-17'
+version: 6
+date: '2024-12-16'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -51,39 +51,30 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Suspicious ACL permission modification on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 32
+  threat_objects: []
 tags:
   analytic_story:
   - Crypto Stealer
   - XMRig
   - Defense Evasion or Unauthorized Access Via SDDL Tampering
   asset_type: Endpoint
-  confidence: 80
-  impact: 40
-  message: Suspicious ACL permission modification on $dest$
   mitre_attack_id:
   - T1222
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.dest
-  - Processes.user
-  - Processes.process
-  - Processes.process_id
-  risk_score: 32
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: Detect Rare Executables
 id: 44fddcb2-8d3b-454c-874e-7c6de5a4f7ac
-version: '7'
-date: '2024-12-17'
+version: 7
+date: '2024-11-13'
 author: Bhavin Patel, Splunk
 status: production
 type: Anomaly
@@ -48,37 +48,31 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: A rare process - [$process_name$] has been detected on less than 10 hosts
+    in your environment.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Unusual Processes
   - Rhysida Ransomware
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: A rare process - [$process_name$] has been detected on less than 10 hosts
-    in your environment.
   mitre_attack_id:
   - T1204
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.process_name
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1204/rare_executables/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1204/rare_executables/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

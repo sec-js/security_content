@@ -3,12 +3,11 @@ id: 4ab6862b-ce88-4223-96c0-f6da2cffb898
 version: 1
 date: '2024-12-12'
 author: Teoderick Contreras, Splunk
-data_sources:
+data_source:
 - Sysmon Event ID 11
 type: Anomaly
 status: production
 description: The following analytic detects the creation of RAR Self-Extracting (SFX) files by monitoring the generation of file related to rar sfx .tmp file creation during sfx installation. This method leverages a heuristic to identify RAR SFX archives based on specific markers that indicate a combination of executable code and compressed RAR data. By tracking such activity, the analytic helps pinpoint potentially unauthorized or suspicious file creation events, which are often associated with malware packaging or data exfiltration. Legitimate usage may include custom installers or compressed file delivery.
-kind: endpoint
 search: '`sysmon` EventCode=11 TargetFilename IN ("*__tmp_rar_sfx_access_check*") 
   | stats count min(_time) as firstTime max(_time) as lastTime by Image TargetFilename Computer 
   | rename Computer as dest 
@@ -29,36 +28,25 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: A process commandline- [$Image$] that drops [$file_name$] on [$dest$].
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects:
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: A process commandline- [$Image$] that drops [$file_name$] on [$dest$].
   mitre_attack_id:
   - T1027.013
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: file_name
-    type: File Name
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - process_name
-  - file_name
-  - process_guid
-  - dest
-  - user_id
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

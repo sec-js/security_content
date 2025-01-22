@@ -1,7 +1,7 @@
 name: High Process Termination Frequency
 id: 17cd75b2-8666-11eb-9ab4-acde48001122
-version: '6'
-date: '2024-12-17'
+version: 6
+date: '2024-11-13'
 author: Teoderick Contreras
 status: production
 type: Anomaly
@@ -39,6 +39,16 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: High frequency process termination (more than 15 processes within 3s) detected
+    on host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 72
+  threat_objects:
+  - field: proc_terminated
+    type: process
 tags:
   analytic_story:
   - LockBit Ransomware
@@ -48,36 +58,17 @@ tags:
   - BlackByte Ransomware
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
-  message: High frequency process termination (more than 15 processes within 3s) detected
-    on host $dest$
   mitre_attack_id:
   - T1486
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: proc_terminated
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - Image
-  - dest
-  - _time
-  - ProcessID
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/clop/clop_a/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/clop/clop_a/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

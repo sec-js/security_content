@@ -1,7 +1,7 @@
 name: Windows Service Stop By Deletion
 id: 196ff536-58d9-4d1b-9686-b176b04e430b
-version: '4'
-date: '2024-12-17'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -53,43 +53,31 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: An instance of $parent_process_name$ spawning $process_name$ was identified
+    on endpoint $dest$ attempting to delete a service.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - Azorult
   - Graceful Wipe Out Attack
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    on endpoint $dest$ attempting to delete a service.
   mitre_attack_id:
   - T1489
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_id
-  - Processes.parent_process_id
-  - Processes.dest
-  - Processes.user
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/azorult/sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/azorult/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

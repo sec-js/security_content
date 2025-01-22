@@ -1,7 +1,7 @@
 name: Windows System File on Disk
 id: 993ce99d-9cdd-42c7-a2cf-733d5954e5a6
-version: '5'
-date: '2024-12-17'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -34,37 +34,17 @@ tags:
   - Windows Drivers
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 50
-  impact: 20
-  message: A new driver is present on $dest$.
   mitre_attack_id:
   - T1068
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 10
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1068/drivers/sysmon_sys_filemod.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1068/drivers/sysmon_sys_filemod.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

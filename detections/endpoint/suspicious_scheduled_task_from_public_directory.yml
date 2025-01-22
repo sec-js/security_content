@@ -1,7 +1,7 @@
 name: Suspicious Scheduled Task from Public Directory
 id: 7feb7972-7ac3-11eb-bac8-acde48001122
-version: '4'
-date: '2024-12-17'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -53,6 +53,16 @@ drilldown_searches:
     by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Suspicious scheduled task registered on $dest$ from Public Directory
+  risk_objects:
+  - field: dest
+    type: system
+    score: 35
+  - field: user
+    type: user
+    score: 35
+  threat_objects: []
 tags:
   analytic_story:
   - Azorult
@@ -67,40 +77,18 @@ tags:
   - DarkCrystal RAT
   - Living Off The Land
   asset_type: Endpoint
-  confidence: 50
-  impact: 70
-  message: Suspicious scheduled task registered on $dest$ from Public Directory
   mitre_attack_id:
   - T1053.005
   - T1053
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.process
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1053.005/schtasks/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1053.005/schtasks/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

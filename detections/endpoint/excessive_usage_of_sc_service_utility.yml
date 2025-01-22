@@ -1,7 +1,7 @@
 name: Excessive Usage Of SC Service Utility
 id: cb6b339e-d4c6-11eb-a026-acde48001122
-version: '4'
-date: '2024-12-17'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -45,37 +45,31 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Excessive Usage Of SC Service Utility
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Azorult
   - Ransomware
   - Crypto Stealer
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Excessive Usage Of SC Service Utility
   mitre_attack_id:
   - T1569
   - T1569.002
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - process_name
-  - process
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/ransomware_ttp/data2/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/ransomware_ttp/data2/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog

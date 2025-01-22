@@ -1,7 +1,7 @@
 name: Suspicious Process File Path
 id: 9be25988-ad82-11eb-a14f-acde48001122
-version: '7'
-date: '2024-12-17'
+version: 6
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -56,6 +56,16 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Suspicious process $process_name$ running from a suspicious process path-
+    $process_path$ on host- $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 35
+  threat_objects:
+  - field: process_path
+    type: process_name
 tags:
   analytic_story:
   - Volt Typhoon
@@ -94,39 +104,17 @@ tags:
   - MoonPeak
   - WhisperGate
   asset_type: Endpoint
-  confidence: 50
-  impact: 70
-  message: Suspicious process $process_name$ running from a suspicious process path-
-    $process_path$ on host- $dest$
   mitre_attack_id:
   - T1543
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: process_path
-    type: Process Name
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_path
-  - Processes.dest
-  - Processes.user
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
