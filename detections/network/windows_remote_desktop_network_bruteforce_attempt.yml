@@ -30,38 +30,28 @@ drilldown_searches:
   search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: $dest$ may be the target of an RDP Bruteforce from $src$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - SamSam Ransomware
   - Ryuk Ransomware
   - Compromised User Account
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: $dest$ may be the target of an RDP Bruteforce from $src$
   mitre_attack_id:
   - T1110.001
   - T1110
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.app
-  - All_Traffic.src
-  - All_Traffic.dest
-  - All_Traffic.dest_port
-  risk_score: 25
   security_domain: network
 tests:
 - name: True Positive Test
