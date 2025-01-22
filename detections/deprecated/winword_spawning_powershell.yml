@@ -74,10 +74,6 @@ tags:
   - CVE-2023-21716 Word RTF Heap Corruption
   - DarkCrystal RAT
   asset_type: Endpoint
-  confidence: 100
-  impact: 70
-  message: '$parent_process_name$ on $dest$ by $user$ launched the following powershell
-    process: $process_name$ which is very common in spearphishing attacks'
   mitre_attack_id:
   - T1566
   - T1566.001

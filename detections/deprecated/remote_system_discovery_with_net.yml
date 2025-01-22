@@ -21,9 +21,6 @@ tags:
   - Active Directory Discovery
   - IcedID
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: Remote system discovery enumeration on $dest$ by $user$
   mitre_attack_id:
   - T1018
   product:

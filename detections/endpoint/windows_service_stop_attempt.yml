@@ -29,13 +29,6 @@ drilldown_searches:
     | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
-rba:
-  message: $process$ was executed on $dest$ attempting to stop service.
-  risk_objects:
-  - field: dest
-    type: system
-    score: 49
-  threat_objects: []
 tags:
   analytic_story:
   - Prestige Ransomware
