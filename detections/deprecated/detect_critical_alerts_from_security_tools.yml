@@ -22,54 +22,45 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$dest$" and "$user$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$", "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: $severity$ alert for $user$ from $sourcetype$ - $signature$
+  risk_objects:
+  - field: user
+    type: user
+    score: 50
+  - field: dest
+    type: system
+    score: 50
+  threat_objects: []
 tags:
   analytic_story:
   - Critical Alerts
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 100
-  impact: 50
-  message: $severity$ alert for $user$ from $sourcetype$ - $signature$
   mitre_attack_id: []
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Alerts.description
-  - Alerts.mitre_technique_id
-  - Alerts.severity
-  - Alerts.type
-  - Alerts.severity_id
-  - Alerts.signature
-  - Alerts.dest
-  - Alerts.src
-  - Alerts.user
-  - Alerts.id
-  - Alerts.vendor
-  - sourcetype
-  risk_score: 50
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/alerts/AdvancedHunting.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/alerts/AdvancedHunting.log
     source: eventhub://windowsdefenderlogs
     sourcetype: mscs:azure:eventhub:defender:advancedhunting
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/alerts/defender_incident_alerts.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/alerts/defender_incident_alerts.log
     source: m365_defender_incident_alerts
     sourcetype: ms365:defender:incident:alerts

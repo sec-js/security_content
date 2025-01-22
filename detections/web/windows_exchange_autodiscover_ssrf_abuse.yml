@@ -38,50 +38,46 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 - name: View risk events for the last 7 days for - "$dest$"
-  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories) as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: Activity related to ProxyShell or ProxyNotShell has been identified on
+    $dest$. Review events and take action accordingly.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 72
+  threat_objects: []
 tags:
   analytic_story:
   - ProxyShell
   - BlackByte Ransomware
   - ProxyNotShell
   asset_type: Web Server
-  confidence: 80
   cve:
   - CVE-2021-34523
   - CVE-2021-34473
   - CVE-2021-31207
   - CVE-2022-41040
   - CVE-2022-41082
-  impact: 90
-  message: Activity related to ProxyShell or ProxyNotShell has been identified on $dest$. Review events and take action accordingly.
   mitre_attack_id:
   - T1190
   - T1133
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Web.src
-  - Web.status
-  - Web.uri_path
-  - Web.dest
-  - Web.http_method
-  - Web.uri_query
-  risk_score: 72
   security_domain: network
 tests:
 - name: True Positive Test
   attack_data:
-  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1190/proxyshell/proxyshell.log
+  - data: 
+      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1190/proxyshell/proxyshell.log
     source: ms:iis:splunk
     sourcetype: ms:iis:splunk
-    update_timestamp: true
