@@ -30,35 +30,13 @@ tags:
   analytic_story:
   - VMware ESXi AD Integration Authentication Bypass CVE-2024-37085
   asset_type: Endpoint
-  confidence: 70
-  impact: 80
-  message: An attempt to create an "ESX Admins" group was detected on $dest$ by user $user$.
   mitre_attack_id:
   - T1136.002
   - T1136.001
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.original_file_name
   risk_score: 56
   security_domain: endpoint
   cve:

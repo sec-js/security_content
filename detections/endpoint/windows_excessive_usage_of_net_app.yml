@@ -34,42 +34,12 @@ tags:
   - Ransomware
   - Rhysida Ransomware
   asset_type: Endpoint
-  confidence: 70
-  impact: 40
-  message: Excessive usage of net1.exe or net.exe within 1m, with command line $process$ has been detected on $dest$ by $user$
   mitre_attack_id:
   - T1531
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 28
   security_domain: endpoint
 tests:
 - name: True Positive Test

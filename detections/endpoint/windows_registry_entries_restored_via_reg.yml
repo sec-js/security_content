@@ -22,40 +22,12 @@ tags:
   - Windows Post-Exploitation
   - Prestige Ransomware
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: execution of process $process_name$ in $dest$
   mitre_attack_id:
   - T1012
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  - Processes.parent_process_guid
-  - Processes.process_guid
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

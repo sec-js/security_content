@@ -28,26 +28,13 @@ tags:
   - Linux Persistence Techniques
   - Compromised Linux Host
   asset_type: Endpoint
-  confidence: 90
-  impact: 90
-  message: A [$process_exec$] event occurred on host - [$dest$] to hijack or hook library functions using the LD_PRELOAD environment variable.
   mitre_attack_id:
   - T1574.006
   - T1574
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - argc
-  - process_exec
-  risk_score: 81
   security_domain: endpoint
 tests:
 - name: True Positive Test

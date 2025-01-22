@@ -30,38 +30,12 @@ tags:
   - Ransomware
   - BlackByte Ransomware
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
-  message: An excessive amount of $process_name$ was executed on $dest$ attempting to disable services.
   mitre_attack_id:
   - T1489
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

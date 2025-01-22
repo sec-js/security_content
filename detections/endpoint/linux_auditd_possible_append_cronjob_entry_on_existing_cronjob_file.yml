@@ -43,28 +43,13 @@ tags:
   - Scheduled Tasks
   - Linux Persistence Techniques
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: A [$type$] event has occurred on host - [$dest$] to append a cronjob entry
-    on an existing cronjob file.
   mitre_attack_id:
   - T1053.003
   - T1053
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - name
-  - nametype
-  - OGID
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test

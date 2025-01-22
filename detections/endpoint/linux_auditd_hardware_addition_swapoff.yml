@@ -28,25 +28,12 @@ tags:
   - AwfulShred
   - Compromised Linux Host
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: A [$process_exec$] event occurred on host - [$dest$] to disable the swapping of paging devices on a Linux system.
   mitre_attack_id:
   - T1200
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - argc
-  - process_exec
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test

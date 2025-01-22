@@ -38,43 +38,13 @@ tags:
   - Volt Typhoon
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 70
-  impact: 80
-  message: Suspicious use of `reg.exe` or `regedit.exe` to export sensitive registry hives that could potentially contain credentials, executed on $dest$ by user $user$, with a parent process of $parent_process_name$
   mitre_attack_id:
   - T1003.002
   - T1003
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test - Sysmon

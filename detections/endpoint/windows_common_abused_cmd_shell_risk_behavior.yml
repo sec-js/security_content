@@ -36,9 +36,6 @@ tags:
   - CISA AA23-347A
   - Disabling Security Tools
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: series of process commandline being abused by threat actor have been identified on $risk_object$
   mitre_attack_id:
   - T1222
   - T1049
@@ -46,23 +43,10 @@ tags:
   - T1529
   - T1016
   - T1059
-  observable:
-  - name: risk_object
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
-  required_fields:
-  - _time
-  - All_Risk.analyticstories
-  - All_Risk.risk_object_type
-  - All_Risk.risk_object
-  - All_Risk.annotations.mitre_attack.mitre_tactic
-  - source
   security_domain: endpoint
 tests:
 - name: True Positive Test

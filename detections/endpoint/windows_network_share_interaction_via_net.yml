@@ -32,34 +32,13 @@ tags:
   asset_type: Endpoint
   atomic_guid:
   - ab39a04f-0c93-4540-9ff2-83f862c385ae
-  confidence: 100
-  impact: 20
-  message: User $user$ leveraged net.exe on $dest$ to interact with network shares, executed by parent process $parent_process$
   mitre_attack_id:
   - T1135
   - T1039
-  required_fields:
-  - Processes.process_name
-  - Processes.user
-  - Processes.dest
-  - Processes.process_exec
-  - Processes.parent_process_exec
-  - Processes.process
-  - Processes.parent_process
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 20
   security_domain: endpoint
 tests:
 - name: True Positive Test

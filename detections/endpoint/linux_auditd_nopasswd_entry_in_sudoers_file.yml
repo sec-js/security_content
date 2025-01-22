@@ -29,25 +29,13 @@ tags:
   - Linux Persistence Techniques
   - Compromised Linux Host
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: A [$process_exec$] event occurred on host - [$dest$] to add NOPASSWD entry in sudoers file.
   mitre_attack_id:
   - T1548.003
   - T1548
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - proctitle
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

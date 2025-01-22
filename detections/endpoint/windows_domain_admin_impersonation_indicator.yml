@@ -65,28 +65,12 @@ tags:
   - Compromised Windows Host
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
-  message: $TargetUserName$ may be impersonating a Domain Administrator through a
-    forged Kerberos ticket.
   mitre_attack_id:
   - T1558
-  observable:
-  - name: TargetUserName
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 80
-  required_fields:
-  - _time,
-  - EventCode
-  - LogonType
-  - TargetUserName
-  - GroupMembership
   security_domain: endpoint
 tests:
 - name: True Positive Test

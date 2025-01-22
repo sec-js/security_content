@@ -31,47 +31,13 @@ tags:
   - DarkGate Malware
   - CISA AA24-241A
   asset_type: Endpoint
-  confidence: 60
-  impact: 50
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified on endpoint $dest$ by user $user$ attempting to add a user to the local Administrators group.
   mitre_attack_id:
   - T1136.001
   - T1136
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process
-    role:
-    - Attacker
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 30
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -33,25 +33,13 @@ tags:
   - Gomir
   - Compromised Linux Host
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: A [$process_exec$] event occurred on host - [$dest$] to restart or re-enable a service.
   mitre_attack_id:
   - T1053.006
   - T1053
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - proctitle
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

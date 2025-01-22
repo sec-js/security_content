@@ -40,33 +40,13 @@ tags:
   - Windows Persistence Techniques
   - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
-  message: A process $process_name$ that possible create a shim db silently in host
-    $dest$
   mitre_attack_id:
   - T1546.011
   - T1546
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.parent_process_name
-  - Processes.dest
-  - Processes.user
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

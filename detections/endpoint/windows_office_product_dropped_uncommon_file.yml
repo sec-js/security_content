@@ -39,33 +39,13 @@ tags:
   - AgentTesla
   - PlugX
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: An instance of $process_name$ was identified on $dest$ writing the file $file_name$. This is uncommon behavior and require further investigation.
   mitre_attack_id:
   - T1566
   - T1566.001
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - process_name
-  - file_name
-  - process_guid
-  - dest
-  - user_id
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test

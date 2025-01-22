@@ -28,32 +28,13 @@ tags:
   analytic_story:
   - Spearphishing Attachments
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: $process_name$ was identified loading the taskschd.dll on $dest$. This could indicate a potential malicious macro being executed. Further analysis is required.
   mitre_attack_id:
   - T1566
   - T1566.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - ImageLoaded
-  - AllImageLoaded
-  - dest
-  - EventCode
-  - Image
-  - process_name
-  - ProcessId
-  - ProcessGuid
-  - _time
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

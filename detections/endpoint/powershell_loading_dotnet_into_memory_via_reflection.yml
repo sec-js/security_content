@@ -35,33 +35,13 @@ tags:
   - Malicious PowerShell
   - Data Destruction
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
-  message: A suspicious powershell script that contains calls to reflective class assembly command in $ScriptBlockText$ is potentially trying to load malicious .NET code in memory in host $Computer$
   mitre_attack_id:
   - T1059
   - T1059.001
-  observable:
-  - name: Computer
-    type: Hostname
-    role:
-    - Victim
-  - name: UserID
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

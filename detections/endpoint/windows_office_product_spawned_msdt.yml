@@ -56,32 +56,11 @@ tags:
   - Compromised Windows Host
   - Microsoft Support Diagnostic Tool Vulnerability CVE-2022-30190
   asset_type: Endpoint
-  confidence: 100
   cve:
   - CVE-2022-30190
-  impact: 100
-  message: Office parent process $parent_process_name$ has spawned a child process
-    $process_name$ on host $dest$.
   mitre_attack_id:
   - T1566
   - T1566.001
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process
-    role:
-    - Attacker
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
@@ -99,7 +78,6 @@ tags:
   - Processes.parent_process_path
   - Processes.process_path
   - Processes.parent_process_id
-  risk_score: 100
   security_domain: endpoint
 tests:
 - name: True Positive Test

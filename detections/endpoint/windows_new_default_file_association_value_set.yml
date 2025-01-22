@@ -31,33 +31,13 @@ tags:
   - Windows Persistence Techniques
   - Data Destruction
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Default file association for $registry_path$ was modified to $registry_value_data$ in $dest$.
   mitre_attack_id:
   - T1546.001
   - T1546
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.user
-  - Registry.registry_path
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
