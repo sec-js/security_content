@@ -18,15 +18,14 @@ data_source:
 - Sysmon EventID 1
 - Windows Event Log Security 4688
 - CrowdStrike ProcessRollup2
-search: '| tstats `security_content_summariesonly` values(Processes.process) as process min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes
-  where `process_net` OR  Processes.process_name = sc.exe Processes.process="* stop *" 
-  by Processes.dest Processes.user Processes.parent_process Processes.parent_process_name Processes.process_name Processes.original_file_name Processes.process Processes.process_id Processes.parent_process_id 
-  | `drop_dm_object_name(Processes)` 
-  | `security_content_ctime(firstTime)`
-  | `security_content_ctime(lastTime)` 
-  |lookup security_services_lookup service as process OUTPUTNEW category, description 
-  | search category=security 
-  | `attempt_to_stop_security_service_filter`'
+search: '| tstats `security_content_summariesonly` values(Processes.process) as process
+  min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes
+  where `process_net` OR  Processes.process_name = sc.exe Processes.process="* stop
+  *" by Processes.dest Processes.user Processes.parent_process Processes.parent_process_name
+  Processes.process_name Processes.original_file_name Processes.process Processes.process_id
+  Processes.parent_process_id | `drop_dm_object_name(Processes)` | `security_content_ctime(firstTime)`
+  | `security_content_ctime(lastTime)` |lookup security_services_lookup service as
+  process OUTPUTNEW category, description | search category=security | `attempt_to_stop_security_service_filter`'
 how_to_implement: The detection is based on data that originates from Endpoint Detection
   and Response (EDR) agents. These agents are designed to provide security-related
   telemetry from the endpoints where the agent is installed. To implement this search,
@@ -72,13 +71,12 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - Azorult
-  - Data Destruction
-  - Disabling Security Tools
-  - Trickbot
-  - Graceful Wipe Out Attack
   - WhisperGate
-  - Crypto Stealer
+  - Graceful Wipe Out Attack
+  - Disabling Security Tools
+  - Data Destruction
+  - Azorult
+  - Trickbot
   asset_type: Endpoint
   mitre_attack_id:
   - T1562.001
