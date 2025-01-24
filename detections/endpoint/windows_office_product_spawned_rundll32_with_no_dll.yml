@@ -63,6 +63,9 @@ tags:
   - Spearphishing Attachments
   - CVE-2023-36884 Office and Windows HTML RCE Vulnerability
   - Compromised Windows Host
+  - Prestige Ransomware
+  - Graceful Wipe Out Attack
+  - Crypto Stealer
   asset_type: Endpoint
   mitre_attack_id:
   - T1566

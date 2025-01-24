@@ -53,13 +53,14 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
-  - Active Directory Lateral Movement
-  - Suspicious Windows Registry Activities
   - Windows Persistence Techniques
+  - CISA AA23-347A
   - Windows Registry Abuse
   - Brute Ratel C4
   - PlugX
-  - CISA AA23-347A
+  - Suspicious Windows Registry Activities
+  - Active Directory Lateral Movement
+  - Crypto Stealer
   asset_type: Endpoint
   mitre_attack_id:
   - T1574.011
