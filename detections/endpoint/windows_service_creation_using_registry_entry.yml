@@ -1,10 +1,10 @@
 name: Windows Service Creation Using Registry Entry
 id: 25212358-948e-11ec-ad47-acde48001122
-version: '7'
-date: '2024-12-17'
+version: 8
+date: '2025-01-20'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
-type: TTP
+type: Anomaly
 description: The following analytic detects the modification of registry keys that
   define Windows services using reg.exe. This detection leverages Splunk to search
   for specific keywords in the registry path, value name, and value data fields. This
