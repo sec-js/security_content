@@ -1,6 +1,6 @@
 name: Windows Excessive Service Stop Attempt
-id: ae8d3f4a-acd7-11eb-8846-acde48001122
-version: 6
+id: 8f3a614f-6b98-4f7d-82dd-d0df38452a8b
+version: 1
 date: '2025-01-13'
 author: Teoderick Contreras, Splunk
 status: production

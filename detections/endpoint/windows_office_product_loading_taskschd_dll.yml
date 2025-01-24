@@ -1,6 +1,6 @@
 name: Windows Office Product Loading Taskschd DLL
-id: cc8b7b74-9d0f-11eb-8342-acde48001122
-version: 9
+id: d7297cfa-1f04-4714-bfbe-3679e0666959
+version: 1
 date: '2025-01-20'
 author: Teoderick Contreras, Splunk
 status: production

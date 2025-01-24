@@ -1,6 +1,6 @@
 name: Windows Registry Entries Restored Via Reg
-id: d0072bd2-6d73-4c1b-bc77-ded6d2da3a4e
-version: 4
+id: a17af481-e2ad-494c-9da6-afb4d243a019
+version: 1
 date: '2025-01-14'
 author: Teoderick Contreras, Splunk
 status: production
