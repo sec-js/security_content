@@ -61,6 +61,7 @@ tags:
   analytic_story:
   - Prestige Ransomware
   - Graceful Wipe Out Attack
+  - Crypto Stealer
   asset_type: Endpoint
   mitre_attack_id:
   - T1489

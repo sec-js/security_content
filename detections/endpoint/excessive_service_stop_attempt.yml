@@ -63,9 +63,10 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - XMRig
   - Ransomware
   - BlackByte Ransomware
+  - Crypto Stealer
+  - XMRig
   asset_type: Endpoint
   mitre_attack_id:
   - T1489

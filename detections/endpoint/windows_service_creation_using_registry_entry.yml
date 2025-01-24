@@ -1,7 +1,7 @@
 name: Windows Service Creation Using Registry Entry
 id: 25212358-948e-11ec-ad47-acde48001122
-version: 7
-date: '2024-12-08'
+version: '7'
+date: '2024-12-17'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: TTP
@@ -53,13 +53,14 @@ rba:
   threat_objects: []
 tags:
   analytic_story:
-  - Active Directory Lateral Movement
-  - Suspicious Windows Registry Activities
   - Windows Persistence Techniques
+  - CISA AA23-347A
   - Windows Registry Abuse
   - Brute Ratel C4
   - PlugX
-  - CISA AA23-347A
+  - Suspicious Windows Registry Activities
+  - Active Directory Lateral Movement
+  - Crypto Stealer
   asset_type: Endpoint
   mitre_attack_id:
   - T1574.011
