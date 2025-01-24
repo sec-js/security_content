@@ -1,6 +1,6 @@
 name: Linux Auditd Private Keys and Certificate Enumeration
-id: 80bb9988-190b-4ee0-a3c3-509545a8f678
-version: 4
+id: 892eb674-3344-4143-8e52-4775b1daf3f1
+version: 1
 date: '2025-01-15'
 author: Teoderick Contreras, Splunk
 status: production

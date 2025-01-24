@@ -1,6 +1,6 @@
 name: Windows Office Product Spawned Child Process For Download
-id: 6fed27d2-9ec7-11eb-8fe4-aa665a019aa3
-version: 9
+id: f02b64b8-cbea-4f75-bf77-7a05111566b1
+version: 1
 date: '2025-01-14'
 author: Teoderick Contreras, Splunk
 status: production

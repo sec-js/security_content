@@ -1,6 +1,6 @@
 name: Windows Cmdline Tool Execution From Non-Shell Process
-id: 6c3f7dd8-153c-11ec-ac2d-acde48001122
-version: 6
+id: 2afa393f-b88d-41b7-9793-623c93a2dfde
+version: 1
 date: '2025-01-13'
 author: Teoderick Contreras, Splunk
 status: production

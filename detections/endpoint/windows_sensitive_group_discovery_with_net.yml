@@ -1,6 +1,6 @@
 name: Windows Sensitive Group Discovery With Net
-id: a23a0e20-0b1b-4a07-82e5-ec5f70811e7a
-version: 5
+id: d9eb7cda-5622-4722-bc88-7f2442f4b5af
+version: 1
 date: '2025-01-13'
 author: Mauricio Velazco, Splunk
 status: production
