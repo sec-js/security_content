@@ -1,11 +1,19 @@
 name: Linux Auditd Hidden Files And Directories Creation
 id: 555cc358-bf16-4e05-9b3a-0f89c73b7261
-version: 4
-date: '2025-01-16'
+version: 5
+date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production
-type: TTP
-description: The following analytic detects suspicious creation of hidden files and directories, which may indicate an attacker's attempt to conceal malicious activities or unauthorized data. Hidden files and directories are often used to evade detection by security tools and administrators, providing a stealthy means for storing malware, logs, or sensitive information. By monitoring for unusual or unauthorized creation of hidden files and directories, this analytic helps identify potential attempts to hide or unauthorized creation of hidden files and directories, this analytic helps identify potential attempts to hide malicious operations, enabling security teams to uncover and address hidden threats effectively.
+type: Anomaly
+description: The following analytic detects suspicious creation of hidden files and
+  directories, which may indicate an attacker's attempt to conceal malicious activities
+  or unauthorized data. Hidden files and directories are often used to evade detection
+  by security tools and administrators, providing a stealthy means for storing malware,
+  logs, or sensitive information. By monitoring for unusual or unauthorized creation
+  of hidden files and directories, this analytic helps identify potential attempts
+  to hide or unauthorized creation of hidden files and directories, this analytic
+  helps identify potential attempts to hide malicious operations, enabling security
+  teams to uncover and address hidden threats effectively.
 data_source:
 - Linux Auditd Execve
 search: '`linux_auditd` `linux_auditd_normalized_execve_process` | rename host as dest | rename comm as process_name | rename exe as process | where (LIKE (process_exec,"%touch %") OR LIKE (process_exec,"%mkdir %")OR LIKE (process_exec,"%vim %") OR LIKE (process_exec,"%vi %") OR LIKE (process_exec,"%nano %")) AND (LIKE (process_exec,"% ./.%")  OR LIKE (process_exec," .%")OR LIKE (process_exec," /.%")) | stats count min(_time) as firstTime max(_time) as lastTime by argc process_exec dest | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`| `linux_auditd_hidden_files_and_directories_creation_filter`'
@@ -28,7 +36,7 @@ rba:
   risk_objects:
   - field: dest
     type: system
-    score: 64
+    score: 30
   threat_objects: []
 tags:
   analytic_story:
