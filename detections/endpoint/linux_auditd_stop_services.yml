@@ -1,10 +1,10 @@
 name: Linux Auditd Stop Services
 id: 43bc9281-753b-4743-b4b7-60af84f085f3
-version: 3
-date: '2024-11-13'
+version: 4
+date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production
-type: TTP
+type: Anomaly
 description: The following analytic detects attempts to stop or clear a service on
   Linux systems. It leverages data from Linux Auditd, focusing on processes like "systemctl,"
   "service," and "svcadm" executing stop commands. This activity is significant as
@@ -52,7 +52,7 @@ rba:
   risk_objects:
   - field: dest
     type: system
-    score: 49
+    score: 30
   threat_objects: []
 tags:
   analytic_story:
