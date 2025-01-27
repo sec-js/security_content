@@ -1,6 +1,6 @@
 name: Detect Renamed WinRAR
 id: 1b7bfb2c-b8e6-11eb-99ac-acde48001122
-version: '9'
+version: 8
 date: '2025-01-27'
 author: Michael Haag, Splunk
 status: production

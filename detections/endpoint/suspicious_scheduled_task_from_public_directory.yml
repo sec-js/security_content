@@ -1,6 +1,6 @@
 name: Suspicious Scheduled Task from Public Directory
 id: 7feb7972-7ac3-11eb-bac8-acde48001122
-version: '6'
+version: 5
 date: '2025-01-27'
 author: Michael Haag, Splunk
 status: production

@@ -1,6 +1,6 @@
 name: Linux File Creation In Init Boot Directory
 id: 97d9cfb2-61ad-11ec-bb2d-acde48001122
-version: '7'
+version: 6
 date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production

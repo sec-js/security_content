@@ -1,6 +1,6 @@
 name: Linux Common Process For Elevation Control
 id: 66ab15c0-63d0-11ec-9e70-acde48001122
-version: '6'
+version: 5
 date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production

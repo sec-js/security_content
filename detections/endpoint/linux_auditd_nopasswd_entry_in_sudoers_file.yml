@@ -1,6 +1,6 @@
 name: Linux Auditd Nopasswd Entry In Sudoers File
 id: 651df959-ad17-4b73-a323-90cb96d5fa1b
-version: '5'
+version: 4
 date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production

@@ -1,6 +1,6 @@
 name: Linux Preload Hijack Library Calls
 id: cbe2ca30-631e-11ec-8670-acde48001122
-version: '6'
+version: 5
 date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production

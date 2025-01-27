@@ -1,6 +1,6 @@
 name: Windows Replication Through Removable Media
 id: 60df805d-4605-41c8-bbba-57baa6a4eb97
-version: '8'
+version: 7
 date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production

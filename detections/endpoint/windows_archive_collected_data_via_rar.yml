@@ -1,6 +1,6 @@
 name: Windows Archive Collected Data via Rar
 id: 2015de95-fe91-413d-9d62-2fe011b67e82
-version: '6'
+version: 5
 date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production

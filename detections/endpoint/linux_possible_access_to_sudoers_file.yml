@@ -1,6 +1,6 @@
 name: Linux Possible Access To Sudoers File
 id: 4479539c-71fc-11ec-b2e2-acde48001122
-version: '6'
+version: 5
 date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production

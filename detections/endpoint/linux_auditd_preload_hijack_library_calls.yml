@@ -1,6 +1,6 @@
 name: Linux Auditd Preload Hijack Library Calls
 id: 35c50572-a70b-452f-afa9-bebdf3c3ce36
-version: '5'
+version: 4
 date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production
