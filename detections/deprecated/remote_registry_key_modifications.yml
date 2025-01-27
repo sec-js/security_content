@@ -1,13 +1,13 @@
 name: Remote Registry Key modifications
 id: c9f4b923-f8af-4155-b697-1354f5dcbc5e
-version: 3
-date: '2020-03-02'
+version: 6
+date: '2024-11-14'
 author: Bhavin Patel, Splunk
 status: deprecated
 type: TTP
 description: This search monitors for remote modifications to registry keys.
 data_source:
-- Sysmon Event ID 13
+- Sysmon EventID 13
 search: '| tstats `security_content_summariesonly` count values(Registry.registry_key_name)
   as registry_key_name values(Registry.registry_path) as registry_path min(_time)
   as firstTime max(_time) as lastTime from datamodel=Endpoint.Registry where  Registry.registry_path="\\\\*"  by
@@ -21,25 +21,24 @@ how_to_implement: To successfully implement this search, you must populate the `
 known_false_positives: This technique may be legitimately used by administrators to
   modify remote registries, so it's important to filter these events out.
 references: []
+rba:
+  message: Registry remotely modified on $dest$
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics
   - Suspicious Windows Registry Activities
   - Windows Persistence Techniques
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
-  observable:
-  - name: field
-    type: Unknown
-    role:
-    - Unknown
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: endpoint

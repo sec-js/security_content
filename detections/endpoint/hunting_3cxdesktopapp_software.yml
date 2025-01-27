@@ -1,12 +1,14 @@
 name: Hunting 3CXDesktopApp Software
 id: 553d0429-1a1c-44bf-b3f5-a8513deb9ee5
-version: 2
-date: '2024-05-14'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 type: Hunting
 status: production
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic detects the presence of any version of the 3CXDesktopApp,
   also known as the 3CX Desktop App, on Mac or Windows systems. It leverages the Endpoint
   data model's Processes node to identify instances of the application running, although
@@ -42,40 +44,14 @@ tags:
   analytic_story:
   - 3CX Supply Chain Attack
   asset_type: Endpoint
-  confidence: 50
   cve:
   - CVE-2023-29059
-  impact: 80
-  message: An instance $process_name$ was identified on endpoint $dest$.
   mitre_attack_id:
   - T1195.002
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Child Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -83,4 +59,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1195.002/3CX/3cx_windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

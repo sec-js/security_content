@@ -1,7 +1,7 @@
 name: Kubernetes Nginx Ingress RFI
 id: fc5531ae-62fd-4de6-9c36-b4afdae8ca95
-version: 4
-date: '2024-05-19'
+version: 6
+date: '2024-11-14'
 author: Patrick Bareiss, Splunk
 status: production
 type: TTP
@@ -25,31 +25,39 @@ known_false_positives: unknown
 references:
 - https://github.com/splunk/splunk-connect-for-kubernetes
 - https://www.invicti.com/blog/web-security/remote-file-inclusion-vulnerability/
+drilldown_searches:
+- name: View the detection results for - "$host$"
+  search: '%original_detection_search% | search  host = "$host$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$host$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$host$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Remote File Inclusion Attack detected on $host$
+  risk_objects:
+  - field: host
+    type: system
+    score: 49
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Dev Sec Ops
   asset_type: Kubernetes
-  confidence: 70
-  impact: 70
-  message: Remote File Inclusion Attack detected on $host$
   mitre_attack_id:
   - T1212
-  observable:
-  - name: host
-    type: Hostname
-    role:
-    - Victim
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - raw
-  risk_score: 49
   security_domain: network
 tests:
 - name: True Positive Test

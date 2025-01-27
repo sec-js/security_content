@@ -1,7 +1,7 @@
 name: Steal or Forge Authentication Certificates Behavior Identified
 id: 87ac670e-bbfd-44ca-b566-44e9f835518d
-version: 2
-date: '2024-05-26'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Correlation
@@ -34,6 +34,20 @@ known_false_positives: False positives may be present based on automated tooling
 references:
 - https://research.splunk.com/stories/windows_certificate_services/
 - https://attack.mitre.org/techniques/T1649/
+drilldown_searches:
+- name: View the detection results for - "$risk_object$"
+  search: '%original_detection_search% | search  risk_object = "$risk_object$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$risk_object$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$risk_object$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Windows Certificate Services
@@ -42,27 +56,12 @@ tags:
   - 290df60e-4b5d-4a5e-b0c7-dc5348ea0c86
   - 78b274f8-acb0-428b-b1f7-7b0d0e73330a
   - 7617f689-bbd8-44bc-adcd-6f8968897848
-  confidence: 90
-  impact: 80
-  message: Steal or Forge Authentication Certificates Behavior Identified on $risk_object$.
   mitre_attack_id:
   - T1649
-  observable:
-  - name: risk_object
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 72
-  required_fields:
-  - All_Risk.analyticstories
-  - All_Risk.risk_object_type
-  - All_Risk.risk_object
-  - All_Risk.annotations.mitre_attack.mitre_tactic
-  - source
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -1,12 +1,12 @@
 name: Disabling Windows Local Security Authority Defences via Registry
 id: 45cd08f8-a2c9-4f4e-baab-e1a0c624b0ab
-version: 3
-date: '2024-05-19'
+version: 5
+date: '2024-11-13'
 author: Dean Luxton
 status: production
 type: TTP
 data_source:
-- Sysmon Event ID 13
+- Sysmon EventID 13 AND Sysmon EventID 1
 description: The following analytic identifies the deletion of registry keys that
   disable Local Security Authority (LSA) protection and Microsoft Defender Device
   Guard. It leverages data from Endpoint Detection and Response (EDR) agents, focusing
@@ -39,37 +39,42 @@ known_false_positives: Potential to be triggered by an administrator disabling p
 references:
 - https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection
 - https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An attempt to disable Windows LSA defences was detected on $dest$. The
+    reg key $registry_path$ was deleted by $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 60
+  - field: dest
+    type: system
+    score: 60
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 100
-  impact: 60
-  message: An attempt to disable Windows LSA defences was detected on $dest$. The
-    reg key $registry_path$ was deleted by $user$.
   mitre_attack_id:
   - T1556
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.action
-  - Registry.registry_path
-  - Registry.dest
-  - Registry.user
-  risk_score: 60
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -77,4 +82,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1556/disable_lsa_protection/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,18 +1,18 @@
 name: Hunting for Log4Shell
 id: 158b68fa-5d1a-11ec-aac8-acde48001122
-version: 2
-date: '2024-05-26'
+version: 5
+date: '2024-11-15'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
-description: 'The following analytic detects potential exploitation attempts of the
+description: The following analytic detects potential exploitation attempts of the
   Log4Shell vulnerability (CVE-2021-44228) by analyzing HTTP headers for specific
   patterns. It leverages the Web Datamodel and evaluates various indicators such as
   the presence of `{jndi:`, environment variables, and common URI paths. This detection
   is significant as Log4Shell allows remote code execution, posing a severe threat
   to systems. If confirmed malicious, attackers could gain unauthorized access, execute
   arbitrary code, and potentially compromise sensitive data, leading to extensive
-  damage and data breaches.'
+  damage and data breaches.
 data_source:
 - Nginx Access
 search: '| from datamodel Web.Web | eval jndi=if(match(_raw, "(\{|%7B)[jJnNdDiI]{4}:"),4,0)
@@ -48,35 +48,15 @@ tags:
   - Log4Shell CVE-2021-44228
   - CISA AA22-320A
   asset_type: Web Server
-  confidence: 50
   cve:
   - CVE-2021-44228
-  impact: 80
-  message: Hunting for Log4Shell exploitation has occurred.
   mitre_attack_id:
   - T1190
   - T1133
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: http_method
-    type: Other
-    role:
-    - Other
-  - name: src
-    type: Other
-    role:
-    - Other
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - _raw
-  risk_score: 40
   security_domain: network
 tests:
 - name: True Positive Test

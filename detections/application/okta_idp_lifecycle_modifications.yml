@@ -1,9 +1,10 @@
 name: Okta IDP Lifecycle Modifications
 id: e0be2c83-5526-4219-a14f-c3db2e763d15
-version: 2
-date: '2024-05-28'
+version: 4
+date: '2025-01-21'
 author: Bhavin Patel, Splunk
-data_source: []
+data_source:
+- Okta
 type: Anomaly
 status: production
 description: The following analytic identifies modifications to Okta Identity Provider
@@ -29,41 +30,40 @@ known_false_positives: It's possible for legitimate administrative actions or au
 references:
 - https://www.obsidiansecurity.com/blog/behind-the-breach-cross-tenant-impersonation-in-okta/
 - https://splunkbase.splunk.com/app/6553
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A user [$user$] is attempting IDP lifecycle modification - [$description$]
+    from IP Address - [$src$]"
+  risk_objects:
+  - field: user
+    type: user
+    score: 81
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - Suspicious Okta Activity
   asset_type: Okta Tenant
-  confidence: 90
-  impact: 90
-  message: A user [$user$] is attempting IDP lifecycle modification - [$description$]
-    from IP Address - [$src$]"
   mitre_attack_id:
   - T1087.004
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - eventType
-  - target{}.id
-  - target{}.type
-  - src
-  - dest
-  - src_user_id
-  - user
-  - user_agent
-  - command
-  - description
-  risk_score: 81
   security_domain: identity
 tests:
 - name: True Positive Test

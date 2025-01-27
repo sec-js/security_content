@@ -1,7 +1,7 @@
 name: Windows Event Triggered Image File Execution Options Injection
 id: f7abfab9-12ea-44e8-8745-475f9ca6e0a4
-version: 2
-date: '2024-05-31'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -30,28 +30,12 @@ tags:
   analytic_story:
   - Windows Persistence Techniques
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Windows eventcode 3000 triggered on $dest$ potentially indicating persistence
-    or a monitoring of a process has occurred.
   mitre_attack_id:
   - T1546.012
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Process
-  - Exit_Code
-  - dest
-  - EventCode
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -60,4 +44,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1546.012/atomic_red_team/windows-application.log
     source: XmlWinEventLog:Application
     sourcetype: XmlWinEventLog
-    update_timestamp: true

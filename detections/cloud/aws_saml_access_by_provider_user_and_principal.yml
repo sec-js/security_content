@@ -1,7 +1,7 @@
 name: AWS SAML Access by Provider User and Principal
 id: bbe23980-6019-11eb-ae93-0242ac130002
-version: 2
-date: '2024-05-23'
+version: 4
+date: '2024-11-14'
 author: Rod Soto, Splunk
 status: production
 type: Anomaly
@@ -33,40 +33,40 @@ references:
 - https://www.splunk.com/en_us/blog/security/a-golden-saml-journey-solarwinds-continued.html
 - https://www.fireeye.com/content/dam/fireeye-www/blog/pdfs/wp-m-unc2452-2021-000343-01.pdf
 - https://www.cyberark.com/resources/threat-research-blog/golden-saml-newly-discovered-attack-technique-forges-authentication-to-cloud-apps
+drilldown_searches:
+- name: View the detection results for - "$recipientAccountId$"
+  search: '%original_detection_search% | search  recipientAccountId = "$recipientAccountId$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$recipientAccountId$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$recipientAccountId$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: From IP address $sourceIPAddress$, user agent $userAgent$ has trigged an
+    event $eventName$ for account ID $recipientAccountId$
+  risk_objects:
+  - field: recipientAccountId
+    type: other
+    score: 64
+  threat_objects:
+  - field: sourceIPAddress
+    type: ip_address
 tags:
   analytic_story:
   - Cloud Federated Credential Abuse
   asset_type: AWS Federated Account
-  confidence: 80
-  impact: 80
-  message: From IP address $sourceIPAddress$, user agent $userAgent$ has trigged an
-    event $eventName$ for account ID $recipientAccountId$
   mitre_attack_id:
   - T1078
-  observable:
-  - name: sourceIPAddress
-    type: IP Address
-    role:
-    - Attacker
-  - name: recipientAccountId
-    type: Other
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - requestParameters.principalArn
-  - requestParameters.roleArn
-  - requestParameters.roleSessionName
-  - recipientAccountId
-  - responseElements.issuer
-  - sourceIPAddress
-  - userAgent
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -75,4 +75,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/assume_role_with_saml/assume_role_with_saml.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

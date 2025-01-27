@@ -1,7 +1,7 @@
 name: WinEvent Windows Task Scheduler Event Action Started
 id: b3632472-310b-11ec-9aab-acde48001122
-version: 3
-date: '2024-05-20'
+version: 6
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -17,7 +17,7 @@ data_source:
 - Windows Event Log TaskScheduler 200
 - Windows Event Log TaskScheduler 201
 search: '`wineventlog_task_scheduler` EventCode IN ("200","201")  | stats count min(_time)
-  as firstTime max(_time) as lastTime by TaskName dest EventCode | `security_content_ctime(firstTime)`
+  as firstTime max(_time) as lastTime by TaskName dvc EventCode | `security_content_ctime(firstTime)`
   | `security_content_ctime(lastTime)` | `winevent_windows_task_scheduler_event_action_started_filter`'
 how_to_implement: Task Scheduler logs are required to be collected. Enable logging
   with inputs.conf by adding a stanza for [WinEventLog://Microsoft-Windows-TaskScheduler/Operational]
@@ -44,34 +44,21 @@ tags:
   - Data Destruction
   - Amadey
   - Scheduled Tasks
+  - CISA AA24-241A
+  - BlackSuit Ransomware
+  - ValleyRAT
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
-  message: A Scheduled Task was scheduled and ran on $dest$.
   mitre_attack_id:
   - T1053.005
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - TaskName
-  - ActionName
-  - EventID
-  - dest
-  - ProcessID
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1053.005/winevent_windows_task_scheduler_event_action_started/windows-xml.log
-    source: XmlWinEventLog:Security
+    source: XmlWinEventLog:Microsoft-Windows-TaskScheduler/Operational
     sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: Monitor Email For Brand Abuse
 id: b2ea1f38-3a3e-4b8a-9cf1-82760d86a6b8
-version: 3
-date: '2024-04-16'
+version: 5
+date: '2025-01-21'
 author: David Dorsey, Splunk
 status: experimental
 type: TTP
@@ -26,27 +26,20 @@ how_to_implement: You need to ingest email header data. Specifically the sender'
   be checked for.
 known_false_positives: None at this time
 references: []
+rba:
+  message: Possible Brand Abuse from $email_domain$
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Brand Monitoring
   - Suspicious Emails
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Email.recipient
-  - All_Email.src_user
-  - All_Email.message_id
-  risk_score: 25
   security_domain: network

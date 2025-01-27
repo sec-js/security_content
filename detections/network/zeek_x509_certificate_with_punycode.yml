@@ -1,7 +1,7 @@
 name: Zeek x509 Certificate with Punycode
 id: 029d6fe4-a5fe-43af-827e-c78c50e81d81
-version: 2
-date: '2024-05-30'
+version: 4
+date: '2024-11-15'
 author: Michael Haag, Splunk
 status: experimental
 type: Hunting
@@ -35,25 +35,10 @@ tags:
   analytic_story:
   - OpenSSL CVE-2022-3602
   asset_type: Network
-  confidence: 30
-  impact: 50
-  message: A x509 certificate has been identified to have punycode in the subject
-    alternative name on $dest$.
   mitre_attack_id:
   - T1573
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - domain_detected
-  - basic_constraints.ca
-  - source
-  - host
-  risk_score: 15
   security_domain: network

@@ -1,7 +1,7 @@
 name: WMI Recon Running Process Or Services
 id: b5cd5526-cce7-11eb-b3bd-acde48001122
-version: 4
-date: '2024-05-15'
+version: 6
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -29,40 +29,44 @@ references:
 - https://www.eideon.com/2018-03-02-THL03-WMIBackdoors/
 - https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/WMI-events.md
 - https://in.security/2019/04/03/an-intro-into-abusing-and-identifying-wmi-event-subscriptions-for-persistence/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Suspicious powerShell script execution by $user$ on $dest$ via EventCode
+    4104, where WMI is performing an event query looking for running processes or
+    running services
+  risk_objects:
+  - field: dest
+    type: system
+    score: 20
+  - field: user
+    type: user
+    score: 20
+  threat_objects: []
 tags:
   analytic_story:
   - Malicious PowerShell
   - Hermetic Wiper
   - Data Destruction
   asset_type: Endpoint
-  confidence: 100
-  impact: 20
-  message: Suspicious powerShell script execution by $user$ on $dest$ via EventCode
-    4104, where WMI is performing an event query looking for running processes or
-    running services
   mitre_attack_id:
   - T1592
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 20
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -70,4 +74,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/powershell_script_block_logging/win32process.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

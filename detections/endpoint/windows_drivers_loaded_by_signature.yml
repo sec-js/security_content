@@ -1,7 +1,7 @@
 name: Windows Drivers Loaded by Signature
 id: d2d4af6a-6c2b-4d79-80c5-fc2cf12a2f68
-version: 2
-date: '2024-05-10'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -23,8 +23,8 @@ how_to_implement: To successfully implement this search, you need to be ingestin
   endpoints. If you are using Sysmon, you must have the latest version of the Sysmon
   TA. Most EDR products provide the ability to review driver loads, or module loads,
   and using a query as such help with hunting for malicious drivers.
-known_false_positives: This analytic is meant to assist with identifying drivers loaded
-  in the environment and not to be setup for notables off the bat.
+known_false_positives: This analytic is meant to assist with identifying and hunting drivers loaded
+  in the environment. 
 references:
 - https://redcanary.com/blog/tracking-driver-inventory-to-expose-rootkits/
 - https://attack.mitre.org/techniques/T1014/
@@ -36,31 +36,13 @@ tags:
   - AgentTesla
   - BlackByte Ransomware
   asset_type: Endpoint
-  confidence: 70
-  impact: 60
-  message: A driver has loaded on $dest$.
   mitre_attack_id:
   - T1014
   - T1068
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ImageLoaded
-  - dest
-  - Signed
-  - Signature
-  - service_signature_verified
-  - service_signature_exists
-  - Hashes
-  risk_score: 42
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -68,4 +50,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1014/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

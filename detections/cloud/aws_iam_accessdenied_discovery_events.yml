@@ -1,7 +1,7 @@
 name: AWS IAM AccessDenied Discovery Events
 id: 3e1f1568-9633-11eb-a69c-acde48001122
-version: 3
-date: '2024-05-20'
+version: 5
+date: '2024-11-14'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -26,37 +26,40 @@ known_false_positives: It is possible to start this detection will need to be tu
   to restrict false positives.
 references:
 - https://aws.amazon.com/premiumsupport/knowledge-center/troubleshoot-iam-permission-errors/
+drilldown_searches:
+- name: View the detection results for - "$userIdentity.arn$"
+  search: '%original_detection_search% | search  userIdentity.arn = "$userIdentity.arn$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$userIdentity.arn$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$userIdentity.arn$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $userIdentity.arn$ is seen to perform excessive number of discovery
+    related api calls- $failures$, within an hour where the access was denied.
+  risk_objects:
+  - field: userIdentity.arn
+    type: user
+    score: 10
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Suspicious Cloud User Activities
   asset_type: AWS Account
-  confidence: 50
-  impact: 20
-  message: User $userIdentity.arn$ is seen to perform excessive number of discovery
-    related api calls- $failures$, within an hour where the access was denied.
   mitre_attack_id:
   - T1580
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: userIdentity.arn
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - eventSource
-  - userAgent
-  - errorCode
-  - userIdentity.type
-  risk_score: 10
   security_domain: access
 tests:
 - name: True Positive Test
@@ -65,4 +68,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1580/aws_iam_accessdenied_discovery_events/aws_iam_accessdenied_discovery_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

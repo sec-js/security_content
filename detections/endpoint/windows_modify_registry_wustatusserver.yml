@@ -1,7 +1,7 @@
 name: Windows Modify Registry wuStatusServer
 id: 073e69d0-68b2-4142-aa90-a7ee6f590676
-version: 2
-date: '2024-05-31'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -34,30 +34,12 @@ tags:
   analytic_story:
   - RedLine Stealer
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: a registry modification in Windows auto update configuration in $dest$
   mitre_attack_id:
   - T1112
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.user
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.action
-  - Registry.registry_value_data
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -65,4 +47,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/redline/modify_registry/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

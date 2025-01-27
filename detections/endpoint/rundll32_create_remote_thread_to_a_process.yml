@@ -1,7 +1,7 @@
 name: Rundll32 Create Remote Thread To A Process
 id: 2dbeee3a-f067-11eb-96c0-acde48001122
-version: 2
-date: '2024-05-29'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -25,40 +25,41 @@ how_to_implement: To successfully implement this search, you need to be ingestin
 known_false_positives: unknown
 references:
 - https://www.joesandbox.com/analysis/380662/0/html
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: rundl32 process $SourceImage$ create a remote thread to process $TargetImage$
+    in host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 56
+  threat_objects:
+  - field: SourceImage
+    type: process
 tags:
   analytic_story:
   - IcedID
   - Living Off The Land
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
-  message: rundl32 process $SourceImage$ create a remote thread to process $TargetImage$
-    in host $dest$
   mitre_attack_id:
   - T1055
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: SourceImage
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - SourceImage
-  - TargetImage
-  - TargetProcessId
-  - SourceProcessId
-  - StartAddress
-  - EventCode
-  - dest
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -66,4 +67,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/icedid/inf_icedid/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

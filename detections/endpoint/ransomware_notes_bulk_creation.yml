@@ -1,7 +1,7 @@
 name: Ransomware Notes bulk creation
 id: eff7919a-8330-11eb-83f8-acde48001122
-version: 2
-date: '2024-05-25'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras
 status: production
 type: Anomaly
@@ -27,6 +27,28 @@ known_false_positives: unknown
 references:
 - https://www.mandiant.com/resources/fin11-email-campaigns-precursor-for-ransomware-data-theft
 - https://blog.virustotal.com/2020/11/keep-your-friends-close-keep-ransomware.html
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A high frequency file creation of $file_name$ in different file path in
+    host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 81
+  threat_objects: []
 tags:
   analytic_story:
   - Clop Ransomware
@@ -36,30 +58,12 @@ tags:
   - LockBit Ransomware
   - Rhysida Ransomware
   asset_type: Endpoint
-  confidence: 90
-  impact: 90
-  message: A high frequency file creation of $file_name$ in different file path in
-    host $dest$
   mitre_attack_id:
   - T1486
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - file_name
-  - _time
-  - TargetFilename
-  - dest
-  - Image
-  - user
-  risk_score: 81
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -67,4 +71,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/clop/clop_a/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

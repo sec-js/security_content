@@ -1,7 +1,7 @@
 name: Detect New Open GCP Storage Buckets
 id: f6ea3466-d6bb-11ea-87d0-0242ac130003
-version: 2
-date: '2024-05-17'
+version: 4
+date: '2024-11-14'
 author: Shannon Davis, Splunk
 status: experimental
 type: TTP
@@ -30,34 +30,21 @@ known_false_positives: While this search has no known false positives, it is pos
   That said, GCP strongly advises against granting full control to the "allUsers"
   group.
 references: []
+rba:
+  message: New Public GCP Storage Bucket Detected
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious GCP Storage Activities
   asset_type: GCP Storage Bucket
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1530
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - data.resource.type
-  - data.protoPayload.methodName
-  - data.protoPayload.serviceData.policyDelta.bindingDeltas{}.action
-  - data.protoPayload.authenticationInfo.principalEmail
-  - data.protoPayload.resourceLocation.currentLocations{}
-  - data.protoPayload.requestMetadata.callerIp
-  - data.protoPayload.resourceName
-  - data.protoPayload.serviceData.policyDelta.bindingDeltas{}.role
-  - data.protoPayload.serviceData.policyDelta.bindingDeltas{}.member
-  risk_score: 25
   security_domain: network

@@ -1,7 +1,7 @@
 name: Windows NirSoft Utilities
 id: 5b2f4596-7d4c-11ec-88a7-acde48001122
-version: 2
-date: '2024-05-12'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -14,6 +14,8 @@ description: The following analytic identifies the execution of commonly used Ni
   could lead to unauthorized access, data exfiltration, or further system compromise.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime FROM datamodel=Endpoint.Processes by Processes.dest Processes.user Processes.parent_process_name
   Processes.process_name Processes.process Processes.original_file_name Processes.process_path
@@ -40,47 +42,12 @@ tags:
   - Data Destruction
   - WhisperGate
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    on endpoint $dest$ by user $user$ related to NiRSoft software usage.
   mitre_attack_id:
   - T1588.002
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process
-    role:
-    - Parent Process
-  - name: process_name
-    type: Process
-    role:
-    - Child Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -88,4 +55,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1588.002/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

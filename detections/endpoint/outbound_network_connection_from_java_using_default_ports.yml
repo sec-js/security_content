@@ -1,7 +1,7 @@
 name: Outbound Network Connection from Java Using Default Ports
 id: d2c14d28-5c47-11ec-9892-acde48001122
-version: 3
-date: '2024-05-26'
+version: 5
+date: '2024-11-13'
 author: Mauricio Velazco, Lou Stella, Splunk
 status: production
 type: TTP
@@ -13,7 +13,7 @@ description: The following analytic detects outbound network connections from Ja
   JNDI lookups and retrieve malicious payloads. If confirmed malicious, this activity
   could lead to remote code execution and further compromise of the affected server.
 data_source:
-- Sysmon EventID 1
+- Sysmon EventID 1 AND Sysmon EventID 3
 search: '| tstats `security_content_summariesonly` count FROM datamodel=Endpoint.Processes
   where (Processes.process_name="java.exe" OR Processes.process_name=javaw.exe OR
   Processes.process_name=javaw.exe) by _time Processes.process_id Processes.process_name
@@ -39,40 +39,41 @@ known_false_positives: Legitimate Java applications may use perform outbound con
 references:
 - https://www.lunasec.io/docs/blog/log4j-zero-day/
 - https://www.govcert.admin.ch/blog/zero-day-exploit-targeting-popular-java-library-log4j/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Java performed outbound connections to default ports of LDAP or RMI on
+    $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 54
+  threat_objects: []
 tags:
   analytic_story:
   - Log4Shell CVE-2021-44228
   asset_type: Endpoint
-  confidence: 60
   cve:
   - CVE-2021-44228
-  impact: 90
-  message: Java performed outbound connections to default ports of LDAP or RMI on
-    $dest$
   mitre_attack_id:
   - T1190
   - T1133
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.dest
-  - Processes.process_path
-  - Processes.process
-  - Processes.parent_process_name
-  - All_Traffic.process_id
-  - All_Traffic.dest
-  - All_Traffic.dest_port
-  risk_score: 54
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -80,4 +81,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1190/outbound_java/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

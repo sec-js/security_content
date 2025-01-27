@@ -1,7 +1,7 @@
 name: Samsam Test File Write
 id: 493a879d-519d-428f-8f57-a06a0fdc107e
-version: 2
-date: '2024-05-14'
+version: 4
+date: '2024-11-13'
 author: Rico Valdez, Splunk
 status: production
 type: TTP
@@ -26,35 +26,40 @@ how_to_implement: You must be ingesting data that records the file-system activi
   you want to collect data.
 known_false_positives: No false positives have been identified.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A samsam ransomware test file creation in $file_path$ in host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 12
+  - field: user
+    type: user
+    score: 12
+  threat_objects: []
 tags:
   analytic_story:
   - SamSam Ransomware
   asset_type: Endpoint
-  confidence: 20
-  impact: 60
-  message: A samsam ransomware test file creation in $file_path$ in host $dest$
   mitre_attack_id:
   - T1486
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.user
-  - Filesystem.dest
-  - Filesystem.file_name
-  - Filesystem.file_path
-  risk_score: 12
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -62,4 +67,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1486/sam_sam_note/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
