@@ -1,7 +1,7 @@
-name: Suspicious Driver Loaded Path
+name: Windows Suspicious Driver Loaded Path
 id: f880acd4-a8f1-11eb-a53b-acde48001122
-version: 4
-date: '2024-11-13'
+version: 5
+date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -16,7 +16,7 @@ description: The following analytic detects the loading of drivers from suspicio
 data_source:
 - Sysmon EventID 6
 search: '`sysmon` EventCode=6 ImageLoaded = "*.sys" NOT (ImageLoaded IN("*\\WINDOWS\\inf","*\\WINDOWS\\System32\\drivers\\*",
-  "*\\WINDOWS\\System32\\DriverStore\\FileRepository\\*")) |  stats  min(_time) as
+  "*\\WINDOWS\\System32\\DriverStore\\FileRepository\\*","*:\Windows\\WinSxS\\*","*\\ProgramData\\Microsoft\\Windows Defender\\Definition Updates\\*")) |  stats  min(_time) as
   firstTime max(_time) as lastTime count by dest ImageLoaded Hashes IMPHASH Signature
   Signed| rename ImageLoaded as file_name | `security_content_ctime(firstTime)` |
   `security_content_ctime(lastTime)` | `suspicious_driver_loaded_path_filter`'
@@ -47,7 +47,7 @@ rba:
   risk_objects:
   - field: dest
     type: system
-    score: 63
+    score: 60
   threat_objects:
   - field: file_name
     type: file_name
