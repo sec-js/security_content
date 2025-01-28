@@ -1,7 +1,7 @@
 name: Windows Service Created with Suspicious Service Path
 id: 429141be-8311-11eb-adb6-acde48001122
-version: 8
-date: '2024-11-13'
+version: 11
+date: '2025-01-27'
 author: Teoderick Contreras, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -54,15 +54,18 @@ rba:
     type: service
 tags:
   analytic_story:
-  - Qakbot
-  - CISA AA23-347A
-  - Flax Typhoon
-  - Clop Ransomware
   - Brute Ratel C4
+  - Flax Typhoon
   - PlugX
-  - Active Directory Lateral Movement
+  - CISA AA23-347A
+  - Qakbot
   - Crypto Stealer
+  - Active Directory Lateral Movement
+  - Derusbi
+  - Nexus APT Threat Activity
   - Snake Malware
+  - Clop Ransomware
+  - Earth Estries
   asset_type: Endpoint
   mitre_attack_id:
   - T1569
@@ -75,7 +78,6 @@ tags:
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1569.002/windows_service_created_with_suspicious_service_path/windows-xml.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1569.002/windows_service_created_with_suspicious_service_path/windows-xml.log
     source: XmlWinEventLog:System
     sourcetype: XmlWinEventLog
