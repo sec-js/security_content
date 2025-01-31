@@ -34,40 +34,29 @@ drilldown_searches:
   search: '`o365_management_activity` Workload=Exchange AND Operation IN ("Set-*","Disable-*","New-*","Remove-*") AND Operation="*Transport*" UserId=$user$'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: The user [$user$] altered the exchange transport rule id $object_id$ [$object_name$]
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  threat_objects:
+  - field: object_id
+    type: signature
+  - field: object_name
+    type: signature   
 tags:
   analytic_story: 
   - Data Exfiltration
   - Office 365 Account Takeover
-  asset_type: Cloud
-  confidence: 50
-  impact: 50
-  message: The user [$user$] altered the exchange transport rule id $object_id$ [$object_name$]
+  asset_type: O365 Tenant 
   mitre_attack_id: 
   - T1114.003
   - T1564.008
-  observable: 
-  - name: user
-    type: user
-    role:
-    - Victim
-  - name: object_id
-    type: Other
-    role:
-    - Attacker
-  - name: object_name
-    type: Other
-    role:
-    - Attacker
   product: 
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields: 
-  - Workload
-  - Operation
-  - UserId
-  - Parameters{}.Name
-  risk_score: 25
   security_domain: threat
 tests:
 - name: True Positive Test
