@@ -16,7 +16,7 @@ search: '`o365_management_activity` Workload=Exchange AND Operation IN ("Set-*",
 | `security_content_ctime(firstTime)` 
 | `security_content_ctime(lastTime)`
 | `o365_email_transport_rule_changed_filter`'
-how_to_implement: 
+how_to_implement: You must install the Splunk Microsoft Office 365 Add-on and ingest Office 365 management activity events.
 known_false_positives: Legitimate administrative changes for business needs.
 references:
 - https://attack.mitre.org/techniques/T1114/003/
