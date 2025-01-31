@@ -34,40 +34,29 @@ drilldown_searches:
   search: '| from datamodel:Endpoint.Registry | search dest=$dest$ registry_path IN ("HKLM\\System\\CurrentControlSet\\Enum\\USBSTOR\\*")'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: A removable storage device named [$object_name$] with drive letter [$object_handle$] was attached to $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 10
+  threat_objects:
+  - field: object_name
+    type: registry_value_name
+  - field: object_handle
+    type: registry_value_text
 tags:
   analytic_story: 
   - Data Protection
   asset_type: Endpoint
-  confidence: 50
-  impact: 20
-  message: A removable storage device named [$object_name$] with drive letter [$object_handle$] was attached to $dest$
   mitre_attack_id: 
   - T1200
   - T1025
   - T1091
-  observable: 
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: object_name
-    type: Other
-    role:
-    - Attacker
-  - name: object_handle
-    type: Other
-    role:
-    - Attacker
   product: 
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields: 
-  - Registry.registry_path
-  - Registry.registry_value_name
-  - Registry.dest
-  - Registry.registry_value_data
-  risk_score: 10
   security_domain: endpoint
 tests:
 - name: True Positive Test
