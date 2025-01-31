@@ -9,7 +9,8 @@ description: The following analytic identifies when a user with sufficient acces
 data_source: 
 - O365
 search: '`o365_management_activity` Workload=Exchange AND Operation IN ("Set-*","Disable-*","New-*","Remove-*") AND Operation="*TransportRule" 
-| eval object_name = case('Parameters{}.Name'=="Name",mvindex('Parameters{}.Value',mvfind('Parameters{}.Name',"^Name$")),true(),ObjectId), object_id = case('Parameters{}.Name'=="Identity",mvindex('Parameters{}.Value',mvfind('Parameters{}.Name',"^Identity$")),true(),Id)
+| rename Parameters{}.* as Parameters_*
+| eval object_name = case(Parameters_Name=="Name",mvindex(Parameters_Value,mvfind(Parameters_Name,"^Name$")),true(),ObjectId), object_id = case(Parameters_Name=="Identity",mvindex(Parameters_Value,mvfind(Parameters_Name,"^Identity$")),true(),Id)
 | stats values(object_name) as object_name, min(_time) as firstTime, max(_time) as lastTime, count by object_id, UserId, Operation
 | rename UserId as user, Operation as signature
 | `security_content_ctime(firstTime)` 
