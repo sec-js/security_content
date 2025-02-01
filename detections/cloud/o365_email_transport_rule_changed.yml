@@ -7,15 +7,15 @@ status: production
 type: Anomaly
 description: The following analytic identifies when a user with sufficient access to Exchange Online alters the mail flow/transport rule configuration of the organization. Transport rules are a set of rules that can be used by attackers to modify or delete emails based on specific conditions, this activity could indicate an attacker hiding or exfiltrated data.
 data_source: 
-- O365
-search: '`o365_management_activity` Workload=Exchange AND Operation IN ("Set-*","Disable-*","New-*","Remove-*") AND Operation="*TransportRule" 
-| rename Parameters{}.* as Parameters_*
-| eval object_name = case(Parameters_Name=="Name",mvindex(Parameters_Value,mvfind(Parameters_Name,"^Name$")),true(),ObjectId), object_id = case(Parameters_Name=="Identity",mvindex(Parameters_Value,mvfind(Parameters_Name,"^Identity$")),true(),Id)
-| stats values(object_name) as object_name, min(_time) as firstTime, max(_time) as lastTime, count by object_id, UserId, Operation
-| rename UserId as user, Operation as signature
-| `security_content_ctime(firstTime)` 
-| `security_content_ctime(lastTime)`
-| `o365_email_transport_rule_changed_filter`'
+- Office 365 Universal Audit Log
+search: |-
+  `o365_management_activity` Workload=Exchange AND Operation IN ("Set-*","Disable-*","New-*","Remove-*") AND Operation="*TransportRule" 
+  | eval object_name = case('Parameters{}.Name'=="Name",mvindex('Parameters{}.Value',mvfind('Parameters{}.Name',"^Name$")),true(),ObjectId), object_id = case('Parameters{}.Name'=="Identity",mvindex('Parameters{}.Value',mvfind('Parameters{}.Name',"^Identity$")),true(),Id)
+  | stats values(object_name) as object_name, min(_time) as firstTime, max(_time) as lastTime, count by object_id, UserId, Operation
+  | rename UserId as user, Operation as signature
+  | `security_content_ctime(firstTime)` 
+  | `security_content_ctime(lastTime)`
+  | `o365_email_transport_rule_changed_filter`
 how_to_implement: You must install the Splunk Microsoft Office 365 Add-on and ingest Office 365 management activity events.
 known_false_positives: Legitimate administrative changes for business needs.
 references:
