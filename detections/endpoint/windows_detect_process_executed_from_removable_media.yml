@@ -12,18 +12,19 @@ data_source:
 - Sysmon Event ID 12
 - Sysmon Event ID 13
 - CrowdStrike ProcessRollup2
-search: '| tstats `security_content_summariesonly` count values(Processes.process) as process min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where Processes.process_current_directory=* AND NOT Processes.process_current_directory IN ("C:\\*","*\\sysvol\\*") by Processes.dest Processes.user Processes.process_name Processes.parent_process_name Processes.process_current_directory
-| `drop_dm_object_name(Processes)` 
-| rex field=process_current_directory "^(?<object_handle>[^\\\]+\\\)"
-| where isnotnull(object_handle)
-| `security_content_ctime(firstTime)` 
-| `security_content_ctime(lastTime)`
-| join dest,object_handle
+search: |-
+  | tstats `security_content_summariesonly` count values(Processes.process) as process min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where Processes.process_current_directory=* AND NOT Processes.process_current_directory IN ("C:\\*","*\\sysvol\\*") by Processes.dest Processes.user Processes.process_name Processes.parent_process_name Processes.process_current_directory
+  | `drop_dm_object_name(Processes)` 
+  | rex field=process_current_directory "^(?<object_handle>[^\\\]+\\\)"
+  | where isnotnull(object_handle)
+  | `security_content_ctime(firstTime)` 
+  | `security_content_ctime(lastTime)`
+  | join dest,object_handle
     [| tstats `security_content_summariesonly` count from datamodel=Endpoint.Registry where Registry.registry_value_data="*:\\*" AND Registry.registry_path="*USBSTOR*" AND Registry.registry_path IN ("HKLM\\SOFTWARE\\Microsoft\\Windows Portable Devices\\Devices\\*","HKLM\\System\\CurrentControlSet\\Enum\\SWD\\WPDBUSENUM\\*") by Registry.dest,Registry.registry_value_data,Registry.registry_path
      | `drop_dm_object_name(Registry)`
      | eval object_handle = registry_value_data, object_name = replace(mvindex(split(mvindex(split(registry_path, "??"),1),"&amp;"),2),"PROD_","")
-]
-| `windows_detect_process_executed_from_removable_media_filter`'
+    ]
+  | `windows_detect_process_executed_from_removable_media_filter`
 how_to_implement: To successfully implement this search, you must ingest endpoint logging that tracks changes to the HKLM\SOFTWARE\Microsoft\Windows Portable Devices\Devices\ or HKLM\System\CurrentControlSet\Enum\SWD\WPDBUSENUM\ registry keys as well as Process Execution commands. Ensure that the field from the event logs is being mapped to the proper fields in the Endpoint.Registry data model.
 known_false_positives: Legitimate USB activity will also be detected. Please verify and investigate as appropriate.
 references:
