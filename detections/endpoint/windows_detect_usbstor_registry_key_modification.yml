@@ -9,12 +9,13 @@ description: This analytic is used to identify when a USB removable media device
 data_source: 
 - Sysmon Event ID 12
 - Sysmon Event ID 13
-search: '| tstats `security_content_summariesonly` values(Registry.registry_value_data) as registry_value_data, values(Registry.registry_value_name) as registry_value_name, min(_time) as firstTime, max(_time) as lastTime, count from datamodel=Endpoint.Registry where Registry.registry_path IN ("HKLM\\System\\CurrentControlSet\\Enum\\USBSTOR\\*") AND Registry.registry_value_name ="FriendlyName" by Registry.dest,Registry.registry_value_data,Registry.registry_path
-| `drop_dm_object_name(Registry)`
-| eval object_name = registry_value_data, object_handle = split(mvindex(split(registry_path, "\\"),6),"&amp;"), object_handle = mvindex(mvfilter(NOT len(object_handle)=1),0)
-| `security_content_ctime(firstTime)` 
-| `security_content_ctime(lastTime)` 
-| `windows_detect_usbstor_registry_key_modification_filter`'
+search: |-
+  | tstats `security_content_summariesonly` values(Registry.registry_value_data) as registry_value_data, values(Registry.registry_value_name) as registry_value_name, min(_time) as firstTime, max(_time) as lastTime, count from datamodel=Endpoint.Registry where Registry.registry_path IN ("HKLM\\System\\CurrentControlSet\\Enum\\USBSTOR\\*") AND Registry.registry_value_name ="FriendlyName" by Registry.dest,Registry.registry_value_data,Registry.registry_path
+  | `drop_dm_object_name(Registry)`
+  | eval object_name = registry_value_data, object_handle = split(mvindex(split(registry_path, "\\"),6),"&amp;"), object_handle = mvindex(mvfilter(NOT len(object_handle)=1),0)
+  | `security_content_ctime(firstTime)` 
+  | `security_content_ctime(lastTime)` 
+  | `windows_detect_usbstor_registry_key_modification_filter`
 how_to_implement: To successfully implement this search, you must ingest endpoint logging that tracks changes to the HKLM\System\CurrentControlSet\Enum\USBSTOR\ registry keys. Ensure that the field from the event logs is being mapped to the proper fields in the Endpoint.Registry data model.
 known_false_positives: Legitimate USB activity will also be detected. Please verify and investigate as appropriate.
 references:
