@@ -10,11 +10,12 @@ data_source:
 - Sysmon Event ID 1
 - Windows Security Event ID 4688
 - CrowdStrike ProcessRollup2
-search: '| tstats `security_content_summariesonly` values(Processes.process_current_directory) as Processes.process_current_directory values(Processes.process_id) as Processes.process_id values(Processes.process) as Processes.process values(Processes.parent_process_id) as Processes.parent_process_id values(Processes.parent_process) as Processes.parent_process count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where (Processes.process_name="query.exe" OR Processes.original_file_name="query.exe") AND (Processes.process=*/server*) by Processes.dest Processes.user Processes.process_name Processes.parent_process_name 
-| `drop_dm_object_name(Processes)` 
-| `security_content_ctime(firstTime)` 
-| `security_content_ctime(lastTime)` 
-| `windows_system_remote_discovery_with_query_filter`'
+search: |-
+  | tstats `security_content_summariesonly` values(Processes.process_current_directory) as Processes.process_current_directory values(Processes.process_id) as Processes.process_id values(Processes.process) as Processes.process values(Processes.parent_process_id) as Processes.parent_process_id values(Processes.parent_process) as Processes.parent_process count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where (Processes.process_name="query.exe" OR Processes.original_file_name="query.exe") AND (Processes.process=*/server*) by Processes.dest Processes.user Processes.process_name Processes.parent_process_name 
+  | `drop_dm_object_name(Processes)` 
+  | `security_content_ctime(firstTime)` 
+  | `security_content_ctime(lastTime)` 
+  | `windows_system_remote_discovery_with_query_filter`
 how_to_implement: The detection is based on data that originates from Endpoint Detection and Response (EDR) agents. These agents are designed to provide security-related telemetry from the endpoints where the agent is installed. To implement this search, you must ingest logs that contain the process GUID, process name, and parent process. Additionally, you must ingest complete command-line executions. These logs must be processed using the appropriate Splunk Technology Add-ons that are specific to the EDR product. The logs must also be mapped to the `Processes` node of the `Endpoint` data model. Use the Splunk Common Information Model (CIM) to normalize the field names and speed up the data modeling process.
 known_false_positives: Administrators or power users may use this command for troubleshooting.
 references:
@@ -32,36 +33,28 @@ drilldown_searches:
   search: '| from datamodel:Endpoint.Processes | search dest=$dest$ process_name = $process_name|s$'
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
+rba:
+  message: The user $user$ ran the Query command to enumerate the remote system $dest$
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  - field: dest
+    type: system
+    score: 25
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story: 
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 49
-  impact: 49
-  message: The user $user$ ran the Query command to query information from a remote system from $dest$
   mitre_attack_id: 
   - T1033
-  observable: 
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product: 
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields: 
-  - _time
-  - Processes.dest
-  - Processes.user 
-  - Processes.process
-  - Processes.process_name 
-  - Processes.parent_process_name
-  risk_score: 24
   security_domain: endpoint
 tests:
 - name: True Positive Test
