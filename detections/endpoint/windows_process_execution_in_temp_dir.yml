@@ -62,13 +62,13 @@ rba:
     type: process_name
 tags:
   analytic_story:
-  - WannaCry
-  - Ryuk
-  - TrickBot
+  - Ryuk Ransomware
+  - Trickbot
   - Qakbot
   - AgentTesla
   - Remcos
   - NjRAT
+  - Ransomware
   asset_type: Endpoint
   mitre_attack_id:
   - T1543
