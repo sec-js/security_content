@@ -1,6 +1,6 @@
 name: Windows Disable or Stop Browser Process
 id: 220d34b7-b6c7-45fe-8dbb-c35cdd9fe6d5
-version: 2
+version: 3
 date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 data_source:
