@@ -63,6 +63,9 @@ rba:
   - field: src
     type: system
     score: 25
+  - field: user
+    type: user
+    score: 25    
   threat_objects:
   - field: signature
     type: signature
