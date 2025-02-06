@@ -3,6 +3,7 @@ id: e405907a-273c-41c9-928c-768c9355c1f7
 version: 1
 date: '2025-01-14'
 author: Steven Dick
+status: production
 description: |-
   Fortify your remote access and unapproved software monitoring with searches that monitor for and help you investigate the use of unappoved or malicious remote monitoring and management softwares (RMM).
 narrative: |-
