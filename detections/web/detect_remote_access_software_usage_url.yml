@@ -69,6 +69,8 @@ rba:
   threat_objects:
   - field: url_domain
     type: domain
+  - field: signature
+    type: signature    
 tags:
   analytic_story:
   - Insider Threat
