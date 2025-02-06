@@ -1,7 +1,7 @@
 name: Jenkins Arbitrary File Read CVE-2024-23897
 id: c641260d-2b48-4eb1-b1e8-2cc5b8b99ab1
-version: 2
-date: '2024-05-24'
+version: 4
+date: '2024-11-15'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -32,6 +32,29 @@ references:
 - https://www.sonarsource.com/blog/excessive-expansion-uncovering-critical-security-vulnerabilities-in-jenkins/
 - https://www.shodan.io/search?query=product%3A%22Jenkins%22
 - https://thehackernews.com/2024/01/critical-jenkins-vulnerability-exposes.html
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Jenkins Arbitrary File Read CVE-2024-23897 against $dest$ by $src$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 81
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   cve:
   - CVE-2024-23897
@@ -39,32 +62,12 @@ tags:
   - Jenkins Server Vulnerabilities
   asset_type: Web Server
   atomic_guid: []
-  confidence: 90
-  impact: 90
-  message: Jenkins Arbitrary File Read CVE-2024-23897 against $dest$ by $src$.
   mitre_attack_id:
   - T1190
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 81
-  required_fields:
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  - Web.url
-  - Web.status
-  - Web.http_method
   security_domain: network
 tests:
 - name: True Positive Test

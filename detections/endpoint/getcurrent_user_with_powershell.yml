@@ -1,7 +1,7 @@
 name: GetCurrent User with PowerShell
 id: 7eb9c3d5-c98c-4088-acc5-8240bad15379
-version: 2
-date: '2024-05-10'
+version: 4
+date: '2024-11-13'
 author: Mauricio Velazco, Splunk
 status: production
 type: Hunting
@@ -15,6 +15,8 @@ description: The following analytic detects the execution of `powershell.exe` wi
   potentially facilitating further exploitation and lateral movement within the network.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime from datamodel=Endpoint.Processes where (Processes.process_name="powershell.exe")
   (Processes.process=*System.Security.Principal.WindowsIdentity* OR Processes.process=*GetCurrent()*)
@@ -37,34 +39,12 @@ tags:
   analytic_story:
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: System user discovery on $dest$
   mitre_attack_id:
   - T1033
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -72,4 +52,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1033/AD_discovery/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

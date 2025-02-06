@@ -1,7 +1,7 @@
 name: Ivanti Connect Secure Command Injection Attempts
 id: 1f32a7e0-a060-4545-b7de-73fcf9ad536e
-version: 3
-date: '2024-05-20'
+version: 5
+date: '2024-11-15'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -34,34 +34,42 @@ references:
 - https://attackerkb.com/topics/AdUh6by52K/cve-2023-46805/rapid7-analysis
 - https://labs.watchtowr.com/welcome-to-2024-the-sslvpn-chaos-continues-ivanti-cve-2023-46805-cve-2024-21887/
 - https://twitter.com/GreyNoiseIO/status/1747711939466453301
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Possible exploitation of CVE-2023-46805 and CVE-2024-21887 against $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 90
+  threat_objects: []
 tags:
   cve:
   - CVE-2023-46805
   - CVE-2024-21887
   analytic_story:
   - Ivanti Connect Secure VPN Vulnerabilities
+  - CISA AA24-241A
   asset_type: VPN Appliance
   atomic_guid: []
-  confidence: 90
-  impact: 100
-  message: Possible exploitation of CVE-2023-46805 and CVE-2024-21887 against $dest$.
   mitre_attack_id:
   - T1190
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 90
-  required_fields:
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  - Web.url
   security_domain: network
 tests:
 - name: True Positive Test

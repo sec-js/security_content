@@ -1,7 +1,7 @@
 name: GetCurrent User with PowerShell Script Block
 id: 80879283-c30f-44f7-8471-d1381f6d437a
-version: 3
-date: '2024-05-21'
+version: 5
+date: '2024-11-13'
 author: Mauricio Velazco, Splunk
 status: production
 type: Hunting
@@ -32,29 +32,12 @@ tags:
   analytic_story:
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: System user discovery on $dest$ by $user$
   mitre_attack_id:
   - T1033
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Path
-  - Message
-  - OpCode
-  - ComputerName
-  - User
-  - EventCode
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -62,4 +45,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1033/AD_discovery/windows-powershell-xml.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

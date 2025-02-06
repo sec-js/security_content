@@ -1,7 +1,7 @@
 name: Suspicious Driver Loaded Path
 id: f880acd4-a8f1-11eb-a53b-acde48001122
-version: 2
-date: '2024-05-16'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -28,6 +28,29 @@ known_false_positives: Limited false positives will be present. Some application
 references:
 - https://www.trendmicro.com/vinfo/hk/threat-encyclopedia/malware/trojan.ps1.powtran.a/
 - https://redcanary.com/blog/tracking-driver-inventory-to-expose-rootkits/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Suspicious driver $file_name$ on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 63
+  threat_objects:
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
   - XMRig
@@ -36,34 +59,13 @@ tags:
   - BlackByte Ransomware
   - Snake Keylogger
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
-  message: Suspicious driver $file_name$ on $dest$
   mitre_attack_id:
   - T1543.003
   - T1543
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: file_name
-    type: File Name
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - ImageLoaded
-  - Hashes
-  - IMPHASH
-  - Signature
-  - Signed
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -71,4 +73,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/xmrig_miner/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

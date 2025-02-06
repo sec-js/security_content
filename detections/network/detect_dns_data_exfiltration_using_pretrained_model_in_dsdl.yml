@@ -1,7 +1,7 @@
 name: Detect DNS Data Exfiltration using pretrained model in DSDL
 id: 92f65c3a-168c-11ed-71eb-0242ac120012
-version: 2
-date: '2024-05-22'
+version: 4
+date: '2024-11-15'
 status: experimental
 author: Abhinav Mishra, Kumar Sharad and Namratha Sreekanta, Splunk
 type: Anomaly
@@ -47,36 +47,25 @@ references:
 - https://attack.mitre.org/techniques/T1048/003/
 - https://unit42.paloaltonetworks.com/dns-tunneling-how-dns-can-be-abused-by-malicious-actors/
 - https://en.wikipedia.org/wiki/Data_exfiltration
+rba:
+  message: A DNS data exfiltration request was sent by this host $src$ , kindly review.
+  risk_objects:
+  - field: src
+    type: system
+    score: 45
+  threat_objects:
+  - field: query
+    type: domain
 tags:
   analytic_story:
   - DNS Hijacking
   - Suspicious DNS Traffic
   - Command And Control
   asset_type: Endpoint
-  confidence: 90
-  impact: 50
-  message: A DNS data exfiltration request was sent by this host $src$ , kindly review.
   mitre_attack_id:
   - T1048.003
-  observable:
-  - name: query
-    type: Other
-    role:
-    - Attacker
-  - name: src
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.message_type
-  - DNS.record_type
-  - DNS.src
-  - DNS.dest
-  - DNS.answer
-  risk_score: 45
   security_domain: network

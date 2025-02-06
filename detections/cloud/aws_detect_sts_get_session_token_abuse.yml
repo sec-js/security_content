@@ -1,7 +1,7 @@
 name: aws detect sts get session token abuse
 id: 85d7b35f-b8b5-4b01-916f-29b81e7a0551
-version: 2
-date: '2024-05-14'
+version: 4
+date: '2024-11-14'
 author: Rod Soto, Splunk
 status: experimental
 type: Hunting
@@ -27,31 +27,10 @@ tags:
   analytic_story:
   - AWS Cross Account Activity
   asset_type: AWS Account
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1550
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - userIdentity.type
-  - eventName
-  - sourceIPAddress
-  - eventTime
-  - userIdentity.arn
-  - userName
-  - userAgent
-  - user_type
-  - status
-  - region
-  risk_score: 25
   security_domain: threat

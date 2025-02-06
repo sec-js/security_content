@@ -1,7 +1,7 @@
 name: AWS Exfiltration via EC2 Snapshot
 id: ac90b339-13fc-4f29-a18c-4abbba1f2171
-version: 2
-date: '2024-05-10'
+version: 4
+date: '2024-11-14'
 author: Bhavin Patel, Splunk
 status: production
 type: TTP
@@ -36,46 +36,41 @@ references:
 - https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifySnapshotAttribute.html
 - https://bleemb.medium.com/data-exfiltration-with-native-aws-s3-features-c94ae4d13436
 - https://stratus-red-team.cloud/attack-techniques/list/
+drilldown_searches:
+- name: View the detection results for - "$aws_account_id$"
+  search: '%original_detection_search% | search  aws_account_id = "$aws_account_id$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$aws_account_id$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$aws_account_id$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Potential AWS EC2 Exfiltration detected on account id - $aws_account_id$
+    by user $userName$ from src_ip $src_ip$
+  risk_objects:
+  - field: userName
+    type: user
+    score: 64
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Suspicious Cloud Instance Activities
   - Data Exfiltration
   asset_type: EC2 Snapshot
-  confidence: 80
-  impact: 80
-  message: Potential AWS EC2 Exfiltration detected on account id - $aws_account_id$
-    by user $userName$ from src_ip $src_ip$
   mitre_attack_id:
   - T1537
-  observable:
-  - name: userName
-    type: User
-    role:
-    - Attacker
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: aws_account_id
-    type: Other
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - user_arn
-  - src_ip
-  - requestParameters.attributeType
-  - aws_account_id
-  - vendor_region
-  - user_agent
-  - userIdentity.principalId
-  - requestParameters.createVolumePermission.add.items{}.userId
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -84,4 +79,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1537/aws_snapshot_exfil/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

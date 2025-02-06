@@ -1,12 +1,14 @@
 name: Windows Process Commandline Discovery
 id: 67d2a52e-a7e2-4a5d-ae44-a21212048bc2
-version: 2
-date: '2024-05-20'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic detects the use of Windows Management Instrumentation
   Command-line (WMIC) to retrieve information about running processes, specifically
   targeting the command lines used to launch those processes. This detection leverages
@@ -39,35 +41,12 @@ tags:
   analytic_story:
   - CISA AA23-347A
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: Activity related to process commandline discovery detected on $dest$ using
-    wmic.exe.
   mitre_attack_id:
   - T1057
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 15
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -75,4 +54,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1057/process_commandline_discovery/wmic-cmdline-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

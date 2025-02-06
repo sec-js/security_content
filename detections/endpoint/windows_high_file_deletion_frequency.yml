@@ -1,7 +1,7 @@
 name: Windows High File Deletion Frequency
 id: 45b125c4-866f-11eb-a95a-acde48001122
-version: 3
-date: '2024-05-18'
+version: 5
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: Anomaly
@@ -34,6 +34,35 @@ references:
 - https://www.mandiant.com/resources/fin11-email-campaigns-precursor-for-ransomware-data-theft
 - https://blog.virustotal.com/2020/11/keep-your-friends-close-keep-ransomware.html
 - https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Elevated file deletion rate observed from process [$process_name$] on machine
+    $dest$
+  risk_objects:
+  - field: user
+    type: user
+    score: 72
+  - field: dest
+    type: system
+    score: 72
+  threat_objects:
+  - field: deleted_files
+    type: file_name
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Clop Ransomware
@@ -42,43 +71,14 @@ tags:
   - Data Destruction
   - WhisperGate
   - Sandworm Tools
+  - Handala Wiper
   asset_type: Endpoint
-  confidence: 80
-  impact: 90
-  message: Elevated file deletion rate observed from process [$process_name$] on machine
-    $dest$
   mitre_attack_id:
   - T1485
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: deleted_files
-    type: File Name
-    role:
-    - Attacker
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - TargetFilename
-  - dest
-  - user
-  - Image
-  - ProcessID
-  - _time
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -86,4 +86,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/clop/clop_a/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

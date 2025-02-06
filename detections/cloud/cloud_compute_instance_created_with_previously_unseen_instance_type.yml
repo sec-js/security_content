@@ -1,7 +1,7 @@
 name: Cloud Compute Instance Created With Previously Unseen Instance Type
 id: c6ddbf53-9715-49f3-bb4c-fb2e8a309cda
-version: 2
-date: '2024-05-14'
+version: 4
+date: '2024-11-14'
 author: David Dorsey, Splunk
 status: experimental
 type: Anomaly
@@ -13,7 +13,8 @@ description: The following analytic detects the creation of EC2 instances with p
   purposes. If confirmed malicious, this could lead to unauthorized access, data exfiltration,
   system compromise, or service disruption. Immediate investigation is required to
   determine the legitimacy of the instance creation.
-data_source: []
+data_source:
+- AWS CloudTrail
 search: '| tstats earliest(_time) as firstTime, latest(_time) as lastTime values(All_Changes.object_id)
   as dest, count from datamodel=Change where All_Changes.action=created by All_Changes.Instance_Changes.instance_type,
   All_Changes.user | `drop_dm_object_name("All_Changes")` | `drop_dm_object_name("Instance_Changes")`
@@ -34,34 +35,25 @@ known_false_positives: It is possible that an admin will create a new system usi
   a new instance type that has never been used before. Verify with the creator that
   they intended to create the system with the new instance type.
 references: []
+rba:
+  message: User $user$ is creating an instance $dest$ with an instance type $instance_type$
+    that has not been previously seen.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 30
+  - field: user
+    type: user
+    score: 30
+  threat_objects: []
 tags:
   analytic_story:
   - Cloud Cryptomining
   asset_type: Cloud Compute Instance
-  confidence: 60
-  impact: 50
-  message: User $user$ is creating an instance $dest$ with an instance type $instance_type$
-    that has not been previously seen.
-  observable:
-  - name: user
-    type: User
-    role:
-    - Attacker
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.object_id
-  - All_Changes.action
-  - All_Changes.Instance_Changes.instance_type
-  - All_Changes.user
-  risk_score: 30
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -70,4 +62,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

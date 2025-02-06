@@ -1,7 +1,7 @@
 name: Processes Tapping Keyboard Events
 id: 2a371608-331d-4034-ae2c-21dda8f1d0ec
-version: 2
-date: '2024-05-13'
+version: 5
+date: '2024-11-13'
 author: Jose Hernandez, Splunk
 status: experimental
 type: TTP
@@ -28,29 +28,19 @@ known_false_positives: There might be some false positives as keyboard event tap
   to exclude please see [this](https://github.com/facebook/osquery/pull/5345#issuecomment-454639161)
   comment.
 references: []
+rba:
+  message: Keyboard Event Tapping observed on $host$
+  risk_objects:
+  - field: host
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - ColdRoot MacOS RAT
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
-  observable:
-  - name: dest
-    type: Other
-    role:
-    - Other
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - app
-  - name
-  - columns.cmdline
-  - columns.name
-  - columns.pid
-  - host
-  risk_score: 25
   security_domain: threat

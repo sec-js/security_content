@@ -1,7 +1,7 @@
 name: High Frequency Copy Of Files In Network Share
 id: 40925f12-4709-11ec-bb43-acde48001122
-version: 3
-date: '2024-05-26'
+version: 5
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -31,40 +31,40 @@ known_false_positives: This behavior may seen in normal transfer of file within 
   if network share is common place for sharing documents.
 references:
 - https://attack.mitre.org/techniques/T1537/
+drilldown_searches:
+- name: View the detection results for - "$src_user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: High frequency copy of document into a network share from $src_ip$ by $src_user$
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 9
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Information Sabotage
   - Insider Threat
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: High frequency copy of document into a network share from $src_ip$ by $src_user$
   mitre_attack_id:
   - T1537
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Share_Name
-  - Relative_Target_Name
-  - Object_Type
-  - Access_Mask
-  - user
-  - src_port
-  - Source_Address
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -73,4 +73,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1537/high_frequency_copy_of_files_in_network_share/windows-xml.log
     source: XmlWinEventLog:Security
     sourcetype: XmlWinEventLog
-    update_timestamp: true

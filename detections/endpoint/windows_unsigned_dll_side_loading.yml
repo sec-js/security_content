@@ -1,7 +1,7 @@
 name: Windows Unsigned DLL Side-Loading
 id: 5a83ce44-8e0f-4786-a775-8249a525c879
-version: 2
-date: '2024-05-31'
+version: 7
+date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -28,44 +28,45 @@ known_false_positives: It is possible some Administrative utilities will load di
 references:
 - https://asec.ahnlab.com/en/17692/
 - https://www.blackberry.com/us/en/solutions/endpoint-security/ransomware-protection/warzone#:~:text=Warzone%20RAT%20(AKA%20Ave%20Maria)%20is%20a%20remote%20access%20trojan,is%20as%20an%20information%20stealer.
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An unsigned dll module was loaded on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - Warzone RAT
+  - Derusbi
+  - Nexus APT Threat Activity
+  - Earth Estries
   - NjRAT
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: An unsigned dll module was loaded on $dest$
   mitre_attack_id:
   - T1574.002
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - Signed
-  - SignatureStatus
-  - OriginalFileName
-  - process_name
-  - dest
-  - EventCode
-  - ProcessId
-  - Hashes
-  - IMPHASH
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/warzone_rat/unsigned_dll_loaded/loaded_unsigned_dll.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/warzone_rat/unsigned_dll_loaded/loaded_unsigned_dll.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

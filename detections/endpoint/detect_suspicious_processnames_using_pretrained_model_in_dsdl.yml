@@ -1,12 +1,12 @@
 name: Detect suspicious processnames using pretrained model in DSDL
 id: a15f8977-ad7d-4669-92ef-b59b97219bf5
-version: 2
-date: '2024-05-27'
+version: 5
+date: '2024-11-13'
 author: Abhinav Mishra, Kumar Sharad and Namratha Sreekanta, Splunk
 type: Anomaly
 status: experimental
 data_source:
-- Sysmon Event Code 1
+- Sysmon EventID 1
 description: The following analytic identifies suspicious process names using a pre-trained
   Deep Learning model. It leverages Endpoint Detection and Response (EDR) telemetry
   to analyze process names and predict their likelihood of being malicious. The model,
@@ -37,39 +37,25 @@ known_false_positives: False positives may be present if a suspicious processnam
 references:
 - https://www.cisa.gov/uscert/ncas/alerts/aa20-302a
 - https://www.splunk.com/en_us/blog/security/random-words-on-entropy-and-dns.html
+rba:
+  message: The process $process$ is running from an unusual place by $user$ on $dest$
+    with a processname that appears to be randomly generated.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 45
+  - field: user
+    type: user
+    score: 45
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious Command-Line Executions
   asset_type: Endpoint
-  confidence: 90
-  context:
-  - Source:Endpoint
-  - Stage:Execution
-  impact: 50
-  message: The process $process$ is running from an unusual place by $user$ on $dest$
-    with a processname that appears to be randomly generated.
   mitre_attack_id:
   - T1059
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.parent_process
-  - Processes.user
-  - Processes.dest
-  risk_score: 45
   security_domain: endpoint

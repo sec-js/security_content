@@ -1,7 +1,7 @@
 name: O365 Multiple AppIDs and UserAgents Authentication Spike
 id: 66adc486-224d-45c1-8e4d-9e7eeaba988f
-version: 2
-date: '2024-05-12'
+version: 5
+date: '2024-11-14'
 author: Mauricio Velazco, Splunk
 status: production
 type: Anomaly
@@ -17,7 +17,7 @@ description: The following analytic identifies unusual authentication activity i
   it suggests a compromised account, potentially leading to unauthorized access, privilege
   escalation, and data exfiltration. Early detection is crucial to prevent further
   exploitation.
-search: ' `o365_management_activity` Workload=AzureActiveDirectory (Operation=UserLoggedIn
+search: '`o365_management_activity` Workload=AzureActiveDirectory (Operation=UserLoggedIn
   OR Operation=UserLoginFailed) | bucket span=5m _time | stats  dc(_raw) as failed_attempts
   dc(ApplicationId) as unique_app_ids dc(UserAgent) as unique_user_agents values(ApplicationId)
   values(OS) by _time user src_ip | where failed_attempts > 5 and unique_user_agents
@@ -32,37 +32,40 @@ references:
 - https://www.blackhillsinfosec.com/exploiting-mfa-inconsistencies-on-microsoft-services/
 - https://github.com/dafthack/MFASweep
 - https://www.youtube.com/watch?v=SK1zgqaAZ2E
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: $user$ authenticated in a short period of time with more than 5 different
+    user agents across 3 or more unique application ids.
+  risk_objects:
+  - field: user
+    type: user
+    score: 48
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Office 365 Account Takeover
   asset_type: O365 Tenant
-  confidence: 80
-  impact: 60
-  message: $user$ authenticated in a short period of time with more than 5 different
-    user agents across 3 or more unique application ids.
   mitre_attack_id:
   - T1078
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 48
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - ApplicationId
-  - UserAgent
-  - OS
   security_domain: identity
 tests:
 - name: True Positive Test

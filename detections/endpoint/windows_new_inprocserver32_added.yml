@@ -1,7 +1,7 @@
 name: Windows New InProcServer32 Added
 id: 0fa86e31-0f73-4ec7-9ca3-dc88e117f1db
-version: 2
-date: '2024-05-13'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 data_source:
 - Sysmon EventID 13
@@ -31,37 +31,19 @@ tags:
   analytic_story:
   - Outlook RCE CVE-2024-21378
   asset_type: Endpoint
-  confidence: 20
-  impact: 10
-  message: A new InProcServer32 registry key was added to a Windows endpoint. This
-    could indicate suspicious or malicious activity on the $dest$ .
   mitre_attack_id:
   - T1112
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Registry.registry_path
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  - Registry.registry_value_data
-  - Registry.dest
-  - Registry.process_guid
-  - Registry.user
-  risk_score: 2
   security_domain: endpoint
   cve:
-  - cve-2024-21378
+  - CVE-2024-21378
 tests:
 - name: True Positive Test
   attack_data:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1566/cve-2024-21378/inprocserver32_windows-sysmon.log
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational

@@ -1,7 +1,7 @@
 name: Gdrive suspicious file sharing
 id: a7131dae-34e3-11ec-a2de-acde48001122
-version: 2
-date: '2024-05-13'
+version: 4
+date: '2024-11-14'
 author: Rod Soto, Teoderick Contreras
 status: experimental
 type: Hunting
@@ -33,26 +33,10 @@ tags:
   - Spearphishing Attachments
   - Data Exfiltration
   asset_type: GDrive
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1566
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - src_ip
-  - parameters.owner
-  - parameters.target_user
-  - parameters.doc_title
-  - parameters.doc_type
-  risk_score: 25
   security_domain: threat

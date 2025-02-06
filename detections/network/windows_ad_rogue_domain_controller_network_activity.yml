@@ -1,7 +1,7 @@
 name: Windows AD Rogue Domain Controller Network Activity
 id: c4aeeeef-da7f-4338-b3ba-553cbcbe2138
-version: 2
-date: "2024-05-18"
+version: 4
+date: '2024-11-15'
 author: Dean Luxton
 type: TTP
 status: experimental
@@ -23,31 +23,23 @@ how_to_implement: Run zeek on domain controllers to capture the DCE RPC calls, e
 known_false_positives: None.
 references:
 - https://adsecurity.org/?p=1729
+rba:
+  message: Rogue DC Activity Detected from $src_category$ device $src$ to $dest$ ($dest_category$)
+  risk_objects:
+  - field: dest
+    type: system
+    score: 100
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 100
-  impact: 100
-  message: Rogue DC Activity Detected from $src_category$ device $src$ to $dest$ ($dest_category$)
   mitre_attack_id:
   - T1207
-  observable:
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
-  - name: dest
-    type: IP Address
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - src
-  - dest
-  risk_score: 100
   security_domain: network

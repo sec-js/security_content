@@ -1,7 +1,7 @@
 name: Windows Non Discord App Access Discord LevelDB
 id: 1166360c-d495-45ac-87a6-8948aac1fa07
-version: 2
-date: '2024-05-27'
+version: 5
+date: '2024-11-22'
 author: Teoderick Contreras, Splunk
 data_source:
 - Windows Event Log Security 4663
@@ -26,35 +26,39 @@ how_to_implement: To successfully implement this search, you must ingest Windows
 known_false_positives: unknown
 references:
 - https://malpedia.caad.fkie.fraunhofer.de/details/win.404keylogger
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A non-discord process $process_name$ accessing discord "leveldb" file on
+    $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 9
+  threat_objects: []
 tags:
   analytic_story:
   - Snake Keylogger
+  - PXA Stealer
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: A non-discord process $process_name$ accessing discord "leveldb" file on
-    $dest$
   mitre_attack_id:
   - T1012
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - object_file_name
-  - object_file_path
-  - process_name
-  - process_path
-  - process_id
-  - EventCode
-  - dest
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

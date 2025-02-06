@@ -1,7 +1,7 @@
 name: GetNetTcpconnection with PowerShell Script Block
 id: 091712ff-b02a-4d43-82ed-34765515d95d
-version: 3
-date: '2024-05-22'
+version: 5
+date: '2024-11-13'
 author: Mauricio Velazco, Splunk
 status: production
 type: Hunting
@@ -30,28 +30,12 @@ tags:
   analytic_story:
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: Network Connection discovery on $Computer$ by $user$
   mitre_attack_id:
   - T1049
-  observable:
-  - name: Computer
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -59,4 +43,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/powershell_script_block_logging/nettcpconnection.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

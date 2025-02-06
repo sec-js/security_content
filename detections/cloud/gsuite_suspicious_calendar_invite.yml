@@ -1,7 +1,7 @@
 name: Gsuite suspicious calendar invite
 id: 03cdd68a-34fb-11ec-9bd3-acde48001122
-version: 2
-date: '2024-05-21'
+version: 4
+date: '2024-11-14'
 author: Rod Soto, Teoderick Contreras
 status: experimental
 type: Hunting
@@ -34,25 +34,10 @@ tags:
   analytic_story:
   - Spearphishing Attachments
   asset_type: GSuite
-  confidence: 50
-  impact: 50
-  message: Gsuite suspicious calendar invite sent by $email$
   mitre_attack_id:
   - T1566
-  observable:
-  - name: email
-    type: Email Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - email
-  - parameters.event_title
-  - parameters.target_calendar_id
-  - parameters.event_title
-  risk_score: 25
   security_domain: threat

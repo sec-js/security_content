@@ -1,7 +1,7 @@
 name: Detect attackers scanning for vulnerable JBoss servers
 id: 104658f4-afdc-499e-9719-17243f982681
-version: 2
-date: '2024-05-19'
+version: 4
+date: '2024-11-15'
 author: Bhavin Patel, Splunk
 status: experimental
 type: TTP
@@ -24,31 +24,23 @@ how_to_implement: You must be ingesting data from the web server or network traf
 known_false_positives: It's possible for legitimate HTTP requests to be made to URLs
   containing the suspicious paths.
 references: []
+rba:
+  message: Potential Scanning for Vulnerable JBoss Servers
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - JBoss Vulnerability
   - SamSam Ransomware
   asset_type: Web Server
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1082
   - T1133
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Web.http_method
-  - Web.url
-  - Web.src
-  - Web.dest
-  risk_score: 25
   security_domain: network

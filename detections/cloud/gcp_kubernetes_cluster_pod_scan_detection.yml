@@ -1,7 +1,7 @@
 name: GCP Kubernetes cluster pod scan detection
 id: 19b53215-4a16-405b-8087-9e6acf619842
-version: 2
-date: '2024-05-18'
+version: 4
+date: '2024-11-14'
 author: Rod Soto, Splunk
 status: experimental
 type: Hunting
@@ -26,29 +26,10 @@ tags:
   analytic_story:
   - Kubernetes Scanning Activity
   asset_type: GCP Kubernetes cluster
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1526
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - category
-  - responseStatus.code
-  - sourceIPs{}
-  - userAgent
-  - verb
-  - requestURI
-  - responseStatus.reason
-  - properties.pod
-  risk_score: 25
   security_domain: threat

@@ -1,7 +1,7 @@
 name: AWS Disable Bucket Versioning
 id: 657902a9-987d-4879-a1b2-e7a65512824b
-version: 2
-date: '2024-05-24'
+version: 4
+date: '2024-11-14'
 author: Bhavin Patel, Splunk
 status: production
 type: Anomaly
@@ -26,45 +26,41 @@ known_false_positives: It is possible that an AWS Administrator has legitimately
 references:
 - https://invictus-ir.medium.com/ransomware-in-the-cloud-7f14805bbe82
 - https://bleemb.medium.com/data-exfiltration-with-native-aws-s3-features-c94ae4d13436
+drilldown_searches:
+- name: View the detection results for - "$aws_account_id$"
+  search: '%original_detection_search% | search  aws_account_id = "$aws_account_id$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$aws_account_id$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$aws_account_id$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Bucket Versioning is suspended for S3 buckets- $bucket_name$ by user $user_arn$
+    from IP address $src_ip$
+  risk_objects:
+  - field: user_arn
+    type: user
+    score: 64
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Suspicious AWS S3 Activities
   - Data Exfiltration
   asset_type: AWS Account
-  confidence: 80
-  impact: 80
-  message: Bucket Versioning is suspended for S3 buckets- $bucket_name$ by user $user_arn$
-    from IP address $src_ip$
   mitre_attack_id:
   - T1490
-  observable:
-  - name: user_arn
-    type: User
-    role:
-    - Attacker
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: aws_account_id
-    type: Other
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - user_arn
-  - src_ip
-  - aws_account_id
-  - destinationLocationArn
-  - sourceLocationArn
-  - userAgent
-  - userIdentity.principalId
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -73,4 +69,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1490/aws_bucket_version/cloudtrail.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

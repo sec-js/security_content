@@ -1,7 +1,7 @@
 name: Excessive number of taskhost processes
 id: f443dac2-c7cf-11eb-ab51-acde48001122
-version: 4
-date: '2024-05-20'
+version: 6
+date: '2024-11-13'
 author: Michael Hart
 status: production
 type: Anomaly
@@ -15,6 +15,8 @@ description: The following analytic identifies an excessive number of taskhost.e
   privileges, or move laterally within the network.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` values(Processes.process_id) as
   process_ids  min(_time) as firstTime max(_time) as lastTime FROM datamodel=Endpoint.Processes
   WHERE Processes.process_name = "taskhost.exe" OR Processes.process_name = "taskhostex.exe"
@@ -38,32 +40,38 @@ known_false_positives: Administrators, administrative actions or certain applica
   may run many instances of taskhost and taskhostex concurrently.  Filter as needed.
 references:
 - https://attack.mitre.org/software/S0250/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An excessive amount of taskhost.exe and taskhostex.exe was executed on
+    $dest$ indicative of suspicious behavior.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 56
+  threat_objects: []
 tags:
   analytic_story:
   - Meterpreter
   asset_type: Endpoint
-  confidence: 70
-  impact: 80
-  message: An excessive amount of taskhost.exe and taskhostex.exe was executed on
-    $dest$ indicative of suspicious behavior.
   mitre_attack_id:
   - T1059
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.dest
-  - Processes.user
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

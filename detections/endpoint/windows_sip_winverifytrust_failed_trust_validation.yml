@@ -1,7 +1,7 @@
 name: Windows SIP WinVerifyTrust Failed Trust Validation
 id: 6ffc7f88-415b-4278-a80d-b957d6539e1a
-version: 2
-date: '2024-05-13'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -30,30 +30,38 @@ references:
 - https://github.com/gtworek/PSBits/tree/master/SIP
 - https://github.com/mattifestation/PoCSubjectInterfacePackage
 - https://pentestlab.blog/2017/11/06/hijacking-digital-signatures/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Failed trust validation via the CryptoAPI 2 on $dest$ for a binary.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - Subvert Trust Controls SIP and Trust Provider Hijacking
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 80
-  impact: 80
-  message: Failed trust validation via the CryptoAPI 2 on $dest$ for a binary.
   mitre_attack_id:
   - T1553.003
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 64
-  required_fields:
-  - _time
-  - Computer
-  - UserData_Xml
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -61,4 +69,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1553.003/sip/capi2-operational.log
     source: XmlWinEventLog:Microsoft-Windows-CAPI2/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: Citrix ADC and Gateway Unauthorized Data Disclosure
 id: b593cac5-dd20-4358-972a-d945fefdaf17
-version: 2
-date: '2024-05-11'
+version: 4
+date: '2024-11-15'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -31,40 +31,41 @@ known_false_positives: False positives may be present based on organization use 
 references:
 - https://www.assetnote.io/resources/research/citrix-bleed-leaking-session-tokens-with-cve-2023-4966
 - https://github.com/assetnote/exploits/tree/main/citrix/CVE-2023-4966
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Possible exploitation of Citrix Bleed vulnerability against $dest$ fron
+    $src$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 90
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - Citrix NetScaler ADC and NetScaler Gateway CVE-2023-4966
   asset_type: Web Server
   atomic_guid: []
-  confidence: 90
-  impact: 100
-  message: Possible exploitation of Citrix Bleed vulnerability against $dest$ fron
-    $src$.
   mitre_attack_id:
   - T1190
-  observable:
-  - name: dest
-    type: IP Address
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 90
-  required_fields:
-  - Web.http_user_agent
-  - Web.status
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - sourcetype
   security_domain: network
 tests:
 - name: True Positive Test

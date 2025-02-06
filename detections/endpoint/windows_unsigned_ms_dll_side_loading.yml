@@ -1,10 +1,10 @@
 name: Windows Unsigned MS DLL Side-Loading
 id: 8d9e0e06-ba71-4dc5-be16-c1a46d58728c
-version: 2
-date: '2024-05-27'
+version: 7
+date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 data_source:
-- Sysmon Event ID 7
+- Sysmon EventID 7
 type: Anomaly
 status: production
 description: The following analytic identifies potential DLL side-loading instances
@@ -39,46 +39,52 @@ known_false_positives: False positives are possible if legitimate processes are 
 references:
 - https://www.mandiant.com/resources/blog/apt29-wineloader-german-political-parties
 - https://www.zscaler.com/blogs/security-research/european-diplomats-targeted-spikedwine-wineloader
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An instance of $Image$ loading Unsigned $ImageLoaded$ was detected on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 9
+  threat_objects:
+  - field: Image
+    type: file_name
 tags:
   analytic_story:
+  - Derusbi
   - APT29 Diplomatic Deceptions with WINELOADER
+  - Nexus APT Threat Activity
+  - Earth Estries
   group:
   - APT29
   - Cozy Bear
   - Midnight Blizzard
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: An instance of $Image$ loading Unsigned $ImageLoaded$ was detected on $dest$.
   mitre_attack_id:
   - T1574.002
   - T1547
-  observable:
-  - name: Image
-    type: File Name
-    role:
-    - Attacker
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Image
-  - ImageLoaded
-  - user
-  - Computer
-  - EventCode
-  risk_score: 9
   security_domain: endpoint
   cve: []
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.002/unsigned_dll_load//wineloader_dll_sideload.log
-    sourcetype: xmlwineventlog
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.002/unsigned_dll_load//wineloader_dll_sideload.log
+    sourcetype: XmlWinEventLog
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational

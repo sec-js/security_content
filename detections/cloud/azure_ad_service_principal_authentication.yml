@@ -1,7 +1,7 @@
 name: Azure AD Service Principal Authentication
 id: 5a2ec401-60bb-474e-b936-1e66e7aa4060
-version: 2
-date: '2024-05-21'
+version: 5
+date: '2024-11-14'
 author: Mauricio Velazco, Splunk
 data_source:
 - Azure Active Directory Sign-in activity
@@ -16,7 +16,7 @@ description: The following analytic identifies authentication events of service 
   or malicious activities. If confirmed malicious, attackers could gain unauthorized
   access to resources, leading to data breaches or further exploitation within the
   environment.
-search: ' `azure_monitor_aad` operationName="Sign-in activity" category=ServicePrincipalSignInLogs
+search: '`azure_monitor_aad` operationName="Sign-in activity" category=ServicePrincipalSignInLogs
   | rename properties.* as * | stats count earliest(_time) as firstTime latest(_time)
   as lastTime by user, user_id, src_ip, resourceDisplayName, resourceId | `security_content_ctime(firstTime)`
   | `security_content_ctime(lastTime)` | `azure_ad_service_principal_authentication_filter`'
@@ -32,39 +32,40 @@ known_false_positives: Service Principals will legitimally authenticate remotely
 references:
 - https://attack.mitre.org/techniques/T1078/004/
 - https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins#service-principal-sign-ins
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Service Principal $user$ authenticated from $src_ip$
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Azure Active Directory Account Takeover
   - NOBELIUM Group
   asset_type: Azure Active Directory
-  confidence: 50
-  impact: 50
-  message: Service Principal $user$ authenticated from $src_ip$
   mitre_attack_id:
   - T1078.004
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - operationName
-  - category
-  - properties.resourceDisplayName
-  - properties.resourceId
-  - user
-  - src_ip
-  - user_id
-  risk_score: 25
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -73,4 +74,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078.004/azure_ad_service_principal_authentication/azure_ad_service_principal_authentication.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true
