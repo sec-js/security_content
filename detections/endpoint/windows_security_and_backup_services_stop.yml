@@ -53,7 +53,7 @@ rba:
     type: system
     score: 72
   threat_objects:
-  - field: param1
+  - field: display_name
     type: service
 tags:
   analytic_story:
