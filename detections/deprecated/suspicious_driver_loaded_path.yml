@@ -1,7 +1,7 @@
 name: Suspicious Driver Loaded Path
 id: f880acd4-a8f1-11eb-a53b-acde48001122
-version: 5
-date: '2025-02-03'
+version: 6
+date: '2025-02-06'
 author: Teoderick Contreras, Splunk
 status: deprecated
 type: TTP
