@@ -71,6 +71,7 @@ tags:
   - Command And Control
   - Ransomware
   - CISA AA24-241A
+  - Remote Monitoring and Management Software
   asset_type: Endpoint
   mitre_attack_id:
   - T1219
