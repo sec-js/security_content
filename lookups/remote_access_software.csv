@@ -32,7 +32,7 @@ Ammyy Admin,*ammyy.com,aa_v*.exe,Ammyy*,ammyy-admin,TRUE,RMM,https://www.ammyy.c
 Ammyy Admin,,AMMYY_Admin.exe,,,TRUE,RMM,https://www.ammyy.com/en/admin_security.html,2/7/2024
 Any Support,*.anysupport.net,ManualLauncher.exe,AnySupport*,anysupport,TRUE,RMM,https://www.anysupport.net/introduce_howto.php,2/27/2024
 Any Support,,,"Koino Co., Ltd.",,TRUE,RMM,https://www.anysupport.net/introduce_howto.php,2/27/2024
-AnyDesk,net.anydesk.com,anydesk.exe,anydesk*,anydesk,TRUE,RMM,https://support.anydesk.com/knowledge/firewall,2/7/2024
+AnyDesk,*net.anydesk.com,anydesk.exe,anydesk*,anydesk,TRUE,RMM,https://support.anydesk.com/knowledge/firewall,2/7/2024
 AnyDesk,,,philandro Software*,anydesk,TRUE,RMM,https://support.anydesk.com/knowledge/firewall,2/7/2024
 Anyplace Control,anyplace-control.com,apc_host.exe,Anyplace*,anyplace-remote-control,TRUE,RMM,http://www.anyplace-control.com/anyplace-control/help/faq.htm,2/7/2024
 AnyViewer,controlserver.anyviewer.com,AnyViewerSetup.exe,AOMEI*,,TRUE,RMM,https://www.anyviewer.com/how-to/how-to-open-firewall-ports-for-remote-desktop-0427-gc.html,2/7/2024
@@ -52,10 +52,10 @@ Barracuda,,,LPI Level Platforms,,TRUE,RMM,https://help.islonline.com/19799/16612
 Basecamp,,,,,TRUE,RMM,basecamp.com - No specific RMM tool listed,2/7/2024
 BeamYourScreen,beamyourscreen.com,beamyourscreen.exe,BeamYourScreen*,,TRUE,RMM,beamyourscreen redirects to https://www.mikogo.com/,2/7/2024
 BeamYourScreen,*.beamyourscreen.com,beamyourscreen-host.exe,,,TRUE,RMM,beamyourscreen redirects to https://www.mikogo.com/,2/7/2024
-BeAnywhere,beanywhere.com,BASupConHelper.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
-BeAnywhere,*.beanywhere.com,BASupSrvc.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
-BeAnywhere,,BASupSrvcCnfg.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
-BeAnywhere,,BASupSrvcUpdater.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
+BeAnyWhere,beanywhere.com,BASupConHelper.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
+BeAnyWhere,*.beanywhere.com,BASupSrvc.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
+BeAnyWhere,,BASupSrvcCnfg.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
+BeAnyWhere,,BASupSrvcUpdater.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
 BeAnyWhere,,BASupSysInf.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
 BeAnyWhere,,BASupAppSrvc.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
 BeAnyWhere,,BASupAppElev.exe,,,TRUE,RMM,https://www.shouldiremoveit.com/beanywhere-support-service-40908-program.aspx,2/7/2024
@@ -88,10 +88,10 @@ CrossTec Remote Control,,supporttool.exe,,,TRUE,RMM,www.crosstecsoftware.com/sup
 CruzControl,,,,,TRUE,RMM,https://resources.doradosoftware.com/cruz-rmm,2/7/2024
 Dameware,user_managed,dntus*.exe,DameWare*,dameware-mini-remote,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
 Dameware,,dwrcs.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
-DameWare,,DameWare Remote Support.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
-DameWare,,SolarWinds-Dameware-MRC*.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
-DameWare,,DameWare Mini Remote Control*.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
-DameWare,,SolarWinds-Dameware-DRS*.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
+Dameware,,DameWare Remote Support.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
+Dameware,,SolarWinds-Dameware-MRC*.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
+Dameware,,DameWare Mini Remote Control*.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
+Dameware,,SolarWinds-Dameware-DRS*.exe,,,TRUE,RMM,https://documentation.solarwinds.com/en/success_center/dameware/content/install-standalone-port-requirements.htm,2/7/2024
 DeskDay,deskday.ai,ultimate_*.exe,,,TRUE,RMM,https://support.deskday.ai/en/articles/8235973-installing-the-end-user-application-ultimate,2/7/2024
 DeskDay,app.deskday.ai,,,,TRUE,RMM,https://support.deskday.ai/en/articles/8235973-installing-the-end-user-application-ultimate,2/7/2024
 DeskNets,,,,desknets,TRUE,RMM,https://www.desknets.com/en/download.html,2/26/2024
@@ -150,6 +150,11 @@ GatherPlace-desktop sharing,*.gatherplace.net,gp4.exe,,,TRUE,RMM,https://www.gat
 GatherPlace-desktop sharing,,gp5.exe,,,TRUE,RMM,https://www.gatherplace.com/kb?id=136377,2/7/2024
 GetScreen,*.getscreen.me,getscreen.exe,getscreen.me*,,TRUE,RMM,https://docs.getscreen.me/self-hosted/system-requirements/,2/7/2024
 GetScreen,getscreen.me,,Point B Ltd*,,TRUE,RMM,https://docs.getscreen.me/self-hosted/system-requirements/,2/7/2024
+Glance,screenshare-location.glance.net,GlanceSetup*.exe,GlanceClient*,,TRUE,RMM,https://help.glance.cx/security/security_qa/,11/20/2024
+Glance,s*.glance.net,GlanceGuestSetup*.exe,GlanceLauncher*,,TRUE,RMM,https://help.glance.cx/security/security_qa/,11/20/2024
+Glance,pr*.glance.net,Glance.exe,Glance Setup*,,TRUE,RMM,https://help.glance.cx/security/security_qa/,11/20/2024
+Glance,,GlanceLauncher.exe,Glance Launcher*,,TRUE,RMM,https://help.glance.cx/security/security_qa/,11/20/2024
+Glance,,GProtocolHandler.exe,Glance Networks*,,TRUE,RMM,https://help.glance.cx/security/security_qa/,11/20/2024
 GoToAssist,goto.com,gotoassist.exe,GoToAssist*,gotoassist,TRUE,RMM,https://help.gotoassist.com/remote-support/help/what-should-i-allow-on-my-firewall-for-gotoassist-remote-support-v5,2/7/2024
 GoToAssist,*.getgo.com,g2a*.exe,,,TRUE,RMM,https://help.gotoassist.com/remote-support/help/what-should-i-allow-on-my-firewall-for-gotoassist-remote-support-v5,2/7/2024
 GoToAssist,*.fastsupport.com,GoTo Assist Opener.exe,,,TRUE,RMM,https://help.gotoassist.com/remote-support/help/what-should-i-allow-on-my-firewall-for-gotoassist-remote-support-v5,2/7/2024
@@ -215,7 +220,7 @@ ITSupport247 (ConnectWise),*.itsupport247.net,saazapsc.exe,,,TRUE,RMM,https://co
 Ivanti Remote Control,*.ivanticloud.com,IvantiRemoteControl.exe,,,TRUE,RMM,https://rc1.ivanticloud.com/,2/9/2024
 Ivanti Remote Control,,ArcUI.exe,,,TRUE,RMM,https://rc1.ivanticloud.com/,2/9/2024
 Ivanti Remote Control,,AgentlessRC.exe,,,TRUE,RMM,https://rc1.ivanticloud.com/,2/9/2024
-Jump Cloud,*.api.jumpcloud.com,JumpCloud*.exe ,JumpCloud*,,TRUE,RMM,https://jumpcloud.com/support/understand-remote-assist-agent,2/26/2024
+Jump Cloud,*.api.jumpcloud.com,JumpCloud*.exe,JumpCloud*,,TRUE,RMM,https://jumpcloud.com/support/understand-remote-assist-agent,2/26/2024
 Jump Cloud,*.assist.jumpcloud.com,,,,TRUE,RMM,https://jumpcloud.com/support/understand-remote-assist-agent,2/26/2024
 Jump Desktop,*.jumpdesktop.com,jumpclient.exe,,jumpdesktop,TRUE,RMM,https://support.jumpdesktop.com/hc/en-us/articles/360042490351-Administrators-Guide-For-Jump-Desktop-Connect,2/9/2024
 Jump Desktop,jumpdesktop.com,jumpdesktop.exe,,,TRUE,RMM,https://jumpdesktop.com/connect/,2/8/2024
@@ -265,8 +270,12 @@ Manage Engine (Desktop Central),*.dms.zoho.com,,,,TRUE,RMM,https://www.manageeng
 Manage Engine (Desktop Central),*.dms.zoho.com.eu,,,,TRUE,RMM,https://www.manageengine.com/products/desktop-central/help/domains-required-for-agent-communication.html,2/8/2024
 Manage Engine (Desktop Central),*.-dms.zoho.com.cn,,,,TRUE,RMM,https://www.manageengine.com/products/desktop-central/help/domains-required-for-agent-communication.html,2/8/2024
 MeshCentral,user_managed,meshcentral*.exe,meshcentral,,TRUE,RMM,https://ylianst.github.io/MeshCentral/meshcentral/,2/8/2024
-Microsoft Quick Assist,user_managed,quickassist.exe,,ms-quick-assist,TRUE,Built-in,https://support.microsoft.com/en-us/windows/install-quick-assist-c17479b7-a49d-4d12-938c-dbfb97c88bca,2/9/2024
+Microsoft Quick Assist,remoteassistance.support.services.microsoft.com*,quickassist.exe,Quick Assist,ms-quick-assist,TRUE,Built-in,https://support.microsoft.com/en-us/windows/install-quick-assist-c17479b7-a49d-4d12-938c-dbfb97c88bca,2/9/2024
 Microsoft RDP,,mstsc.exe,,ms-rdp,TRUE,Built-in,https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/windows,2/8/2024
+Microsoft SCCM Remote Control,user_managed,sccmrdpsystem.exe,SCCM RDP System,,TRUE,RMM,https://learn.microsoft.com/en-us/mem/configmgr/core/clients/manage/remote-control/introduction-to-remote-control,1/29/2025
+Microsoft SCCM Remote Control,,sccmrdpuser.exe,Microsoft Configuration Manager Remote Control,,TRUE,RMM,https://learn.microsoft.com/en-us/mem/configmgr/core/clients/manage/remote-control/introduction-to-remote-control,1/29/2025
+Microsoft SCCM Remote Control,,cmrcservice.exe,Configuration Manager Remote Control Service,,TRUE,RMM,https://learn.microsoft.com/en-us/mem/configmgr/core/clients/manage/remote-control/introduction-to-remote-control,1/29/2025
+Microsoft SCCM Remote Control,,cmrcviewer.exe,ConfigMgr Remote Control Viewer,,TRUE,RMM,https://learn.microsoft.com/en-us/mem/configmgr/core/clients/manage/remote-control/introduction-to-remote-control,1/29/2025
 Microsoft TSC,,termsrv.exe,,,TRUE,Built-in,https://learn.microsoft.com/en-us/troubleshoot/windows-server/remote/terminal-server-startup-connection-application,2/8/2024
 Mikogo,*.real-time-collaboration.com,mikogo.exe,,,TRUE,RMM,https://mikogo.zendesk.com/hc/en-us/articles/214072478-Which-IP-addresses-do-we-use-for-our-services,2/7/2024
 Mikogo,*.mikogo4.com,mikogo-starter.exe,,,TRUE,RMM,https://mikogo.zendesk.com/hc/en-us/articles/214072478-Which-IP-addresses-do-we-use-for-our-services,2/7/2024
@@ -298,7 +307,7 @@ N-Able Advanced Monitoring Agent,systemmonitor.us.cdn.cloudflare.net,BASupTSHelp
 N-Able Advanced Monitoring Agent,*cloudbackup.management,,,,TRUE,RMM,https://documentation.n-able.com/takecontrol/troubleshooting/Content/kb/Take-Control-Standalone-Ports-and-Domains-Firewall-and-AV-Exclusions.htm,2/9/2024
 N-Able Advanced Monitoring Agent,*systemmonitor.co.uk,,,,TRUE,RMM,https://documentation.n-able.com/takecontrol/troubleshooting/Content/kb/Take-Control-Standalone-Ports-and-Domains-Firewall-and-AV-Exclusions.htm,2/9/2024
 N-Able Advanced Monitoring Agent,*.n-able.com,,,,TRUE,RMM,https://documentation.n-able.com/takecontrol/troubleshooting/Content/kb/Take-Control-Standalone-Ports-and-Domains-Firewall-and-AV-Exclusions.htm,2/9/2024
-N-Able Advanced Monitoring Agent,*.beanywhere.com ,,,,TRUE,RMM,https://documentation.n-able.com/takecontrol/troubleshooting/Content/kb/Take-Control-Standalone-Ports-and-Domains-Firewall-and-AV-Exclusions.htm,2/9/2024
+N-Able Advanced Monitoring Agent,*.beanywhere.com,,,,TRUE,RMM,https://documentation.n-able.com/takecontrol/troubleshooting/Content/kb/Take-Control-Standalone-Ports-and-Domains-Firewall-and-AV-Exclusions.htm,2/9/2024
 N-Able Advanced Monitoring Agent,*.swi-tc.com,,,,TRUE,RMM,https://documentation.n-able.com/takecontrol/troubleshooting/Content/kb/Take-Control-Standalone-Ports-and-Domains-Firewall-and-AV-Exclusions.htm,2/9/2024
 NateOn-desktop sharing,*.nate.com,nateon*.exe,,,TRUE,RMM,http://rsupport.nate.com/rview/r8/main/index.aspx,2/9/2024
 NateOn-desktop sharing,,nateon.exe,,,TRUE,RMM,http://rsupport.nate.com/rview/r8/main/index.aspx,2/9/2024
@@ -324,6 +333,10 @@ Neturo,neturo.uplus.co.kr,neturo*.exe,,,TRUE,RMM,"Obscure, located an older copy
 Neturo,,ntrntservice.exe,,,TRUE,RMM,"Obscure, located an older copy here: http://www.iconpos.com/pos/home/iconpos/bbs.php?id=file&q=view&uid=2",2/9/2024
 Netviewer (GoToMeet),,nvClient.exe,Algorius*,netviewer,TRUE,RMM,Obsolute - found copy here: https://www.enviolet.com/en/service/online-consultant.html,2/9/2024
 Netviewer (GoToMeet),,netviewer.exe,,,TRUE,RMM,Obsolute - found copy here: https://www.enviolet.com/en/service/online-consultant.html,2/9/2024
+NexThink,*.data.us.nexthink.cloud,nxtsvc.exe,Nexthink Collector*,,TRUE,RMM,https://docs.nexthink.com/platform/getting-started/planning-your-installation/techical-requirements/connectivity-requirements,1/24/2025
+NexThink,*.data.eu.nexthink.cloud,nxtcod.exe,Nexthink Coordinator*,,TRUE,RMM,https://docs.nexthink.com/platform/getting-started/planning-your-installation/techical-requirements/connectivity-requirements,1/24/2025
+NexThink,*.data.pac.nexthink.cloud,nxtcoordinator.exe,,,TRUE,RMM,https://docs.nexthink.com/platform/getting-started/planning-your-installation/techical-requirements/connectivity-requirements,1/24/2025
+NexThink,*.data.meta.nexthink.cloud,nxtupdater.exe,,,TRUE,RMM,https://docs.nexthink.com/platform/getting-started/planning-your-installation/techical-requirements/connectivity-requirements,1/24/2025
 ngrok,user_managed,ngrok.exe,,,TRUE,Developer Utility,https://ngrok.com/docs/guides/running-behind-firewalls/,2/9/2024
 NinjaRMM,*.ninjaone.com,ninjarmmagent.exe,NinjaRMM*,,TRUE,RMM,https://www.ninjaone.com/faq/,2/9/2024
 NinjaRMM,*.ninjarmm.com,NinjaRMMAgenPatcher.exe,Ninja MSP*,,TRUE,RMM,https://www.ninjaone.com/faq/,2/9/2024
@@ -337,6 +350,8 @@ OptiTune,*.optitune.us,OTService.exe,Bravura Software*,,TRUE,RMM,https://www.bra
 OptiTune,*.opti-tune.com,OTPowerShell.exe,OptiTune*,,TRUE,RMM,https://www.bravurasoftware.com/optitune/support/faq.aspx,2/26/2024
 Pandora RC (eHorus),portal.ehorus.com,ehorus standalone.exe,eHorus*,,TRUE,RMM,https://pandorafms.com/manual/!current/en/documentation/09_pandora_rc/01_pandora_rc_introduction,2/7/2024
 Pandora RC (eHorus),,ehorus_agent.exe,,,TRUE,RMM,https://pandorafms.com/manual/!current/en/documentation/09_pandora_rc/01_pandora_rc_introduction,2/7/2024
+Pandora RC (eHorus),,ehorus_launcher.exe,,,TRUE,RMM,https://pandorafms.com/manual/!current/en/documentation/09_pandora_rc/01_pandora_rc_introduction,2/7/2024
+Pandora RC (eHorus),,ehorus_display.exe,,,TRUE,RMM,https://pandorafms.com/manual/!current/en/documentation/09_pandora_rc/01_pandora_rc_introduction,2/7/2024
 Panorama9,trusted.panorama9.com,p9agent*.exe,Panorama9*,,TRUE,RMM,https://support.panorama9.com/en/articles/1859605-what-ports-and-hosts-does-the-p9-agent-communicate-with,2/9/2024
 Panorama9,changes.panorama9.com,,,,TRUE,RMM,https://support.panorama9.com/en/articles/1859605-what-ports-and-hosts-does-the-p9-agent-communicate-with,2/9/2024
 Parallels Access,*.parallels.com,prl_deskctl_agent.exe,Parallels Access*,parallels-access,TRUE,RMM,https://kb.parallels.com/en/129097,2/9/2024
@@ -367,7 +382,7 @@ PSEXEC,user_managed,psexec.exe,Sysinternals PsExec,psexec,TRUE,Remote Access,htt
 PSEXEC,,psexecsvc.exe,PsExec*,,TRUE,Remote Access,https://learn.microsoft.com/en-us/sysinternals/downloads/psexec,2/9/2024
 PSEXEC (Clone),user_managed,paexec.exe,Power Admin*,,TRUE,Remote Access,https://www.poweradmin.com/paexec/,2/9/2024
 PSEXEC (Clone),,PAExec-*.exe,PAExec*,,TRUE,Remote Access,https://www.poweradmin.com/paexec/,2/9/2024
-PSEXEC (Clone),,csexec.exe ,,,TRUE,Remote Access,https://github.com/malcomvetter/CSExec,2/9/2024
+PSEXEC (Clone),,csexec.exe,,,TRUE,Remote Access,https://github.com/malcomvetter/CSExec,2/9/2024
 PSEXEC (Clone),,remcom.exe,Remote System Deployment*,,TRUE,Remote Access,https://support.alertlogic.com/hc/en-us/articles/360034494351-Windows-Server-RemCom-Tool-Remote-Shell,2/9/2024
 PSEXEC (Clone),,remcomsvc.exe,Remote Command Executor*,,TRUE,Remote Access,https://support.alertlogic.com/hc/en-us/articles/360034494351-Windows-Server-RemCom-Tool-Remote-Shell,2/9/2024
 PSEXEC (Clone),,xcmd.exe,,,TRUE,Remote Access,https://docs.bmc.com/docs/display/public/baob201204/xCmd+utility,2/9/2024
@@ -488,12 +503,12 @@ SuperOps,*.superopsalpha.com,,,,TRUE,RMM,https://support.superops.com/en/article
 SuperOps,*.superopsbeta.com,,,,TRUE,RMM,https://support.superops.com/en/articles/6632028-how-to-download-and-deploy-the-agent,2/7/2024
 Supremo,supremocontrol.com,supremo.exe,SupRemo*,supremo,TRUE,RMM,https://www.supremocontrol.com/frequently-asked-questions/,2/13/2024
 Supremo,*.supremocontrol.com,supremohelper.exe,NanoSystems*,,TRUE,RMM,https://www.supremocontrol.com/frequently-asked-questions/,2/13/2024
-Supremo,* .nanosystems.it,supremoservice.exe,,,TRUE,RMM,https://www.supremocontrol.com/frequently-asked-questions/,2/13/2024
+Supremo,*.nanosystems.it,supremoservice.exe,,,TRUE,RMM,https://www.supremocontrol.com/frequently-asked-questions/,2/13/2024
 Supremo,,supremosystem.exe,,,TRUE,RMM,https://www.supremocontrol.com/frequently-asked-questions/,2/13/2024
 Supremo,,supremohelper.exe,,,TRUE,RMM,https://www.supremocontrol.com/frequently-asked-questions/,2/13/2024
 Supremo,,supremo.exe,,,TRUE,RMM,https://www.supremocontrol.com/frequently-asked-questions/,2/13/2024
 Supremo,,supremosystem.exe,,,TRUE,RMM,https://www.supremocontrol.com/frequently-asked-questions/,2/13/2024
-Syncro,app.kabuto.io ,Kabuto.App.Runner.exe,Servably*,,TRUE,RMM,https://community.syncromsp.com/t/syncro-exceptions-and-allowlists/2004,2/13/2024
+Syncro,app.kabuto.io,Kabuto.App.Runner.exe,Servably*,,TRUE,RMM,https://community.syncromsp.com/t/syncro-exceptions-and-allowlists/2004,2/13/2024
 Syncro,*.syncromsp.com,Kabuto.Service.Runner.exe,Syncro*,,TRUE,RMM,https://community.syncromsp.com/t/syncro-exceptions-and-allowlists/2004,2/13/2024
 Syncro,*.syncroapi.com,Kabuto.Installer.exe,,,TRUE,RMM,https://community.syncromsp.com/t/syncro-exceptions-and-allowlists/2004,2/13/2024
 Syncro,*.kabutoservices.com,KabutoSetup.exe,,,TRUE,RMM,https://community.syncromsp.com/t/syncro-exceptions-and-allowlists/2004,2/13/2024
@@ -561,8 +576,8 @@ Zabbix Agent,user_managed,zabbix_agent*.exe,Zabbix*,,TRUE,RMM,https://www.zabbix
 ZeroTier,zerotier.com,zerotier*.msi,ZeroTier*,,TRUE,RMM,https://my.zerotier.com/,2/14/2024
 ZeroTier,*.zerotier.com,zerotier*.exe,zero-powesrhell*,,TRUE,RMM,https://my.zerotier.com/,2/14/2024
 ZeroTier,,zero-powershell.exe,,,TRUE,RMM,https://my.zerotier.com/,2/14/2024
-Zoho Assist,*.zoho.com,za_connect.exe,Zoho*,,TRUE,RMM,https://www.zoho.com/assist/kb/firewall-configuration.html,2/14/2024
-Zoho Assist,*.zoho.eu,zaservice.exe,,,TRUE,RMM,https://www.zoho.com/assist/kb/firewall-configuration.html,2/14/2024
+Zoho Assist,*.zoho.com,za_connect.exe,Zoho*,zoho-assist,TRUE,RMM,https://www.zoho.com/assist/kb/firewall-configuration.html,2/14/2024
+Zoho Assist,*.zoho.eu,zaservice.exe,,zoho-assist-base,TRUE,RMM,https://www.zoho.com/assist/kb/firewall-configuration.html,2/14/2024
 Zoho Assist,*.zoho.in,zohotray.exe,,,TRUE,RMM,https://www.zoho.com/assist/kb/firewall-configuration.html,2/14/2024
 Zoho Assist,*.zoho.com.au,ZohoMeeting.exe,,,TRUE,RMM,https://www.zoho.com/assist/kb/firewall-configuration.html,2/14/2024
 Zoho Assist,*.zoho.com.cn,Zohours.exe,,,TRUE,RMM,https://www.zoho.com/assist/kb/firewall-configuration.html,2/14/2024
