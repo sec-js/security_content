@@ -1,7 +1,7 @@
 name: Remote Desktop Network Bruteforce
 id: a98727cc-286b-4ff2-b898-41df64695923
-version: 6
-date: '2024-11-15'
+version: 7
+date: '2025-02-10'
 author: Jose Hernandez, Splunk
 status: experimental
 type: TTP
@@ -43,7 +43,6 @@ tags:
   asset_type: Endpoint
   mitre_attack_id:
   - T1021.001
-  - T1021
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
