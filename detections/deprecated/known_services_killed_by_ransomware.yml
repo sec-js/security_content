@@ -5,7 +5,7 @@ date: '2025-02-07'
 author: Teoderick Contreras, Splunk
 status: deprecated
 type: TTP
-description: The following analytic detects the suspicious termination of known services
+description: This analytic has been deprecated in favor of a new analytic - Windows Security And Backup Services Stop. The following analytic detects the suspicious termination of known services
   commonly targeted by ransomware before file encryption. It leverages Windows System
   Event Logs (EventCode 7036) to identify when critical services such as Volume Shadow
   Copy, backup, and antivirus services are stopped. This activity is significant because

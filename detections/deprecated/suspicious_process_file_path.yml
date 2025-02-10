@@ -5,7 +5,7 @@ date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: deprecated
 type: TTP
-description: The following analytic identifies processes running from file paths not
+description: This search has been deprecated in favour of -  Windows Suspicious Process File Path. The following analytic identifies processes running from file  paths not
   typically associated with legitimate software. It leverages data from Endpoint Detection
   and Response (EDR) agents, focusing on specific process paths within the Endpoint
   data model. This activity is significant because adversaries often use unconventional

@@ -5,7 +5,7 @@ date: '2025-02-06'
 author: Teoderick Contreras, Splunk
 status: deprecated
 type: TTP
-description: The following analytic detects the loading of drivers from suspicious
+description: This search has been deprecated in favour of - Windows Suspicious Driver Loaded Path. The following analytic detects the loading of drivers from suspicious
   paths, which is a technique often used by malicious software such as coin miners
   (e.g., xmrig). It leverages Sysmon EventCode 6 to identify drivers loaded from non-standard
   directories. This activity is significant because legitimate drivers typically reside
