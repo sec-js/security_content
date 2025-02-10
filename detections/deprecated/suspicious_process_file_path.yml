@@ -1,10 +1,10 @@
 name: Suspicious Process File Path
 id: 9be25988-ad82-11eb-a14f-acde48001122
-version: 6
-date: '2024-12-10'
+version: 7
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: deprecated
-type: 
+type: TTP
 description: The following analytic identifies processes running from file paths not
   typically associated with legitimate software. It leverages data from Endpoint Detection
   and Response (EDR) agents, focusing on specific process paths within the Endpoint
