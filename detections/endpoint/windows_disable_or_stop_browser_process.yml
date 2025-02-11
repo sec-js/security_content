@@ -4,7 +4,7 @@ version: 3
 date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 data_source:
-- Sysmon Event ID 1
+- Sysmon EventID 1
 type: TTP
 status: production
 description: The following analytic detects the use of the taskkill command in a process
