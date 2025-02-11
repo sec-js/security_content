@@ -36,7 +36,7 @@ drilldown_searches:
   earliest_offset: $info_min_time$
   latest_offset: $info_max_time$
 rba:
-  message: The user [$user$] altered the exchange transport rule id $object_id$ [$object_name$]
+  message: The user [$user$] altered the exchange transport rule id [$object_name$]
   risk_objects:
   - field: user
     type: user
