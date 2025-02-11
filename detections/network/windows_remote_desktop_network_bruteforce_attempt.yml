@@ -1,6 +1,6 @@
 name: Windows Remote Desktop Network Bruteforce Attempt
 id: 908bf0d5-0983-4afd-b6a4-e9eb5d361a7d
-version: 6  
+version: 1
 date: '2025-01-10'
 author: Jose Hernandez, Bhavin Patel, Splunk
 status: production
