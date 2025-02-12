@@ -138,7 +138,7 @@ Please use the [GitHub Issue Tracker](https://github.com/splunk/security_content
 If you have questions or need support, you can:
 
 * Post a question to [Splunk Answers](http://answers.splunk.com)
-* Join the [#security-research](https://splunkcommunity.slack.com/archives/CDNHXVBGS) room in the [Splunk Slack channel](https://splk.it/slack)
+* Join the [#security-research](https://splunkcommunity.slack.com/archives/CDNHXVBGS) channel in the [Splunk Community Slack.](https://splk.it/slack)
 
 ## License
 Copyright 2022 Splunk Inc.
