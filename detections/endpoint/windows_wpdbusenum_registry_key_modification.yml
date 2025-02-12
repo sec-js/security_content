@@ -1,4 +1,4 @@
-name: Windows Detect WPDBusEnum Registry Key Modification
+name: Windows WPDBusEnum Registry Key Modification
 id: 52b48e8b-eb6e-48b0-b8f1-73273f6b134e
 version: 1
 date: '2025-01-17'
@@ -15,7 +15,7 @@ search: |-
   | eval object_handle = registry_value_data, object_name = replace(mvindex(split(mvindex(split(registry_path, "??"),1),"&amp;"),2),"PROD_","")
   | `security_content_ctime(firstTime)` 
   | `security_content_ctime(lastTime)`
-  | `windows_detect_wpdbusenum_registry_key_modification_filter`
+  | `windows_wpdbusenum_registry_key_modification_filter`
 how_to_implement: To successfully implement this search, you must ingest endpoint logging that tracks changes to the HKLM\SOFTWARE\Microsoft\Windows Portable Devices\Devices\ or HKLM\System\CurrentControlSet\Enum\SWD\WPDBUSENUM\ registry keys. Ensure that the field from the event logs is being mapped to the proper fields in the Endpoint.Registry data model.
 known_false_positives: Legitimate USB activity will also be detected. Please verify and investigate as appropriate.
 references:
