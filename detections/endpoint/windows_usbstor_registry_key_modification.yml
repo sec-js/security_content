@@ -1,4 +1,4 @@
-name: Windows Detect USBSTOR Registry Key Modification
+name: Windows USBSTOR Registry Key Modification
 id: a345980a-417d-4ed3-9fb4-cac30c9405a0
 version: 1
 date: '2025-01-17'
@@ -15,7 +15,7 @@ search: |-
   | eval object_name = registry_value_data, object_handle = split(mvindex(split(registry_path, "\\"),6),"&amp;"), object_handle = mvindex(mvfilter(NOT len(object_handle)=1),0)
   | `security_content_ctime(firstTime)` 
   | `security_content_ctime(lastTime)` 
-  | `windows_detect_usbstor_registry_key_modification_filter`
+  | `windows_usbstor_registry_key_modification_filter`
 how_to_implement: To successfully implement this search, you must ingest endpoint logging that tracks changes to the HKLM\System\CurrentControlSet\Enum\USBSTOR\ registry keys. Ensure that the field from the event logs is being mapped to the proper fields in the Endpoint.Registry data model.
 known_false_positives: Legitimate USB activity will also be detected. Please verify and investigate as appropriate.
 references:
