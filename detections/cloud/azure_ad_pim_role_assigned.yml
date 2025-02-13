@@ -1,7 +1,7 @@
 name: Azure AD PIM Role Assigned
 id: fcd6dfeb-191c-46a0-a29c-c306382145ab
-version: 3
-date: '2024-05-14'
+version: 7
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -14,7 +14,7 @@ description: The following analytic detects the assignment of an Azure AD Privil
   monitored to prevent unauthorized access. If confirmed malicious, an attacker could
   exploit this to gain privileged access, potentially leading to unauthorized actions,
   data breaches, or further compromise of the environment.
-search: ' `azure_monitor_aad` operationName="Add eligible member to role in PIM completed*"
+search: '`azure_monitor_aad` operationName="Add eligible member to role in PIM completed*"
   | rename properties.* as * | stats count min(_time) as firstTime max(_time) as lastTime
   values(user) as user values(targetResources{}.displayName) as displayName  by result,
   operationName, initiatedBy.user.displayName | `security_content_ctime(firstTime)`
@@ -30,34 +30,38 @@ references:
 - https://learn.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-configure
 - https://learn.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-how-to-activate-role
 - https://microsoft.github.io/Azure-Threat-Research-Matrix/PrivilegeEscalation/AZT401/AZT401/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An Azure AD PIM role assignment was assiged to $user$
+  risk_objects:
+  - field: user
+    type: user
+    score: 35
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Privilege Escalation
   - Azure Active Directory Persistence
   asset_type: Azure Active Directory
-  confidence: 50
-  impact: 70
-  message: An Azure AD PIM role assignment was assiged to $user$
   mitre_attack_id:
-  - T1098
   - T1098.003
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 35
-  required_fields:
-  - _time
-  - properties
-  - operationName
-  - user
-  - initiatedBy.user.userPrincipalName
-  - result
   security_domain: identity
 tests:
 - name: True Positive Test

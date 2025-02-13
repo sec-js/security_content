@@ -1,7 +1,7 @@
 name: Windows ISO LNK File Creation
 id: d7c2c09b-9569-4a9e-a8b6-6a39a99c1d32
-version: 3
-date: '2024-05-09'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -44,32 +44,15 @@ tags:
   - Remcos
   - Warzone RAT
   - Amadey
+  - Gozi Malware
   asset_type: Endpoint
-  confidence: 50
-  impact: 80
-  message: An ISO file was mounted on $dest$ and should be reviewed and filtered as
-    needed.
   mitre_attack_id:
-  - T1566.001
-  - T1566
   - T1204.001
-  - T1204
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
+  - T1566.001
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Filesystem.file_create_time
-  - Filesystem.process_id
-  - Filesystem.file_name
-  - Filesystem.file_path
-  - Filesystem.dest
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -77,4 +60,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1556.001/atomic_red_team/iso_windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

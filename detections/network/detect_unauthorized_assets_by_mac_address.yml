@@ -1,7 +1,7 @@
 name: Detect Unauthorized Assets by MAC address
 id: dcfd6b40-42f9-469d-a433-2e53f7489ff4
-version: 3
-date: '2024-05-10'
+version: 5
+date: '2024-11-15'
 author: Bhavin Patel, Splunk
 status: experimental
 type: TTP
@@ -30,26 +30,19 @@ known_false_positives: This search might be prone to high false positives. Pleas
   system responsible for the false positive and add it to the Assets and Identity
   framework with the proper information.
 references: []
+rba:
+  message: Potentially Unauthorized Device observed
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Asset Tracking
   asset_type: Infrastructure
-  confidence: 50
-  impact: 50
-  message: tbd
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Sessions.signature
-  - All_Sessions.src_ip
-  - All_Sessions.dest_mac
-  risk_score: 25
   security_domain: network

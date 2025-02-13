@@ -1,7 +1,7 @@
 name: O365 Block User Consent For Risky Apps Disabled
 id: 12a23592-e3da-4344-8545-205d3290647c
-version: 2
-date: '2024-05-26'
+version: 4
+date: '2024-11-14'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,18 +15,14 @@ description: The following analytic detects when the "risk-based step-up consent
   to grant consent to malicious applications. If confirmed malicious, attackers could
   gain unauthorized access to user data and sensitive information, leading to data
   breaches and further compromise within the organization.
-search: >-
-  `o365_management_activity` Workload=AzureActiveDirectory Operation="Update authorization
-  policy."
-  | eval index_number = if(mvfind('ModifiedProperties{}.Name', "AllowUserConsentForRiskyApps")
-  >= 0, mvfind('ModifiedProperties{}.Name', "AllowUserConsentForRiskyApps"), -1)
-  | search index_number >= 0  | eval AllowUserConsentForRiskyApps = mvindex('ModifiedProperties{}.NewValue',index_number)
-  | where AllowUserConsentForRiskyApps like "%true%"
-  | stats count min(_time) as firstTime max(_time) as lastTime by user, Operation,
-  AllowUserConsentForRiskyApps, user_agent
-  | `security_content_ctime(firstTime)`
-  | `security_content_ctime(lastTime)`
-  | `o365_block_user_consent_for_risky_apps_disabled_filter`
+search: "`o365_management_activity` Workload=AzureActiveDirectory Operation=\"Update
+  authorization policy.\" | eval index_number = if(mvfind('ModifiedProperties{}.Name',
+  \"AllowUserConsentForRiskyApps\") >= 0, mvfind('ModifiedProperties{}.Name', \"AllowUserConsentForRiskyApps\"\
+  ), -1) | search index_number >= 0  | eval AllowUserConsentForRiskyApps = mvindex('ModifiedProperties{}.NewValue',index_number)
+  | where AllowUserConsentForRiskyApps like \"%true%\" | stats count min(_time) as
+  firstTime max(_time) as lastTime by user, Operation, AllowUserConsentForRiskyApps,
+  user_agent | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
+  | `o365_block_user_consent_for_risky_apps_disabled_filter`"
 how_to_implement: You must install the Splunk Microsoft Office 365 Add-on and ingest
   Office 365 management activity events.
 known_false_positives: Legitimate changes to the 'risk-based step-up consent' setting
@@ -37,34 +33,38 @@ references:
 - https://goodworkaround.com/2020/10/19/a-look-behind-the-azure-ad-permission-classifications-preview/
 - https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-risk-based-step-up-consent
 - https://learn.microsoft.com/en-us/defender-cloud-apps/investigate-risky-oauth
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Risk-based step-up consent security setting was disabled by $user$
+  risk_objects:
+  - field: user
+    type: user
+    score: 30
+  threat_objects: []
 tags:
   analytic_story:
   - Office 365 Account Takeover
   asset_type: O365 Tenant
   atomic_guid: []
-  confidence: 50
-  impact: 60
-  message: Risk-based step-up consent security setting was disabled by $user$
   mitre_attack_id:
   - T1562
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 30
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - ModifiedProperties{}.Name
-  - ModifiedProperties{}.NewValue
-  - user
-  - user_agent
   security_domain: audit
 tests:
 - name: True Positive Test

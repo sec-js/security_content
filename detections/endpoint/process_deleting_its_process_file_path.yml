@@ -1,7 +1,7 @@
 name: Process Deleting Its Process File Path
 id: f7eda4bc-871c-11eb-b110-acde48001122
-version: 3
-date: '2024-05-27'
+version: 5
+date: '2024-11-13'
 author: Teoderick Contreras
 status: production
 type: TTP
@@ -15,6 +15,8 @@ description: The following analytic identifies a process attempting to delete it
   remediation efforts.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '`sysmon` EventCode=1 CommandLine = "* /c *" CommandLine = "* del*" Image
   = "*\\cmd.exe" | eval result = if(like(process,"%".parent_process."%"), "Found",
   "Not Found") | stats min(_time) as firstTime max(_time) as lastTime count by dest
@@ -35,6 +37,31 @@ references:
 - https://www.mandiant.com/resources/fin11-email-campaigns-precursor-for-ransomware-data-theft
 - https://blog.virustotal.com/2020/11/keep-your-friends-close-keep-ransomware.html
 - https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A process $Image$ tries to delete its process path in commandline $CommandLine$
+    as part of defense evasion in host $dest$ by user $user$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 60
+  - field: user
+    type: user
+    score: 60
+  threat_objects: []
 tags:
   analytic_story:
   - Clop Ransomware
@@ -42,37 +69,12 @@ tags:
   - WhisperGate
   - Remcos
   asset_type: Endpoint
-  confidence: 100
-  impact: 60
-  message: A process $Image$ tries to delete its process path in commandline $CommandLine$
-    as part of defense evasion in host $dest$ by user $user$
   mitre_attack_id:
   - T1070
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - dest
-  - user
-  - ParentImage
-  - ParentCommandLine
-  - Image
-  - cmdline
-  - ProcessID
-  - result
-  - _time
-  risk_score: 60
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -80,4 +82,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/clop/clop_a/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

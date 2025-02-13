@@ -1,7 +1,7 @@
 name: Windows Mshta Execution In Registry
 id: e13ceade-b673-4d34-adc4-4d9c01729753
-version: 2
-date: '2024-05-12'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -32,37 +32,41 @@ known_false_positives: unknown
 references:
 - https://redcanary.com/threat-detection-report/techniques/mshta/
 - https://learn.microsoft.com/en-us/microsoft-365/security/intelligence/fileless-threats?view=o365-worldwide
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A registry $registry_path$ contains mshta $registry_value_data$ on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 72
+  - field: user
+    type: user
+    score: 72
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious Windows Registry Activities
   - Windows Persistence Techniques
   asset_type: Endpoint
-  confidence: 90
-  impact: 80
-  message: A registry $registry_path$ contains mshta $registry_value_data$ in $dest$
   mitre_attack_id:
   - T1218.005
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.dest
-  - Registry.registry_value_data
-  - Registry.action
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -70,5 +74,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1218.005/mshta_in_registry/sysmon3.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

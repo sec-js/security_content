@@ -1,12 +1,14 @@
 name: Windows Archive Collected Data via Rar
 id: 2015de95-fe91-413d-9d62-2fe011b67e82
-version: 2
-date: '2024-05-22'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic identifies the execution of RAR utilities to archive
   files on a system. It leverages data from Endpoint Detection and Response (EDR)
   agents, focusing on process names, GUIDs, and command-line arguments. This activity
@@ -36,41 +38,39 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: user and network administrator can execute this command.
 references:
 - https://malpedia.caad.fkie.fraunhofer.de/details/win.darkgate
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: a Rar.exe commandline used in archiving collected data on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
+  - Earth Estries
+  - Nexus APT Threat Activity
   - DarkGate Malware
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: a Rar.exe commandline used in archiving collected data in $dest$.
   mitre_attack_id:
   - T1560.001
-  - T1560
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  - Processes.parent_process_guid
-  - Processes.process_guid
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -78,4 +78,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1560.001/archive_utility_darkgate/rar_sys.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

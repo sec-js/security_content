@@ -1,7 +1,7 @@
 name: Confluence Unauthenticated Remote Code Execution CVE-2022-26134
 id: fcf4bd3f-a79f-4b7a-83bf-2692d60b859c
-version: 2
-date: '2024-05-30'
+version: 4
+date: '2024-11-15'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -34,43 +34,45 @@ references:
 - https://www.splunk.com/en_us/blog/security/atlassian-confluence-vulnerability-cve-2022-26134.html
 - https://www.rapid7.com/blog/post/2022/06/02/active-exploitation-of-confluence-cve-2022-26134/
 - https://www.volexity.com/blog/2022/06/02/zero-day-exploitation-of-atlassian-confluence/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A URL was requested related to CVE-2022-26134, a unauthenticated remote
+    code execution vulnerability,  on $dest$ by $src$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 100
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - Atlassian Confluence Server and Data Center CVE-2022-26134
   - Confluence Data Center and Confluence Server Vulnerabilities
   asset_type: Web Server
-  confidence: 100
   cve:
   - CVE-2022-26134
-  impact: 100
-  message: A URL was requested related to CVE-2022-26134, a unauthenticated remote
-    code execution vulnerability,  on $dest$ by $src$.
   mitre_attack_id:
   - T1505
   - T1190
   - T1133
-  observable:
-  - name: dest
-    type: IP Address
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  risk_score: 100
   security_domain: network
 tests:
 - name: True Positive Test
@@ -79,4 +81,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1190/java/confluence.log
     source: pan:threat
     sourcetype: pan:threat
-    update_timestamp: true

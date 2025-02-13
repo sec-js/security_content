@@ -1,7 +1,7 @@
 name: Excessive DNS Failures
 id: 104658f4-afdc-499e-9719-17243f9826f1
-version: 4
-date: '2024-05-20'
+version: 7
+date: '2025-02-10'
 author: bowesmana, Bhavin Patel, Splunk
 status: experimental
 type: Anomaly
@@ -29,30 +29,22 @@ known_false_positives: It is possible legitimate traffic can trigger this rule. 
   investigate as appropriate. The threshold for generating an event can also be customized
   to better suit your environment.
 references: []
+rba:
+  message: Excessive DNS failures detected on $src$
+  risk_objects:
+  - field: src
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious DNS Traffic
   - Command And Control
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Excessive DNS failures detected on $src$
   mitre_attack_id:
   - T1071.004
-  - T1071
-  observable:
-  - name: src
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - DNS.query
-  - DNS.reply_code
-  - DNS.src
-  risk_score: 25
   security_domain: network

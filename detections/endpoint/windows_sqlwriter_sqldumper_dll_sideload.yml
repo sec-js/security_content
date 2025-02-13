@@ -1,7 +1,7 @@
 name: Windows SqlWriter SQLDumper DLL Sideload
 id: 2ed89ba9-c6c7-46aa-9f08-a2a1c2955aa3
-version: 2
-date: '2024-05-17'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Teoderick Contreras, Splunk
 data_source:
 - Sysmon EventID 7
@@ -35,6 +35,29 @@ known_false_positives: False positives are possible if legitimate processes are 
 references:
 - https://www.mandiant.com/resources/blog/apt29-wineloader-german-political-parties
 - https://www.zscaler.com/blogs/security-research/european-diplomats-targeted-spikedwine-wineloader
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An instance of $Image$ loading $ImageLoaded$ was detected on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  threat_objects:
+  - field: Image
+    type: file_name
 tags:
   analytic_story:
   - APT29 Diplomatic Deceptions with WINELOADER
@@ -43,31 +66,12 @@ tags:
   - Cozy Bear
   - Midnight Blizzard
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: An instance of $Image$ loading $ImageLoaded$ was detected on $dest$.
   mitre_attack_id:
   - T1574.002
-  observable:
-  - name: Image
-    type: File Name
-    role:
-    - Attacker
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Image
-  - ImageLoaded
-  - user
-  - Computer
-  - EventCode
-  risk_score: 64
   security_domain: endpoint
   cve: []
 tests:
@@ -75,5 +79,5 @@ tests:
   attack_data:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.002/wineloader/sqlwriter_sqldumper_sideload_windows-sysmon.log
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational

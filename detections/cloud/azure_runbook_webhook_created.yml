@@ -1,7 +1,7 @@
 name: Azure Runbook Webhook Created
 id: e98944a9-92e4-443c-81b8-a322e33ce75a
-version: 4
-date: '2024-05-23'
+version: 8
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,7 +15,7 @@ description: The following analytic detects the creation of a new Automation Run
   control over Azure resources.
 data_source:
 - Azure Audit Create or Update an Azure Automation webhook
-search: ' `azure_audit` operationName.localizedValue="Create or Update an Azure Automation
+search: '`azure_audit` operationName.localizedValue="Create or Update an Azure Automation
   webhook" status.value=Succeeded | dedup object | rename claims.ipaddr as src_ip
   | rename caller as user | stats count min(_time) as firstTime max(_time) as lastTime
   by object user, src_ip, resourceGroupName, object_path | `security_content_ctime(firstTime)`
@@ -34,35 +34,37 @@ references:
 - https://www.netspi.com/blog/technical/cloud-penetration-testing/maintaining-azure-persistence-via-automation-accounts/
 - https://microsoft.github.io/Azure-Threat-Research-Matrix/Persistence/AZT503/AZT503-3/
 - https://attack.mitre.org/techniques/T1078/004/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A new Azure Runbook Webhook $object$ was created by $user$
+  risk_objects:
+  - field: user
+    type: user
+    score: 63
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Persistence
   asset_type: Azure Tenant
-  confidence: 90
-  impact: 70
-  message: A new Azure Runbook Webhook $object$ was created by $user$
   mitre_attack_id:
-  - T1078
   - T1078.004
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - operationName.localizedValue
-  - status.value
-  - object
-  - caller
-  - claims.ipaddr
-  - resourceGroupName
-  - object_path
-  risk_score: 63
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -71,4 +73,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078.004/azure_runbook_webhook/azure-activity.log
     source: mscs:azure:audit
     sourcetype: mscs:azure:audit
-    update_timestamp: true

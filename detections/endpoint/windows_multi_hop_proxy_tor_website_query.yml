@@ -1,7 +1,7 @@
 name: Windows Multi hop Proxy TOR Website Query
 id: 4c2d198b-da58-48d7-ba27-9368732d0054
-version: 2
-date: '2024-05-22'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -27,34 +27,38 @@ known_false_positives: third party application may use this proxies if allowed i
   production environment. Filter is needed.
 references:
 - https://malpedia.caad.fkie.fraunhofer.de/details/win.agent_tesla
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: a process $Image$ is having a dns query in a tor domain $QueryName$ in
+    $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - AgentTesla
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: a process $Image$ is having a dns query in a tor domain $QueryName$ in
-    $dest$
   mitre_attack_id:
   - T1071.003
-  - T1071
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - QueryName
-  - QueryStatus
-  - ProcessId
-  - dest
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -62,5 +66,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/agent_tesla/agent_tesla_tor_dns_query/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

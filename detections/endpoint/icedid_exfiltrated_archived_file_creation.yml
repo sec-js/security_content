@@ -1,7 +1,7 @@
 name: IcedID Exfiltrated Archived File Creation
 id: 0db4da70-f14b-11eb-8043-acde48001122
-version: 2
-date: '2024-05-18'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -15,6 +15,8 @@ description: The following analytic detects the creation of suspicious files nam
   or escalate their presence within the network.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '`sysmon` EventCode= 11  (TargetFilename = "*\\passff.tar" OR TargetFilename
   = "*\\cookie.tar") |stats count min(_time) as firstTime max(_time) as lastTime by
   TargetFilename EventCode process_id  process_name dest | `security_content_ctime(firstTime)`
@@ -30,33 +32,12 @@ tags:
   analytic_story:
   - IcedID
   asset_type: Endpoint
-  confidence: 90
-  impact: 80
-  message: Process $process_name$ create a file $TargetFilename$ on host $dest$
   mitre_attack_id:
   - T1560.001
-  - T1560
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - TargetFilename
-  - EventCode
-  - process_id
-  - process_name
-  - dest
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -64,4 +45,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/icedid/simulated_icedid/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: Schedule Task with HTTP Command Arguments
 id: 523c2684-a101-11eb-916b-acde48001122
-version: 2
-date: '2024-05-15'
+version: 5
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -25,38 +25,42 @@ how_to_implement: To successfully implement this search, you need to be ingestin
 known_false_positives: unknown
 references:
 - https://app.any.run/tasks/92d7ef61-bfd7-4c92-bc15-322172b4ebec/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A scheduled task process commandline arguments $Arguments$ with http string
+    in it on host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 63
+  threat_objects: []
 tags:
   analytic_story:
-  - Living Off The Land
-  - Winter Vivern
   - Windows Persistence Techniques
+  - Living Off The Land
+  - Compromised Windows Host
   - Scheduled Tasks
+  - Winter Vivern
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
-  message: A schedule task process commandline arguments $Arguments$ with http string
-    on it in host $dest$
   mitre_attack_id:
   - T1053
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - Task_Name
-  - Command
-  - Author
-  - Enabled
-  - Hidden
-  - Arguments
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

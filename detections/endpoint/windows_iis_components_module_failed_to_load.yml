@@ -1,7 +1,7 @@
 name: Windows IIS Components Module Failed to Load
 id: 40c2ba5b-dd6a-496b-9e6e-c9524d0be167
-version: 2
-date: '2024-05-15'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -30,32 +30,37 @@ references:
 - https://www.secureworks.com/research/bronze-union
 - https://github.com/redcanaryco/atomic-red-team/tree/master/atomics/T1505.004
 - https://strontic.github.io/xcyclopedia/library/appcmd.exe-055B2B09409F980BF9B5A3969D01E5B2.html
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A new IIS Module has been loaded and should be reviewed on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - IIS Components
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: A new IIS Module has been loaded and should be reviewed on $dest$.
   mitre_attack_id:
-  - T1505
   - T1505.004
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - OpCode
-  - EventCode
-  - ComputerName
-  - Message
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -64,4 +69,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1505.004/2282_windows-application.log
     source: XmlWinEventLog:Application
     sourcetype: XmlWinEventLog
-    update_timestamp: true

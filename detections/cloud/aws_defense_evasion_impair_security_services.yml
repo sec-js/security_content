@@ -1,7 +1,7 @@
 name: AWS Defense Evasion Impair Security Services
 id: b28c4957-96a6-47e0-a965-6c767aac1458
-version: 2
-date: '2024-05-26'
+version: 5
+date: '2025-02-10'
 author: Bhavin Patel, Gowthamaraj Rajendran, Splunk
 status: production
 type: Hunting
@@ -40,37 +40,12 @@ tags:
   analytic_story:
   - AWS Defense Evasion
   asset_type: AWS Account
-  confidence: 60
-  impact: 70
-  message: User $user_arn$ has made potentially risky api calls $eventName$ that could
-    impair AWS security services for account id $aws_account_id$
   mitre_attack_id:
   - T1562.008
-  - T1562
-  observable:
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
-  - name: user_arn
-    type: User
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - eventSource
-  - user_agent
-  - user_type
-  - aws_account_id
-  - src
-  - region
-  - errorCode
-  risk_score: 42
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -79,4 +54,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.008/aws_delete_security_services/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

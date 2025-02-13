@@ -1,7 +1,7 @@
 name: Allow Inbound Traffic In Firewall Rule
 id: a5d85486-b89c-11eb-8267-acde48001122
-version: 3
-date: '2024-05-23'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -26,36 +26,40 @@ known_false_positives: administrator may allow inbound traffic in certain networ
   or machine.
 references:
 - https://docs.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2019-ps
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Suspicious firewall modification detected on endpoint $dest$ by user $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 3
+  - field: dest
+    type: system
+    score: 3
+  threat_objects: []
 tags:
   analytic_story:
   - Prohibited Traffic Allowed or Protocol Mismatch
   asset_type: Endpoint
-  confidence: 30
-  impact: 10
-  message: Suspicious firewall modification detected on endpoint $dest$ by user $user$.
   mitre_attack_id:
   - T1021.001
-  - T1021
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - UserID
-  risk_score: 3
   security_domain: endpoint
 tests:
 - name: True Positive Test

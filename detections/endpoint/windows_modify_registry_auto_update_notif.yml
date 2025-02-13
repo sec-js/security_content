@@ -1,7 +1,7 @@
 name: Windows Modify Registry Auto Update Notif
 id: 4d1409df-40c7-4b11-aec4-bd0e709dfc12
-version: 2
-date: '2024-05-22'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -30,36 +30,39 @@ known_false_positives: administrators may enable or disable this feature that ma
   cause some false positive.
 references:
 - https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A registry modification in Windows auto update notification on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - RedLine Stealer
   asset_type: Endpoint
   atomic_guid:
   - 12e03af7-79f9-4f95-af48-d3f12f28a260
-  confidence: 50
-  impact: 50
-  message: A registry modification in Windows auto update notification on $dest$
   mitre_attack_id:
   - T1112
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.user
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.action
-  - Registry.registry_value_data
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -67,4 +70,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/redline/modify_registry/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

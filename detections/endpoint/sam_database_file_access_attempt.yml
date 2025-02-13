@@ -1,7 +1,7 @@
 name: SAM Database File Access Attempt
 id: 57551656-ebdb-11eb-afdf-acde48001122
-version: 3
-date: '2024-05-22'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Mauricio Velazco, Splunk
 status: production
 type: Hunting
@@ -38,43 +38,14 @@ tags:
   - Graceful Wipe Out Attack
   - Rhysida Ransomware
   asset_type: Endpoint
-  confidence: 100
   cve:
   - CVE-2021-36934
-  impact: 80
-  message: The following process $process_name$ accessed the object $ObjectName$ attempting
-    to gain access to credentials on $dest$ by user $src_user$.
   mitre_attack_id:
   - T1003.002
-  - T1003
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
-  - name: ObjectName
-    type: File
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - process_name
-  - Object_Name
-  - dest
-  - user
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test

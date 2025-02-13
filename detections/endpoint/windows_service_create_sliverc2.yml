@@ -1,7 +1,7 @@
 name: Windows Service Create SliverC2
 id: 89dad3ee-57ec-43dc-9044-131c4edd663f
-version: 2
-date: '2024-05-25'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Splunk
 type: TTP
 status: production
@@ -26,32 +26,38 @@ references:
 - https://github.com/BishopFox/sliver/blob/71f94928bf36c1557ea5fbeffa161b71116f56b2/client/command/exec/psexec.go#LL61C5-L61C16
 - https://www.microsoft.com/en-us/security/blog/2022/08/24/looking-for-the-sliver-lining-hunting-for-emerging-command-and-control-frameworks/
 - https://regex101.com/r/DWkkXm/1
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A user mode service was created on $dest$ related to SliverC2.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 90
+  threat_objects: []
 tags:
   analytic_story:
   - BishopFox Sliver Adversary Emulation Framework
+  - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 100
-  impact: 90
-  message: A user mode service was created on $dest$ related to SliverC2.
   mitre_attack_id:
-  - T1569
   - T1569.002
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - Computer
-  - ServiceName
-  - ImagePath
-  - ServiceType
-  risk_score: 90
   security_domain: endpoint
 tests:
 - name: True Positive Test

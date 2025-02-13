@@ -1,12 +1,14 @@
 name: Impacket Lateral Movement smbexec CommandLine Parameters
 id: bb3c1bac-6bdf-4aa0-8dc9-068b8b712a76
-version: 2
-date: '2024-05-12'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic identifies suspicious command-line parameters
   associated with the use of Impacket's smbexec.py for lateral movement. It leverages
   data from Endpoint Detection and Response (EDR) agents, focusing on specific command-line
@@ -45,46 +47,50 @@ references:
 - https://vk9-sec.com/impacket-remote-code-execution-rce-on-windows-from-linux/
 - https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/
 - https://www.microsoft.com/en-us/security/blog/2023/05/24/volt-typhoon-targets-us-critical-infrastructure-with-living-off-the-land-techniques/
-tags:
-  analytic_story:
-  - Active Directory Lateral Movement
-  - CISA AA22-277A
-  - WhisperGate
-  - Prestige Ransomware
-  - Volt Typhoon
-  - Graceful Wipe Out Attack
-  - Industroyer2
-  - Data Destruction
-  asset_type: Endpoint
-  atomic_guid: []
-  confidence: 70
-  impact: 90
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
   message: Suspicious command-line parameters on $dest$ may represent lateral movement
     using smbexec.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 63
+  threat_objects: []
+tags:
+  analytic_story:
+  - WhisperGate
+  - Active Directory Lateral Movement
+  - Volt Typhoon
+  - Prestige Ransomware
+  - Industroyer2
+  - Data Destruction
+  - Graceful Wipe Out Attack
+  - Compromised Windows Host
+  - CISA AA22-277A
+  asset_type: Endpoint
+  atomic_guid: []
   mitre_attack_id:
-  - T1021
   - T1021.002
   - T1021.003
   - T1047
   - T1543.003
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Processes.process_name
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -92,4 +98,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1021.002/atomic_red_team/smbexec_windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

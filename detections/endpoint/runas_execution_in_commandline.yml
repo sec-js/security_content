@@ -1,7 +1,7 @@
 name: Runas Execution in CommandLine
 id: 4807e716-43a4-11ec-a0e7-acde48001122
-version: 2
-date: '2024-05-30'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -15,6 +15,8 @@ description: The following analytic detects the execution of the runas.exe proce
   target host.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime from datamodel=Endpoint.Processes where `process_runas` AND Processes.process
   = "*/user:*" AND Processes.process = "*admin*" by Processes.dest Processes.user
@@ -41,32 +43,12 @@ tags:
   - Hermetic Wiper
   - Windows Privilege Escalation
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: elevated process using runas on $dest$ by $user$
   mitre_attack_id:
-  - T1134
   - T1134.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -74,4 +56,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/vilsel/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

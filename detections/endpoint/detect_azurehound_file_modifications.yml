@@ -1,7 +1,7 @@
 name: Detect AzureHound File Modifications
 id: 1c34549e-c31b-11eb-996b-acde48001122
-version: 3
-date: '2024-05-12'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -30,47 +30,47 @@ known_false_positives: False positives should be limited as the analytic is spec
 references:
 - https://posts.specterops.io/introducing-bloodhound-4-0-the-azure-update-9b2b26c5e350
 - https://github.com/BloodHoundAD/Legacy-AzureHound.ps1/blob/master/AzureHound.ps1
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A file - $file_name$ was written to disk that is related to AzureHound,
+    a AzureAD enumeration utility, has occurred on endpoint $dest$ by user $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 63
+  - field: dest
+    type: system
+    score: 63
+  threat_objects:
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
   - Windows Discovery Techniques
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
-  message: A file - $file_name$ was written to disk that is related to AzureHound,
-    a AzureAD enumeration utility, has occurred on endpoint $dest$ by user $user$.
   mitre_attack_id:
-  - T1087.002
   - T1069.001
-  - T1482
-  - T1087.001
-  - T1087
   - T1069.002
-  - T1069
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: file_name
-    type: File Name
-    role:
-    - Victim
+  - T1087.001
+  - T1087.002
+  - T1482
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - file_path
-  - dest
-  - file_name
-  - process_id
-  - file_create_time
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -78,4 +78,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/sharphound/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

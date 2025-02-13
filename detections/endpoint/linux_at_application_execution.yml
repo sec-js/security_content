@@ -1,11 +1,11 @@
 name: Linux At Application Execution
 id: bf0a378e-5f3c-11ec-a6de-acde48001122
-version: 3
-date: '2024-05-20'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
-description: 'The following analytic detects the execution of the "At" application
+description: The following analytic detects the execution of the "At" application
   in Linux, which can be used by attackers to create persistence entries on a compromised
   host. This detection leverages data from Endpoint Detection and Response (EDR) agents,
   focusing on process names and parent process names associated with "at" or "atd".
@@ -13,7 +13,7 @@ description: 'The following analytic detects the execution of the "At" applicati
   unauthorized access or deliver additional malicious payloads. If confirmed malicious,
   this behavior could lead to data theft, ransomware attacks, or other severe consequences.
   Immediate investigation is required to determine the legitimacy of the execution
-  and mitigate potential risks.'
+  and mitigate potential risks.
 data_source:
 - Sysmon for Linux EventID 1
 search: '| tstats `security_content_summariesonly` count from datamodel=Endpoint.Processes
@@ -36,6 +36,27 @@ known_false_positives: Administrator or network operator can use this applicatio
 references:
 - https://attack.mitre.org/techniques/T1053/001/
 - https://www.linkedin.com/pulse/getting-attacker-ip-address-from-malicious-linux-job-craig-rowland/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: At application was executed on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 9
+  threat_objects: []
 tags:
   analytic_story:
   - Linux Privilege Escalation
@@ -43,31 +64,12 @@ tags:
   - Linux Living Off The Land
   - Scheduled Tasks
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: At application was executed in $dest$
   mitre_attack_id:
   - T1053.002
-  - T1053
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

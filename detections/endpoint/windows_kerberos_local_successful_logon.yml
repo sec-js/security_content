@@ -1,7 +1,7 @@
 name: Windows Kerberos Local Successful Logon
 id: 8309c3a8-4d34-48ae-ad66-631658214653
-version: 3
-date: '2024-05-14'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -26,36 +26,40 @@ known_false_positives: False positives are possible, filtering may be required t
   restrict to workstations vs domain controllers. Filter as needed.
 references:
 - https://github.com/Dec0ne/KrbRelayUp
-tags:
-  analytic_story:
-  - Active Directory Kerberos Attacks
-  - Local Privilege Escalation With KrbRelayUp
-  asset_type: Endpoint
-  confidence: 80
-  impact: 80
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
   message: A successful localhost Kerberos authentication event occurred on $dest$,
     possibly indicative of Kerberos relay attack.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  threat_objects: []
+tags:
+  analytic_story:
+  - Local Privilege Escalation With KrbRelayUp
+  - Active Directory Kerberos Attacks
+  - Compromised Windows Host
+  asset_type: Endpoint
   mitre_attack_id:
   - T1558
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - subject
-  - action
-  - Security_ID
-  - user
-  - TargetUserName
-  - src_ip
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -1,7 +1,7 @@
 name: Email files written outside of the Outlook directory
 id: 8d52cf03-ba25-4101-aa78-07994aed4f74
-version: 4
-date: '2024-05-15'
+version: 7
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
 status: experimental
 type: TTP
@@ -14,7 +14,7 @@ description: The following analytic detects email files (.pst or .ost) being cre
   sensitive email content, leading to data breaches or further exploitation within
   the network.
 data_source:
-- Sysmon Event ID 11
+- Sysmon EventID 11
 search: '| tstats `security_content_summariesonly` count values(Filesystem.file_path)
   as file_path min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Filesystem
   where (Filesystem.file_name=*.pst OR Filesystem.file_name=*.ost) Filesystem.file_path
@@ -32,31 +32,21 @@ known_false_positives: Administrators and users sometimes prefer backing up thei
   email data by moving the email files into a different folder. These attempts will
   be detected by the search.
 references: []
+rba:
+  message: Email files written outside of Outlook's Directory on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Collection and Staging
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
-  - T1114
   - T1114.001
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.file_path
-  - Filesystem.file_name
-  - Filesystem.action
-  - Filesystem.process_id
-  - Filesystem.dest
-  risk_score: 25
   security_domain: endpoint

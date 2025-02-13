@@ -1,7 +1,7 @@
 name: Windows Process Writing File to World Writable Path
 id: c051b68c-60f7-4022-b3ad-773bec7a225b
-version: 2
-date: '2024-05-23'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 data_source: []
 type: Hunting
@@ -47,32 +47,12 @@ tags:
   analytic_story:
   - APT29 Diplomatic Deceptions with WINELOADER
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: A process wrote a file name- [$file_name$] to a world writable file path
-    [$file_path$] on host- [$dest$].
   mitre_attack_id:
   - T1218.005
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: file_name
-    type: File
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - user
-  - file_name
-  - file_path
-  risk_score: 25
   security_domain: endpoint
   cve: []
 tests:
@@ -80,5 +60,5 @@ tests:
   attack_data:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1218.005/atomic_red_team/mshta_tasks_windows-sysmon.log
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational

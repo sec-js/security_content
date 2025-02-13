@@ -1,7 +1,7 @@
 name: Get ADUser with PowerShell Script Block
 id: 21432e40-04f4-11ec-b7e6-acde48001122
-version: 3
-date: '2024-05-29'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Mauricio Velazco, Splunk
 status: production
 type: Hunting
@@ -32,33 +32,12 @@ tags:
   - Active Directory Discovery
   - CISA AA23-347A
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Powershell process having commandline "get-aduser" for user enumeration
-    on $dest$
   mitre_attack_id:
   - T1087.002
-  - T1087
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Message
-  - ComputerName
-  - User
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

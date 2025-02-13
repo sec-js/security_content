@@ -1,7 +1,7 @@
 name: AWS Console Login Failed During MFA Challenge
 id: 55349868-5583-466f-98ab-d3beb321961e
-version: 2
-date: '2024-05-29'
+version: 5
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
 status: production
 type: TTP
@@ -27,45 +27,42 @@ known_false_positives: Legitimate users may miss to reply the MFA challenge with
 references:
 - https://attack.mitre.org/techniques/T1621/
 - https://aws.amazon.com/what-is/mfa/
+drilldown_searches:
+- name: View the detection results for - "$user_name$"
+  search: '%original_detection_search% | search  user_name = "$user_name$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user_name$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user_name$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $user_name$ failed to pass MFA challenge while logging into console
+    from $src$
+  risk_objects:
+  - field: user_name
+    type: user
+    score: 64
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - AWS Identity and Access Management Account Takeover
   - Compromised User Account
   asset_type: AWS Account
-  confidence: 80
-  impact: 80
-  message: User $user_name$ failed to pass MFA challenge while logging into console
-    from $src$
   mitre_attack_id:
-  - T1586
   - T1586.003
   - T1621
-  observable:
-  - name: user_name
-    type: User
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - src
-  - eventName
-  - eventSource
-  - aws_account_id
-  - errorCode
-  - errorMessage
-  - userAgent
-  - eventID
-  - awsRegion
-  - user_name
-  - userIdentity.arn
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -74,4 +71,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1621/aws_failed_mfa/cloudtrail.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

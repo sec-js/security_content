@@ -1,18 +1,18 @@
 name: Linux Possible Append Cronjob Entry on Existing Cronjob File
 id: b5b91200-5f27-11ec-bb4e-acde48001122
-version: 2
-date: '2024-05-19'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
-description: 'The following analytic detects potential tampering with cronjob files
-  on a Linux system by identifying ''echo'' commands that append code to existing
-  cronjob files. It leverages logs from Endpoint Detection and Response (EDR) agents,
-  focusing on process names, parent processes, and command-line executions. This activity
-  is significant because adversaries often use it for persistence or privilege escalation.
+description: The following analytic detects potential tampering with cronjob files
+  on a Linux system by identifying 'echo' commands that append code to existing cronjob
+  files. It leverages logs from Endpoint Detection and Response (EDR) agents, focusing
+  on process names, parent processes, and command-line executions. This activity is
+  significant because adversaries often use it for persistence or privilege escalation.
   If confirmed malicious, this could allow attackers to execute unauthorized code
   automatically, leading to system compromises and unauthorized data access, thereby
-  impacting business operations and data integrity.'
+  impacting business operations and data integrity.
 data_source:
 - Sysmon for Linux EventID 1
 search: '| tstats `security_content_summariesonly` count from datamodel=Endpoint.Processes
@@ -39,36 +39,18 @@ references:
 - https://www.intezer.com/blog/research/kaiji-new-chinese-linux-malware-turning-to-golang/
 tags:
   analytic_story:
-  - Linux Privilege Escalation
-  - Linux Persistence Techniques
+  - XorDDos
   - Linux Living Off The Land
+  - Linux Privilege Escalation
   - Scheduled Tasks
+  - Linux Persistence Techniques
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: A commandline $process$ that may modify cronjob file in $dest$
   mitre_attack_id:
   - T1053.003
-  - T1053
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test

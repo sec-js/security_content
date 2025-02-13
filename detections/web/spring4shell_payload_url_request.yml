@@ -1,7 +1,7 @@
 name: Spring4Shell Payload URL Request
 id: 9d44d649-7d67-4559-95c1-8022ff49420b
-version: 2
-date: '2024-05-26'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -27,42 +27,43 @@ references:
 - https://www.microsoft.com/security/blog/2022/04/04/springshell-rce-vulnerability-guidance-for-protecting-against-and-detecting-cve-2022-22965/
 - https://github.com/TheGejr/SpringShell
 - https://www.tenable.com/blog/spring4shell-faq-spring-framework-remote-code-execution-vulnerability
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A URL was requested related to Spring4Shell POC code on $dest$ by $src$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - Spring4Shell CVE-2022-22965
   asset_type: Web Server
-  confidence: 60
   cve:
   - CVE-2022-22965
-  impact: 60
-  message: A URL was requested related to Spring4Shell POC code on $dest$ by $src$.
   mitre_attack_id:
-  - T1505.003
-  - T1505
-  - T1190
   - T1133
-  observable:
-  - name: dest
-    type: IP Address
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
+  - T1190
+  - T1505.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  risk_score: 36
   security_domain: network
 tests:
 - name: True Positive Test

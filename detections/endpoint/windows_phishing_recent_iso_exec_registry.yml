@@ -1,7 +1,7 @@
 name: Windows Phishing Recent ISO Exec Registry
 id: cb38ee66-8ae5-47de-bd66-231c7bbc0b2c
-version: 3
-date: '2024-05-30'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -44,32 +44,14 @@ tags:
   - Azorult
   - Remcos
   - Warzone RAT
+  - Gozi Malware
   asset_type: Endpoint
-  confidence: 80
-  impact: 50
-  message: An ISO file was mounted on $dest$ and should be reviewed and filtered as
-    needed.
   mitre_attack_id:
   - T1566.001
-  - T1566
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.user
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.action
-  - Registry.dest
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -77,5 +59,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/brute_ratel/iso_version_dll_campaign/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

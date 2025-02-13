@@ -1,12 +1,14 @@
 name: Windows Indicator Removal Via Rmdir
 id: c4566d2c-b094-48a1-9c59-d66e22065560
-version: 2
-date: '2024-05-13'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic detects the execution of the 'rmdir' command with
   '/s' and '/q' options to delete files and directory trees. This detection leverages
   data from Endpoint Detection and Response (EDR) agents, focusing on command-line
@@ -34,40 +36,37 @@ how_to_implement: The detection is based on data that originates from Endpoint D
 known_false_positives: user and network administrator can execute this command.
 references:
 - https://malpedia.caad.fkie.fraunhofer.de/details/win.darkgate
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: a process execute rmdir command to delete files and directory tree on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - DarkGate Malware
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: a process execute rmdir command to delete files and directory tree in $dest$.
   mitre_attack_id:
   - T1070
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 25
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  - Processes.parent_process_guid
-  - Processes.process_guid
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -75,4 +74,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1070/rmdir_delete_files_and_dir/rmdir.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

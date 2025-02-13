@@ -1,7 +1,7 @@
 name: Web Spring4Shell HTTP Request Class Module
 id: fcdfd69d-0ca3-4476-920e-9b633cb4593e
-version: 2
-date: '2024-05-28'
+version: 4
+date: '2024-11-15'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -27,42 +27,43 @@ known_false_positives: False positives may occur and filtering may be required. 
   analytic to asset type.
 references:
 - https://github.com/DDuarte/springshell-rce-poc/blob/master/poc.py
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A http body request related to Spring4Shell has been sent to $dest$ by
+    $src$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 72
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - Spring4Shell CVE-2022-22965
   asset_type: Web Server
-  confidence: 80
   cve:
   - CVE-2022-22965
-  impact: 90
-  message: A http body request related to Spring4Shell has been sent to $dest$ by
-    $src$.
   mitre_attack_id:
   - T1190
   - T1133
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - http_request_body
-  - http_method
-  - http_user_agent
-  - uri_path
-  - url
-  - bytes_in
-  - bytes_out
-  risk_score: 72
   security_domain: network
 tests:
 - name: True Positive Test

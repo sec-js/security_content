@@ -1,7 +1,7 @@
 name: Detect AWS Console Login by New User
 id: bc91a8cd-35e7-4bb2-6140-e756cc46fd71
-version: 4
-date: '2024-05-28'
+version: 7
+date: '2025-02-10'
 author: Rico Valdez, Splunk
 status: experimental
 type: Hunting
@@ -12,7 +12,8 @@ description: The following analytic detects AWS console login events by new user
   unauthorized access. If confirmed malicious, this activity could lead to unauthorized
   access to AWS resources, data exfiltration, or further exploitation within the cloud
   environment.
-data_source: []
+data_source:
+- AWS CloudTrail
 search: '| tstats earliest(_time) as firstTime latest(_time) as lastTime from datamodel=Authentication
   where Authentication.signature=ConsoleLogin by Authentication.user | `drop_dm_object_name(Authentication)`
   | join user type=outer [ | inputlookup previously_seen_users_console_logins | stats
@@ -36,27 +37,13 @@ tags:
   - Suspicious Cloud Authentication Activities
   - AWS Identity and Access Management Account Takeover
   asset_type: AWS Instance
-  confidence: 60
-  impact: 50
-  message: User $user$ is logging into the AWS console for the first time
   mitre_attack_id:
-  - T1586
-  - T1586.003
   - T1552
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
+  - T1586.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Authentication.signature
-  - Authentication.user
-  risk_score: 30
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -65,4 +52,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

@@ -1,7 +1,7 @@
 name: Detect Spike in blocked Outbound Traffic from your AWS
 id: d3fffa37-492f-487b-a35d-c60fcb2acf01
-version: 2
-date: '2024-05-12'
+version: 4
+date: '2024-11-14'
 author: Bhavin Patel, Splunk
 status: experimental
 type: Anomaly
@@ -44,28 +44,21 @@ known_false_positives: The false-positive rate may vary based on the values of`d
   roll out policies enforcing network blocks, causing sudden increases in the number
   of blocked outbound connections.
 references: []
+rba:
+  message: Blocked outbound traffic from your AWS VPC
+  risk_objects:
+  - field: src_ip
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - AWS Network ACL Activity
   - Suspicious AWS Traffic
   - Command And Control
   asset_type: AWS Instance
-  confidence: 50
-  impact: 50
-  message: Blocked outbound traffic from your AWS
-  observable:
-  - name: resourceId
-    type: Other
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - action
-  - src_ip
-  - dest_ip
-  risk_score: 25.0
   security_domain: network

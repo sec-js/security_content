@@ -1,7 +1,7 @@
 name: CMLUA Or CMSTPLUA UAC Bypass
 id: f87b5062-b405-11eb-a889-acde48001122
-version: 2
-date: '2024-05-05'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -27,38 +27,41 @@ known_false_positives: Legitimate windows application that are not on the list l
   this dll. Filter as needed.
 references:
 - https://attack.mitre.org/techniques/T1218/003/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: The following module $ImageLoaded$ was loaded by a non-standard application
+    on endpoint $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 80
+  threat_objects: []
 tags:
   analytic_story:
   - DarkSide Ransomware
   - Ransomware
   - LockBit Ransomware
+  - ValleyRAT
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
-  message: The following module $ImageLoaded$ was loaded by a non-standard application
-    on endpoint $dest$
   mitre_attack_id:
-  - T1218
   - T1218.003
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - process_name
-  - dest
-  - EventCode
-  - Signed
-  - ProcessId
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -66,4 +69,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1548/darkside_cmstp_com/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

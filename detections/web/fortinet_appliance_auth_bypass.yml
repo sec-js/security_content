@@ -1,18 +1,18 @@
 name: Fortinet Appliance Auth bypass
 id: a83122f2-fa09-4868-a230-544dbc54bc1c
-version: 2
-date: '2024-05-12'
+version: 4
+date: '2024-11-15'
 author: Michael Haag, Splunk
 status: production
 type: TTP
-description: 'The following analytic detects attempts to exploit CVE-2022-40684, a
+description: The following analytic detects attempts to exploit CVE-2022-40684, a
   Fortinet appliance authentication bypass vulnerability. It identifies REST API requests
   to the /api/v2/ endpoint using various HTTP methods (GET, POST, PUT, DELETE) that
   may indicate unauthorized modifications, such as adding SSH keys or creating new
   users. This detection leverages the Web datamodel to monitor specific URL patterns
   and HTTP methods. This activity is significant as it can lead to unauthorized access
   and control over the appliance. If confirmed malicious, attackers could gain persistent
-  access, reroute network traffic, or capture sensitive information.'
+  access, reroute network traffic, or capture sensitive information.
 data_source:
 - Palo Alto Network Threat
 search: '| tstats count min(_time) as firstTime max(_time) as lastTime from datamodel=Web
@@ -35,37 +35,41 @@ references:
 - https://www.horizon3.ai/fortinet-iocs-cve-2022-40684/
 - https://attackerkb.com/topics/QWOxGIKkGx/cve-2022-40684/rapid7-analysis
 - https://github.com/rapid7/metasploit-framework/pull/17143
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Potential CVE-2022-40684 against a Fortinet appliance may be occurring
+    against $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 81
+  threat_objects: []
 tags:
   analytic_story:
   - CVE-2022-40684 Fortinet Appliance Auth bypass
   asset_type: Network
-  confidence: 90
   cve:
   - CVE-2022-40684
-  impact: 90
-  message: Potential CVE-2022-40684 against a Fortinet appliance may be occurring
-    against $dest$.
   mitre_attack_id:
   - T1190
   - T1133
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Web.http_user_agent
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - sourcetype
-  risk_score: 81
   security_domain: network
 tests:
 - name: True Positive Test
@@ -74,4 +78,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1190/fortigate/fortinetcve202240684.log
     source: pan:threat
     sourcetype: pan:threat
-    update_timestamp: true

@@ -1,7 +1,7 @@
 name: Screensaver Event Trigger Execution
 id: 58cea3ec-1f6d-11ec-8560-acde48001122
-version: 2
-date: '2024-05-13'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -31,6 +31,30 @@ known_false_positives: unknown
 references:
 - https://attack.mitre.org/techniques/T1546/002/
 - https://dmcxblue.gitbook.io/red-team-notes-2-0/red-team-techniques/privilege-escalation/untitled-3/screensaver
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Registry path $registry_path$ was modified, added, or deleted on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 72
+  - field: user
+    type: user
+    score: 72
+  threat_objects: []
 tags:
   analytic_story:
   - Hermetic Wiper
@@ -39,33 +63,12 @@ tags:
   - Windows Registry Abuse
   - Data Destruction
   asset_type: Endpoint
-  confidence: 90
-  impact: 80
-  message: Registry path $registry_path$ was modified, added, or deleted in $dest$.
   mitre_attack_id:
-  - T1546
   - T1546.002
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.user
-  - Registry.registry_path
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -73,4 +76,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1546.002/scrnsave_reg/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

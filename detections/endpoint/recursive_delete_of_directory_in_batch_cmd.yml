@@ -1,7 +1,7 @@
 name: Recursive Delete of Directory In Batch CMD
 id: ba570b3a-d356-11eb-8358-acde48001122
-version: 4
-date: '2024-05-10'
+version: 7
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -15,6 +15,8 @@ description: The following analytic detects the execution of a batch command des
   efforts, severely impacting business operations.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime from datamodel=Endpoint.Processes where `process_cmd` Processes.process=*/c*  Processes.process="*
   rd *"  Processes.process="*/s*" Processes.process="*/q*" by Processes.user Processes.process_name
@@ -34,39 +36,37 @@ known_false_positives: network operator may use this batch command to delete rec
   a directory or files within directory
 references:
 - https://app.any.run/tasks/c0f98850-af65-4352-9746-fbebadee4f05/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Recursive Delete of Directory In Batch CMD by $user$ on $dest$
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Ransomware
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Recursive Delete of Directory In Batch CMD by $user$ on $dest$
   mitre_attack_id:
   - T1070.004
-  - T1070
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 25.0
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -74,4 +74,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/ransomware_ttp/data2/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

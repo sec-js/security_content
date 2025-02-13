@@ -1,7 +1,7 @@
 name: Detect SNICat SNI Exfiltration
 id: 82d06410-134c-11eb-adc1-0242ac120002
-version: 2
-date: '2024-05-21'
+version: 4
+date: '2024-11-15'
 author: Shannon Davis, Splunk
 status: experimental
 type: TTP
@@ -27,28 +27,21 @@ references:
 - https://www.mnemonic.io/resources/blog/introducing-snicat/
 - https://github.com/mnemonic-no/SNIcat
 - https://attack.mitre.org/techniques/T1041/
+rba:
+  message: Possible SNICat activity from $src_ip$
+  risk_objects:
+  - field: src_ip
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Data Exfiltration
   asset_type: Network
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1041
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - server_name
-  - src_ip
-  - dest_ip
-  risk_score: 25
   security_domain: network

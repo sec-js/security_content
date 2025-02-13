@@ -1,7 +1,7 @@
 name: GetWmiObject User Account with PowerShell Script Block
 id: 640b0eda-0429-11ec-accd-acde48001122
-version: 3
-date: '2024-05-15'
+version: 6
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: Hunting
@@ -31,29 +31,13 @@ tags:
   - Active Directory Discovery
   - Malicious PowerShell
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: Local user discovery enumeration using PowerShell on $Computer$ by $UserID$
   mitre_attack_id:
-  - T1087
-  - T1087.001
   - T1059.001
-  observable:
-  - name: Computer
-    type: Endpoint
-    role:
-    - Victim
+  - T1087.001
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - UserID
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -61,4 +45,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/powershell_script_block_logging/sbl_xml.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

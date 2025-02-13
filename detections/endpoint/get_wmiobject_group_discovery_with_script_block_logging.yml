@@ -1,17 +1,17 @@
 name: Get WMIObject Group Discovery with Script Block Logging
 id: 69df7f7c-155d-11ec-a055-acde48001122
-version: 3
-date: '2024-05-23'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
-description: 'The following analytic detects the execution of the `Get-WMIObject Win32_Group`
+description: The following analytic detects the execution of the `Get-WMIObject Win32_Group`
   command using PowerShell Script Block Logging (EventCode=4104). This method captures
   the full command sent to PowerShell, allowing for detailed analysis. Identifying
   group information on an endpoint is not inherently malicious but can be suspicious
   based on context such as time, endpoint, and user. This activity is significant
   as it may indicate reconnaissance efforts by an attacker. If confirmed malicious,
-  it could lead to further enumeration and potential lateral movement within the network.'
+  it could lead to further enumeration and potential lateral movement within the network.
 data_source:
 - Powershell Script Block Logging 4104
 search: '`powershell` EventCode=4104 ScriptBlockText = "*Get-WMIObject*" AND ScriptBlockText
@@ -33,32 +33,12 @@ tags:
   analytic_story:
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: System group discovery enumeration on $dest$ by $user$.
   mitre_attack_id:
-  - T1069
   - T1069.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Message
-  - ComputerName
-  - User
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -66,4 +46,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1069.001/atomic_red_team/windows-powershell-xml.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

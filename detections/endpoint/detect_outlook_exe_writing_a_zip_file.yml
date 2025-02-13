@@ -1,7 +1,7 @@
 name: Detect Outlook exe writing a zip file
 id: a51bfe1a-94f0-4822-b1e4-16ae10145893
-version: 5
-date: '2024-05-19'
+version: 10
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
 status: experimental
 type: TTP
@@ -13,8 +13,7 @@ description: The following analytic identifies the execution of `outlook.exe` wr
   data access, data exfiltration, or the delivery of malware, potentially compromising
   the security of the affected system and network.
 data_source:
-- Sysmon EventID 1
-- Sysmon EventID 11
+- Sysmon EventID 1 AND Sysmon EventID 11
 search: '| tstats `security_content_summariesonly`  min(_time) as firstTime max(_time)
   as lastTime FROM datamodel=Endpoint.Processes where Processes.process_name=outlook.exe
   by _time span=5m Processes.parent_process_id Processes.process_id Processes.dest
@@ -37,38 +36,28 @@ how_to_implement: You must be ingesting data that records filesystem and process
 known_false_positives: It is not uncommon for outlook to write legitimate zip files
   to the disk.
 references: []
+rba:
+  message: ZIP file written by outlook.exe on $dest$
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Spearphishing Attachments
   - Amadey
   - Remcos
+  - PXA Stealer
+  - Meduza Stealer
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
-  - T1566
   - T1566.001
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.parent_process_id
-  - Processes.process_id
-  - Processes.dest
-  - Processes.parent_process_name
-  - Processes.user
-  risk_score: 25
   security_domain: network

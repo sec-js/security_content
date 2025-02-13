@@ -1,7 +1,7 @@
 name: Remote Process Instantiation via DCOM and PowerShell Script Block
 id: fa1c3040-4680-11ec-a618-3e22fbd008af
-version: 3
-date: '2024-05-12'
+version: 6
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -27,33 +27,38 @@ known_false_positives: Administrators may leverage DCOM to start a process on re
 references:
 - https://attack.mitre.org/techniques/T1021/003/
 - https://www.cybereason.com/blog/dcom-lateral-movement-techniques
+drilldown_searches:
+- name: View the detection results for - "$Computer$"
+  search: '%original_detection_search% | search  Computer = "$Computer$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$Computer$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$Computer$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A process was started on a remote endpoint from $Computer$ by abusing WMI
+    using PowerShell.exe
+  risk_objects:
+  - field: Computer
+    type: system
+    score: 63
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement
   asset_type: Endpoint
-  confidence: 70
-  impact: 90
-  message: A process was started on a remote endpoint from $Computer$ by abusing WMI
-    using PowerShell.exe
   mitre_attack_id:
-  - T1021
   - T1021.003
-  observable:
-  - name: Computer
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - user_id
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -61,4 +66,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1021.006/lateral_movement_psh/windows-powershell-xml.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

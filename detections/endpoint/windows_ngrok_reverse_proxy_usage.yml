@@ -1,7 +1,7 @@
 name: Windows Ngrok Reverse Proxy Usage
 id: e2549f2c-0aef-408a-b0c1-e0f270623436
-version: 3
-date: '2024-05-14'
+version: 7
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -14,6 +14,8 @@ description: The following analytic detects the execution of ngrok.exe on a Wind
   or facilitate further attacks by tunneling traffic through the compromised system.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime from datamodel=Endpoint.Processes where Processes.process_name=ngrok.exe
   Processes.process IN ("*start*", "*--config*","*http*","*authtoken*", "*http*",
@@ -34,53 +36,49 @@ known_false_positives: False positives will be present based on organizations th
   allow the use of Ngrok. Filter or monitor as needed.
 references:
 - https://www.cisa.gov/uscert/sites/default/files/publications/aa22-320a_joint_csa_iranian_government-sponsored_apt_actors_compromise_federal%20network_deploy_crypto%20miner_credential_harvester.pdf
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A reverse proxy was identified spawning from $parent_process_name$ -  $process_name$
+    on endpoint $dest$ by user $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 50
+  - field: dest
+    type: system
+    score: 50
+  threat_objects:
+  - field: parent_process_name
+    type: parent_process_name
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Reverse Network Proxy
   - CISA AA22-320A
+  - CISA AA24-241A
   asset_type: Endpoint
-  confidence: 100
-  impact: 50
-  message: A reverse proxy was identified spawning from $parent_process_name$ -  $process_name$
-    on endpoint $dest$ by user $user$.
   mitre_attack_id:
   - T1572
   - T1090
   - T1102
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process
-    role:
-    - Parent Process
-  - name: process_name
-    type: Process
-    role:
-    - Child Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 50
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -88,5 +86,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1572/ngrok/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

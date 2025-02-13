@@ -1,7 +1,7 @@
 name: Windows App Layer Protocol Qakbot NamedPipe
 id: 63a2c15e-9448-43c5-a4a8-9852266aaada
-version: 2
-date: '2024-05-22'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -31,35 +31,37 @@ references:
 - https://strontic.github.io/xcyclopedia/library/wermgr.exe-0F652BF7ADA772981E8AAB0D108FCC92.html
 - https://www.trellix.com/en-us/about/newsroom/stories/research/demystifying-qbot-malware.html
 - https://www.elastic.co/security-labs/qbot-malware-analysis
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: $Image$ is creating or connecting to a named pipe $PipeName$ on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - Qakbot
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: $Image$ is creating or connecting to a named pipe $PipeName$ in $dest$
   mitre_attack_id:
   - T1071
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - EventType
-  - ProcessGuid
-  - ProcessId
-  - PipeName
-  - dest
-  - UserID
-  - SecurityID
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -67,5 +69,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/qakbot/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

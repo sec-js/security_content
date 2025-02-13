@@ -1,7 +1,7 @@
 name: Linux Adding Crontab Using List Parameter
 id: 52f6d751-1fd4-4c74-a4c9-777ecfeb5c58
-version: 2
-date: '2024-05-27'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -45,31 +45,12 @@ tags:
   - Scheduled Tasks
   - Gomir
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: A possible crontab list command $process$ executed on $dest$
   mitre_attack_id:
   - T1053.003
-  - T1053
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

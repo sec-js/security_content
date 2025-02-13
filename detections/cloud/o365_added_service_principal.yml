@@ -1,7 +1,7 @@
 name: O365 Added Service Principal
 id: 1668812a-6047-11eb-ae93-0242ac130002
-version: 4
-date: '2024-05-27'
+version: 7
+date: '2025-02-10'
 author: Rod Soto, Splunk
 status: production
 type: TTP
@@ -30,37 +30,39 @@ references:
 - https://www.cisa.gov/uscert/ncas/alerts/aa21-008a
 - https://www.splunk.com/en_us/blog/security/a-golden-saml-journey-solarwinds-continued.html
 - https://blog.sygnia.co/detection-and-hunting-of-golden-saml-attack?hsLang=en
+drilldown_searches:
+- name: View the detection results for - "$src_user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $src_user$ has created new service principal $new_value$ in AzureActiveDirectory
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 42
+  threat_objects: []
 tags:
   analytic_story:
   - Office 365 Persistence Mechanisms
   - Cloud Federated Credential Abuse
   - NOBELIUM Group
   asset_type: O365 Tenant
-  confidence: 60
-  impact: 70
-  message: User $src_user$ has created new service principal $new_value$ in AzureActiveDirectory
   mitre_attack_id:
   - T1136.003
-  - T1136
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Workload
-  - signature
-  - src_user
-  - src_user_type
-  - action
-  - Operation
-  - authentication_service
-  risk_score: 42
   security_domain: threat
 tests:
 - name: True Positive Test

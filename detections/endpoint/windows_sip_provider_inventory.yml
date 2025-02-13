@@ -1,7 +1,7 @@
 name: Windows SIP Provider Inventory
 id: 21c5af91-1a4a-4511-8603-64fb41df3fad
-version: 2
-date: '2024-05-09'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -28,26 +28,12 @@ tags:
   - Subvert Trust Controls SIP and Trust Provider Hijacking
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 50
-  impact: 50
-  message: A list of SIP providers on the system is available. Review for new and
-    non-standard paths for SIP providers on $host$.
   mitre_attack_id:
   - T1553.003
-  observable:
-  - name: host
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 25
-  required_fields:
-  - Path
-  - Dll
-  - host
   security_domain: endpoint
 tests:
 - name: True Positive Test

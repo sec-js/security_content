@@ -1,7 +1,7 @@
 name: Detect F5 TMUI RCE CVE-2020-5902
 id: 810e4dbc-d46e-11ea-87d0-0242ac130003
-version: 2
-date: '2024-05-22'
+version: 5
+date: '2024-11-15'
 author: Shannon Davis, Splunk
 status: experimental
 type: TTP
@@ -26,27 +26,23 @@ known_false_positives: unknown
 references:
 - https://www.ptsecurity.com/ww-en/about/news/f5-fixes-critical-vulnerability-discovered-by-positive-technologies-in-big-ip-application-delivery-controller/
 - https://support.f5.com/csp/article/K52145254
+rba:
+  message: Potential F5 TMUI RCE traffic
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - F5 TMUI RCE CVE-2020-5902
   asset_type: Network
-  confidence: 50
   cve:
   - CVE-2020-5902
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1190
-  observable:
-  - name: dest
-    type: Other
-    role:
-    - Other
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 25
   security_domain: network

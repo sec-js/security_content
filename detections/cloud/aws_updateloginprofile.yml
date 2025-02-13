@@ -1,7 +1,7 @@
 name: AWS UpdateLoginProfile
 id: 2a9b80d3-6a40-4115-11ad-212bf3d0d111
-version: 4
-date: '2024-05-17'
+version: 8
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
 status: production
 type: TTP
@@ -15,7 +15,7 @@ description: The following analytic detects an AWS CloudTrail event where a user
   resources within the AWS environment.
 data_source:
 - AWS CloudTrail UpdateLoginProfile
-search: ' `cloudtrail` eventName = UpdateLoginProfile userAgent !=console.amazonaws.com
+search: '`cloudtrail` eventName = UpdateLoginProfile userAgent !=console.amazonaws.com
   errorCode = success | eval match=if(match(userIdentity.userName,requestParameters.userName),
   1,0) | search match=0 | stats count min(_time) as firstTime max(_time) as lastTime
   by requestParameters.userName src eventName eventSource aws_account_id errorCode
@@ -28,38 +28,41 @@ known_false_positives: While this search has no known false positives, it is pos
 references:
 - https://bishopfox.com/blog/privilege-escalation-in-aws
 - https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation-part-2/
+drilldown_searches:
+- name: View the detection results for - "$user_arn$"
+  search: '%original_detection_search% | search  user_arn = "$user_arn$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user_arn$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user_arn$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: From IP address $src$, user agent $userAgent$ has trigged an event $eventName$
+    for updating the existing login profile, potentially giving user $user_arn$ more
+    access privilleges
+  risk_objects:
+  - field: user_arn
+    type: user
+    score: 30
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation
   asset_type: AWS Account
-  confidence: 60
-  impact: 50
-  message: From IP address $src$, user agent $userAgent$ has trigged an event $eventName$
-    for updating the existing login profile, potentially giving user $user_arn$ more
-    access privilleges
   mitre_attack_id:
   - T1136.003
-  - T1136
-  observable:
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
-  - name: user_arn
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - userAgent
-  - errorCode
-  - requestParameters.userName
-  risk_score: 30
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -68,4 +71,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/aws_updateloginprofile/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

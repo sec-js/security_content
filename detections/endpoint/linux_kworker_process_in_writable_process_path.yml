@@ -1,12 +1,10 @@
 name: Linux Kworker Process In Writable Process Path
 id: 1cefb270-74a5-4e27-aa0c-2b6fa7c5b4ed
-version: 3
-date: '2024-05-14'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
-datamodel:
-- Endpoint
 description: The following analytic detects the execution of a kworker process with
   a command line in writable directories such as /home/, /var/log, and /tmp on a Linux
   machine. It leverages data from Endpoint Detection and Response (EDR) agents, focusing
@@ -43,33 +41,12 @@ tags:
   - Sandworm Tools
   - Cyclops Blink
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: a $process_name$ with kworker commandline in $dest$
   mitre_attack_id:
   - T1036.004
-  - T1036
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test

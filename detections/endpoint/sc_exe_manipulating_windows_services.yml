@@ -1,7 +1,7 @@
 name: Sc exe Manipulating Windows Services
 id: f0c693d8-2a89-4ce7-80b4-98fea4c3ea6d
-version: 5
-date: '2024-05-20'
+version: 9
+date: '2025-02-10'
 author: Rico Valdez, Splunk
 status: production
 type: TTP
@@ -15,6 +15,8 @@ description: The following analytic detects the creation or modification of Wind
   a severe threat to the environment.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` values(Processes.process) as process
   min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes
   where Processes.process_name = sc.exe (Processes.process="* create *" OR Processes.process="*
@@ -35,45 +37,49 @@ known_false_positives: Using sc.exe to manipulate Windows services is uncommon. 
   and investigate as appropriate.
 references:
 - https://www.secureworks.com/blog/drokbk-malware-uses-github-as-dead-drop-resolver
-tags:
-  analytic_story:
-  - Windows Service Abuse
-  - DHS Report TA18-074A
-  - Orangeworm Attack Group
-  - Windows Persistence Techniques
-  - Disabling Security Tools
-  - NOBELIUM Group
-  - Azorult
-  - Windows Drivers
-  asset_type: Endpoint
-  confidence: 80
-  impact: 70
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
   message: A sc process $process_name$ with commandline $process$ to create of configure
     services in host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 56
+  - field: user
+    type: user
+    score: 56
+  threat_objects: []
+tags:
+  analytic_story:
+  - Azorult
+  - Orangeworm Attack Group
+  - Windows Drivers
+  - NOBELIUM Group
+  - Windows Persistence Techniques
+  - Disabling Security Tools
+  - Windows Service Abuse
+  - DHS Report TA18-074A
+  - Crypto Stealer
+  asset_type: Endpoint
   mitre_attack_id:
   - T1543.003
-  - T1543
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.process_name
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.dest
-  - Processes.user
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -81,4 +87,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1543.003/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

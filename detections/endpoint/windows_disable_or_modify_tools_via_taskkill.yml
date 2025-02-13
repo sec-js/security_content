@@ -1,12 +1,14 @@
 name: Windows Disable or Modify Tools Via Taskkill
 id: a43ae66f-c410-4b3d-8741-9ce1ad17ddb0
-version: 2
-date: '2024-05-28'
+version: 7
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic identifies the use of taskkill.exe to forcibly
   terminate processes. It leverages data from Endpoint Detection and Response (EDR)
   agents, focusing on command-line executions that include specific taskkill parameters.
@@ -35,45 +37,41 @@ known_false_positives: Network administrator can use this application to kill pr
   during audit or investigation.
 references:
 - https://malpedia.caad.fkie.fraunhofer.de/details/win.njrat
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A taskkill process to terminate process is executed on host- $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects:
+  - field: parent_process_name
+    type: parent_process_name
 tags:
   analytic_story:
+  - PXA Stealer
   - NjRAT
+  - Crypto Stealer
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: A taskkill process to terminate process is executed on host- $dest$
   mitre_attack_id:
-  - T1562
   - T1562.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process Name
-    role:
-    - Parent Process
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 36
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -81,4 +79,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/taskkill/taskkill_im.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

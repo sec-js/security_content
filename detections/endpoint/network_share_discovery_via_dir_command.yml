@@ -1,7 +1,7 @@
 name: Network Share Discovery Via Dir Command
 id: dc1457d0-1d9b-422e-b5a7-db46c184d9aa
-version: 2
-date: '2024-05-19'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -34,32 +34,12 @@ tags:
   asset_type: Endpoint
   atomic_guid:
   - 13daa2cf-195a-43df-a8bd-7dd5ffb607b5
-  confidence: 50
-  impact: 50
-  message: $user$ list executable files or directory in known sensitive SMB share.  Share
-    name=$ShareName$, Access mask=$AccessMask$
   mitre_attack_id:
   - T1135
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 25
-  required_fields:
-  - _time
-  - ShareName
-  - IpAddress
-  - ObjectType
-  - SubjectUserName
-  - SubjectDomainName
-  - IpPort
-  - AccessMask
-  - Computer
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -1,7 +1,7 @@
 name: Ryuk Test Files Detected
 id: 57d44d70-28d9-4ed1-acf5-1c80ae2bbce3
-version: 2
-date: '2024-05-20'
+version: 4
+date: '2024-11-13'
 author: Rod Soto, Jose Hernandez, Splunk
 status: production
 type: TTP
@@ -26,34 +26,40 @@ how_to_implement: You must be ingesting data that records the filesystem activit
 known_false_positives: If there are files with this keywoord as file names it might
   trigger false possitives, please make use of our filters to tune out potential FPs.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A creation of ryuk test file $file_path$ in host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 70
+  - field: user
+    type: user
+    score: 70
+  threat_objects: []
 tags:
   analytic_story:
   - Ryuk Ransomware
   asset_type: Endpoint
-  confidence: 100
-  impact: 70
-  message: A creation of ryuk test file $file_path$ in host $dest$
   mitre_attack_id:
   - T1486
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.file_path
-  - Filesystem.dest
-  - Filesystem.user
-  risk_score: 70
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -61,4 +67,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/ryuk/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

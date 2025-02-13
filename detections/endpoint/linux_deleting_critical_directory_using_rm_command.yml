@@ -1,18 +1,18 @@
 name: Linux Deleting Critical Directory Using RM Command
 id: 33f89303-cc6f-49ad-921d-2eaea38a6f7a
-version: 2
-date: '2024-05-16'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
 description: The following analytic detects the deletion of critical directories on
-  a Linux machine using the `rm` command with argument rf. It leverages data from Endpoint Detection
-  and Response (EDR) agents, focusing on command-line executions targeting directories
-  like /boot, /var/log, /etc, and /dev. This activity is significant because deleting
-  these directories can severely disrupt system operations and is often associated
-  with destructive campaigns like Industroyer2. If confirmed malicious, this action
-  could lead to system instability, data loss, and potential downtime, making it crucial
-  for immediate investigation and response.
+  a Linux machine using the `rm` command with argument rf. It leverages data from
+  Endpoint Detection and Response (EDR) agents, focusing on command-line executions
+  targeting directories like /boot, /var/log, /etc, and /dev. This activity is significant
+  because deleting these directories can severely disrupt system operations and is
+  often associated with destructive campaigns like Industroyer2. If confirmed malicious,
+  this action could lead to system instability, data loss, and potential downtime,
+  making it crucial for immediate investigation and response.
 data_source:
 - Sysmon for Linux EventID 1
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
@@ -36,37 +36,40 @@ known_false_positives: Administrator or network operator can use this applicatio
 references:
 - https://www.welivesecurity.com/2022/04/12/industroyer2-industroyer-reloaded/
 - https://cert.gov.ua/article/39518
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A deletion in known critical list of folder using rm command $process$
+    executed on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - AwfulShred
   - Data Destruction
   - Industroyer2
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: A deletion in known critical list of folder using rm command $process$
-    executed on $dest$
   mitre_attack_id:
   - T1485
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

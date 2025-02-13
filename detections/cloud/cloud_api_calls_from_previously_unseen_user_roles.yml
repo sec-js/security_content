@@ -1,13 +1,20 @@
 name: Cloud API Calls From Previously Unseen User Roles
 id: 2181ad1f-1e73-4d0c-9780-e8880482a08f
-version: 2
-date: '2024-05-15'
+version: 4
+date: '2024-11-14'
 author: David Dorsey, Splunk
 status: experimental
 type: Anomaly
-description: |-
-  The following analytic detects cloud API calls executed by user roles that have not previously run these commands. It leverages the Change data model in Splunk to identify commands executed by users with the user_type of AssumedRole and a status of success. This activity is significant because new commands from different user roles can indicate potential malicious activity or unauthorized actions. If confirmed malicious, this behavior could lead to unauthorized access, data breaches, or other damaging outcomes by exploiting new or unmonitored commands within the cloud environment.
-data_source: []
+description: The following analytic detects cloud API calls executed by user roles
+  that have not previously run these commands. It leverages the Change data model
+  in Splunk to identify commands executed by users with the user_type of AssumedRole
+  and a status of success. This activity is significant because new commands from
+  different user roles can indicate potential malicious activity or unauthorized actions.
+  If confirmed malicious, this behavior could lead to unauthorized access, data breaches,
+  or other damaging outcomes by exploiting new or unmonitored commands within the
+  cloud environment.
+data_source:
+- AWS CloudTrail
 search: '| tstats earliest(_time) as firstTime, latest(_time) as lastTime from datamodel=Change
   where All_Changes.user_type=AssumedRole AND All_Changes.status=success by All_Changes.user,
   All_Changes.command All_Changes.object | `drop_dm_object_name("All_Changes")` |
@@ -27,33 +34,24 @@ how_to_implement: You must be ingesting your cloud infrastructure logs from your
   the `cloud_api_calls_from_previously_unseen_user_roles_filter`
 known_false_positives: None.
 references: []
+rba:
+  message: User $user$ of type AssumedRole attempting to execute new API calls $command$
+    that have not been seen before
+  risk_objects:
+  - field: user
+    type: user
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious Cloud User Activities
   asset_type: AWS Instance
-  confidence: 60
-  impact: 60
-  message: User $user$ of type AssumedRole attempting to execute new API calls $command$
-    that have not been seen before
   mitre_attack_id:
   - T1078
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.user
-  - All_Changes.user_type
-  - All_Changes.status
-  - All_Changes.command
-  - All_Changes.object
-  risk_score: 36
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -62,4 +60,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

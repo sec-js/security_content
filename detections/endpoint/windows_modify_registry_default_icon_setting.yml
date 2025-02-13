@@ -1,7 +1,7 @@
 name: Windows Modify Registry Default Icon Setting
 id: a7a7afdb-3c58-45b6-9bff-63e5acfd9d40
-version: 2
-date: '2024-05-15'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -32,38 +32,41 @@ known_false_positives: unknown
 references:
 - https://blogs.vmware.com/security/2022/10/lockbit-3-0-also-known-as-lockbit-black.html
 - https://news.sophos.com/en-us/2020/04/24/lockbit-ransomware-borrows-tricks-to-keep-up-with-revil-and-maze/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A suspicious registry modification to change the default icon association
+    of windows to ransomware was detected on endpoint $dest$ by user $user$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  - field: user
+    type: user
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - LockBit Ransomware
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: A suspicious registry modification to change the default icon association
-    of windows to ransomware was detected on endpoint $dest$ by user $user$.
   mitre_attack_id:
   - T1112
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.user
-  - Registry.registry_path
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  - Registry.action
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -71,5 +74,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/lockbit_ransomware/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

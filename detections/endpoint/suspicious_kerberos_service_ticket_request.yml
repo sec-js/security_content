@@ -1,7 +1,7 @@
 name: Suspicious Kerberos Service Ticket Request
 id: 8b1297bc-6204-11ec-b7c4-acde48001122
-version: 3
-date: '2024-05-16'
+version: 7
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,7 +15,7 @@ description: The following analytic detects suspicious Kerberos Service Ticket (
   and unauthorized access to sensitive information.
 data_source:
 - Windows Event Log Security 4769
-search: ' `wineventlog_security` EventCode=4769 | eval isSuspicious = if(lower(ServiceName)
+search: '`wineventlog_security` EventCode=4769 | eval isSuspicious = if(lower(ServiceName)
   = lower(mvindex(split(TargetUserName,"@"),0)),1,0) | where isSuspicious = 1 | rename
   Computer as dest| rename TargetUserName as user | table _time, dest, src_ip, user,
   ServiceName, Error_Code, isSuspicious | `suspicious_kerberos_service_ticket_request_filter`'
@@ -30,38 +30,42 @@ references:
 - https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-42278
 - https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-42287
 - https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A suspicious Kerberos Service Ticket was requested by $user$ on host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 60
+  threat_objects: []
 tags:
   analytic_story:
   - sAMAccountName Spoofing and Domain Controller Impersonation
   - Active Directory Kerberos Attacks
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 60
   cve:
   - CVE-2021-42287
   - CVE-2021-42278
-  impact: 100
-  message: A suspicious Kerberos Service Ticket was requested by $user$ on host $dest$
   mitre_attack_id:
-  - T1078
   - T1078.002
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Service_Name
-  - Account_Name
-  - Client_Address
-  - Failure_Code
-  risk_score: 60
   security_domain: endpoint
 tests:
 - name: True Positive Test

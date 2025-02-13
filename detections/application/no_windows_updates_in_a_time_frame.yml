@@ -1,7 +1,7 @@
 name: No Windows Updates in a time frame
 id: 1a77c08c-2f56-409c-a2d3-7d64617edd4f
-version: 2
-date: '2024-05-15'
+version: 4
+date: '2025-01-21'
 author: Bhavin Patel, Splunk
 status: experimental
 type: Hunting
@@ -33,22 +33,8 @@ tags:
   analytic_story:
   - Monitor for Updates
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Updates.status
-  - Updates.vendor_product
-  - Updates.dest
-  risk_score: 25
   security_domain: endpoint

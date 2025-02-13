@@ -1,7 +1,7 @@
 name: Detect Excessive User Account Lockouts
 id: 95a7f9a5-6096-437e-a19e-86f42ac609bd
-version: 6
-date: '2024-05-20'
+version: 9
+date: '2025-02-10'
 author: David Dorsey, Splunk
 status: production
 type: Anomaly
@@ -25,31 +25,37 @@ how_to_implement: ou must ingest your Windows security event logs in the `Change
 known_false_positives: It is possible that a legitimate user is experiencing an issue
   causing multiple account login failures leading to lockouts.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Excessive user account lockouts for $user$ in a short period of time
+  risk_objects:
+  - field: user
+    type: user
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Password Spraying
   asset_type: Windows
-  confidence: 60
-  impact: 60
-  message: Excessive user account lockouts for $user$ in a short period of time
   mitre_attack_id:
-  - T1078
   - T1078.003
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.result
-  - nodename
-  - All_Changes.user
-  risk_score: 36
   security_domain: access
 tests:
 - name: True Positive Test

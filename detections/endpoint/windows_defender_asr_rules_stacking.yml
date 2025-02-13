@@ -1,7 +1,7 @@
 name: Windows Defender ASR Rules Stacking
 id: 425a6657-c5e4-4cbb-909e-fc9e5d326f01
-version: 2
-date: '2024-05-21'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -24,13 +24,11 @@ description: The following analytic identifies security events from Microsoft De
   unauthorized operations, potential security breaches, and policy enforcement issues.
   If confirmed malicious, attackers could bypass security measures, execute unauthorized
   actions, or alter system configurations.
-search: '`ms_defender`
-    EventCode IN (1121, 1122, 1125, 1126, 1129, 1131, 1132, 1133, 1134, 5007)
-  | stats count min(_time) as firstTime max(_time) as lastTime by host Parent_Commandline, Process_Name, Path, ID, EventCode
-  | lookup asr_rules ID OUTPUT ASR_Rule
-  | fillnull value=NULL
-  | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`| rename host as dest
-  | `windows_defender_asr_rules_stacking_filter`'
+search: '`ms_defender` EventCode IN (1121, 1122, 1125, 1126, 1129, 1131, 1132, 1133,
+  1134, 5007) | stats count min(_time) as firstTime max(_time) as lastTime by host
+  Parent_Commandline, Process_Name, Path, ID, EventCode | lookup asr_rules ID OUTPUT
+  ASR_Rule | fillnull value=NULL | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`|
+  rename host as dest | `windows_defender_asr_rules_stacking_filter`'
 how_to_implement: The following analytic requires collection of Windows Defender Operational
   logs in either XML or multi-line. To collect, setup a new input for the Windows
   Defender Operational logs. In addition, it does require a lookup that maps the ID
@@ -50,34 +48,14 @@ tags:
   - Windows Attack Surface Reduction
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 100
-  impact: 50
-  message: An ASR rule, $ASR_Rule$, was triggered on $dest$.
   mitre_attack_id:
   - T1566.001
   - T1566.002
   - T1059
-  observable:
-  - name: ASR_Rule
-    type: Unknown
-    role:
-    - Other
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 50
-  required_fields:
-  - host
-  - Parent_Commandline
-  - Target_Commandline
-  - ID
-  - EventCode
-  - ASR_Rule
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -85,4 +63,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059/defender/asr_defender_operational.log
     source: WinEventLog:Microsoft-Windows-Windows Defender/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

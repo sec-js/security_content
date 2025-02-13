@@ -1,12 +1,14 @@
 name: Windows Powershell RemoteSigned File
 id: f7f7456b-470d-4a95-9703-698250645ff4
-version: 2
-date: '2024-05-26'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic identifies the use of the "remotesigned" execution
   policy for PowerShell scripts. It leverages data from Endpoint Detection and Response
   (EDR) agents, focusing on command-line executions containing "remotesigned" and
@@ -33,40 +35,40 @@ known_false_positives: It is possible administrators or scripts may run these co
   filtering may be required.
 references:
 - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.3
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A PowerShell commandline with remotesigned policy executed on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  - field: user
+    type: user
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Amadey
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: A PowerShell commandline with remotesigned policy executed on $dest$
   mitre_attack_id:
   - T1059.001
-  - T1059
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 25
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.original_file_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -74,4 +76,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/powershell_remotesigned/remotesigned_sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

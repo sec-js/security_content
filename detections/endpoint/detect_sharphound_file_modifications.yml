@@ -1,7 +1,7 @@
 name: Detect SharpHound File Modifications
 id: 42b4b438-beed-11eb-ba1d-acde48001122
-version: 4
-date: '2024-05-15'
+version: 7
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -33,43 +33,46 @@ references:
 - https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors
 - https://github.com/BloodHoundAD/SharpHound3
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1059.001/T1059.001.md#atomic-test-2---run-bloodhound-from-local-disk
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Potential SharpHound file modifications identified on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 24
+  - field: user
+    type: user
+    score: 24
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Discovery Techniques
   - Ransomware
+  - BlackSuit Ransomware
   asset_type: Endpoint
-  confidence: 80
-  impact: 30
-  message: Potential SharpHound file modifications identified on $dest$
   mitre_attack_id:
-  - T1087.002
   - T1069.001
-  - T1482
-  - T1087.001
-  - T1087
   - T1069.002
-  - T1069
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
+  - T1087.001
+  - T1087.002
+  - T1482
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - file_path
-  - dest
-  - file_name
-  - process_id
-  - file_create_time
-  risk_score: 24
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -77,4 +80,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/sharphound/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

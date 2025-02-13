@@ -1,7 +1,7 @@
 name: Windows Known GraphicalProton Loaded Modules
 id: bf471c94-0324-4b19-a113-d02749b969bc
-version: 2
-date: '2024-05-11'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -29,37 +29,37 @@ how_to_implement: To successfully implement this search, you need to be ingestin
 known_false_positives: unknown
 references:
 - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-347a
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Windows Known GraphicalProton backdoor Loaded Modules on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - CISA AA23-347A
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: Windows Known GraphicalProton backdoor Loaded Modules on $dest$.
   mitre_attack_id:
   - T1574.002
-  - T1574
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 36
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - process_name
-  - dest
-  - EventCode
-  - Signed
-  - ProcessId
-  - Hashes
-  - IMPHASH
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -67,4 +67,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.002/svr_loaded_modules/loaded_module_svr.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: Windows Defacement Modify Transcodedwallpaper File
 id: e11c3d90-5bc7-42ad-94cd-ba75db10d897
-version: 2
-date: '2024-05-21'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -15,6 +15,8 @@ description: The following analytic identifies modifications to the TranscodedWa
   potentially leading to further system compromise or data exfiltration.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count FROM datamodel=Endpoint.Processes
   where Processes.process_path !="*\\Windows\\Explorer.EXE" by _time span=1h Processes.process_id
   Processes.process_name Processes.process Processes.dest Processes.process_guid  Processes.original_file_name
@@ -35,39 +37,40 @@ known_false_positives: 3rd part software application can change the wallpaper. F
 references:
 - https://forums.ivanti.com/s/article/Wallpaper-Windows-Settings-Desktop-Settings-and-the-transcodedwallpaper-jpg?language=en_US
 - https://www.trendmicro.com/vinfo/us/threat-encyclopedia/malware/ransom_sifreli.a
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: modification or creation of transcodedwallpaper file by $process_name$
+    on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 9
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Brute Ratel C4
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: modification or creation of transcodedwallpaper file by $process_name$
-    in $dest$
   mitre_attack_id:
   - T1491
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - file_create_time
-  - file_name
-  - file_path
-  - process_name
-  - process_path
-  - process
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -75,5 +78,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/brute_ratel/wallpaper_via_transcodedwallpaper/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

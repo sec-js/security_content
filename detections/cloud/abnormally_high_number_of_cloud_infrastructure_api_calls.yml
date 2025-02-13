@@ -1,7 +1,7 @@
 name: Abnormally High Number Of Cloud Infrastructure API Calls
 id: 0840ddf1-8c89-46ff-b730-c8d6722478c0
-version: 2
-date: '2024-05-12'
+version: 6
+date: '2025-02-10'
 author: David Dorsey, Splunk
 status: experimental
 type: Anomaly
@@ -13,7 +13,8 @@ description: The following analytic detects a spike in the number of API calls m
   confirmed malicious, this could lead to unauthorized access, data exfiltration,
   or disruption of cloud services, posing a significant risk to the organization's
   cloud environment.
-data_source: []
+data_source:
+- AWS CloudTrail
 search: '| tstats count as api_calls values(All_Changes.command) as command from datamodel=Change
   where All_Changes.user!=unknown All_Changes.status=success by All_Changes.user _time
   span=1h | `drop_dm_object_name("All_Changes")` | eval HourOfDay=strftime(_time,
@@ -30,33 +31,25 @@ how_to_implement: You must be ingesting your cloud infrastructure logs. You also
   create the probability density function.
 known_false_positives: None.
 references: []
+rba:
+  message: user $user$ has made $api_calls$ api calls, violating the dynamic threshold
+    of $expected_upper_threshold$ with the following command $command$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 15
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious Cloud User Activities
   - Compromised User Account
   asset_type: AWS Instance
-  confidence: 50
-  impact: 30
-  message: user $user$ has made $api_calls$ api calls, violating the dynamic threshold
-    of $expected_upper_threshold$ with the following command $command$.
   mitre_attack_id:
   - T1078.004
-  - T1078
-  observable:
-  - name: user
-    type: User
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.command
-  - All_Changes.user
-  - All_Changes.status
-  risk_score: 15
   security_domain: network
 tests:
 - name: True Positive Test
@@ -65,4 +58,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

@@ -1,12 +1,14 @@
 name: Windows System User Privilege Discovery
 id: 8c9a06bc-9939-4425-9bb9-be2371f7fb7e
-version: 2
-date: '2024-05-23'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic detects the execution of `whoami.exe` with the
   `/priv` parameter, which displays the privileges assigned to the current user account.
   It leverages data from Endpoint Detection and Response (EDR) agents, focusing on
@@ -38,35 +40,12 @@ tags:
   analytic_story:
   - CISA AA23-347A
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: Activity related to system user privilege discovery detected on $dest$
-    using whoami.exe.
   mitre_attack_id:
   - T1033
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 15
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -74,4 +53,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1033/whoami_priv/whoami-priv-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

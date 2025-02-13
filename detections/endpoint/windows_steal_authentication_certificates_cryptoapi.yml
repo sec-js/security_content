@@ -1,7 +1,7 @@
 name: Windows Steal Authentication Certificates CryptoAPI
 id: 905d5692-6d7c-432f-bc7e-a6b4f464d40e
-version: 2
-date: '2024-05-16'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -26,29 +26,37 @@ known_false_positives: False positives may be present in some instances of legit
   applications requiring to export certificates. Filter as needed.
 references:
 - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-vista/cc749296(v=ws.10)
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Certificates were exported via the CryptoAPI 2 on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 24
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Certificate Services
   asset_type: Endpoint
-  confidence: 80
-  impact: 30
-  message: Certificates were exported via the CryptoAPI 2 on $dest$.
   mitre_attack_id:
   - T1649
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Computer
-  - UserData_Xml
-  risk_score: 24
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -57,4 +65,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1649/atomic_red_team/capi2-operational.log
     source: XmlWinEventLog:Microsoft-Windows-CAPI2/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

@@ -1,7 +1,7 @@
 name: Windows AD Same Domain SID History Addition
 id: 5fde0b7c-df7a-40b1-9b3a-294c00f0289d
-version: 3
-date: '2024-05-22'
+version: 7
+date: '2025-02-10'
 author: Dean Luxton
 type: TTP
 status: production
@@ -31,40 +31,42 @@ references:
 - https://learn.microsoft.com/en-us/windows/win32/adschema/a-sidhistory?redirectedfrom=MSDN
 - https://learn.microsoft.com/en-us/defender-for-identity/security-assessment-unsecure-sid-history-attribute
 - https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/sid-history-injection
+drilldown_searches:
+- name: View the detection results for - "$src_user$" and "$user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Active Directory SID History Attribute was added to $user$ by $src_user$
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 100
+  - field: user
+    type: user
+    score: 100
+  threat_objects: []
 tags:
   analytic_story:
-  - Sneaky Active Directory Persistence Tricks
+  - Compromised Windows Host
   - Windows Persistence Techniques
+  - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 100
-  impact: 100
-  message: Active Directory SID History Attribute was added to $user$ by $src_user$
   mitre_attack_id:
   - T1134.005
-  - T1134
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - SidHistory
-  - TargetSid
-  - TargetDomainName
-  - user
-  - src_user
-  - Logon_ID
-  risk_score: 100
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -1,12 +1,14 @@
 name: Windows Bypass UAC via Pkgmgr Tool
 id: cce58e2c-988a-4319-9390-0daa9eefa3cd
-version: 2
-date: '2024-05-20'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic detects the execution of the deprecated 'pkgmgr.exe'
   process with an XML input file, which is unusual and potentially suspicious. This
   detection leverages Endpoint Detection and Response (EDR) telemetry, focusing on
@@ -40,42 +42,40 @@ known_false_positives: False positives may be present on recent Windows Operatin
 references:
 - https://asec.ahnlab.com/en/17692/
 - https://www.blackberry.com/us/en/solutions/endpoint-security/ransomware-protection/warzone#:~:text=Warzone%20RAT%20(AKA%20Ave%20Maria)%20is%20a%20remote%20access%20trojan,is%20as%20an%20information%20stealer.
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A pkgmgr.exe executed with package manager xml input file on $dest$
+  risk_objects:
+  - field: user
+    type: user
+    score: 9
+  - field: dest
+    type: system
+    score: 9
+  threat_objects: []
 tags:
   analytic_story:
   - Warzone RAT
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: A pkgmgr.exe executed with package manager xml input file on $dest$
   mitre_attack_id:
   - T1548.002
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 9
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -83,4 +83,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/warzone_rat/pkgmgr_uac_bypass/pkgmgr_create_file.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

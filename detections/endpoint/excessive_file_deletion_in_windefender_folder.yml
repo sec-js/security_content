@@ -1,7 +1,7 @@
 name: Excessive File Deletion In WinDefender Folder
 id: b5baa09a-7a05-11ec-8da4-acde48001122
-version: 3
-date: '2024-05-12'
+version: 5
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk, Steven Dick
 status: production
 type: TTP
@@ -27,47 +27,45 @@ known_false_positives: Windows Defender AV updates may trigger this alert. Pleas
   adjust the filter macros to mitigate false positives.
 references:
 - https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Excessive file deletion events were detected in the Windows Defender folder
+    on $dest$ by $user$. Investigate further to determine if this activity is malicious.
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  - field: dest
+    type: system
+    score: 25
+  threat_objects:
+  - field: deleted_files
+    type: file_name
 tags:
   analytic_story:
   - Data Destruction
   - WhisperGate
   - BlackByte Ransomware
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Excessive file deletion events were detected in the Windows Defender folder
-    on $dest$ by $user$. Investigate further to determine if this activity is malicious.
   mitre_attack_id:
   - T1485
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: deleted_files
-    type: File Name
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - TargetFilename
-  - user
-  - dest
-  - signature
-  - signature_id
-  - Image
-  - process_name
-  - process_path
-  - process_guid
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -75,4 +73,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1485/excessive_file_del_in_windefender_dir/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

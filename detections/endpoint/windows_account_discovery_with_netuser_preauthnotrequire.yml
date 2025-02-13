@@ -1,7 +1,7 @@
 name: Windows Account Discovery With NetUser PreauthNotRequire
 id: cf056b65-44b2-4d32-9172-d6b6f081a376
-version: 2
-date: '2024-05-27'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -30,28 +30,12 @@ tags:
   analytic_story:
   - CISA AA23-347A
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: A user dicovery using powerview commandlet Get-NetUser with PreauthNotRequire
-    parameter on $dest$.
   mitre_attack_id:
   - T1087
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 15
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - dest
-  - EventCode
-  - user
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -59,4 +43,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1087/powerview_get_netuser_preauthnotrequire/get-netuser-not-require-pwh.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

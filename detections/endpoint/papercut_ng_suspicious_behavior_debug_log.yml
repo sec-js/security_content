@@ -1,7 +1,7 @@
 name: PaperCut NG Suspicious Behavior Debug Log
 id: 395163b8-689b-444b-86c7-9fe9ad624734
-version: 2
-date: '2024-05-30'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: experimental
 type: Hunting
@@ -38,29 +38,13 @@ tags:
   - PaperCut MF NG Vulnerability
   asset_type: Web Server
   atomic_guid: []
-  confidence: 80
-  impact: 80
-  message: Behavior related to exploitation of PaperCut NG has been identified on
-    $host$.
   mitre_attack_id:
   - T1190
   - T1133
-  observable:
-  - name: host
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 64
-  required_fields:
-  - uri_match
-  - ip_match
-  - index
-  - sourcetype
-  - host
   security_domain: endpoint
 tests:
 - name: True Positive Test

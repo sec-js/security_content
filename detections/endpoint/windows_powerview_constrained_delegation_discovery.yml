@@ -1,7 +1,7 @@
 name: Windows PowerView Constrained Delegation Discovery
 id: 86dc8176-6e6c-42d6-9684-5444c6557ab3
-version: 3
-date: '2024-05-10'
+version: 5
+date: '2024-11-13'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -32,37 +32,42 @@ references:
 - https://www.guidepointsecurity.com/blog/delegating-like-a-boss-abusing-kerberos-delegation-in-active-directory/
 - https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/constrained-delegation
 - https://www.cyberark.com/resources/threat-research-blog/weakness-within-kerberos-delegation
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Suspicious PowerShell Get-DomainComputer was identified on endpoint $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 35
+  - field: user
+    type: user
+    score: 35
+  threat_objects: []
 tags:
   analytic_story:
   - CISA AA23-347A
   - Rhysida Ransomware
   - Active Directory Kerberos Attacks
   asset_type: Endpoint
-  confidence: 70
-  impact: 50
-  message: Suspicious PowerShell Get-DomainComputer was identified on endpoint $dest$
   mitre_attack_id:
   - T1018
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  - UserID
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test

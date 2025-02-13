@@ -1,7 +1,7 @@
 name: Azure AD External Guest User Invited
 id: c1fb4edb-cab1-4359-9b40-925ffd797fb5
-version: 3
-date: '2024-05-11'
+version: 6
+date: '2024-11-14'
 author: Gowthamaraj Rajendran, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -30,35 +30,40 @@ references:
 - https://www.blackhat.com/us-22/briefings/schedule/#backdooring-and-hijacking-azure-ad-accounts-by-abusing-external-identities-26999
 - https://attack.mitre.org/techniques/T1136/003/
 - https://docs.microsoft.com/en-us/azure/active-directory/external-identities/b2b-quickstart-add-guest-users-portal
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: External Guest User $user$ initiated by $initiatedBy$
+  risk_objects:
+  - field: user
+    type: user
+    score: 45
+  - field: initiatedBy
+    type: user
+    score: 45
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Persistence
   asset_type: Azure Active Directory
-  confidence: 90
-  impact: 50
-  message: External Guest User $user$ initiated by $initiatedBy$
   mitre_attack_id:
   - T1136.003
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: initiatedBy
-    type: User
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - properties.targetResources{}.type
-  - properties.initiatedBy.user.userPrincipalName
-  - properties.result
-  risk_score: 45
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -67,4 +72,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1136.003/azure_ad_external_guest_user_invited/azure-audit.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

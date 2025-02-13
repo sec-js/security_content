@@ -1,7 +1,7 @@
 name: GSuite Email Suspicious Attachment
 id: 6d663014-fe92-11eb-ab07-acde48001122
-version: 2
-date: '2024-05-16'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -30,40 +30,39 @@ known_false_positives: network admin and normal user may send this file attachme
   type to an e-mail may reduce the risk of having a spear phishing attack.
 references:
 - https://www.redhat.com/en/topics/devops/what-is-devsecops
+drilldown_searches:
+- name: View the detection results for - "$destination{}.address$"
+  search: '%original_detection_search% | search  destination{}.address = "$destination{}.address$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$destination{}.address$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$destination{}.address$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Suspicious email from $source.address$ to $destination{}.address$
+  risk_objects:
+  - field: destination{}.address
+    type: user
+    score: 49
+  threat_objects:
+  - field: source.address
+    type: email_address
 tags:
   analytic_story:
   - Dev Sec Ops
   asset_type: GSuite
-  confidence: 70
-  impact: 70
-  message: Suspicious email from $source.address$ to $destination{}.address$
   mitre_attack_id:
   - T1566.001
-  - T1566
-  observable:
-  - name: source.address
-    type: Email Address
-    role:
-    - Attacker
-  - name: destination{}.address
-    type: Email Address
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - attachment{}.file_extension_type
-  - attachment{}.sha256
-  - destination{}.service
-  - num_message_attachments
-  - payload_size
-  - subject
-  - destination{}.address
-  - source.address
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test

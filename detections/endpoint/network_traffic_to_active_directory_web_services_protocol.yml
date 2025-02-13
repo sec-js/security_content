@@ -1,7 +1,7 @@
 name: Network Traffic to Active Directory Web Services Protocol
 id: 68a0056c-34cb-455f-b03d-df935ea62c4f
-version: 3
-date: '2024-05-18'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -36,38 +36,16 @@ tags:
   - Windows Discovery Techniques
   asset_type: Network
   atomic_guid: []
-  confidence: 50
-  impact: 20
-  message: Network traffic to Active Directory Web Services Protocol was identified
-    on $dest_ip$ by $src_ip$.
   mitre_attack_id:
-  - T1087.002
   - T1069.001
-  - T1482
-  - T1087.001
-  - T1087
   - T1069.002
-  - T1069
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: dest_ip
-    type: IP Address
-    role:
-    - Victim
+  - T1087.001
+  - T1087.002
+  - T1482
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 10
-  required_fields:
-  - All_Traffic.src_ip
-  - All_Traffic.dest_ip
-  - All_Traffic.app
-  - All_Traffic.user
-  - All_Traffic.dest_port
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -75,4 +53,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/soaphound/sysmon_soaphound.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

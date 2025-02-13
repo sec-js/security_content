@@ -1,7 +1,7 @@
 name: Windows WMI Impersonate Token
 id: cf192860-2d94-40db-9a51-c04a2e8a8f8b
-version: 2
-date: '2024-05-29'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -30,37 +30,38 @@ known_false_positives: administrator may execute impersonate wmi object script f
 references:
 - https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/process-access.md
 - https://www.joesandbox.com/analysis/278341/0/html
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: wmiprvse.exe process having a duplicate or full Granted Access $GrantedAccess$
+    to $TargetImage$ process on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Qakbot
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: wmiprvse.exe process having a duplicate or full Granted Access $GrantedAccess$
-    to $TargetImage$ process in $dest$
   mitre_attack_id:
   - T1047
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - SourceImage
-  - TargetImage
-  - SourceProcessGUID
-  - TargetProcessGUID
-  - SourceProcessId
-  - TargetProcessId
-  - GrantedAccess
-  - CallTrace
-  - dest
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -68,5 +69,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1047/wmi_impersonate/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

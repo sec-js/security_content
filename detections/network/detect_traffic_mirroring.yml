@@ -1,7 +1,7 @@
 name: Detect Traffic Mirroring
 id: 42b3b753-5925-49c5-9742-36fa40a73990
-version: 2
-date: '2024-05-09'
+version: 6
+date: '2025-02-10'
 author: Mikael Bjerkeland, Splunk
 status: experimental
 type: TTP
@@ -29,31 +29,23 @@ how_to_implement: This search uses a standard SPL query on logs from Cisco Netwo
 known_false_positives: This search will return false positives for any legitimate
   traffic captures by network administrators.
 references: []
+rba:
+  message: Traffic Mirroring Session observed on $host$
+  risk_objects:
+  - field: host
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Router and Infrastructure Security
   asset_type: Infrastructure
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
-  - T1200
-  - T1020
-  - T1498
   - T1020.001
-  observable:
-  - name: dest
-    type: Other
-    role:
-    - Other
+  - T1200
+  - T1498
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - facility
-  - mnemonic
-  - host
-  risk_score: 25
   security_domain: network

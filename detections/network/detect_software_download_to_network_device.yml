@@ -1,7 +1,7 @@
 name: Detect Software Download To Network Device
 id: cc590c66-f65f-48f2-986a-4797244762f8
-version: 2
-date: '2024-05-20'
+version: 5
+date: '2025-02-10'
 author: Mikael Bjerkeland, Splunk
 status: experimental
 type: TTP
@@ -31,32 +31,21 @@ how_to_implement: This search looks for Network Traffic events to TFTP, FTP or S
 known_false_positives: This search will also report any legitimate attempts of software
   downloads to network devices as well as outbound SSH sessions from network devices.
 references: []
+rba:
+  message: Potentially unauthorized software download to $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Router and Infrastructure Security
   asset_type: Infrastructure
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1542.005
-  - T1542
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.transport
-  - All_Traffic.dest_port
-  - All_Traffic.dest_category
-  - All_Traffic.src_category
-  - All_Traffic.src
-  - All_Traffic.dest
-  risk_score: 25
   security_domain: network

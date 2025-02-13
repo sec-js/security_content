@@ -1,7 +1,7 @@
 name: Windows PowerShell Export Certificate
 id: 5e38ded4-c964-41f4-8cb6-4a1a53c6929f
-version: 2
-date: '2024-05-18'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -27,33 +27,39 @@ known_false_positives: It is possible administrators or scripts may run these co
 references:
 - https://dev.to/iamthecarisma/managing-windows-pfx-certificates-through-powershell-3pj
 - https://learn.microsoft.com/en-us/powershell/module/pki/export-certificate?view=windowsserver2022-ps
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A PowerShell Cmdlet related to exporting a Certificate was ran on $dest$,
+    attempting to export a certificate.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Certificate Services
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: A PowerShell Cmdlet related to exporting a Certificate was ran on $dest$,
-    attempting to export a certificate.
   mitre_attack_id:
   - T1552.004
-  - T1552
   - T1649
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - dest
-  - EventCode
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -61,4 +67,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1649/atomic_red_team/4104_export_certificate.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: AWS ECR Container Upload Outside Business Hours
 id: d4c4d4eb-3994-41ca-a25e-a82d64e125bb
-version: 3
-date: '2024-05-25'
+version: 6
+date: '2025-02-10'
 author: Patrick Bareiss, Splunk
 status: production
 type: Anomaly
@@ -27,40 +27,39 @@ known_false_positives: When your development is spreaded in different time zones
   applying this rule can be difficult.
 references:
 - https://attack.mitre.org/techniques/T1204/003/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Container uploaded outside business hours from $user$
+  risk_objects:
+  - field: user
+    type: user
+    score: 49
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Dev Sec Ops
   asset_type: AWS Account
-  confidence: 70
-  impact: 70
-  message: Container uploaded outside business hours from $user$
   mitre_attack_id:
   - T1204.003
-  - T1204
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - eventSource
-  - eventName
-  - awsRegion
-  - requestParameters.imageTag
-  - requestParameters.registryId
-  - requestParameters.repositoryName
-  - user
-  - userName
-  - src_ip
-  risk_score: 49
   security_domain: network
 tests:
 - name: True Positive Test

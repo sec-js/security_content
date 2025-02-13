@@ -1,7 +1,7 @@
 name: Linux Common Process For Elevation Control
 id: 66ab15c0-63d0-11ec-9e70-acde48001122
-version: 2
-date: '2024-05-29'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -45,34 +45,17 @@ references:
 tags:
   analytic_story:
   - Linux Privilege Escalation
-  - Linux Persistence Techniques
   - Linux Living Off The Land
+  - Linux Persistence Techniques
+  - Nexus APT Threat Activity
+  - Earth Estries
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: A commandline $process$ with process $process_name$ on $dest$
   mitre_attack_id:
   - T1548.001
-  - T1548
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -1,7 +1,7 @@
 name: Protocol or Port Mismatch
 id: 54dc1265-2f74-4b6d-b30d-49eb506a31b3
-version: 3
-date: '2024-05-29'
+version: 6
+date: '2025-02-10'
 author: Rico Valdez, Splunk
 status: experimental
 type: Anomaly
@@ -28,31 +28,22 @@ how_to_implement: Running this search properly requires a technology that can in
   and not just assume a specific protocol based on the transport protocol and ports.
 known_false_positives: None identified
 references: []
+rba:
+  message: Port or Protocol Traffic Mismatch
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Prohibited Traffic Allowed or Protocol Mismatch
   - Command And Control
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1048.003
-  - T1048
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.app
-  - All_Traffic.dest_port
-  - All_Traffic.src_ip
-  - All_Traffic.dest_ip
-  risk_score: 25
   security_domain: network

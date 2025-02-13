@@ -1,17 +1,17 @@
 name: Linux Possible Cronjob Modification With Editor
 id: dcc89bde-5f24-11ec-87ca-acde48001122
-version: 2
-date: '2024-05-17'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
-description: 'The following analytic detects potential unauthorized modifications
-  to Linux cronjobs using text editors like "nano," "vi," or "vim." It identifies
-  this activity by monitoring command-line executions that interact with cronjob configuration
+description: The following analytic detects potential unauthorized modifications to
+  Linux cronjobs using text editors like "nano," "vi," or "vim." It identifies this
+  activity by monitoring command-line executions that interact with cronjob configuration
   paths. This behavior is significant for a SOC as it may indicate attempts at privilege
   escalation or establishing persistent access. If confirmed malicious, the impact
   could be severe, allowing attackers to execute damaging actions such as data theft,
-  system sabotage, or further network penetration.'
+  system sabotage, or further network penetration.
 data_source:
 - Sysmon for Linux EventID 1
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
@@ -36,36 +36,18 @@ references:
 - https://attack.mitre.org/techniques/T1053/003/
 tags:
   analytic_story:
-  - Linux Privilege Escalation
-  - Linux Persistence Techniques
+  - XorDDos
   - Linux Living Off The Land
+  - Linux Privilege Escalation
   - Scheduled Tasks
+  - Linux Persistence Techniques
   asset_type: Endpoint
-  confidence: 30
-  impact: 20
-  message: A commandline $process$ that may modify cronjob file using editor in $dest$
   mitre_attack_id:
   - T1053.003
-  - T1053
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 6
   security_domain: endpoint
 tests:
 - name: True Positive Test

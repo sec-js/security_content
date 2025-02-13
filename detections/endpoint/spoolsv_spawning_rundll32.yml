@@ -1,7 +1,7 @@
 name: Spoolsv Spawning Rundll32
 id: 15d905f6-da6b-11eb-ab82-acde48001122
-version: 3
-date: '2024-05-14'
+version: 7
+date: '2025-02-10'
 author: Mauricio Velazco, Michael Haag, Splunk
 status: production
 type: TTP
@@ -16,6 +16,8 @@ description: The following analytic detects the spawning of `rundll32.exe` witho
   endpoint.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime from datamodel=Endpoint.Processes where Processes.parent_process_name=spoolsv.exe
   `process_rundll32` by Processes.dest Processes.user Processes.parent_process_name
@@ -37,46 +39,43 @@ references:
 - https://www.truesec.com/hub/blog/fix-for-printnightmare-cve-2021-1675-exploit-to-keep-your-print-servers-running-while-a-patch-is-not-available
 - https://www.truesec.com/hub/blog/exploitable-critical-rce-vulnerability-allows-regular-users-to-fully-compromise-active-directory-printnightmare-cve-2021-1675
 - https://www.reddit.com/r/msp/comments/ob6y02/critical_vulnerability_printnightmare_exposes
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: $parent_process_name$ has spawned $process_name$ on endpoint $dest$. This
+    behavior is suspicious and related to PrintNightmare.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 72
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - PrintNightmare CVE-2021-34527
+  - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 90
   cve:
   - CVE-2021-34527
-  impact: 80
-  message: $parent_process_name$ has spawned $process_name$ on endpoint $dest$. This
-    behavior is suspicious and related to PrintNightmare.
   mitre_attack_id:
   - T1547.012
-  - T1547
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -84,4 +83,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1547.012/printnightmare/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

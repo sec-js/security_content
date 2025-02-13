@@ -1,7 +1,7 @@
 name: AWS ECR Container Scanning Findings Low Informational Unknown
 id: cbc95e44-7c22-443f-88fd-0424478f5589
-version: 3
-date: '2024-05-15'
+version: 6
+date: '2025-02-10'
 author: Patrick Bareiss, Eric McGinnis Splunk
 status: production
 type: Anomaly
@@ -30,40 +30,37 @@ how_to_implement: You must install splunk AWS add on and Splunk App for AWS. Thi
 known_false_positives: unknown
 references:
 - https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html
+drilldown_searches:
+- name: View the detection results for - "$repository$"
+  search: '%original_detection_search% | search  repository = "$repository$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$repository$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$repository$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Vulnerabilities with severity $severity$ found in repository $repository$
+  risk_objects:
+  - field: user
+    type: user
+    score: 5
+  threat_objects: []
 tags:
   analytic_story:
   - Dev Sec Ops
   asset_type: AWS Account
-  confidence: 50
-  impact: 10
-  message: Vulnerabilities with severity $severity$ found in repository $repository$
   mitre_attack_id:
   - T1204.003
-  - T1204
-  observable:
-  - name: user
-    type: User
-    role:
-    - Attacker
-  - name: repository
-    type: Other
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - eventSource
-  - eventName
-  - responseElements.imageScanFindings.findings{}
-  - awsRegion
-  - requestParameters.imageId.imageDigest
-  - requestParameters.repositoryName
-  - user
-  - userName
-  - src_ip
-  risk_score: 5
   security_domain: network
 tests:
 - name: True Positive Test

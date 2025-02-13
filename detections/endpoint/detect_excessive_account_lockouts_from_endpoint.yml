@@ -1,7 +1,7 @@
 name: Detect Excessive Account Lockouts From Endpoint
 id: c026e3dd-7e18-4abb-8f41-929e836efe74
-version: 9
-date: '2024-05-19'
+version: 12
+date: '2025-02-10'
 author: David Dorsey, Splunk
 status: production
 type: Anomaly
@@ -19,7 +19,7 @@ search: '| tstats `security_content_summariesonly` count min(_time) as firstTime
   All_Changes.result="*lock*" by All_Changes.dest All_Changes.result |`drop_dm_object_name("All_Changes")`
   |`drop_dm_object_name("Account_Management")`| `security_content_ctime(firstTime)`
   | `security_content_ctime(lastTime)` | search count > 5 | `detect_excessive_account_lockouts_from_endpoint_filter`'
-how_to_implement: "You must ingest your Windows security event logs in the `Change`
+how_to_implement: You must ingest your Windows security event logs in the `Change`
   datamodel under the nodename is `Account_Management`, for this search to execute
   successfully. Please consider updating the cron schedule and the count of lockouts
   you want to monitor, according to your environment.\n**Splunk>Phantom Playbook Integration**
@@ -31,41 +31,46 @@ how_to_implement: "You must ingest your Windows security event logs in the `Chan
   install the Phantom App for Splunk `https://splunkbase.splunk.com/app/3411/`, add
   the correct hostname to the \"Phantom Instance\" field in the Adaptive Response
   Actions when configuring this detection search, and set the corresponding Playbook
-  to active.\nPlaybook Link:`https://my.phantom.us/4.1/playbook/excessive-account-lockouts-enrichment-and-response/`)"
+  to active.\nPlaybook 
+  Link:`https://my.phantom.us/4.1/playbook/excessive-account-lockouts-enrichment-and-response/`)
 known_false_positives: It's possible that a widely used system, such as a kiosk, could
   cause a large number of account lockouts.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Multiple accounts have been locked out. Review $dest$ and results related
+    to $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 36
+  - field: dest
+    type: system
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Password Spraying
   asset_type: Windows
-  confidence: 60
-  impact: 60
-  message: Multiple accounts have been locked out. Review $dest$ and results related
-    to $user$.
   mitre_attack_id:
-  - T1078
   - T1078.002
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.user
-  - nodename
-  - All_Changes.result
-  - All_Changes.dest
-  risk_score: 36
   security_domain: access
 tests:
 - name: True Positive Test
@@ -74,14 +79,11 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078.002/account_lockout/windows-security.log
     source: WinEventLog:Security
     sourcetype: WinEventLog
-    update_timestamp: true
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078.002/account_lockout/windows-system.log
     source: WinEventLog:System
     sourcetype: WinEventLog
-    update_timestamp: true
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078.002/account_lockout/windows-xml.log
     source: XmlWinEventLog:Security
     sourcetype: XmlWinEventLog
-    update_timestamp: true

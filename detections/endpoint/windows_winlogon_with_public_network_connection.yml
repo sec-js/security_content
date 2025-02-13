@@ -1,21 +1,20 @@
 name: Windows WinLogon with Public Network Connection
 id: 65615b3a-62ea-4d65-bb9f-6f07c17df4ea
-version: 3
-date: '2024-05-23'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: experimental
 type: Hunting
 data_source:
-- Sysmon EventID 1
-- Sysmon EventID 3
-description: 'The following analytic detects instances of Winlogon.exe, a critical
+- Sysmon EventID 1 AND Sysmon EventID 3
+description: The following analytic detects instances of Winlogon.exe, a critical
   Windows process, connecting to public IP addresses. This behavior is identified
   using Endpoint Detection and Response (EDR) telemetry, focusing on network connections
   made by Winlogon.exe. Under normal circumstances, Winlogon.exe should not connect
   to public IPs, and such activity may indicate a compromise, such as the BlackLotus
   bootkit attack. This detection is significant as it highlights potential system
   integrity breaches. If confirmed malicious, attackers could maintain persistence,
-  bypass security measures, and compromise the system at a fundamental level.'
+  bypass security measures, and compromise the system at a fundamental level.
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime from datamodel=Endpoint.Processes where Processes.process_name IN (winlogon.exe)  Processes.process!=unknown
   by Processes.dest Processes.user Processes.parent_process_name Processes.process_name
@@ -44,31 +43,12 @@ tags:
   - BlackLotus Campaign
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 50
-  impact: 50
-  message: Winlogon.exe has generated a network connection to a remote destination
-    on endpoint $dest$.
   mitre_attack_id:
   - T1542.003
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 25
-  required_fields:
-  - dest
-  - parent_process_name
-  - process_name
-  - process_path
-  - process
-  - process_id
-  - dest_port
-  - publicIp
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -76,4 +56,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1542.003/bootkits/network-winlogon-windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

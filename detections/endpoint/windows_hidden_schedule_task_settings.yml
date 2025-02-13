@@ -1,7 +1,7 @@
 name: Windows Hidden Schedule Task Settings
 id: 0b730470-5fe8-4b13-93a7-fe0ad014d0cc
-version: 2
-date: '2024-05-28'
+version: 5
+date: '2024-12-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -26,38 +26,42 @@ known_false_positives: unknown
 references:
 - https://www.welivesecurity.com/2022/04/12/industroyer2-industroyer-reloaded/
 - https://cert.gov.ua/article/39518
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A schedule task with hidden setting enable in host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - CISA AA22-257A
-  - Active Directory Discovery
   - Industroyer2
   - Data Destruction
   - Scheduled Tasks
+  - Compromised Windows Host
+  - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: A schedule task with hidden setting enable in host $dest$
   mitre_attack_id:
   - T1053
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - Task_Name
-  - Command
-  - Author
-  - Enabled
-  - Hidden
-  - Arguments
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

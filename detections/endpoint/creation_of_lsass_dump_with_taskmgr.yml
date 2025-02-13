@@ -1,7 +1,7 @@
 name: Creation of lsass Dump with Taskmgr
 id: b2fbe95a-9c62-4c12-8a29-24b97e84c0cd
-version: 2
-date: '2024-05-22'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -13,7 +13,7 @@ description: The following analytic detects the creation of an lsass.exe process
   an attacker could use the lsass dump to extract credentials and escalate privileges,
   potentially compromising the entire network.
 data_source:
-- Sysmon EventID 1
+- Sysmon EventID 11
 search: '`sysmon` EventID=11 process_name=taskmgr.exe TargetFilename=*lsass*.dmp |
   stats count min(_time) as firstTime max(_time) as lastTime by dest, object_category,
   process_name, TargetFilename  | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
@@ -30,35 +30,39 @@ references:
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1003.001/T1003.001.md#atomic-test-5---dump-lsassexe-memory-using-windows-task-manager
 - https://attack.mitre.org/techniques/T1003/001/
 - https://2017.zeronights.org/wp-content/uploads/materials/ZN17_Kheirkhabarov_Hunting_for_Credentials_Dumping_in_Windows_Environment.pdf
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: $process_name$ was identified on endpoint $dest$ writing $TargetFilename$
+    to disk. This behavior is related to dumping credentials via Task Manager.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 80
+  threat_objects: []
 tags:
   analytic_story:
   - Credential Dumping
   - CISA AA22-257A
   asset_type: Windows
-  confidence: 100
-  impact: 80
-  message: $process_name$ was identified on endpoint $dest$ writing $TargetFilename$
-    to disk. This behavior is related to dumping credentials via Task Manager.
   mitre_attack_id:
   - T1003.001
-  - T1003
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventID
-  - process_name
-  - TargetFilename
-  - dest
-  - object_category
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -66,4 +70,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1003.001/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

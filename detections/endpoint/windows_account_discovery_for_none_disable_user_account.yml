@@ -1,7 +1,7 @@
 name: Windows Account Discovery for None Disable User Account
 id: eddbf5ba-b89e-47ca-995e-2d259804e55e
-version: 3
-date: '2024-05-26'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -34,29 +34,12 @@ tags:
   analytic_story:
   - CISA AA23-347A
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: Windows Account Discovery for None Disable User Account using PowerView's
-    Get-NetUser on $dest$.
   mitre_attack_id:
-  - T1087
   - T1087.001
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 15
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - dest
-  - EventCode
-  - user
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -64,4 +47,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1087/powerview_get_netuser_preauthnotrequire/get-netuser-not-require-pwh.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: Windows Domain Account Discovery Via Get-NetComputer
 id: a7fbbc4e-4571-424a-b627-6968e1c939e4
-version: 2
-date: '2024-05-30'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -27,32 +27,37 @@ known_false_positives: Administrators may leverage PowerView for legitimate purp
   filter as needed.
 references:
 - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-347a
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Windows Domain Account Discovery Via Get-NetComputer on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 15
+  threat_objects: []
 tags:
   analytic_story:
   - CISA AA23-347A
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: Windows Domain Account Discovery Via Get-NetComputer in $dest$.
   mitre_attack_id:
-  - T1087
   - T1087.002
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 15
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - dest
-  - EventCode
-  - user
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -60,4 +65,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1087/powerview_get_netuser_preauthnotrequire/get-netuser-not-require-pwh.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

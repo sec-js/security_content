@@ -1,7 +1,7 @@
 name: Gsuite Outbound Email With Attachment To External Domain
 id: dc4dc3a8-ff54-11eb-8bf7-acde48001122
-version: 3
-date: '2024-05-10'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Stanislav Miskovic, Splunk
 status: production
 type: Hunting
@@ -35,34 +35,12 @@ tags:
   - Dev Sec Ops
   - Insider Threat
   asset_type: GSuite
-  confidence: 30
-  impact: 30
-  message: Suspicious email from $src_domain_list$ to $dest_domain$
   mitre_attack_id:
   - T1048.003
-  - T1048
-  observable:
-  - name: src_domain_list
-    type: Email Address
-    role:
-    - Victim
-  - name: dest_domain
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - source.from_header_address
-  - destination.address
-  - num_message_attachments
-  - dest_domain
-  - phase
-  - severity
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

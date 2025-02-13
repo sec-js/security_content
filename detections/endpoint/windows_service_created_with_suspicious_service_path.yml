@@ -1,7 +1,7 @@
 name: Windows Service Created with Suspicious Service Path
 id: 429141be-8311-11eb-adb6-acde48001122
-version: 5
-date: '2024-05-21'
+version: 12
+date: '2025-02-10'
 author: Teoderick Contreras, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,7 +15,7 @@ description: The following analytic detects the creation of a Windows Service wi
   escalate privileges, posing a severe threat to the environment.
 data_source:
 - Windows Event Log System 7045
-search: ' `wineventlog_system` EventCode=7045 ImagePath = "*.exe" NOT (ImagePath IN
+search: '`wineventlog_system` EventCode=7045 ImagePath = "*.exe" NOT (ImagePath IN
   ("*:\\Windows\\*", "*:\\Program File*", "*:\\Programdata\\*", "*%systemroot%\\*"))
   | stats count min(_time) as firstTime max(_time) as lastTime by EventCode ImagePath
   ServiceName ServiceType StartType Computer UserID | rename Computer as dest| `security_content_ctime(firstTime)`
@@ -28,46 +28,51 @@ known_false_positives: Legitimate applications may install services with uncommo
 references:
 - https://www.mandiant.com/resources/fin11-email-campaigns-precursor-for-ransomware-data-theft
 - https://blog.virustotal.com/2020/11/keep-your-friends-close-keep-ransomware.html
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A service $ImagePath$ was created from a non-standard path using $ServiceName$
+    on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 56
+  threat_objects:
+  - field: ImagePath
+    type: service
 tags:
   analytic_story:
-  - Clop Ransomware
-  - Active Directory Lateral Movement
   - Brute Ratel C4
-  - Qakbot
-  - Snake Malware
   - Flax Typhoon
   - PlugX
   - CISA AA23-347A
+  - Qakbot
+  - Crypto Stealer
+  - Active Directory Lateral Movement
+  - Derusbi
+  - Nexus APT Threat Activity
+  - Snake Malware
+  - Clop Ransomware
+  - Earth Estries
   asset_type: Endpoint
-  confidence: 80
-  impact: 70
-  message: A service $ImagePath$ was created from a non-standard path using $ServiceName$
-    on $dest$
   mitre_attack_id:
-  - T1569
   - T1569.002
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: ImagePath
-    type: File
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - Service_File_Name
-  - Service_Type
-  - _time
-  - Service_Name
-  - Service_Start_Type
-  - dest
-  risk_score: 56
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -1,7 +1,7 @@
 name: Azure AD Global Administrator Role Assigned
 id: 825fed20-309d-4fd1-8aaf-cd49c1bb093c
-version: 5
-date: '2024-05-29'
+version: 7
+date: '2024-11-14'
 author: Gowthamaraj Rajendran, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -34,36 +34,41 @@ references:
 - https://docs.microsoft.com/en-us/azure/active-directory/roles/security-planning
 - https://docs.microsoft.com/en-us/azure/role-based-access-control/elevate-access-global-admin
 - https://attack.mitre.org/techniques/T1098/003/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Global Administrator Role assigned for User $user$ initiated by $initiatedBy$
+  risk_objects:
+  - field: user
+    type: user
+    score: 72
+  - field: initiatedBy
+    type: user
+    score: 72
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Persistence
   - Azure Active Directory Privilege Escalation
   asset_type: Azure Active Directory
-  confidence: 90
-  impact: 80
-  message: Global Administrator Role assigned for User $user$ initiated by $initiatedBy$
   mitre_attack_id:
   - T1098.003
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: initiatedBy
-    type: User
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - properties.targetResources{}.type
-  - properties.initiatedBy.user.userPrincipalName
-  - properties.result
-  risk_score: 72
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -72,4 +77,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1098.003/azure_ad_assign_global_administrator/azure-audit.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

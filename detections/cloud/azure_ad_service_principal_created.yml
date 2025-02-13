@@ -1,7 +1,7 @@
 name: Azure AD Service Principal Created
 id: f8ba49e7-ffd3-4b53-8f61-e73974583c5d
-version: 2
-date: '2024-05-30'
+version: 4
+date: '2024-11-14'
 author: Gowthamaraj Rajendran, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -33,32 +33,38 @@ references:
 - https://www.truesec.com/hub/blog/using-a-legitimate-application-to-create-persistence-and-initiate-email-campaigns
 - https://www.inversecos.com/2021/10/how-to-backdoor-azure-applications-and.html
 - https://attack.mitre.org/techniques/T1136/003/
+drilldown_searches:
+- name: View the detection results for - "$displayName$"
+  search: '%original_detection_search% | search  displayName = "$displayName$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$displayName$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$displayName$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Service Principal named $displayName$ created by $user$
+  risk_objects:
+  - field: displayName
+    type: user
+    score: 45
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Persistence
   - NOBELIUM Group
   asset_type: Azure Active Directory
-  confidence: 90
-  impact: 50
-  message: Service Principal named $displayName$ created by $user$
   mitre_attack_id:
   - T1136.003
-  observable:
-  - name: displayName
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - properties.targetResources{}.displayName
-  - properties.targetResources{}.type
-  - user
-  - properties.result
-  risk_score: 45
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -67,4 +73,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1136.003/azure_ad_add_service_principal/azure-audit.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true

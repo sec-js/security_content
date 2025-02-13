@@ -1,9 +1,10 @@
 name: Okta User Logins from Multiple Cities
 id: a3d1df37-c2a9-41d0-aa8f-59f82d6192a8
-version: 2
-date: '2024-05-09'
-author: 'Bhavin Patel, Splunk'
-data_source: []
+version: 4
+date: '2025-01-21'
+author: Bhavin Patel, Splunk
+data_source:
+- Okta
 type: Anomaly
 status: production
 description: The following analytic identifies instances where the same Okta user
@@ -31,40 +32,40 @@ known_false_positives: It is uncommon for a user to log in from multiple cities 
   which may indicate a false positive.
 references:
 - https://attack.mitre.org/techniques/T1110/003/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A user [$user$] has logged in from multiple cities [$City$] from IP Address
+    - [$src$]. Investigate further to determine if this was authorized.
+  risk_objects:
+  - field: user
+    type: user
+    score: 81
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - Okta Account Takeover
   asset_type: Okta Tenant
-  confidence: 90
-  impact: 90
-  message: A user [$user$] has logged in from multiple cities [$City$] from IP Address
-    - [$src$]. Investigate further to determine if this was authorized.
   mitre_attack_id:
   - T1586.003
-  observable:
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Authentication.app
-  - Authentication.action
-  - Authentication.user
-  - Authentication.reason
-  - Authentication.dest
-  - Authentication.signature
-  - Authentication.method
-  - Authentication.src
-  risk_score: 81
   security_domain: identity
 tests:
 - name: True Positive Test

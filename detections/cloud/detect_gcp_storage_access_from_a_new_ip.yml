@@ -1,7 +1,7 @@
 name: Detect GCP Storage access from a new IP
 id: ccc3246a-daa1-11ea-87d0-0242ac130022
-version: 2
-date: '2024-05-14'
+version: 4
+date: '2024-11-14'
 author: Shannon Davis, Splunk
 status: experimental
 type: Anomaly
@@ -40,30 +40,23 @@ known_false_positives: GCP Storage buckets can be accessed from any IP (if the A
   be a false postive, since the search is looking for a new IP within the past two
   hours.
 references: []
+rba:
+  message: GCP Bucket $bucket_name$ accessed from a new IP ($remote_ip$)
+  risk_objects:
+  - field: bucket_name
+    type: system
+    score: 25
+  threat_objects:
+  - field: remote_ip
+    type: ip_address
 tags:
   analytic_story:
   - Suspicious GCP Storage Activities
   asset_type: GCP Storage Bucket
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1530
-  observable:
-  - name: remote_ip
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - sc_status_
-  - cs_object_
-  - c_ip_
-  - cs_uri_
-  - cs_method_
-  risk_score: 25
   security_domain: network

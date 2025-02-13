@@ -1,7 +1,7 @@
 name: AWS SetDefaultPolicyVersion
 id: 2a9b80d3-6340-4345-11ad-212bf3d0dac4
-version: 2
-date: '2024-05-16'
+version: 5
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
 status: production
 type: TTP
@@ -28,38 +28,40 @@ known_false_positives: While this search has no known false positives, it is pos
 references:
 - https://bishopfox.com/blog/privilege-escalation-in-aws
 - https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation-part-2/
+drilldown_searches:
+- name: View the detection results for - "$user_arn$"
+  search: '%original_detection_search% | search  user_arn = "$user_arn$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user_arn$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user_arn$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: From IP address $src$, user $user_arn$ has trigged an event $eventName$
+    for updating the the default policy version
+  risk_objects:
+  - field: user_arn
+    type: user
+    score: 30
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - AWS IAM Privilege Escalation
   asset_type: AWS Account
-  confidence: 60
-  impact: 50
-  message: From IP address $src$, user $user_arn$ has trigged an event $eventName$
-    for updating the the default policy version
   mitre_attack_id:
   - T1078.004
-  - T1078
-  observable:
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
-  - name: user_arn
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - userAgent
-  - errorCode
-  - requestParameters.userName
-  - eventSource
-  risk_score: 30
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -68,4 +70,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/aws_setdefaultpolicyversion/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

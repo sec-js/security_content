@@ -1,7 +1,7 @@
 name: Windows Raw Access To Master Boot Record Drive
 id: 7b83f666-900c-11ec-a2d9-acde48001122
-version: 2
-date: '2024-05-11'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -23,13 +23,34 @@ how_to_implement: To successfully implement this search, you need to be ingestin
   logs with the raw access read event (like sysmon eventcode 9), process name and
   process guid from your endpoints. If you are using Sysmon, you must have at least
   version 6.0.4 of the Sysmon TA.
-known_false_positives: This event is really notable but we found minimal number of
-  normal application from system32 folder like svchost.exe accessing it too. In this
-  case we used 'system32' and 'syswow64' path as a filter for this detection.
+known_false_positives: There are som minimal number of normal applications from system32
+  folder like svchost.exe accessing the MBR. In this case we used 'system32' and 'syswow64'
+  path as a filter for this detection.
 references:
 - https://www.splunk.com/en_us/blog/security/threat-advisory-strt-ta02-destructive-software.html
 - https://www.crowdstrike.com/blog/technical-analysis-of-whispergate-malware/
 - https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: process accessing MBR $Device$ on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 90
+  threat_objects: []
 tags:
   analytic_story:
   - CISA AA22-264A
@@ -41,31 +62,12 @@ tags:
   - BlackByte Ransomware
   - NjRAT
   asset_type: Endpoint
-  confidence: 100
-  impact: 90
-  message: process accessing MBR $Device$ on $dest$
   mitre_attack_id:
   - T1561.002
-  - T1561
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - Image
-  - Device
-  - ProcessGuid
-  - ProcessId
-  - EventDescription
-  - EventCode
-  risk_score: 90
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -73,4 +75,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1561.002/mbr_raw_access/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

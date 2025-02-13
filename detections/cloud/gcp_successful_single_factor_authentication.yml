@@ -1,7 +1,7 @@
 name: GCP Successful Single-Factor Authentication
 id: 40e17d88-87da-414e-b253-8dc1e4f9555b
-version: 3
-date: '2024-05-25'
+version: 6
+date: '2025-02-10'
 author: Bhavin Patel, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -29,39 +29,40 @@ references:
 - https://attack.mitre.org/techniques/T1078/004/
 - https://support.google.com/a/answer/175197?hl=en
 - https://www.forbes.com/sites/daveywinder/2020/07/08/new-dark-web-audit-reveals-15-billion-stolen-logins-from-100000-breaches-passwords-hackers-cybercrime/?sh=69927b2a180f
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Successful authentication for user $user$ without MFA
+  risk_objects:
+  - field: user
+    type: user
+    score: 45
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - GCP Account Takeover
   asset_type: Google Cloud Platform tenant
-  confidence: 90
-  impact: 50
-  message: Successful authentication for user $user$ without MFA
   mitre_attack_id:
-  - T1586
-  - T1586.003
-  - T1078
   - T1078.004
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
+  - T1586.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - event.name
-  - event.parameters{}.multiValue{}
-  - user
-  - src_ip
-  - login_challenge_method
-  risk_score: 45
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -70,4 +71,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078.004/gcp_single_factor_auth/gws_login.log
     source: gws:reports:login
     sourcetype: gws:reports:login
-    update_timestamp: true

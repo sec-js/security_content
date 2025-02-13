@@ -1,7 +1,7 @@
 name: Windows Gather Victim Identity SAM Info
 id: a18e85d7-8b98-4399-820c-d46a1ca3516f
-version: 2
-date: '2024-05-10'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -32,31 +32,12 @@ tags:
   analytic_story:
   - Brute Ratel C4
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: An instance of $dest$ that loads $ImageLoaded$ that are related to accessing
-    to SAM object information.
   mitre_attack_id:
   - T1589.001
-  - T1589
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - dest
-  - EventCode
-  - Signed
-  - ProcessId
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -64,5 +45,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/brute_ratel/loading_samlib/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

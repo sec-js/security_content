@@ -1,7 +1,7 @@
 name: O365 Excessive Authentication Failures Alert
 id: d441364c-349c-453b-b55f-12eccab67cf9
-version: 3
-date: '2024-05-18'
+version: 5
+date: '2024-11-14'
 author: Rod Soto, Splunk
 status: production
 type: Anomaly
@@ -25,38 +25,40 @@ known_false_positives: The threshold for alert is above 10 attempts and this sho
   reduce the number of false positives.
 references:
 - https://attack.mitre.org/techniques/T1110/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $user$ has caused excessive number of authentication failures from
+    $src_ip$ using UserAgent $UserAgent$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 64
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - Office 365 Account Takeover
   asset_type: O365 Tenant
-  confidence: 80
-  impact: 80
-  message: User $user$ has caused excessive number of authentication failures from
-    $src_ip$ using UserAgent $UserAgent$.
   mitre_attack_id:
   - T1110
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Workload
-  - UserAuthenticationMethod
-  - status
-  - UserAgent
-  - src_ip
-  - user
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test

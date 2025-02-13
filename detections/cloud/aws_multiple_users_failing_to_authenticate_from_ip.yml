@@ -1,7 +1,7 @@
 name: AWS Multiple Users Failing To Authenticate From Ip
 id: 71e1fb89-dd5f-4691-8523-575420de4630
-version: 2
-date: '2024-05-10'
+version: 5
+date: '2025-02-10'
 author: Bhavin Patel
 status: production
 type: Anomaly
@@ -16,8 +16,8 @@ description: The following analytic identifies a single source IP failing to aut
 data_source:
 - AWS CloudTrail ConsoleLogin
 search: '`cloudtrail` eventName=ConsoleLogin action=failure | bucket span=10m _time
-  | stats  dc(user_name) AS unique_accounts values(user_name) as tried_accounts by _time, src_ip 
-  | `aws_multiple_users_failing_to_authenticate_from_ip_filter`'
+  | stats  dc(user_name) AS unique_accounts values(user_name) as tried_accounts by
+  _time, src_ip | where unique_accounts>30 | `aws_multiple_users_failing_to_authenticate_from_ip_filter`'
 how_to_implement: You must install Splunk Add-on for AWS in order to ingest Cloudtrail.
   We recommend the users to try different combinations of the bucket span time and
   the tried account threshold to tune this search according to their environment.
@@ -27,39 +27,42 @@ references:
 - https://attack.mitre.org/techniques/T1110/003/
 - https://www.whiteoaksecurity.com/blog/goawsconsolespray-password-spraying-tool/
 - https://softwaresecuritydotblog.wordpress.com/2019/09/28/how-to-protect-against-credential-stuffing-on-aws/
+drilldown_searches:
+- name: View the detection results for - "$tried_accounts$"
+  search: '%original_detection_search% | search  tried_accounts = "$tried_accounts$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$tried_accounts$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$tried_accounts$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: 'Multiple failed console login attempts (Count: $unique_accounts$) against
+    users from IP Address - $src_ip$'
+  risk_objects:
+  - field: tried_accounts
+    type: user
+    score: 54
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - AWS Identity and Access Management Account Takeover
   - Compromised User Account
   asset_type: AWS Account
-  confidence: 90
-  impact: 60
-  message: 'Multiple failed console login attempts (Count: $unique_accounts$) against
-    users from IP Address - $src_ip$'
   mitre_attack_id:
-  - T1110
   - T1110.003
   - T1110.004
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
-  - name: tried_accounts
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - action
-  - eventName
-  - src_ip
-  risk_score: 54
   security_domain: threat
   manual_test: This search needs a specific number of events in a time window for
     the alert to trigger and events split up in CI testing while updating timestamp.

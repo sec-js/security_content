@@ -1,7 +1,7 @@
 name: Windows Access Token Winlogon Duplicate Handle In Uncommon Path
 id: b8f7ed6b-0556-4c84-bffd-839c262b0278
-version: 2
-date: '2024-05-27'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -30,43 +30,40 @@ known_false_positives: It is possible legitimate applications will request acces
 references:
 - https://docs.microsoft.com/en-us/windows/win32/api/handleapi/nf-handleapi-duplicatehandle
 - https://attack.mitre.org/techniques/T1134/001/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A process $SourceImage$ is duplicating the handle token of winlogon.exe
+    on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects:
+  - field: SourceImage
+    type: process_name
 tags:
   analytic_story:
   - Brute Ratel C4
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: A process $SourceImage$ is duplicating the handle token of winlogon.exe
-    on $dest$
   mitre_attack_id:
   - T1134.001
-  - T1134
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: SourceImage
-    type: Process Name
-    role:
-    - Parent Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - SourceImage
-  - TargetImage
-  - SourceProcessGUID
-  - TargetProcessGUID
-  - SourceProcessId
-  - TargetProcessId
-  - GrantedAccess
-  - CallTrace
-  - dest
-  - user_id
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -74,5 +71,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/brute_ratel/brute_duplicate_token/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: Excessive Usage of NSLOOKUP App
 id: 0a69fdaa-a2b8-11eb-b16d-acde48001122
-version: 3
-date: '2024-05-15'
+version: 5
+date: '2024-11-13'
 author: Teoderick Contreras, Stanislav Miskovic, Splunk
 status: production
 type: Anomaly
@@ -15,6 +15,8 @@ description: The following analytic detects excessive usage of the nslookup appl
   out of the network, bypassing traditional data exfiltration defenses.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '`sysmon` EventCode = 1 process_name = "nslookup.exe" | bucket _time span=1m
   | stats count as numNsLookup by dest, _time | eventstats avg(numNsLookup) as avgNsLookup,
   stdev(numNsLookup) as stdNsLookup, count as numSlots by dest | eval upperThreshold=(avgNsLookup
@@ -30,6 +32,28 @@ references:
 - https://www.mandiant.com/resources/fin7-spear-phishing-campaign-targets-personnel-involved-sec-filings
 - https://www.varonis.com/blog/dns-tunneling
 - https://www.microsoft.com/security/blog/2021/01/20/deep-dive-into-the-solorigate-second-stage-activation-from-sunburst-to-teardrop-and-raindrop/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Excessive usage of nslookup.exe has been detected on $dest$. This detection
+    is triggered as as it violates the dynamic threshold
+  risk_objects:
+  - field: dest
+    type: system
+    score: 28
+  threat_objects: []
 tags:
   analytic_story:
   - Suspicious DNS Traffic
@@ -37,27 +61,12 @@ tags:
   - Data Exfiltration
   - Command And Control
   asset_type: Endpoint
-  confidence: 70
-  impact: 40
-  message: Excessive usage of nslookup.exe has been detected on $dest$. This detection
-    is triggered as as it violates the dynamic threshold
   mitre_attack_id:
   - T1048
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - process_name
-  - EventCode
-  risk_score: 28
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -65,4 +74,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1048.003/nslookup_exfil/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

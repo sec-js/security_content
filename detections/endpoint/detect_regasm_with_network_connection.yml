@@ -1,7 +1,7 @@
 name: Detect Regasm with Network Connection
 id: 07921114-6db4-4e2e-ae58-3ea8a52ae93f
-version: 4
-date: '2024-05-24'
+version: 8
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -29,46 +29,45 @@ references:
 - https://attack.mitre.org/techniques/T1218/009/
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218.009/T1218.009.md
 - https://lolbas-project.github.io/lolbas/Binaries/Regasm/
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An instance of $process_name$ contacting a remote destination was identified
+    on endpoint $dest$ by user $user$. This behavior is not normal for $process_name$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 80
+  - field: dest
+    type: system
+    score: 80
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Suspicious Regsvcs Regasm Activity
   - Living Off The Land
+  - Handala Wiper
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
-  message: An instance of $process_name$ contacting a remote destination was identified
-    on endpoint $dest$ by user $user$. This behavior is not normal for $process_name$.
   mitre_attack_id:
-  - T1218
   - T1218.009
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Child Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventID
-  - dest_ip
-  - process_name
-  - dest
-  - user
-  - src_ip
-  - dest_host
-  - dest_ip
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -76,4 +75,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1218.009/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

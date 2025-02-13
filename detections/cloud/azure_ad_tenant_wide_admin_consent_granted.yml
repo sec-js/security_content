@@ -1,7 +1,7 @@
 name: Azure AD Tenant Wide Admin Consent Granted
 id: dc02c0ee-6ac0-4c7f-87ba-8ce43a4e4418
-version: 3
-date: '2024-05-23'
+version: 6
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,16 +15,13 @@ description: The following analytic identifies instances where admin consent is 
   data. If confirmed malicious, an attacker could gain extensive and persistent access
   to sensitive data, leading to data exfiltration, espionage, further malicious activities,
   and potential compliance violations.
-search: >-
-  `azure_monitor_aad` operationName="Consent to application"
-  | eval new_field=mvindex('properties.targetResources{}.modifiedProperties{}.newValue',
-  4)
-  | rename properties.* as *  | rex field=new_field "ConsentType: (?<ConsentType>[^\,]+)"
-  | rex field=new_field "Scope: (?<Scope>[^\,]+)"  | search  ConsentType = "AllPrincipals"  |
-  stats count min(_time) as firstTime max(_time) as lastTime by operationName, user,
-  targetResources{}.displayName, targetResources{}.id, ConsentType, Scope
-  | `security_content_ctime(firstTime)`  | `security_content_ctime(lastTime)`
-  | `azure_ad_tenant_wide_admin_consent_granted_filter`
+search: "`azure_monitor_aad` operationName=\"Consent to application\" | eval new_field=mvindex('properties.targetResources{}.modifiedProperties{}.newValue',
+  4) | rename properties.* as *  | rex field=new_field \"ConsentType: (?<ConsentType>[^\\\
+  ,]+)\" | rex field=new_field \"Scope: (?<Scope>[^\\,]+)\"  | search  ConsentType
+  = \"AllPrincipals\"  | stats count min(_time) as firstTime max(_time) as lastTime
+  by operationName, user, targetResources{}.displayName, targetResources{}.id, ConsentType,
+  Scope | `security_content_ctime(firstTime)`  | `security_content_ctime(lastTime)`
+  | `azure_ad_tenant_wide_admin_consent_granted_filter`"
 how_to_implement: You must install the latest version of Splunk Add-on for Microsoft
   Cloud Services from Splunkbase (https://splunkbase.splunk.com/app/3110/#/details).
   You must be ingesting Azure Active Directory events into your Splunk environment
@@ -38,34 +35,38 @@ references:
 - https://learn.microsoft.com/en-us/security/operations/incident-response-playbook-app-consent
 - https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/grant-admin-consent?pivots=portal
 - https://microsoft.github.io/Azure-Threat-Research-Matrix/Persistence/AZT501/AZT501-2/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Administrator $user$ consented an OAuth application for the tenant.
+  risk_objects:
+  - field: user
+    type: user
+    score: 45
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Persistence
   - NOBELIUM Group
   asset_type: Azure Tenant
-  confidence: 50
-  impact: 90
-  message: Administrator $user$ consented an OAuth application for the tenant.
   mitre_attack_id:
-  - T1098
   - T1098.003
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 45
-  required_fields:
-  - _time
-  - operationName
-  - user
-  - properties.targetResources{}.modifiedProperties{}.newValue
-  - properties.targetResources{}.displayName
-  - properties.targetResources{}.id
   security_domain: identity
 tests:
 - name: True Positive Test

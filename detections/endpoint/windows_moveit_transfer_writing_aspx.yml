@@ -1,7 +1,7 @@
 name: Windows MOVEit Transfer Writing ASPX
 id: c0ed2aca-5666-45b3-813f-ddfac3f3eda0
-version: 2
-date: '2024-05-11'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: experimental
 type: TTP
@@ -39,38 +39,25 @@ references:
 - https://www.bleepingcomputer.com/news/security/new-moveit-transfer-zero-day-mass-exploited-in-data-theft-attacks/
 - https://www.reddit.com/r/sysadmin/comments/13wxuej/critical_vulnerability_moveit_file_transfer/
 - https://www.mandiant.com/resources/blog/zero-day-moveit-data-theft
+rba:
+  message: The MOVEit application on $dest$ has written a new ASPX file to disk.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 100
+  threat_objects: []
 tags:
   analytic_story:
   - MOVEit Transfer Critical Vulnerability
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 100
-  impact: 100
-  message: The MOVEit application on $dest$ has written a new ASPX file to disk.
   mitre_attack_id:
   - T1190
   - T1133
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 100
-  required_fields:
-  - _time
-  - Filesystem.file_path
-  - Filesystem.process_id
-  - Filesystem.file_name
-  - Filesystem.file_hash
-  - Filesystem.user
-  - Filesystem.file_create_time
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.dest
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -78,4 +65,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1505.003/moveit_windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

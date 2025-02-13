@@ -1,7 +1,7 @@
 name: Windows Export Certificate
 id: d8ddfa9b-b724-4df9-9dbe-f34cc0936714
-version: 3
-date: '2024-05-16'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -24,32 +24,38 @@ known_false_positives: False positives may be generated based on an automated pr
   to alert. Monitor for abnormal processes performing an export.
 references:
 - https://atomicredteam.io/defense-evasion/T1553.004/#atomic-test-4---install-root-ca-on-windows
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An certificate was exported on $dest$ from the Windows Certificate Store.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Certificate Services
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: An certificate was exported on $dest$ from the Windows Certificate Store.
   mitre_attack_id:
   - T1552.004
-  - T1552
   - T1649
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - SubjectName
-  - UserData_Xml
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -59,4 +65,3 @@ tests:
     source: 
       XmlWinEventLog:Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

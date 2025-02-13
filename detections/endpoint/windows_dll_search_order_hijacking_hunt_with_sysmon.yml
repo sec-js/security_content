@@ -1,7 +1,7 @@
 name: Windows DLL Search Order Hijacking Hunt with Sysmon
 id: 79c7d1fc-64c7-91be-a616-ccda752efe81
-version: 5
-date: '2024-05-11'
+version: 8
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -33,27 +33,12 @@ tags:
   - Windows Defense Evasion Tactics
   - Qakbot
   asset_type: Endpoint
-  confidence: 10
-  impact: 10
-  message: Potential Windows DLL Search Order Hijacking detected on $dest$
   mitre_attack_id:
   - T1574.001
-  - T1574
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - ImageLoaded
-  - Module_Path
-  risk_score: 1
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -61,5 +46,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1574.001/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

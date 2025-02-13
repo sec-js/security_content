@@ -1,7 +1,7 @@
 name: Windows KrbRelayUp Service Creation
 id: e40ef542-8241-4419-9af4-6324582ea60a
-version: 3
-date: '2024-05-09'
+version: 6
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -23,32 +23,38 @@ known_false_positives: False positives should be limited as this is specific to 
   based attack. Filter as needed.
 references:
 - https://github.com/Dec0ne/KrbRelayUp
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A service was created on $dest$, related to KrbRelayUp.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - Local Privilege Escalation With KrbRelayUp
+  - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: A service was created on $dest$, related to KrbRelayUp.
   mitre_attack_id:
   - T1543.003
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Service_File_Name
-  - Service_Name
-  - Service_Start_Type
-  - Service_Type
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test

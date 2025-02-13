@@ -1,7 +1,7 @@
 name: Windows AD Short Lived Domain Account ServicePrincipalName
 id: b681977c-d90c-4efc-81a5-c58f945fb541
-version: 2
-date: '2024-05-18'
+version: 5
+date: '2024-11-13'
 author: Mauricio Velazco, Splunk
 type: TTP
 status: production
@@ -15,7 +15,7 @@ description: The following analytic identifies the addition and quick deletion o
   of a domain account offline. If confirmed malicious, this could allow an attacker
   to gain unauthorized access to sensitive information or escalate privileges within
   the domain environment.
-search: ' `wineventlog_security` EventCode=5136 AttributeLDAPDisplayName=servicePrincipalName
+search: '`wineventlog_security` EventCode=5136 AttributeLDAPDisplayName=servicePrincipalName
   | transaction ObjectDN AttributeValue startswith=(EventCode=5136 OperationType="%%14674")
   endswith=(EventCode=5136 OperationType="%%14675") | eval short_lived=case((duration<300),"TRUE")
   | search short_lived = TRUE | rename ObjectDN as user | `windows_ad_short_lived_domain_account_serviceprincipalname_filter`'
@@ -31,32 +31,37 @@ references:
 - https://www.thehacker.recipes/ad/movement/dacl/targeted-kerberoasting
 - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5136
 - https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/t1208-kerberoasting
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A Servince Principal Name for $user$ was set and shortly deleted
+  risk_objects:
+  - field: user
+    type: user
+    score: 40
+  threat_objects: []
 tags:
   analytic_story:
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 80
-  impact: 50
-  message: A Servince Principal Name for $user$ was set and shortly deleted
   mitre_attack_id:
   - T1098
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ObjectDN
-  - signature
-  - SubjectUserName
-  - Computer
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test

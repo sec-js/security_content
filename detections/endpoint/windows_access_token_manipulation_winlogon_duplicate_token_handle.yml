@@ -1,7 +1,7 @@
 name: Windows Access Token Manipulation Winlogon Duplicate Token Handle
 id: dda126d7-1d99-4f0b-b72a-4c14031f9398
-version: 2
-date: '2024-05-22'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -33,39 +33,12 @@ tags:
   analytic_story:
   - Brute Ratel C4
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: A process $SourceImage$ is duplicating the handle token of winlogon.exe
-    in $dest$
   mitre_attack_id:
   - T1134.001
-  - T1134
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: SourceImage
-    type: Process Name
-    role:
-    - Parent Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - SourceImage
-  - TargetImage
-  - SourceProcessGUID
-  - TargetProcessGUID
-  - SourceProcessId
-  - TargetProcessId
-  - GrantedAccess
-  - CallTrace
-  - dest
-  - user_id
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -73,5 +46,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/brute_ratel/brute_duplicate_token/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

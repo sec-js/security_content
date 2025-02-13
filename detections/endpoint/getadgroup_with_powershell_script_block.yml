@@ -1,7 +1,7 @@
 name: GetAdGroup with PowerShell Script Block
 id: e4c73d68-794b-468d-b4d0-dac1772bbae7
-version: 3
-date: '2024-05-22'
+version: 6
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: Hunting
@@ -30,28 +30,12 @@ tags:
   analytic_story:
   - Active Directory Discovery
   asset_type: Endpoint
-  confidence: 50
-  impact: 30
-  message: Domain group discovery enumeration using PowerShell on $dest$ by $user$
   mitre_attack_id:
-  - T1069
   - T1069.002
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Message
-  - Computer
-  - UserID
-  risk_score: 15
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -59,4 +43,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1069.002/AD_discovery/windows-powershell-xml.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: AWS SAML Update identity provider
 id: 2f0604c6-6030-11eb-ae93-0242ac130002
-version: 2
-date: '2024-05-19'
+version: 5
+date: '2024-11-14'
 author: Rod Soto, Splunk
 status: production
 type: TTP
@@ -29,40 +29,40 @@ references:
 - https://www.splunk.com/en_us/blog/security/a-golden-saml-journey-solarwinds-continued.html
 - https://www.fireeye.com/content/dam/fireeye-www/blog/pdfs/wp-m-unc2452-2021-000343-01.pdf
 - https://www.cyberark.com/resources/threat-research-blog/golden-saml-newly-discovered-attack-technique-forges-authentication-to-cloud-apps
+drilldown_searches:
+- name: View the detection results for - "$userIdentity.principalId$"
+  search: '%original_detection_search% | search  userIdentity.principalId = "$userIdentity.principalId$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$userIdentity.principalId$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$userIdentity.principalId$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $userIdentity.principalId$ from IP address $sourceIPAddress$ has trigged
+    an event $eventName$ to update the SAML provider to $requestParameters.sAMLProviderArn$
+  risk_objects:
+  - field: userIdentity.principalId
+    type: user
+    score: 64
+  threat_objects:
+  - field: sourceIPAddress
+    type: ip_address
 tags:
   analytic_story:
   - Cloud Federated Credential Abuse
   asset_type: AWS Federated Account
-  confidence: 80
-  impact: 80
-  message: User $userIdentity.principalId$ from IP address $sourceIPAddress$ has trigged
-    an event $eventName$ to update the SAML provider to $requestParameters.sAMLProviderArn$
   mitre_attack_id:
   - T1078
-  observable:
-  - name: sourceIPAddress
-    type: IP Address
-    role:
-    - Attacker
-  - name: userIdentity.principalId
-    type: User
-    role:
-    - Victim
-    - Target
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - eventType
-  - requestParameters.sAMLProviderArn
-  - userIdentity.sessionContext.sessionIssuer.arn
-  - sourceIPAddress
-  - userIdentity.accessKeyId
-  - userIdentity.principalId
-  risk_score: 64
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -71,4 +71,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/update_saml_provider/update_saml_provider.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

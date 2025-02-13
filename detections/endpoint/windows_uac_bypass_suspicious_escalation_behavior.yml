@@ -1,20 +1,22 @@
 name: Windows UAC Bypass Suspicious Escalation Behavior
 id: 00d050d3-a5b4-4565-a6a5-a31f69681dc3
-version: 2
-date: '2024-05-27'
+version: 7
+date: '2025-02-10'
 author: Steven Dick
 status: production
 type: TTP
 description: The following analytic detects when a process spawns an executable known
   for User Account Control (UAC) bypass exploitation and subsequently monitors for
   any child processes with a higher integrity level than the original process. This
-  detection leverages Sysmon Event ID 1 data, focusing on process integrity levels
+  detection leverages Sysmon EventID 1 data, focusing on process integrity levels
   and known UAC bypass executables. This activity is significant as it may indicate
   an attacker has successfully used a UAC bypass exploit to escalate privileges. If
   confirmed malicious, the attacker could gain elevated privileges, potentially leading
   to further system compromise and persistent access.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count max(_time) as lastTime from
   datamodel=Endpoint.Processes where Processes.process_integrity_level IN ("low","medium")
   by Processes.dest, Processes.user, Processes.process_name, Processes.process, Processes.process_guid,
@@ -46,54 +48,49 @@ references:
 - https://atomicredteam.io/defense-evasion/T1548.002/
 - https://hadess.io/user-account-control-uncontrol-mastering-the-art-of-bypassing-windows-uac/
 - https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A UAC bypass behavior was detected by process $parent_process_name$ on
+    host $dest$ by $user$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 64
+  - field: user
+    type: user
+    score: 64
+  threat_objects:
+  - field: process_name
+    type: process_name
+  - field: process_name
+    type: process_name
+  - field: parent_process_name
+    type: parent_process_name
 tags:
   analytic_story:
-  - Windows Defense Evasion Tactics
   - Living Off The Land
+  - Compromised Windows Host
+  - Windows Defense Evasion Tactics
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: A UAC bypass behavior was detected by parent process name- $parent_process_name$
-    on host $dest$ by $user$.
   mitre_attack_id:
-  - T1548
   - T1548.002
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User Name
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
-  - name: process_name
-    type: Process Name
-    role:
-    - Attacker
-  - name: parent_process_name
-    type: Process Name
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_guid
-  - Processes.parent_process
-  - Processes.parent_process_name
-  - Processes.process_name Processes.process
-  - Processes.process_path
-  - Processes.process_integrity_level
-  - Processes.process_current_directory
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -102,4 +99,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1548.002/uac_behavior/uac_behavior_sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
     sourcetype: XmlWinEventLog
-    update_timestamp: true

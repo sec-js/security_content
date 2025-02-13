@@ -1,11 +1,11 @@
 name: Exchange PowerShell Module Usage
 id: 2d10095e-05ae-11ec-8fdf-acde48001122
-version: 6
-date: '2024-05-31'
+version: 9
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
-description: 'The following analytic detects the usage of specific Exchange PowerShell
+description: The following analytic detects the usage of specific Exchange PowerShell
   modules, such as New-MailboxExportRequest, New-ManagementRoleAssignment, New-MailboxSearch,
   and Get-Recipient. It leverages PowerShell Script Block Logging (EventCode 4104)
   to identify these commands. This activity is significant because these modules can
@@ -13,7 +13,7 @@ description: 'The following analytic detects the usage of specific Exchange Powe
   vulnerabilities. If confirmed malicious, attackers could export mailbox contents,
   assign management roles, conduct mailbox searches, or view recipient objects, potentially
   leading to data exfiltration, privilege escalation, or unauthorized access to sensitive
-  information.'
+  information.
 data_source:
 - Powershell Script Block Logging 4104
 search: '`powershell` EventCode=4104 ScriptBlockText IN ("*New-MailboxExportRequest*",
@@ -36,6 +36,27 @@ references:
 - https://learn.microsoft.com/en-us/powershell/module/exchange/new-mailboxsearch?view=exchange-ps
 - https://learn.microsoft.com/en-us/powershell/module/exchange/get-recipient?view=exchange-ps
 - https://thedfirreport.com/2022/03/21/apt35-automates-initial-access-using-proxyshell/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Suspicious Exchange PowerShell module usaged was identified on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 32
+  threat_objects: []
 tags:
   analytic_story:
   - ProxyNotShell
@@ -44,29 +65,12 @@ tags:
   - BlackByte Ransomware
   - CISA AA22-264A
   asset_type: Endpoint
-  confidence: 80
-  impact: 40
-  message: Suspicious Exchange PowerShell module usaged was identified on $dest$.
   mitre_attack_id:
-  - T1059
   - T1059.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 32
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -1,7 +1,7 @@
 name: AWS High Number Of Failed Authentications From Ip
 id: f75b7f1a-b8eb-4975-a214-ff3e0a944757
-version: 2
-date: '2024-05-23'
+version: 5
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
 status: production
 type: Anomaly
@@ -27,35 +27,40 @@ references:
 - https://attack.mitre.org/techniques/T1110/003/
 - https://www.whiteoaksecurity.com/blog/goawsconsolespray-password-spraying-tool/
 - https://softwaresecuritydotblog.wordpress.com/2019/09/28/how-to-protect-against-credential-stuffing-on-aws/
+drilldown_searches:
+- name: View the detection results for - "$tried_accounts$"
+  search: '%original_detection_search% | search  tried_accounts = "$tried_accounts$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$tried_accounts$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$tried_accounts$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: 'Multiple failed console login attempts (Count: $failed_attempts$) against
+    users from IP Address - $src_ip$'
+  risk_objects:
+  - field: tried_accounts
+    type: user
+    score: 54
+  threat_objects: []
 tags:
   analytic_story:
   - AWS Identity and Access Management Account Takeover
   - Compromised User Account
   asset_type: AWS Account
-  confidence: 90
-  impact: 60
-  message: 'Multiple failed console login attempts (Count: $failed_attempts$) against
-    users from IP Address - $src_ip$'
   mitre_attack_id:
-  - T1110
   - T1110.003
   - T1110.004
-  observable:
-  - name: tried_accounts
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - action
-  - eventName
-  - src_ip
-  risk_score: 54
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -64,4 +69,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1110.003/aws_mulitple_failed_console_login/aws_cloudtrail.json
     source: aws_cloudtrail
     sourcetype: aws:cloudtrail
-    update_timestamp: true

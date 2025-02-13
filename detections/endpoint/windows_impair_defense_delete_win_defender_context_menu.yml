@@ -1,7 +1,7 @@
 name: Windows Impair Defense Delete Win Defender Context Menu
 id: 395ed5fe-ad13-4366-9405-a228427bdd91
-version: 2
-date: '2024-05-11'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -37,30 +37,12 @@ tags:
   - Windows Defense Evasion Tactics
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Windows Defender context menu registry key deleted on $dest$.
   mitre_attack_id:
   - T1562.001
-  - T1562
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.registry_key_name
-  - Registry.registry_value_name
-  - Registry.dest
-  - Registry.user
-  - Registry.registry_path
-  - Registry.action
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -68,5 +50,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/delete_win_defender_context_menu/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

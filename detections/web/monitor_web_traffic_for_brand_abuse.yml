@@ -1,7 +1,7 @@
 name: Monitor Web Traffic For Brand Abuse
 id: 134da869-e264-4a8f-8d7e-fcd0ec88f301
-version: 2
-date: '2024-05-20'
+version: 4
+date: '2024-11-15'
 author: David Dorsey, Splunk
 status: experimental
 type: TTP
@@ -23,25 +23,19 @@ how_to_implement: You need to ingest data from your web traffic. This can be acc
   Names", which creates the permutations of the domain that will be checked for.
 known_false_positives: None at this time
 references: []
+rba:
+  message: Potential Brand Abus discovered in web logs
+  risk_objects:
+  - field: src
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Brand Monitoring
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
-  observable:
-  - name: src
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Web.url
-  - Web.src
-  risk_score: 25
   security_domain: network

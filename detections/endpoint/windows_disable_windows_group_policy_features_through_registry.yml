@@ -1,7 +1,7 @@
 name: Windows Disable Windows Group Policy Features Through Registry
 id: 63a449ae-9f04-11ec-945e-acde48001122
-version: 5
-date: '2024-05-27'
+version: 8
+date: '2024-12-16'
 author: Steven Dick, Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -27,7 +27,7 @@ search: '| tstats `security_content_summariesonly` count FROM datamodel=Endpoint
   | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)` | `windows_disable_windows_group_policy_features_through_registry_filter`'
 how_to_implement: To successfully implement this search, you need to be ingesting
   logs with the registry value name, registry path, and registry value data from your
-  endpoints. If you are using Sysmon, you must have at least version 2.0 of the offical
+  endpoints. If you are using Sysmon, you must have at least version 2.0 of the official
   Sysmon TA. https://splunkbase.splunk.com/app/5709
 known_false_positives: Disabling these features for legitimate purposes is not a common
   use case but can still be implemented by the administrators. Filter as needed.
@@ -35,6 +35,27 @@ references:
 - https://hybrid-analysis.com/sample/ef1c427394c205580576d18ba68d5911089c7da0386f19d1ca126929d3e671ab?environmentId=120&lang=en
 - https://www.sophos.com/en-us/threat-center/threat-analyses/viruses-and-spyware/Troj~Krotten-N/detailed-analysis
 - https://www.virustotal.com/gui/file/2d7855bf6470aa323edf2949b54ce2a04d9e38770f1322c3d0420c2303178d91/details
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Registry modification to disable windows group policy features on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - Ransomware
@@ -42,29 +63,12 @@ tags:
   - Windows Defense Evasion Tactics
   - Windows Registry Abuse
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: Registry modification to disable windows group policy features on $dest$
   mitre_attack_id:
   - T1112
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.process_guid
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -72,4 +76,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1112/ransomware_disable_reg/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

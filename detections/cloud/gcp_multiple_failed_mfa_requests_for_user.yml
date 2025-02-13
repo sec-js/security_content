@@ -1,7 +1,7 @@
 name: GCP Multiple Failed MFA Requests For User
 id: cbb3cb84-c06f-4393-adcc-5cb6195621f1
-version: 2
-date: '2024-05-23'
+version: 5
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,9 +15,9 @@ description: The following analytic detects multiple failed multi-factor authent
   the GCP environment.
 data_source:
 - Google Workspace login_failure
-search: "`gws_reports_login` event.name=login_failure `gws_login_mfa_methods` | bucket
-  span=5m _time | stats dc(_raw) AS mfa_prompts values(user) AS user by src_ip, login_challenge_method,\
-  \  _time | where mfa_prompts >= 10 | `gcp_multiple_failed_mfa_requests_for_user_filter`"
+search: '`gws_reports_login` event.name=login_failure `gws_login_mfa_methods` | bucket
+  span=5m _time | stats dc(_raw) AS mfa_prompts values(user) AS user by src_ip, login_challenge_method,  _time
+  | where mfa_prompts >= 10 | `gcp_multiple_failed_mfa_requests_for_user_filter`'
 how_to_implement: You must install the latest version of Splunk Add-on for Google
   Workspace from Splunkbase (https://splunkbase.splunk.com/app/5556) which allows
   Splunk administrators to collect Google Workspace event data in Splunk using Google
@@ -32,35 +32,41 @@ references:
 - https://therecord.media/russian-hackers-bypass-2fa-by-annoying-victims-with-repeated-push-notifications/
 - https://attack.mitre.org/techniques/T1621/
 - https://attack.mitre.org/techniques/T1078/004/
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Multiple Failed MFA requests for user $user$
+  risk_objects:
+  - field: user
+    type: user
+    score: 54
+  threat_objects:
+  - field: src_ip
+    type: ip_address
 tags:
   analytic_story:
   - GCP Account Takeover
   asset_type: Google Cloud Platform tenant
-  confidence: 90
-  impact: 60
-  message: Multiple Failed MFA requests for user $user$
   mitre_attack_id:
-  - T1586
+  - T1078.004
   - T1586.003
   - T1621
-  - T1078
-  - T1078.004
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: src_ip
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 54
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -69,4 +75,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1621/multiple_failed_mfa_gws/gws_login.log
     source: gws:reports:login
     sourcetype: gws:reports:login
-    update_timestamp: true

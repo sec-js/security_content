@@ -1,7 +1,7 @@
 name: Overwriting Accessibility Binaries
 id: 13c2f6c3-10c5-4deb-9ba1-7c4460ebe4ae
-version: 5
-date: '2024-05-25'
+version: 8
+date: '2025-02-10'
 author: David Dorsey, Splunk
 status: production
 type: TTP
@@ -30,6 +30,29 @@ how_to_implement: You must be ingesting data that records the filesystem activit
 known_false_positives: Microsoft may provide updates to these binaries. Verify that
   these changes do not correspond with your normal software update cycle.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A suspicious file modification or replace in $file_path$  in host $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 72
+  threat_objects:
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
   - Data Destruction
@@ -37,32 +60,12 @@ tags:
   - Windows Privilege Escalation
   - Flax Typhoon
   asset_type: Endpoint
-  confidence: 90
-  impact: 80
-  message: A suspicious file modification or replace in $file_path$  in host $dest$
   mitre_attack_id:
-  - T1546
   - T1546.008
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: file_name
-    type: File
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.dest
-  - Filesystem.file_path
-  - Filesystem.file_name
-  - Filesystem.dest
-  risk_score: 72
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -70,4 +73,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1546.008/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

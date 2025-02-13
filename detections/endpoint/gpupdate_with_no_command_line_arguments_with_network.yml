@@ -1,7 +1,7 @@
 name: GPUpdate with no Command Line Arguments with Network
 id: 2c853856-a140-11eb-a5b5-acde48001122
-version: 3
-date: '2024-05-25'
+version: 8
+date: '2024-12-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -15,7 +15,7 @@ description: The following analytic detects the execution of gpupdate.exe withou
   lateral movement, command and control, or other nefarious purposes, potentially
   leading to system compromise.
 data_source:
-- Sysmon EventID 1
+- Sysmon EventID 1 AND Sysmon EventID 3
 search: '| tstats `security_content_summariesonly` count FROM datamodel=Endpoint.Processes
   where Processes.process_name=gpupdate.exe by _time span=1h  Processes.process_id
   Processes.process_name Processes.dest Processes.user Processes.process_path Processes.process
@@ -40,50 +40,49 @@ known_false_positives: Limited false positives may be present in small environme
 references:
 - https://raw.githubusercontent.com/xx0hcd/Malleable-C2-Profiles/0ef8cf4556e26f6d4190c56ba697c2159faa5822/crimeware/trick_ryuk.profile
 - https://www.cobaltstrike.com/blog/learn-pipe-fitting-for-all-of-your-offense-projects/
-tags:
-  analytic_story:
-  - BlackByte Ransomware
-  - Cobalt Strike
-  - Graceful Wipe Out Attack
-  asset_type: Endpoint
-  confidence: 90
-  impact: 90
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
   message: Process gpupdate.exe  with parent_process $parent_process_name$ is executed
     on $dest$ by user $user$, followed by an outbound network connection to $C2$ on
     port $dest_port$. This behaviour is seen with cobaltstrike.
+  risk_objects:
+  - field: user
+    type: user
+    score: 81
+  - field: dest
+    type: system
+    score: 81
+  threat_objects:
+  - field: parent_process_name
+    type: parent_process_name
+  - field: C2
+    type: ip_address
+tags:
+  analytic_story:
+  - Graceful Wipe Out Attack
+  - Cobalt Strike
+  - Compromised Windows Host
+  - BlackByte Ransomware
+  asset_type: Endpoint
   mitre_attack_id:
   - T1055
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process Name
-    role:
-    - Parent Process
-    - Attacker
-  - name: C2
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventID
-  - process_name
-  - process_id
-  - parent_process_name
-  - dest_port
-  - process_path
-  risk_score: 81
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -91,4 +90,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1055/cobalt_strike/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

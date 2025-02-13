@@ -1,7 +1,7 @@
 name: Windows CAB File on Disk
 id: 622f08d0-69ef-42c2-8139-66088bc25acd
-version: 2
-date: '2024-05-28'
+version: 4
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -33,31 +33,38 @@ known_false_positives: False positives will only be present if a process legitim
   needed.
 references:
 - https://github.com/PaloAltoNetworks/Unit42-timely-threat-intel/blob/main/2023-10-25-IOCs-from-DarkGate-activity.txt
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A .cab file was written to disk on endpoint $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 5
+  threat_objects: []
 tags:
   analytic_story:
   - DarkGate Malware
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 10
-  impact: 50
-  message: A .cab file was written to disk on endpoint $dest$.
   mitre_attack_id:
   - T1566.001
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 5
-  required_fields:
-  - Filesystem.dest
-  - Filesystem.action
-  - Filesystem.process_id
-  - Filesystem.file_name
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -65,4 +72,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059/autoit/cab_files.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

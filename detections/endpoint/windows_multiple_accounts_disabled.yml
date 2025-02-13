@@ -1,7 +1,7 @@
 name: Windows Multiple Accounts Disabled
 id: 5d93894e-befa-4429-abde-7fc541020b7b
-version: 2
-date: '2024-05-12'
+version: 5
+date: '2024-11-13'
 author: Mauricio Velazco, Splunk
 data_source:
 - Windows Event Log Security 4725
@@ -15,7 +15,7 @@ description: The following analytic identifies instances where more than five un
   breaches or an external attacker's attempt to disrupt operations. If confirmed malicious,
   this activity could lead to widespread account lockouts, hindering user access and
   potentially disrupting business operations.
-search: ' `wineventlog_security` EventCode=4725 status=success | bucket span=10m _time
+search: '`wineventlog_security` EventCode=4725 status=success | bucket span=10m _time
   | stats count dc(user) as unique_users values(user) as user by EventCode signature
   _time src_user SubjectDomainName TargetDomainName Logon_ID | where unique_users
   > 5 | `windows_multiple_accounts_disabled_filter`'
@@ -27,37 +27,38 @@ known_false_positives: Service accounts may be responsible for the creation, del
   or modification of accounts for legitimate purposes. Filter as needed.
 references:
 - https://attack.mitre.org/techniques/T1098/
+drilldown_searches:
+- name: View the detection results for - "$src_user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $src_user$ disabled multiple accounts in a short period of time.
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 18
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Persistence
   asset_type: Endpoint
-  confidence: 60
-  impact: 30
-  message: User $src_user$ disabled multiple accounts in a short period of time.
   mitre_attack_id:
   - T1098
   - T1078
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - success
-  - TargetUserName
-  - SubjectUserName
-  - src_user
-  - SubjectDomainName
-  - TargetDomainName
-  - Logon_ID
-  - user
-  risk_score: 18
   security_domain: endpoint
 tests:
 - name: True Positive Test

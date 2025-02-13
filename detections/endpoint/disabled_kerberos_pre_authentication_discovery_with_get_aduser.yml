@@ -1,7 +1,7 @@
 name: Disabled Kerberos Pre-Authentication Discovery With Get-ADUser
 id: 114c6bfe-9406-11ec-bcce-acde48001122
-version: 3
-date: '2024-05-29'
+version: 7
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,7 +15,7 @@ description: The following analytic detects the execution of the `Get-ADUser` Po
   privileges within the network.
 data_source:
 - Powershell Script Block Logging 4104
-search: ' `powershell` EventCode=4104 (ScriptBlockText = "*Get-ADUser*" AND ScriptBlockText="*4194304*")
+search: '`powershell` EventCode=4104 (ScriptBlockText = "*Get-ADUser*" AND ScriptBlockText="*4194304*")
   | stats count min(_time)  as firstTime max(_time) as lastTime by Opcode Computer
   UserID EventCode ScriptBlockText | rename Computer as dest | `security_content_ctime(firstTime)`
   | `disabled_kerberos_pre_authentication_discovery_with_get_aduser_filter`'
@@ -28,34 +28,39 @@ references:
 - https://attack.mitre.org/techniques/T1558/004/
 - https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html
 - https://stealthbits.com/blog/cracking-active-directory-passwords-with-as-rep-roasting/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Disabled Kerberos Pre-Authentication Discovery With Get-ADUser from $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 54
+  threat_objects: []
 tags:
   analytic_story:
   - CISA AA23-347A
   - Active Directory Kerberos Attacks
+  - BlackSuit Ransomware
   asset_type: Endpoint
-  confidence: 90
-  impact: 60
-  message: Disabled Kerberos Pre-Authentication Discovery With Get-ADUser from $dest$
   mitre_attack_id:
-  - T1558
   - T1558.004
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Opcode
-  - Computer
-  - UserID
-  - EventCode
-  risk_score: 54
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -63,4 +68,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1558.004/getaduser/get-aduser-powershell.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

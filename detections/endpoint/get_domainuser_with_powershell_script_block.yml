@@ -1,7 +1,7 @@
 name: Get DomainUser with PowerShell Script Block
 id: 61994268-04f4-11ec-865c-acde48001122
-version: 4
-date: '2024-05-09'
+version: 7
+date: '2025-02-10'
 author: Teoderick Contreras, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -25,38 +25,42 @@ how_to_implement: The following Hunting analytic requires PowerShell operational
 known_false_positives: Administrators or power users may use this command for troubleshooting.
 references:
 - https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainUser/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Powershell process having commandline "*Get-DomainUser*" for user enumeration
+    on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  - field: user
+    type: user
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Discovery
   - CISA AA23-347A
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: Powershell process having commandline "*Get-DomainUser*" for user enumeration
-    on $dest$
   mitre_attack_id:
   - T1087.002
-  - T1087
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Message
-  - ComputerName
-  - User
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -64,4 +68,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1087.002/AD_discovery/windows-powershell-xml.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

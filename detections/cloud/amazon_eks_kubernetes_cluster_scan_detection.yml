@@ -1,7 +1,7 @@
 name: Amazon EKS Kubernetes cluster scan detection
 id: 294c4686-63dd-4fe6-93a2-ca807626704a
-version: 2
-date: '2024-05-15'
+version: 4
+date: '2024-11-14'
 author: Rod Soto, Splunk
 status: experimental
 type: Hunting
@@ -29,31 +29,10 @@ tags:
   analytic_story:
   - Kubernetes Scanning Activity
   asset_type: Amazon EKS Kubernetes cluster
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1526
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user.username
-  - userAgent
-  - sourceIPs{}
-  - responseStatus.reason
-  - source
-  - responseStatus.code
-  - verb
-  - requestURI
-  - src_ip
-  - user.groups{}
-  risk_score: 25
   security_domain: threat

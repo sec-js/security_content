@@ -1,7 +1,7 @@
 name: Windows Event For Service Disabled
 id: 9c2620a8-94a1-11ec-b40c-acde48001122
-version: 4
-date: '2024-05-11'
+version: 7
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -30,29 +30,12 @@ tags:
   - Windows Defense Evasion Tactics
   - RedLine Stealer
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: Service $ServiceName$ was disabled on $dest$
   mitre_attack_id:
   - T1562.001
-  - T1562
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ComputerName
-  - EventCode
-  - Message
-  - User
-  - Sid
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test

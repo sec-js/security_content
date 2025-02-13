@@ -1,7 +1,7 @@
 name: O365 ApplicationImpersonation Role Assigned
 id: 49cdce75-f814-4d56-a7a4-c64ec3a481f2
-version: 2
-date: '2024-05-23'
+version: 5
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -26,41 +26,43 @@ references:
 - https://attack.mitre.org/techniques/T1098/002/
 - https://www.mandiant.com/resources/blog/remediation-and-hardening-strategies-for-microsoft-365-to-defend-against-unc2452
 - https://www.mandiant.com/media/17656
+drilldown_searches:
+- name: View the detection results for - "$target_user$" and "$user$"
+  search: '%original_detection_search% | search  target_user = "$target_user$" user
+    = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$target_user$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$target_user$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: $user$ granted the ApplicationImpersonation role to $target_user$
+  risk_objects:
+  - field: target_user
+    type: user
+    score: 56
+  - field: user
+    type: user
+    score: 56
+  threat_objects: []
 tags:
   analytic_story:
   - Office 365 Persistence Mechanisms
   - Office 365 Collection Techniques
   - NOBELIUM Group
   asset_type: O365 Tenant
-  confidence: 70
-  impact: 80
-  message: $user$ granted the ApplicationImpersonation role to $target_user$
   mitre_attack_id:
-  - T1098
   - T1098.002
-  observable:
-  - name: target_user
-    type: User
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 56
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - Role
-  - user
-  - User
-  - object
-  - ObjectId
   security_domain: threat
 tests:
 - name: True Positive Test

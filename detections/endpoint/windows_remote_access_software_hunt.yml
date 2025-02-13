@@ -1,7 +1,7 @@
 name: Windows Remote Access Software Hunt
 id: 8bd22c9f-05a2-4db1-b131-29271f28cb0a
-version: 2
-date: '2024-05-15'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -15,6 +15,8 @@ description: The following analytic identifies the use of remote access software
   any unauthorized utilities.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
   as lastTime values(Processes.process) as process values(Processes.parent_process)
   as parent_process from datamodel=Endpoint.Processes where Processes.dest!=unknown
@@ -43,37 +45,12 @@ tags:
   - Command And Control
   - Ransomware
   asset_type: Endpoint
-  confidence: 10
-  impact: 10
-  message: The following Remote Access Software $process_name$ was identified on $dest$.
   mitre_attack_id:
   - T1219
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Child Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 1
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -81,5 +58,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1219/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

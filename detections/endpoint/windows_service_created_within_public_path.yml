@@ -1,7 +1,7 @@
 name: Windows Service Created Within Public Path
 id: 3abb2eda-4bb8-11ec-9ae4-3e22fbd008af
-version: 3
-date: '2024-05-15'
+version: 7
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -28,38 +28,40 @@ known_false_positives: Legitimate applications may install services with uncommo
 references:
 - https://docs.microsoft.com/en-us/windows/win32/services/service-control-manager
 - https://pentestlab.blog/2020/07/21/lateral-movement-services/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A Windows Service $ServiceName$ with a public path was created on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 54
+  threat_objects:
+  - field: ServiceName
+    type: service
 tags:
   analytic_story:
   - Active Directory Lateral Movement
   - Snake Malware
   asset_type: Endpoint
-  confidence: 60
-  impact: 90
-  message: A Windows Service $ServiceName$ with a public path was created on $dest$
   mitre_attack_id:
-  - T1543
   - T1543.003
-  observable:
-  - name: ServiceName
-    type: Other
-    role:
-    - Other
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - Service_File_Name
-  - Service_Type
-  - _time
-  - Service_Name
-  - Service_Start_Type
-  risk_score: 54
   security_domain: endpoint
 tests:
 - name: True Positive Test

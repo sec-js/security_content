@@ -1,12 +1,14 @@
 name: Windows Default Group Policy Object Modified with GPME
 id: eaf688b3-bb8f-454d-b105-920a862cd8cb
-version: 2
-date: '2024-05-24'
+version: 7
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic detects modifications to default Group Policy
   Objects (GPOs) using the Group Policy Management Editor (GPME). It leverages the
   Endpoint data model to identify processes where `mmc.exe` executes `gpme.msc` with
@@ -39,49 +41,43 @@ references:
 - https://www.trustedsec.com/blog/weaponizing-group-policy-objects-access/
 - https://adsecurity.org/?p=2716
 - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn265969(v=ws.11)
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A default group policy object was opened with Group Policy Manage Editor
+    on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 50
+  threat_objects:
+  - field: parent_process_name
+    type: parent_process_name
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Active Directory Privilege Escalation
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 50
-  impact: 100
-  message: A default group policy object was opened with Group Policy Manage Editor
-    on $dest$
   mitre_attack_id:
-  - T1484
   - T1484.001
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: parent_process_name
-    type: Process
-    role:
-    - Parent Process
-  - name: process_name
-    type: Process
-    role:
-    - Child Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 50
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -89,4 +85,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1484.001/default_domain_policy_modified/windows-security.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

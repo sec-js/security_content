@@ -1,7 +1,7 @@
 name: Cloud Compute Instance Created By Previously Unseen User
 id: 37a0ec8d-827e-4d6d-8025-cedf31f3a149
-version: 3
-date: '2024-05-18'
+version: 6
+date: '2025-02-10'
 author: Rico Valdez, Splunk
 status: experimental
 type: Anomaly
@@ -12,7 +12,8 @@ description: The following analytic identifies the creation of cloud compute ins
   access or misuse of cloud resources by new or compromised accounts. If confirmed
   malicious, attackers could deploy unauthorized compute instances, leading to potential
   data exfiltration, increased costs, or further exploitation within the cloud environment.
-data_source: []
+data_source:
+- AWS CloudTrail
 search: '| tstats `security_content_summariesonly` count earliest(_time) as firstTime,
   latest(_time) as lastTime values(All_Changes.object) as dest from datamodel=Change
   where All_Changes.action=created by All_Changes.user All_Changes.vendor_region |
@@ -29,36 +30,26 @@ known_false_positives: It's possible that a user will start to create compute in
   for the first time, for any number of reasons. Verify with the user launching instances
   that this is the intended behavior.
 references: []
+rba:
+  message: User $user$ is creating a new instance $dest$ for the first time
+  risk_objects:
+  - field: dest
+    type: system
+    score: 18
+  - field: user
+    type: user
+    score: 18
+  threat_objects: []
 tags:
   analytic_story:
   - Cloud Cryptomining
   asset_type: Cloud Compute Instance
-  confidence: 60
-  impact: 30
-  message: User $user$ is creating a new instance $dest$ for the first time
   mitre_attack_id:
   - T1078.004
-  - T1078
-  observable:
-  - name: user
-    type: User
-    role:
-    - Attacker
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.object
-  - All_Changes.action
-  - All_Changes.user
-  - All_Changes.vendor_region
-  risk_score: 18
   security_domain: threat
 tests:
 - name: True Positive Test
@@ -67,4 +58,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/suspicious_behaviour/abnormally_high_cloud_instances_launched/cloudtrail_behavioural_detections.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

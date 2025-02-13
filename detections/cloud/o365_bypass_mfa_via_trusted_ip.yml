@@ -1,7 +1,7 @@
 name: O365 Bypass MFA via Trusted IP
 id: c783dd98-c703-4252-9e8a-f19d9f66949e
-version: 4
-date: '2024-05-15'
+version: 7
+date: '2025-02-10'
 author: Bhavin Patel, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -33,42 +33,40 @@ references:
 - https://i.blackhat.com/USA-20/Thursday/us-20-Bienstock-My-Cloud-Is-APTs-Cloud-Investigating-And-Defending-Office-365.pdf
 - https://attack.mitre.org/techniques/T1562/007/
 - https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings
+drilldown_searches:
+- name: View the detection results for - "$user_id$"
+  search: '%original_detection_search% | search  user_id = "$user_id$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user_id$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user_id$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $user_id$ has added new IP addresses $ip_addresses_new_added$ to a
+    list of trusted IPs to bypass MFA
+  risk_objects:
+  - field: user_id
+    type: user
+    score: 42
+  threat_objects:
+  - field: ip_addresses_new_added
+    type: ip_address
 tags:
   analytic_story:
   - Office 365 Persistence Mechanisms
   asset_type: O365 Tenant
-  confidence: 60
-  impact: 70
-  message: User $user_id$ has added new IP addresses $ip_addresses_new_added$ to a
-    list of trusted IPs to bypass MFA
   mitre_attack_id:
   - T1562.007
-  - T1562
-  observable:
-  - name: ip_addresses_new_added
-    type: IP Address
-    role:
-    - Attacker
-  - name: user_id
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - signature
-  - ModifiedProperties{}.Name
-  - ModifiedProperties{}.NewValue
-  - ModifiedProperties{}.OldValue
-  - user
-  - vendor_account
-  - status
-  - user_id
-  - action
-  risk_score: 42
   security_domain: threat
 tests:
 - name: True Positive Test

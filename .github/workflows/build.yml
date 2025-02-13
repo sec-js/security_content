@@ -1,0 +1,43 @@
+name: build
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  push:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository code
+        uses: actions/checkout@v4
+       
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          architecture: 'x64'
+          
+      - name: Install Python Dependencies and ContentCTL and Atomic Red Team
+        run: |
+          if [ -n "${{ vars.CONTENTCTL_VERSION }}" ]; then
+            echo "Installing contentctl version ${{ vars.CONTENTCTL_VERSION }}"
+            pip install contentctl==${{ vars.CONTENTCTL_VERSION }}
+          else
+            echo "Installing latest contentctl version"
+            pip install contentctl
+          fi
+          git clone --depth=1 --single-branch --branch=master https://github.com/redcanaryco/atomic-red-team.git external_repos/atomic-red-team
+          git clone --depth=1 --single-branch --branch=master https://github.com/mitre/cti external_repos/cti
+      
+      - name: Running build with enrichments
+        run: |
+          contentctl build --enrichments
+          mkdir artifacts
+          mv dist/DA-ESS-ContentUpdate-latest.tar.gz artifacts/
+
+      - name: store_artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-latest
+          path: |
+            artifacts/DA-ESS-ContentUpdate-latest.tar.gz

@@ -1,7 +1,7 @@
 name: Rubeus Kerberos Ticket Exports Through Winlogon Access
 id: 5ed8c50a-8869-11ec-876f-acde48001122
-version: 2
-date: '2024-05-27'
+version: 7
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,7 +15,7 @@ description: The following analytic detects a process accessing the winlogon.exe
   and persist within the network, posing a severe security risk.
 data_source:
 - Sysmon EventID 10
-search: ' `sysmon` EventCode=10 TargetImage=C:\\Windows\\system32\\winlogon.exe (GrantedAccess=0x1f3fff)
+search: '`sysmon` EventCode=10 TargetImage=C:\\Windows\\system32\\winlogon.exe (GrantedAccess=0x1f3fff)
   (SourceImage!=C:\\Windows\\system32\\svchost.exe AND SourceImage!=C:\\Windows\\system32\\lsass.exe
   AND SourceImage!=C:\\Windows\\system32\\LogonUI.exe AND SourceImage!=C:\\Windows\\system32\\smss.exe
   AND SourceImage!=C:\\Windows\\system32\\wbem\\wmiprvse.exe) | stats count min(_time)
@@ -33,40 +33,41 @@ references:
 - https://github.com/GhostPack/Rubeus
 - https://web.archive.org/web/20210725005734/http://www.harmj0y.net/blog/redteaming/from-kekeo-to-rubeus/
 - https://attack.mitre.org/techniques/T1550/003/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Winlogon.exe was accessed by $SourceImage$ on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects:
+  - field: TargetImage
+    type: process
 tags:
   analytic_story:
   - CISA AA23-347A
   - Active Directory Kerberos Attacks
+  - BlackSuit Ransomware
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: Winlogon.exe was accessed by $SourceImage$ on $dest$
   mitre_attack_id:
-  - T1550
   - T1550.003
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: TargetImage
-    type: Process
-    role:
-    - Target
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - TargetImage
-  - CallTrace
-  - dest
-  - TargetProcessId
-  - SourceImage
-  - SourceProcessId
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -74,4 +75,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1550.003/rubeus/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

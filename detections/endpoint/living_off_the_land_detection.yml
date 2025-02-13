@@ -1,17 +1,17 @@
 name: Living Off The Land Detection
 id: 1be30d80-3a39-4df9-9102-64a467b24abc
-version: 3
-date: '2024-05-21'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Correlation
-description: The following correlation identifies multiple risk events associated with
-  the "Living Off The Land" analytic story, indicating potentially suspicious behavior.
-  It leverages the Risk data model to aggregate and correlate events tagged under
-  this story, focusing on systems with a high count of distinct sources. This activity
-  is significant as it often involves the use of legitimate tools for malicious purposes,
-  making detection challenging. If confirmed malicious, this behavior could allow
-  attackers to execute code, escalate privileges, or persist within the environment
+description: The following correlation identifies multiple risk events associated
+  with the "Living Off The Land" analytic story, indicating potentially suspicious
+  behavior. It leverages the Risk data model to aggregate and correlate events tagged
+  under this story, focusing on systems with a high count of distinct sources. This
+  activity is significant as it often involves the use of legitimate tools for malicious
+  purposes, making detection challenging. If confirmed malicious, this behavior could
+  allow attackers to execute code, escalate privileges, or persist within the environment
   using trusted system utilities.
 data_source: []
 search: '| tstats `security_content_summariesonly` min(_time) as firstTime max(_time)
@@ -38,35 +38,33 @@ known_false_positives: There are no known false positive for this search, but it
 references:
 - https://www.splunk.com/en_us/blog/security/living-off-the-land-threat-research-february-2022-release.html
 - https://research.splunk.com/stories/living_off_the_land/
+drilldown_searches:
+- name: View the detection results for - "$risk_object$"
+  search: '%original_detection_search% | search  risk_object = "$risk_object$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$risk_object$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$risk_object$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
 tags:
   analytic_story:
   - Living Off The Land
   asset_type: Endpoint
-  confidence: 70
-  impact: 90
-  message: An increase of Living Off The Land behavior has been detected on $risk_object$
   mitre_attack_id:
   - T1105
   - T1190
   - T1059
   - T1133
-  observable:
-  - name: risk_object
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Risk.analyticstories
-  - All_Risk.risk_object_type
-  - All_Risk.risk_object
-  - All_Risk.annotations.mitre_attack.mitre_tactic
-  - source
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test

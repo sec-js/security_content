@@ -1,7 +1,7 @@
 name: Windows Hijack Execution Flow Version Dll Side Load
 id: 8351340b-ac0e-41ec-8b07-dd01bf32d6ea
-version: 2
-date: '2024-05-15'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -26,35 +26,37 @@ how_to_implement: The latest Sysmon TA 3.0 https://splunkbase.splunk.com/app/570
 known_false_positives: unknown
 references:
 - https://www.mdsec.co.uk/2022/08/part-3-how-i-met-your-beacon-brute-ratel/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: a process $Image$ loading $ImageLoaded$ as a side load dll on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 35
+  threat_objects: []
 tags:
   analytic_story:
   - Brute Ratel C4
   asset_type: Endpoint
-  confidence: 70
-  impact: 50
-  message: a process $Image$ loading $ImageLoaded$ as a side load dll in $dest$
   mitre_attack_id:
   - T1574.001
-  - T1574
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Image
-  - ImageLoaded
-  - process_name
-  - dest
-  - EventCode
-  - Signed
-  - ProcessId
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -62,5 +64,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/brute_ratel/iso_version_dll_campaign/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

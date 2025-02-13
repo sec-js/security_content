@@ -1,7 +1,7 @@
 name: Batch File Write to System32
 id: 503d17cb-9eab-4cf8-a20e-01d5c6987ae3
-version: 5
-date: '2024-05-19'
+version: 9
+date: '2025-02-10'
 author: Steven Dick, Michael Haag, Rico Valdez, Splunk
 status: production
 type: TTP
@@ -14,7 +14,7 @@ description: The following analytic detects the creation of a batch file (.bat) 
   to execute arbitrary commands with elevated privileges, potentially compromising
   the entire system.
 data_source:
-- Sysmon Event ID 1
+- Sysmon EventID 1 AND Sysmon EventID 11
 search: '| tstats `security_content_summariesonly` count FROM datamodel=Endpoint.Processes
   where Processes.process_name=* by _time span=1h Processes.process_guid Processes.process_name
   Processes.dest Processes.user | `drop_dm_object_name(Processes)` | join process_guid
@@ -30,7 +30,7 @@ how_to_implement: To successfully implement this search you need to be ingesting
   your endpoints into the `Endpoint` datamodel in the `Processes` node. In addition,
   confirm the latest CIM App 4.20 or higher is installed and the latest TA for the
   endpoint product.
-known_false_positives: It is possible for this search to generate a notable event
+known_false_positives: It is possible for this search to generate a finding event
   for a batch file write to a path that includes the string "system32", but is not
   the actual Windows system directory. As such, you should confirm the path of the
   batch file identified by the search. In addition, a false positive may be generated
@@ -38,48 +38,44 @@ known_false_positives: It is possible for this search to generate a notable even
   should confirm that the activity is legitimate and modify the search to add exclusions,
   as necessary.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A file - $file_name$ was written to system32 has occurred on endpoint $dest$
+    by user $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 63
+  - field: dest
+    type: system
+    score: 63
+  threat_objects:
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
   - SamSam Ransomware
+  - Compromised Windows Host
   asset_type: Endpoint
-  confidence: 90
-  impact: 70
-  message: A file - $file_name$ was written to system32 has occurred on endpoint $dest$
-    by user $user$.
   mitre_attack_id:
-  - T1204
   - T1204.002
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: file_name
-    type: File Name
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.dest
-  - Filesystem.file_create_time
-  - Filesystem.file_name
-  - Filesystem.user
-  - Filesystem.file_path
-  - Processes.process_name
-  - Processes.dest
-  - Filesystem.process_guid
-  - Processes.process_guid
-  - Processes.dest
-  - Processes.process_name
-  risk_score: 63
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -87,4 +83,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1204.002/batch_file_in_system32/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

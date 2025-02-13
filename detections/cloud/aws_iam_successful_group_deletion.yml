@@ -1,7 +1,7 @@
 name: AWS IAM Successful Group Deletion
 id: e776d06c-9267-11eb-819b-acde48001122
-version: 2
-date: '2024-05-29'
+version: 6
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: Hunting
@@ -33,39 +33,14 @@ tags:
   analytic_story:
   - AWS IAM Privilege Escalation
   asset_type: AWS Account
-  confidence: 50
-  impact: 10
-  message: User $user_arn$ has sucessfully deleted mulitple groups $group_deleted$
-    from $src$
   mitre_attack_id:
   - T1069.003
   - T1098
-  - T1069
-  observable:
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
-  - name: user_arn
-    type: User
-    role:
-    - Victim
-  - name: group_deleted
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - userAgent
-  - errorCode
-  - requestParameters.groupName
-  risk_score: 5
-  security_domain: cloud
+  security_domain: access
 tests:
 - name: True Positive Test
   attack_data:
@@ -73,4 +48,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1098/aws_iam_successful_group_deletion/aws_iam_successful_group_deletion.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

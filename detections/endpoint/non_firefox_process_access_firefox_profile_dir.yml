@@ -1,7 +1,7 @@
 name: Non Firefox Process Access Firefox Profile Dir
 id: e6fc13b0-1609-11ec-b533-acde48001122
-version: 3
-date: '2024-05-19'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -25,6 +25,27 @@ how_to_implement: To successfully implement this search, you must ingest Windows
 known_false_positives: other browser not listed related to firefox may catch by this
   rule.
 references: []
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: a non firefox browser process $ProcessName$ accessing $ObjectName$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 35
+  threat_objects: []
 tags:
   analytic_story:
   - Azorult
@@ -40,33 +61,12 @@ tags:
   - Phemedrone Stealer
   - Snake Keylogger
   asset_type: Endpoint
-  confidence: 70
-  impact: 50
-  message: a non firefox browser process $ProcessName$ accessing $ObjectName$
   mitre_attack_id:
-  - T1555
   - T1555.003
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Object_Name
-  - Object_Type
-  - process_name
-  - Access_Mask
-  - Accesses
-  - process_id
-  - EventCode
-  - dest
-  - user
-  risk_score: 35
   security_domain: endpoint
 tests:
 - name: True Positive Test

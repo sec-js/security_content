@@ -1,7 +1,7 @@
 name: Detect Computer Changed with Anonymous Account
 id: 1400624a-d42d-484d-8843-e6753e6e3645
-version: 2
-date: '2024-05-18'
+version: 5
+date: '2024-11-13'
 author: Rod Soto, Jose Hernandez, Splunk
 status: experimental
 type: Hunting
@@ -14,6 +14,7 @@ description: The following analytic detects changes to computer accounts using a
   potentially leading to privilege escalation or persistent access within the network.
 data_source:
 - Windows Event Log Security 4624
+- Windows Event Log Security 4742
 search: '`wineventlog_security` EventCode=4624 OR EventCode=4742 TargetUserName="ANONYMOUS
   LOGON" LogonType=3 | stats count values(host) as host, values(TargetDomainName)
   as Domain, values(user) as user | `detect_computer_changed_with_anonymous_account_filter`'
@@ -30,38 +31,12 @@ tags:
   analytic_story:
   - Detect Zerologon Attack
   asset_type: Windows
-  confidence: 70
   cve:
   - CVE-2020-1472
-  impact: 70
-  message: The following $EventCode$ occurred on $dest$ by $user$ with Logon Type
-    3, which may be indicative of the an account or group being changed by an anonymous
-    account.
   mitre_attack_id:
   - T1210
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: EventCode
-    type: Other
-    role:
-    - Other
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - TargetUserName
-  - LogonType
-  - TargetDomainName
-  - user
-  risk_score: 49
   security_domain: endpoint

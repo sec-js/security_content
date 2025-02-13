@@ -1,7 +1,7 @@
 name: Windows Gather Victim Host Information Camera
 id: e4df4676-ea41-4397-b160-3ee0140dc332
-version: 3
-date: '2024-05-10'
+version: 6
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -29,35 +29,40 @@ references:
 - https://cert.gov.ua/article/405538
 - https://malpedia.caad.fkie.fraunhofer.de/details/win.dcrat
 - https://www.mandiant.com/resources/analyzing-dark-crystal-rat-backdoor
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A Powershell script to enumerate camera detected on host - $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 42
+  - field: user
+    type: user
+    score: 42
+  threat_objects: []
 tags:
   analytic_story:
   - DarkCrystal RAT
   asset_type: Endpoint
-  confidence: 70
-  impact: 60
-  message: A Powershell script to enumerate camera detected on host - $dest$
   mitre_attack_id:
   - T1592.001
-  - T1592
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Computer
-  - EventCode
-  risk_score: 42
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -65,5 +70,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/dcrat/dcrat_enum_camera/windows-powershell-xml.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

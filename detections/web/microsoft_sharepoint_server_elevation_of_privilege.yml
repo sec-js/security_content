@@ -1,7 +1,7 @@
 name: Microsoft SharePoint Server Elevation of Privilege
 id: fcf4bd3f-a79f-4b7a-83bf-2692d60b859d
-version: 2
-date: '2024-05-19'
+version: 4
+date: '2024-11-15'
 author: Michael Haag, Gowthamaraj Rajendran, Splunk
 status: production
 type: TTP
@@ -28,6 +28,29 @@ known_false_positives: False positives may occur if there are legitimate activit
 references:
 - https://socradar.io/microsoft-sharepoint-server-elevation-of-privilege-vulnerability-exploit-cve-2023-29357/
 - https://github.com/LuemmelSec/CVE-2023-29357/blob/main/CVE-2023-29357/Program.cs
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Possible exploitation of CVE-2023-29357 against $dest$ from $src$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 45
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   cve:
   - CVE-2023-29357
@@ -35,35 +58,12 @@ tags:
   - Microsoft SharePoint Server Elevation of Privilege CVE-2023-29357
   asset_type: Web Server
   atomic_guid: []
-  confidence: 50
-  impact: 90
-  message: Possible exploitation of CVE-2023-29357 against $dest$ from $src$.
   mitre_attack_id:
   - T1068
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 45
-  required_fields:
-  - _time
-  - Web.http_method
-  - Web.url
-  - Web.url_length
-  - Web.src
-  - Web.dest
-  - Web.http_user_agent
-  - Web.status
-  - sourcetype
   security_domain: network
 tests:
 - name: True Positive Test

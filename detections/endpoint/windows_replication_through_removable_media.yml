@@ -1,7 +1,7 @@
 name: Windows Replication Through Removable Media
 id: 60df805d-4605-41c8-bbba-57baa6a4eb97
-version: 2
-date: '2024-05-14'
+version: 7
+date: '2025-01-27'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -34,45 +34,49 @@ known_false_positives: Administrators may allow creation of script or exe in the
 references:
 - https://attack.mitre.org/techniques/T1204/002/
 - https://www.fortinet.com/blog/threat-research/chaos-ransomware-variant-sides-with-russia
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: executable or script $file_path$ was dropped in root drive $root_drive$
+    on $dest$
+  risk_objects:
+  - field: user
+    type: user
+    score: 64
+  threat_objects:
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
-  - Chaos Ransomware
-  - NjRAT
   - PlugX
+  - Chaos Ransomware
+  - Derusbi
+  - Nexus APT Threat Activity
+  - Earth Estries
+  - NjRAT
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: executable or script $file_path$ was dropped in root drive $root_drive$
-    in $dest$
   mitre_attack_id:
   - T1091
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: file_name
-    type: File Name
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.file_path
-  - Filesystem.file_create_time
-  - Filesystem.process_id
-  - Filesystem.file_name
-  - Filesystem.user
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test
   attack_data:
-  - data: 
-      https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/chaos_ransomware/spread_in_root_drives/sysmon.log
+  - data: https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/chaos_ransomware/spread_in_root_drives/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: O365 Add App Role Assignment Grant User
 id: b2c81cc6-6040-11eb-ae93-0242ac130002
-version: 3
-date: '2024-05-19'
+version: 6
+date: '2025-02-10'
 author: Rod Soto, Splunk
 status: production
 type: TTP
@@ -27,41 +27,42 @@ known_false_positives: The creation of a new Federation is not necessarily malic
 references:
 - https://www.fireeye.com/content/dam/fireeye-www/blog/pdfs/wp-m-unc2452-2021-000343-01.pdf
 - https://www.cisa.gov/uscert/ncas/alerts/aa21-008a
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $user$ has created a new federation setting $modified_properties_name$
+    on $dest$
+  risk_objects:
+  - field: user
+    type: user
+    score: 18
+  - field: dest
+    type: system
+    score: 18
+  threat_objects: []
 tags:
   analytic_story:
   - Office 365 Persistence Mechanisms
   - Cloud Federated Credential Abuse
   asset_type: O365 Tenant
-  confidence: 60
-  impact: 30
-  message: User $user$ has created a new federation setting $modified_properties_name$
-    on $dest$
   mitre_attack_id:
   - T1136.003
-  - T1136
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - Actor{}.ID
-  - Actor{}.Type
-  - UserId
-  - dest
-  - ResultStatus
-  risk_score: 18
   security_domain: threat
 tests:
 - name: True Positive Test

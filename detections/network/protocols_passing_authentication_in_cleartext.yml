@@ -1,7 +1,7 @@
 name: Protocols passing authentication in cleartext
 id: 6923cd64-17a0-453c-b945-81ac2d8c6db9
-version: 4
-date: '2024-05-29'
+version: 6
+date: '2024-11-15'
 author: Rico Valdez, Splunk
 status: experimental
 type: TTP
@@ -30,33 +30,22 @@ known_false_positives: Some networks may use kerberized FTP or telnet servers, h
 references:
 - https://www.rackaid.com/blog/secure-your-email-and-file-transfers/
 - https://www.infosecmatter.com/capture-passwords-using-wireshark/
+rba:
+  message: Potential Authentication in cleartext
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Use of Cleartext Protocols
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.transport
-  - All_Traffic.dest_port
-  - All_Traffic.user
-  - All_Traffic.src
-  - All_Traffic.dest
-  - All_Traffic.action
-  risk_score: 25
   security_domain: network

@@ -1,7 +1,7 @@
 name: Suspicious Event Log Service Behavior
 id: 2b85aa3d-f5f6-4c2e-a081-a09f6e1c2e40
-version: 3
-date: '2024-05-14'
+version: 6
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: Hunting
@@ -14,9 +14,9 @@ description: The following analytic detects the shutdown of the Windows Event Lo
   and review other alerts and data sources for additional suspicious behavior.
 data_source:
 - Windows Event Log Security 1100
-search: '(`wineventlog_security` EventCode=1100) | stats count min(_time) as firstTime
+search: (`wineventlog_security` EventCode=1100) | stats count min(_time) as firstTime
   max(_time) as lastTime by dest name EventCode | `security_content_ctime(firstTime)`
-  | `security_content_ctime(lastTime)`| `suspicious_event_log_service_behavior_filter`'
+  | `security_content_ctime(lastTime)`| `suspicious_event_log_service_behavior_filter`
 how_to_implement: To successfully implement this search, you need to be ingesting
   Windows event logs from your hosts. In addition, the Splunk Windows TA is needed.
 known_false_positives: It is possible the Event Logging service gets shut down due
@@ -32,26 +32,12 @@ tags:
   - Ransomware
   - Clop Ransomware
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: The Windows Event Log Service shutdown on $dest$
   mitre_attack_id:
-  - T1070
   - T1070.001
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - dest
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

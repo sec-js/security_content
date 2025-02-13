@@ -1,7 +1,7 @@
 name: Linux Stdout Redirection To Dev Null File
 id: de62b809-a04d-46b5-9a15-8298d330f0c8
-version: 2
-date: '2024-05-21'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: experimental
 type: Anomaly
@@ -34,37 +34,25 @@ known_false_positives: unknown
 references:
 - https://www.ncsc.gov.uk/files/Cyclops-Blink-Malware-Analysis-Report.pdf
 - https://www.trendmicro.com/en_us/research/22/c/cyclops-blink-sets-sights-on-asus-routers--.html
+rba:
+  message: a commandline $process$ that redirect stdout to dev/null on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - Cyclops Blink
   - Data Destruction
   - Industroyer2
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: a commandline $process$ that redirect stdout to dev/null in $dest$
   mitre_attack_id:
   - T1562.004
-  - T1562
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test

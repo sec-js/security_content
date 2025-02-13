@@ -1,7 +1,7 @@
 name: Remcos RAT File Creation in Remcos Folder
 id: 25ae862a-1ac3-11ec-94a1-acde48001122
-version: 3
-date: '2024-05-24'
+version: 5
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk, Sanjay Govind
 status: production
 type: TTP
@@ -27,31 +27,37 @@ known_false_positives: unknown
 references:
 - https://success.trendmicro.com/dcx/s/solution/1123281-remcos-malware-information?language=en_US
 - https://blog.malwarebytes.com/threat-intelligence/2021/07/remcos-rat-delivered-via-visual-basic/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: file $file_name$ created in $file_path$ of $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 100
+  threat_objects: []
 tags:
   analytic_story:
   - Remcos
   asset_type: Endpoint
-  confidence: 100
-  impact: 100
-  message: file $file_name$ created in $file_path$ of $dest$
   mitre_attack_id:
   - T1113
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - dest
-  - file_create_time
-  - file_name
-  - file_path
-  risk_score: 100
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -59,4 +65,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/remcos/remcos_agent/sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

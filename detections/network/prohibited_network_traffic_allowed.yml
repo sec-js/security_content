@@ -1,7 +1,7 @@
 name: Prohibited Network Traffic Allowed
 id: ce5a0962-849f-4720-a678-753fe6674479
-version: 3
-date: '2024-05-11'
+version: 5
+date: '2024-11-15'
 author: Rico Valdez, Splunk
 status: production
 type: TTP
@@ -27,37 +27,41 @@ how_to_implement: In order to properly run this search, Splunk needs to ingest d
   be populated.
 known_false_positives: None identified
 references: []
+drilldown_searches:
+- name: View the detection results for - "$src_ip$"
+  search: '%original_detection_search% | search  src_ip = "$src_ip$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_ip$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_ip$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Potentially Prohibited Network Traffic allowed
+  risk_objects:
+  - field: src_ip
+    type: system
+    score: 25
+  threat_objects:
+  - field: dest_ip
+    type: ip_address
 tags:
   analytic_story:
   - Prohibited Traffic Allowed or Protocol Mismatch
   - Ransomware
   - Command And Control
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1048
-  observable:
-  - name: src_ip
-    type: IP Address
-    role:
-    - Victim
-  - name: dest_ip
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Traffic.action
-  - All_Traffic.src_ip
-  - All_Traffic.dest_ip
-  - All_Traffic.dest_port
-  risk_score: 25
   security_domain: network
   manual_test: This detection uses builtin lookup from Enterprise Security.
 tests:

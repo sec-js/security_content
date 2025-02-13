@@ -1,18 +1,18 @@
 name: SQL Injection with Long URLs
 id: e0aad4cf-0790-423b-8328-7564d0d938f9
-version: 4
-date: '2024-05-12'
+version: 6
+date: '2024-11-15'
 author: Bhavin Patel, Splunk
 status: experimental
 type: TTP
-description: "The following analytic detects long URLs containing multiple SQL commands,
+description: The following analytic detects long URLs containing multiple SQL commands,
   indicating a potential SQL injection attack. This detection leverages web traffic
   data, specifically targeting web server destinations with URLs longer than 1024
   characters or HTTP user agents longer than 200 characters. SQL injection is significant
   as it allows attackers to manipulate a web application's database, potentially leading
   to unauthorized data access or modification. If confirmed malicious, this activity
   could result in data breaches, unauthorized access, and complete system compromise.
-  Immediate investigation and validation of alerts are crucial to mitigate these risks."
+  Immediate investigation and validation of alerts are crucial to mitigate these risks.
 data_source: []
 search: '| tstats `security_content_summariesonly` count from datamodel=Web where
   Web.dest_category=web_server AND (Web.url_length > 1024 OR Web.http_user_agent_length
@@ -36,32 +36,21 @@ known_false_positives: It's possible that legitimate traffic will have long URLs
   long user agent strings and that common SQL commands may be found within the URL.
   Please investigate as appropriate.
 references: []
+rba:
+  message: SQL injection attempt with url $url$ detected on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - SQL Injection
   asset_type: Database Server
-  confidence: 50
-  impact: 50
-  message: SQL injection attempt with url $url$ detected on $dest$
   mitre_attack_id:
   - T1190
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Web.dest_category
-  - Web.url_length
-  - Web.http_user_agent_length
-  - Web.src
-  - Web.dest
-  - Web.url
-  - Web.http_user_agent
-  risk_score: 25
   security_domain: network

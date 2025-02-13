@@ -1,7 +1,7 @@
 name: Windows BootLoader Inventory
 id: 4f7e3913-4db3-4ccd-afe4-31198982305d
-version: 2
-date: '2024-05-15'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: experimental
 type: Hunting
@@ -31,23 +31,10 @@ tags:
   - Windows BootKits
   asset_type: Endpoint
   atomic_guid: []
-  confidence: 90
-  impact: 90
-  message: A list of BootLoaders are present on $dest$
   mitre_attack_id:
   - T1542.001
-  - T1542
-  observable:
-  - name: host
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - _raw
-  risk_score: 81
   security_domain: endpoint

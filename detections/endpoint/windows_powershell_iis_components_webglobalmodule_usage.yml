@@ -1,7 +1,7 @@
 name: Windows PowerShell IIS Components WebGlobalModule Usage
 id: 33fc9f6f-0ce7-4696-924e-a69ec61a3d57
-version: 2
-date: '2024-05-14'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -31,32 +31,38 @@ references:
 - https://unit42.paloaltonetworks.com/unit42-oilrig-uses-rgdoor-iis-backdoor-targets-middle-east/
 - https://www.secureworks.com/research/bronze-union
 - https://github.com/redcanaryco/atomic-red-team/tree/master/atomics/T1505.004
+drilldown_searches:
+- name: View the detection results for - "$Computer$"
+  search: '%original_detection_search% | search  Computer = "$Computer$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$Computer$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$Computer$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A PowerShell Cmdlet related to enabling, creating or modifying a IIS module
+    has occurred on $Computer$.
+  risk_objects:
+  - field: Computer
+    type: system
+    score: 64
+  threat_objects: []
 tags:
   analytic_story:
   - IIS Components
   asset_type: Endpoint
-  confidence: 80
-  impact: 80
-  message: A PowerShell Cmdlet related to enabling, creating or modifying a IIS module
-    has occurred on $Computer$.
   mitre_attack_id:
-  - T1505
   - T1505.004
-  observable:
-  - name: Computer
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - ScriptBlockText
-  - Computer
-  - EventCode
-  risk_score: 64
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -64,5 +70,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1505.004/4104_windows-powershell.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
-    update_timestamp: true
+    sourcetype: XmlWinEventLog

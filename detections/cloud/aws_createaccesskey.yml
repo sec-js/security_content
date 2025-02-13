@@ -1,7 +1,7 @@
 name: AWS CreateAccessKey
 id: 2a9b80d3-6340-4345-11ad-212bf3d0d111
-version: 4
-date: '2024-05-12'
+version: 7
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
 status: production
 type: Hunting
@@ -31,33 +31,12 @@ tags:
   analytic_story:
   - AWS IAM Privilege Escalation
   asset_type: AWS Account
-  confidence: 90
-  impact: 70
-  message: User $user_arn$ is attempting to create access keys for $requestParameters.userName$
-    from this IP $src$
   mitre_attack_id:
   - T1136.003
-  - T1136
-  observable:
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
-  - name: user_arn
-    type: User
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - userAgent
-  - errorCode
-  - requestParameters.userName
-  risk_score: 63
   security_domain: network
 tests:
 - name: True Positive Test
@@ -66,4 +45,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1078/aws_createaccesskey/aws_cloudtrail_events.json
     sourcetype: aws:cloudtrail
     source: aws_cloudtrail
-    update_timestamp: true

@@ -1,7 +1,7 @@
 name: AWS Defense Evasion Stop Logging Cloudtrail
 id: 8a2f3ca2-4eb5-4389-a549-14063882e537
-version: 2
-date: '2024-05-15'
+version: 5
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
 status: production
 type: TTP
@@ -26,40 +26,40 @@ known_false_positives: While this search has no known false positives, it is pos
   that an AWS admin has stopped cloudtrail logging. Please investigate this activity.
 references:
 - https://attack.mitre.org/techniques/T1562/008/
+drilldown_searches:
+- name: View the detection results for - "$user_arn$"
+  search: '%original_detection_search% | search  user_arn = "$user_arn$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user_arn$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user_arn$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: User $user_arn$ has stopped Cloudtrail logging for account id $aws_account_id$
+    from IP $src$
+  risk_objects:
+  - field: user_arn
+    type: user
+    score: 90
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - AWS Defense Evasion
   asset_type: AWS Account
-  confidence: 90
-  impact: 100
-  message: User $user_arn$ has stopped Cloudtrail logging for account id $aws_account_id$
-    from IP $src$
   mitre_attack_id:
   - T1562.008
-  - T1562
-  observable:
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
-  - name: user_arn
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - eventName
-  - eventSource
-  - requestParameters.name
-  - userAgent
-  - aws_account_id
-  - src
-  - region
-  risk_score: 90
   security_domain: threat
 tests:
 - name: True Positive Test

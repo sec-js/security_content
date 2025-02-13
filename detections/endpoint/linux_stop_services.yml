@@ -1,7 +1,7 @@
 name: Linux Stop Services
 id: d05204a5-9f1c-4946-a7f3-4fa58d76d5fd
-version: 2
-date: '2024-05-14'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -35,37 +35,40 @@ known_false_positives: Administrator or network operator can use this applicatio
 references:
 - https://www.welivesecurity.com/2022/04/12/industroyer2-industroyer-reloaded/
 - https://cert.gov.ua/article/39518
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An instance of $parent_process_name$ spawning $process_name$ was identified
+    attempting to stop services on endpoint $dest$ by $user$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - AwfulShred
   - Data Destruction
   - Industroyer2
   asset_type: Endpoint
-  confidence: 70
-  impact: 70
-  message: An instance of $parent_process_name$ spawning $process_name$ was identified
-    attempting to stop services on endpoint $dest$ by $user$.
   mitre_attack_id:
   - T1489
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 49
   security_domain: endpoint
 tests:
 - name: True Positive Test

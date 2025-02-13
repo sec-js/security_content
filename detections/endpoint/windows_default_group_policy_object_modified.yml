@@ -1,7 +1,7 @@
 name: Windows Default Group Policy Object Modified
 id: fe6a6cc4-9e0d-4d66-bcf4-2c7f44860876
-version: 2
-date: '2024-05-26'
+version: 7
+date: '2025-02-10'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -16,7 +16,7 @@ description: The following analytic detects modifications to default Group Polic
   across the network. If confirmed malicious, such modifications could lead to widespread
   compromise, allowing attackers to maintain control and execute arbitrary code on
   numerous hosts.
-search: ' `wineventlog_security` EventCode=5136 ObjectClass=groupPolicyContainer AttributeLDAPDisplayName=versionNumber
+search: '`wineventlog_security` EventCode=5136 ObjectClass=groupPolicyContainer AttributeLDAPDisplayName=versionNumber
   (ObjectDN="CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=*"
   OR ObjectDN="CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=POLICIES,CN=SYSTEM,DC=*")
   | stats min(_time) as firstTime max(_time) as lastTime by ObjectDN SubjectUserSid
@@ -34,40 +34,41 @@ references:
 - https://attack.mitre.org/techniques/T1484/001
 - https://www.trustedsec.com/blog/weaponizing-group-policy-objects-access/
 - https://adsecurity.org/?p=2716
+drilldown_searches:
+- name: View the detection results for - "$Computer$"
+  search: '%original_detection_search% | search  Computer = "$Computer$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$Computer$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$Computer$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A default group policy object was modified on $Computer$ by $SubjectUserSid$
+  risk_objects:
+  - field: Computer
+    type: system
+    score: 50
+  - field: SubjectUserSid
+    type: user
+    score: 50
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Privilege Escalation
   - Sneaky Active Directory Persistence Tricks
   asset_type: Endpoint
-  confidence: 50
-  impact: 100
-  message: A default group policy object was modified on $Computer$ by $SubjectUserSid$
   mitre_attack_id:
-  - T1484
   - T1484.001
-  observable:
-  - name: SubjectUserSid
-    type: User
-    role:
-    - Attacker
-  - name: Computer
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - EventCode
-  - ObjectClass
-  - AttributeLDAPDisplayName
-  - ObjectDN
-  - Computer
-  - DSName
-  - AttributeValue
-  - SubjectUserSid
-  risk_score: 50
   security_domain: endpoint
 tests:
 - name: True Positive Test

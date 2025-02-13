@@ -1,7 +1,7 @@
 name: PowerShell Enable PowerShell Remoting
 id: 40e3b299-19a5-4460-96e9-e1467f714f8e
-version: 2
-date: '2024-05-17'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 type: Anomaly
 status: production
@@ -26,31 +26,37 @@ known_false_positives: Note that false positives may occur due to the use of the
   apply appropriate filters as needed to minimize the number of false positives.
 references:
 - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/enable-psremoting?view=powershell-7.3
+drilldown_searches:
+- name: View the detection results for - "$Computer$"
+  search: '%original_detection_search% | search  Computer = "$Computer$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$Computer$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$Computer$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: PowerShell was identified running a Invoke-PSremoting on $Computer$.
+  risk_objects:
+  - field: Computer
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Malicious PowerShell
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: PowerShell was identified running a Invoke-PSremoting on $Computer$.
   mitre_attack_id:
   - T1059.001
-  - T1059
-  observable:
-  - name: Computer
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - ScriptBlockText
-  - Computer
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -58,4 +64,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1059.001/atomic_red_team/4104-psremoting-windows-powershell.log
     source: XmlWinEventLog:Microsoft-Windows-PowerShell/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

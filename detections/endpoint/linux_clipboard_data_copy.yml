@@ -1,7 +1,7 @@
 name: Linux Clipboard Data Copy
 id: 7173b2ad-6146-418f-85ae-c3479e4515fc
-version: 2
-date: '2024-05-17'
+version: 5
+date: '2024-11-13'
 author: Michael Haag, Splunk
 status: production
 type: Anomaly
@@ -34,47 +34,43 @@ known_false_positives: False positives may be present on Linux desktop as it may
 references:
 - https://attack.mitre.org/techniques/T1115/
 - https://linux.die.net/man/1/xclip
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: An instance of $process_name$ was identified on endpoint $dest$ by user
+    $user$ adding or removing content from the clipboard.
+  risk_objects:
+  - field: user
+    type: user
+    score: 16
+  - field: dest
+    type: system
+    score: 16
+  threat_objects:
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Linux Living Off The Land
   asset_type: Endpoint
-  confidence: 40
-  impact: 40
-  message: An instance of $process_name$ was identified on endpoint $dest$ by user
-    $user$ adding or removing content from the clipboard.
   mitre_attack_id:
   - T1115
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Child Process
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.original_file_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_path
-  - Processes.process_path
-  - Processes.parent_process_id
-  risk_score: 16
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -83,4 +79,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1115/atomic_red_team/linux-sysmon.log
     source: Syslog:Linux-Sysmon/Operational
     sourcetype: sysmon:linux
-    update_timestamp: true

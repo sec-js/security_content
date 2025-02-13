@@ -1,17 +1,17 @@
 name: Linux Edit Cron Table Parameter
 id: 0d370304-5f26-11ec-a4bb-acde48001122
-version: 2
-date: '2024-05-25'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
-description: 'The following analytic detects the suspicious editing of cron jobs in
+description: The following analytic detects the suspicious editing of cron jobs in
   Linux using the crontab command-line parameter (-e). It identifies this activity
-  by monitoring command-line executions involving ''crontab'' and the edit parameter.
+  by monitoring command-line executions involving 'crontab' and the edit parameter.
   This behavior is significant for a SOC as cron job manipulations can indicate unauthorized
   persistence attempts or scheduled malicious actions. If confirmed malicious, this
   activity could lead to system compromise, unauthorized access, or broader network
-  compromise.'
+  compromise.
 data_source:
 - Sysmon for Linux EventID 1
 search: '| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
@@ -40,31 +40,12 @@ tags:
   - Linux Living Off The Land
   - Scheduled Tasks
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: A possible crontab edit command $process$ executed on $dest$
   mitre_attack_id:
   - T1053.003
-  - T1053
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

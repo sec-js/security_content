@@ -1,7 +1,7 @@
 name: Linux Sudo OR Su Execution
 id: 4b00f134-6d6a-11ec-a90c-acde48001122
-version: 2
-date: '2024-05-17'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Hunting
@@ -39,31 +39,12 @@ tags:
   - Linux Privilege Escalation
   - Linux Persistence Techniques
   asset_type: Endpoint
-  confidence: 30
-  impact: 30
-  message: A commandline $process$ that execute sudo or su in $dest$
   mitre_attack_id:
   - T1548.003
-  - T1548
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 9
   security_domain: endpoint
 tests:
 - name: True Positive Test

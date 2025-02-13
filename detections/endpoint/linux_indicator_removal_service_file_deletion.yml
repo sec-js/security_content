@@ -1,7 +1,7 @@
 name: Linux Indicator Removal Service File Deletion
 id: 6c077f81-2a83-4537-afbc-0e62e3215d55
-version: 2
-date: '2024-05-14'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -35,41 +35,42 @@ known_false_positives: network admin can delete services unit configuration file
 references:
 - https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/overview-of-the-cyber-weapons-used-in-the-ukraine-russia-war/
 - https://cert.gov.ua/article/3718487
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: a $process_name$ has a commandline $process$ to delete service configuration
+    file on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 36
+  - field: user
+    type: user
+    score: 36
+  threat_objects: []
 tags:
   analytic_story:
   - AwfulShred
   - Data Destruction
   asset_type: Endpoint
-  confidence: 60
-  impact: 60
-  message: a $process_name$ has a commandline $process$ to delete service configuration
-    file in $dest$
   mitre_attack_id:
   - T1070.004
-  - T1070
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 36
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -78,4 +79,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/awfulshred/test1/sysmon_linux.log
     source: Syslog:Linux-Sysmon/Operational
     sourcetype: sysmon:linux
-    update_timestamp: true

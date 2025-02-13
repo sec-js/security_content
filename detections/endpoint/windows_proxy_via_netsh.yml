@@ -1,12 +1,14 @@
 name: Windows Proxy Via Netsh
 id: c137bfe8-6036-4cff-b77b-4e327dd0a1cf
-version: 2
-date: '2024-05-14'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 description: The following analytic identifies the use of netsh.exe to configure a
   connection proxy, which can be leveraged for persistence by executing a helper DLL.
   It detects this activity by analyzing process creation events from Endpoint Detection
@@ -36,41 +38,43 @@ known_false_positives: Some VPN applications are known to launch netsh.exe. Outs
   commands.
 references:
 - https://www.microsoft.com/en-us/security/blog/2023/05/24/volt-typhoon-targets-us-critical-infrastructure-with-living-off-the-land-techniques/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A process $process_name$ has launched netsh with command-line $process$
+    on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 49
+  - field: user
+    type: user
+    score: 49
+  threat_objects: []
 tags:
   analytic_story:
   - Volt Typhoon
   asset_type: Endpoint
   atomic_guid:
   - b8223ea9-4be2-44a6-b50a-9657a3d4e72a
-  confidence: 70
-  impact: 70
-  message: A process $process_name$ has launched netsh with command-line $process$
-    on $dest$.
   mitre_attack_id:
   - T1090.001
-  - T1090
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 49
-  required_fields:
-  - _time
-  - Processes.process
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_name
-  - Processes.user
-  - Processes.dest
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -78,4 +82,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1090.001/netsh_portproxy/volt_sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

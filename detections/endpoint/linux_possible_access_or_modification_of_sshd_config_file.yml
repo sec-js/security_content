@@ -1,7 +1,7 @@
 name: Linux Possible Access Or Modification Of sshd Config File
 id: 7a85eb24-72da-11ec-ac76-acde48001122
-version: 2
-date: '2024-05-24'
+version: 5
+date: '2025-02-10'
 author: Teoderick Contreras, Splunk
 status: production
 type: Anomaly
@@ -35,37 +35,39 @@ known_false_positives: Administrator or network operator can use this commandlin
 references:
 - https://www.hackingarticles.in/ssh-penetration-testing-port-22/
 - https://attack.mitre.org/techniques/T1098/004/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: a commandline $process$ executed on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Linux Privilege Escalation
   - Linux Persistence Techniques
   - Linux Living Off The Land
   asset_type: Endpoint
-  confidence: 50
-  impact: 50
-  message: a commandline $process$ executed on $dest$
   mitre_attack_id:
   - T1098.004
-  - T1098
-  observable:
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.dest
-  - Processes.user
-  - Processes.parent_process_name
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_id
-  - Processes.parent_process_id
-  risk_score: 25
   security_domain: endpoint
 tests:
 - name: True Positive Test

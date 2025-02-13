@@ -1,7 +1,7 @@
 name: Windows DnsAdmins New Member Added
 id: 27e600aa-77f8-4614-bc80-2662a67e2f48
-version: 4
-date: '2024-05-29'
+version: 7
+date: '2024-11-13'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -15,7 +15,7 @@ description: The following analytic detects the addition of a new member to the 
   privileges. If confirmed malicious, this activity could allow an attacker to escalate
   privileges and gain control over critical domain services, posing a significant
   security risk.
-search: ' `wineventlog_security` EventCode=4732 TargetUserName=DnsAdmins | stats min(_time)
+search: '`wineventlog_security` EventCode=4732 TargetUserName=DnsAdmins | stats min(_time)
   as firstTime max(_time) as lastTime values(TargetUserName) as target_users_added
   values(user) as user by  dest src_user | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
   | `windows_dnsadmins_new_member_added_filter`'
@@ -29,33 +29,37 @@ references:
 - https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/from-dnsadmins-to-system-to-domain-compromise
 - https://www.hackingarticles.in/windows-privilege-escalation-dnsadmins-to-domainadmin/
 - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4732
+drilldown_searches:
+- name: View the detection results for - "$src_user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A new member $user$ added to the DnsAdmins group by $src_user$
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 40
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Privilege Escalation
   asset_type: Endpoint
-  confidence: 50
-  impact: 80
-  message: A new member $user$ added to the DnsAdmins group by $src_user$
   mitre_attack_id:
   - T1098
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - TargetUserName
-  - SubjectUserName
-  - Computer
-  - MemberSid
-  - TargetUserName
-  risk_score: 40
   security_domain: endpoint
 tests:
 - name: True Positive Test

@@ -1,7 +1,7 @@
 name: GitHub Actions Disable Security Workflow
 id: 0459f1a5-c0ac-4987-82d6-65081209f854
-version: 2
-date: '2024-05-17'
+version: 5
+date: '2025-02-10'
 author: Patrick Bareiss, Splunk
 status: production
 type: Anomaly
@@ -30,39 +30,37 @@ how_to_implement: You must index GitHub logs. You can follow the url in referenc
 known_false_positives: unknown
 references:
 - https://www.splunk.com/en_us/blog/tips-and-tricks/getting-github-data-with-webhooks.html
+drilldown_searches:
+- name: View the detection results for - "$repository$"
+  search: '%original_detection_search% | search  repository = "$repository$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$repository$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$repository$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Security Workflow is disabled in branch $branch$ for repository $repository$
+  risk_objects:
+  - field: repository
+    type: other
+    score: 27
+  threat_objects: []
 tags:
   analytic_story:
   - Dev Sec Ops
   asset_type: GitHub
-  confidence: 90
-  impact: 30
-  message: Security Workflow is disabled in branch $branch$ for repository $repository$
   mitre_attack_id:
   - T1195.002
-  - T1195
-  observable:
-  - name: repository
-    type: Other
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - workflow_run.event
-  - workflow_run.name
-  - workflow_run.head_commit.id
-  - workflow_run.event workflow_run.head_branch
-  - workflow_run.head_commit.author.email
-  - workflow_run.head_commit.author.name
-  - workflow_run.head_commit.message
-  - workflow_run.head_commit.timestamp
-  - workflow_run.head_repository.full_name
-  - workflow_run.head_repository.owner.id
-  - workflow_run.head_repository.owner.login
-  - workflow_run.head_repository.owner.type
-  risk_score: 27
   security_domain: network
 tests:
 - name: True Positive Test

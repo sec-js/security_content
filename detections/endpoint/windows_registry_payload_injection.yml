@@ -1,7 +1,7 @@
 name: Windows Registry Payload Injection
 id: c6b2d80f-179a-41a1-b95e-ce5601d7427a
-version: 2
-date: '2024-05-10'
+version: 5
+date: '2025-02-10'
 author: Steven Dick
 status: production
 type: TTP
@@ -14,7 +14,8 @@ description: The following analytic detects suspiciously long data written to th
   to maintain persistence, execute code, or manipulate system configurations without
   leaving a conventional file footprint.
 data_source:
-- Sysmon EventID 1
+- Sysmon EventID 1 AND Sysmon EventID 12
+- Sysmon EventID 1 AND Sysmon EventID 13
 search: '| tstats `security_content_summariesonly` count min(_time) AS firstTime max(_time)
   AS lastTime FROM datamodel=Endpoint.Processes BY _time span=1h Processes.user Processes.process_id
   Processes.process_name Processes.process Processes.process_path Processes.dest Processes.parent_process_name
@@ -42,54 +43,45 @@ references:
 - https://www.mandiant.com/resources/blog/tracking-evolution-gootloader-operations
 - https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/kovter-an-evolving-malware-gone-fileless
 - https://attack.mitre.org/techniques/T1027/011/
+drilldown_searches:
+- name: View the detection results for - "$dest$" and "$user$"
+  search: '%original_detection_search% | search  dest = "$dest$" user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$" and "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$",
+    "$user$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: The process $process_name$ added a suspicious length of registry data on
+    $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 60
+  - field: user
+    type: user
+    score: 60
+  threat_objects:
+  - field: process_name
+    type: process_name
+  - field: process_name
+    type: process_name
 tags:
   analytic_story:
   - Unusual Processes
   asset_type: Endpoint
-  confidence: 60
-  impact: 100
-  message: The process $process_name$ added a suspicious length of registry data on
-    $dest$.
   mitre_attack_id:
-  - T1027
   - T1027.011
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
-  - name: process_name
-    type: Process
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - user
-  - dest
-  - process_id
-  - process_name
-  - process
-  - process_path
-  - parent_process_name
-  - parent_process
-  - process_guid
-  - registry_path
-  - registry_value_name
-  - registry_value_data
-  - registry_key_name
-  risk_score: 60
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -97,4 +89,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/gootloader/partial_ttps/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

@@ -1,7 +1,7 @@
 name: Abnormally High Number Of Cloud Instances Launched
 id: f2361e9f-3928-496c-a556-120cd4223a65
-version: 3
-date: '2024-05-16'
+version: 7
+date: '2025-02-10'
 author: David Dorsey, Splunk
 status: experimental
 type: Anomaly
@@ -12,7 +12,8 @@ description: The following analytic detects an abnormally high number of cloud i
   indicate unauthorized access or misuse of cloud resources. If confirmed malicious,
   this behavior could lead to resource exhaustion, increased costs, or provide attackers
   with additional compute resources to further their objectives.
-data_source: []
+data_source:
+- AWS CloudTrail
 search: '| tstats count as instances_launched values(All_Changes.object_id) as object_id
   from datamodel=Change where (All_Changes.action=created) AND All_Changes.status=success
   AND All_Changes.object_category=instance by All_Changes.user _time span=1h | `drop_dm_object_name("All_Changes")`
@@ -33,32 +34,22 @@ known_false_positives: Many service accounts configured within an AWS infrastruc
   out service accounts from the output. Always verify if this search alerted on a
   human user.
 references: []
+rba:
+  message: At least $instances_launched$ instances launched by $user$
+  risk_objects:
+  - field: user
+    type: user
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Cloud Cryptomining
   - Suspicious Cloud Instance Activities
   asset_type: Cloud Instance
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1078.004
-  - T1078
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - All_Changes.object_id
-  - All_Changes.action
-  - All_Changes.status
-  - All_Changes.object_category
-  - All_Changes.user
-  risk_score: 25
-  security_domain: cloud
+  security_domain: threat

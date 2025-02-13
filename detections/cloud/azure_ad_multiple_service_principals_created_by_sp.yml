@@ -1,7 +1,7 @@
 name: Azure AD Multiple Service Principals Created by SP
 id: 66cb378f-234d-4fe1-bb4c-e7878ff6b017
-version: 2
-date: '2024-05-13'
+version: 5
+date: '2024-11-14'
 author: Mauricio Velazco, Splunk
 data_source:
 - Azure Active Directory Add service principal
@@ -15,7 +15,7 @@ description: The following analytic detects when a single service principal in A
   establish multiple service principals, potentially staging an attack. If confirmed
   malicious, this activity could facilitate network infiltration or expansion, allowing
   the attacker to gain unauthorized access and persist within the environment.
-search: ' `azure_monitor_aad` operationName="Add service principal" properties.initiatedBy.app.appId=*
+search: '`azure_monitor_aad` operationName="Add service principal" properties.initiatedBy.app.appId=*
   | rename properties.* as * | bucket span=10m _time | rename targetResources{}.displayName
   as displayName | rename targetResources{}.type as type | rename initiatedBy.app.displayName
   as src_user | stats min(_time) as firstTime max(_time) as lastTime values(displayName)
@@ -31,29 +31,39 @@ known_false_positives: Certain users or applications may create multiple service
 references:
 - https://attack.mitre.org/techniques/T1136/003/
 - https://www.microsoft.com/en-us/security/blog/2024/01/25/midnight-blizzard-guidance-for-responders-on-nation-state-attack/
+drilldown_searches:
+- name: View the detection results for - "$src_user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Multiple OAuth applications were created by $src_user$ in a short period
+    of time
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 42
+  threat_objects: []
 tags:
   analytic_story:
   - Azure Active Directory Persistence
   - NOBELIUM Group
   asset_type: Azure Active Directory
-  confidence: 60
-  impact: 70
-  message: Multiple OAuth applications were created by $src_user$ in a short period
-    of time
   mitre_attack_id:
   - T1136.003
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  risk_score: 42
   security_domain: identity
 tests:
 - name: True Positive Test
@@ -62,5 +72,3 @@ tests:
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1136.003/azure_ad_multiple_service_principals_created/azure_ad_multiple_service_principals_created.log
     source: Azure AD
     sourcetype: azure:monitor:aad
-    update_timestamp: true
-

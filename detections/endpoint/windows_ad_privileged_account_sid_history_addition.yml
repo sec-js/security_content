@@ -1,7 +1,7 @@
 name: Windows AD Privileged Account SID History Addition
 id: 6b521149-b91c-43aa-ba97-c2cac59ec830
-version: 3
-date: '2024-05-26'
+version: 7
+date: '2025-02-10'
 author: Dean Luxton
 type: TTP
 status: production
@@ -29,36 +29,39 @@ how_to_implement: Ensure you have objectSid and the Down Level Logon Name `DOMAI
 known_false_positives: Migration of privileged accounts.
 references:
 - https://adsecurity.org/?p=1772
-tags:
-  analytic_story:
-  - Sneaky Active Directory Persistence Tricks
-  asset_type: Endpoint
-  confidence: 90
-  impact: 100
+drilldown_searches:
+- name: View the detection results for - "$src_user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
   message: A Privileged User Account SID History Attribute was added to $userSid$
     by $src_user$
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 90
+  threat_objects: []
+tags:
+  analytic_story:
+  - Compromised Windows Host
+  - Sneaky Active Directory Persistence Tricks
+  asset_type: Endpoint
   mitre_attack_id:
   - T1134.005
-  - T1134
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - SidHistory
-  - TargetSid
-  - TargetDomainName
-  - user
-  - src_user
-  - Logon_ID
-  risk_score: 90
   security_domain: endpoint
   manual_test: This search uses a lookup provided by Enterprise Security and needs
     to be manually tested.
@@ -68,4 +71,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1134.005/mimikatz/windows-security-xml.log
     source: XmlWinEventLog:Security
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

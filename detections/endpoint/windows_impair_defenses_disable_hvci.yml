@@ -1,7 +1,7 @@
 name: Windows Impair Defenses Disable HVCI
 id: b061dfcc-f0aa-42cc-a6d4-a87f172acb79
-version: 2
-date: '2024-05-24'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: production
 type: TTP
@@ -30,6 +30,27 @@ known_false_positives: False positives will be limited to administrative scripts
   HVCI. Filter as needed.
 references:
 - https://www.microsoft.com/en-us/security/blog/2023/04/11/guidance-for-investigating-attacks-using-cve-2022-21894-the-blacklotus-campaign/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: HVCI has been disabled on $dest$.
+  risk_objects:
+  - field: dest
+    type: system
+    score: 70
+  threat_objects: []
 tags:
   analytic_story:
   - BlackLotus Campaign
@@ -38,30 +59,12 @@ tags:
   asset_type: Endpoint
   atomic_guid:
   - 70bd71e6-eba4-4e00-92f7-617911dbe020
-  confidence: 100
-  impact: 70
-  message: HVCI has been disabled on $dest$.
   mitre_attack_id:
   - T1562.001
-  - T1562
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.registry_value_name
-  - Registry.process_guid
-  - Registry.action
-  - Registry.user
-  - Registry.dest
-  risk_score: 70
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -69,4 +72,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1562.001/atomic_red_team/hvci_windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

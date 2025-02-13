@@ -1,7 +1,7 @@
 name: Eventvwr UAC Bypass
 id: 9cf8fe08-7ad8-11eb-9819-acde48001122
-version: 4
-date: '2024-05-26'
+version: 8
+date: '2025-02-10'
 author: Steven Dick, Michael Haag, Splunk
 status: production
 type: TTP
@@ -15,6 +15,8 @@ description: The following analytic detects an Eventvwr UAC bypass by identifyin
   compromise of the affected system.
 data_source:
 - Sysmon EventID 1
+- Windows Event Log Security 4688
+- CrowdStrike ProcessRollup2
 search: '| tstats `security_content_summariesonly` count min(_time) AS firstTime max(_time)
   AS lastTime FROM datamodel=Endpoint.Processes BY _time span=1h Processes.user Processes.process_id
   Processes.process_name Processes.process Processes.process_path Processes.dest Processes.parent_process_name
@@ -41,51 +43,45 @@ references:
 - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1548.002/T1548.002.md
 - https://attack.mitre.org/techniques/T1548/002/
 - https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking/
+drilldown_searches:
+- name: View the detection results for - "$user$" and "$dest$"
+  search: '%original_detection_search% | search  user = "$user$" dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$" and "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$",
+    "$dest$") starthoursago=168  | stats count min(_time) as firstTime max(_time)
+    as lastTime values(search_name) as "Search Name" values(risk_message) as "Risk
+    Message" values(analyticstories) as "Analytic Stories" values(annotations._all)
+    as "Annotations" values(annotations.mitre_attack.mitre_tactic) as "ATT&CK Tactics"
+    by normalized_risk_object | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Registry values were modified to bypass UAC using Event Viewer on $dest$
+    by $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 80
+  - field: dest
+    type: system
+    score: 80
+  threat_objects: []
 tags:
   analytic_story:
   - Windows Defense Evasion Tactics
   - IcedID
   - Living Off The Land
   - Windows Registry Abuse
+  - ValleyRAT
   asset_type: Endpoint
-  confidence: 100
-  impact: 80
-  message: Registry values were modified to bypass UAC using Event Viewer on $dest$
-    by $user$.
   mitre_attack_id:
   - T1548.002
-  - T1548
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Processes.user
-  - Processes.dest
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.process
-  - Processes.process_path
-  - Processes.parent_process_name
-  - Processes.parent_process
-  - Processes.process_guid
-  - Registry.dest
-  - Registry.registry_value_name
-  - Registry.registry_key_name
-  - Registry.registry_path
-  - Registry.registry_value_data
-  - Registry.process_guid
-  risk_score: 80
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -93,4 +89,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/attack_techniques/T1548.002/atomic_red_team/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

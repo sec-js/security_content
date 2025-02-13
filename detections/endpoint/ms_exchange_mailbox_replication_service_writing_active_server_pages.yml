@@ -1,21 +1,20 @@
 name: MS Exchange Mailbox Replication service writing Active Server Pages
 id: 985f322c-57a5-11ec-b9ac-acde48001122
-version: 2
-date: '2024-05-27'
+version: 5
+date: '2025-02-10'
 author: Michael Haag, Splunk
 status: experimental
 type: TTP
-description: 'The following analytic identifies the creation of suspicious .aspx files
+description: The following analytic identifies the creation of suspicious .aspx files
   in specific directories associated with Exchange exploitation by the HAFNIUM group
   and the ProxyShell vulnerability. It detects this activity by monitoring the MSExchangeMailboxReplication.exe
   process, which typically does not write .aspx files. This behavior is significant
   as it may indicate an active exploitation attempt on Exchange servers. If confirmed
   malicious, attackers could gain unauthorized access, execute arbitrary code, or
   maintain persistence within the environment. Immediate investigation and remediation
-  are crucial to prevent further compromise.'
+  are crucial to prevent further compromise.
 data_source:
-- Sysmon EventID 1
-- Sysmon EventID 11
+- Sysmon EventID 1 AND Sysmon EventID 11
 search: '| tstats `security_content_summariesonly` count FROM datamodel=Endpoint.Processes
   where Processes.process_name=MSExchangeMailboxReplication.exe  by _time span=1h
   Processes.process_id Processes.process_name Processes.process_guid Processes.dest
@@ -36,50 +35,32 @@ known_false_positives: The query is structured in a way that `action` (read, cre
   It may be necessary to generate this query specific to your endpoint product.
 references:
 - https://redcanary.com/blog/blackbyte-ransomware/
+rba:
+  message: A file - $file_name$ was written to disk that is related to IIS exploitation
+    related to ProxyShell. Review further file modifications on endpoint $dest$ by
+    user $user$.
+  risk_objects:
+  - field: user
+    type: user
+    score: 81
+  - field: dest
+    type: system
+    score: 81
+  threat_objects:
+  - field: file_name
+    type: file_name
 tags:
   analytic_story:
   - ProxyShell
   - Ransomware
   - BlackByte Ransomware
   asset_type: Endpoint
-  confidence: 90
-  impact: 90
-  message: A file - $file_name$ was written to disk that is related to IIS exploitation
-    related to ProxyShell. Review further file modifications on endpoint $dest$ by
-    user $user$.
   mitre_attack_id:
-  - T1505
-  - T1505.003
-  - T1190
   - T1133
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: dest
-    type: Hostname
-    role:
-    - Victim
-  - name: file_name
-    type: File Name
-    role:
-    - Victim
+  - T1190
+  - T1505.003
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Filesystem.file_path
-  - Filesystem.process_id
-  - Filesystem.file_name
-  - Filesystem.file_hash
-  - Filesystem.user
-  - Filesystem.process_guid
-  - Processes.process_name
-  - Processes.process_id
-  - Processes.process_name
-  - Processes.process_guid
-  risk_score: 81
   security_domain: endpoint

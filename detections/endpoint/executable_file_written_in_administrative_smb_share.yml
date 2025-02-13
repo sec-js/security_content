@@ -1,7 +1,7 @@
 name: Executable File Written in Administrative SMB Share
 id: f63c34fe-a435-11eb-935a-acde48001122
-version: 4
-date: '2024-05-16'
+version: 8
+date: '2025-02-10'
 author: Teoderick Contreras, Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -32,44 +32,47 @@ references:
 - https://labs.vipre.com/trickbot-and-its-modules/
 - https://whitehat.eu/incident-response-case-study-featuring-ryuk-and-trickbot-part-2/
 - https://thedfirreport.com/2023/05/22/icedid-macro-ends-in-nokoyawa-ransomware/
+drilldown_searches:
+- name: View the detection results for - "$src_user$"
+  search: '%original_detection_search% | search  src_user = "$src_user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$src_user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$src_user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: $src_user$ dropped or created an executable file in known sensitive SMB
+    share.  Share name=$ShareName$, Target name=$RelativeTargetName$, and Access mask=$AccessMask$
+  risk_objects:
+  - field: src_user
+    type: user
+    score: 70
+  threat_objects: []
 tags:
   analytic_story:
   - Active Directory Lateral Movement
-  - Prestige Ransomware
-  - Graceful Wipe Out Attack
-  - Industroyer2
+  - BlackSuit Ransomware
   - IcedID
+  - Prestige Ransomware
+  - Industroyer2
   - Data Destruction
+  - Graceful Wipe Out Attack
+  - Compromised Windows Host
   - Hermetic Wiper
   - Trickbot
   asset_type: Endpoint
-  confidence: 100
-  impact: 70
-  message: $src_user$ dropped or created an executable file in known sensitive SMB
-    share.  Share name=$ShareName$, Target name=$RelativeTargetName$, and Access mask=$AccessMask$
   mitre_attack_id:
-  - T1021
   - T1021.002
-  observable:
-  - name: src_user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Share_Name
-  - Relative_Target_Name
-  - Object_Type
-  - Access_Mask
-  - user
-  - src_port
-  - Source_Address
-  risk_score: 70
   security_domain: endpoint
 tests:
 - name: True Positive Test

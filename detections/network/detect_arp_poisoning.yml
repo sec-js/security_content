@@ -1,7 +1,7 @@
 name: Detect ARP Poisoning
 id: b44bebd6-bd39-467b-9321-73971bcd1aac
-version: 2
-date: '2024-05-12'
+version: 6
+date: '2025-02-10'
 author: Mikael Bjerkeland, Splunk
 status: experimental
 type: TTP
@@ -30,35 +30,23 @@ known_false_positives: This search might be prone to high false positives if DHC
   Snooping or ARP inspection has been incorrectly configured, or if a device normally
   sends many ARP packets (unlikely).
 references: []
+rba:
+  message: Potential ARP poisoning detected on $host$
+  risk_objects:
+  - field: host
+    type: system
+    score: 25
+  threat_objects: []
 tags:
   analytic_story:
   - Router and Infrastructure Security
   asset_type: Infrastructure
-  confidence: 50
-  impact: 50
-  message: tbd
   mitre_attack_id:
   - T1200
   - T1498
-  - T1557
   - T1557.002
-  observable:
-  - name: dest
-    type: Other
-    role:
-    - Other
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - facility
-  - mnemonic
-  - disable_cause
-  - src_int_prefix_long
-  - src_int_suffix
-  - host
-  - src_interface
-  risk_score: 25
   security_domain: network

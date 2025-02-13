@@ -1,9 +1,10 @@
 name: Okta Authentication Failed During MFA Challenge
 id: e2b99e7d-d956-411a-a120-2b14adfdde93
-version: 2
-date: '2024-05-29'
+version: 5
+date: '2025-02-10'
 author: Bhavin Patel, Splunk
-data_source: []
+data_source:
+- Okta
 type: TTP
 status: production
 description: The following analytic identifies failed authentication attempts during
@@ -30,43 +31,41 @@ known_false_positives: A user may have accidentally entered the wrong credential
 references:
 - https://sec.okta.com/everythingisyes
 - https://splunkbase.splunk.com/app/6553
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: A user [$user$] has failed to authenticate via MFA from IP Address - [$src$]"
+  risk_objects:
+  - field: user
+    type: user
+    score: 48
+  threat_objects:
+  - field: src
+    type: ip_address
 tags:
   analytic_story:
   - Okta Account Takeover
   asset_type: Okta Tenant
-  confidence: 60
-  impact: 80
-  message: A user [$user$] has failed to authenticate via MFA from IP Address - [$src$]"
   mitre_attack_id:
-  - T1586
-  - T1586.003
-  - T1078
   - T1078.004
+  - T1586.003
   - T1621
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
-  - name: src
-    type: IP Address
-    role:
-    - Attacker
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - Authentication.app
-  - Authentication.action
-  - Authentication.user
-  - Authentication.reason
-  - Authentication.dest
-  - Authentication.signature
-  - Authentication.method
-  - Authentication.src
-  risk_score: 48
   security_domain: identity
 tests:
 - name: True Positive Test

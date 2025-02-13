@@ -1,7 +1,7 @@
 name: Modification Of Wallpaper
 id: accb0712-c381-11eb-8e5b-acde48001122
-version: 2
-date: '2024-05-28'
+version: 4
+date: '2024-11-13'
 author: Teoderick Contreras, Splunk
 status: production
 type: TTP
@@ -31,6 +31,27 @@ references:
 - https://krebsonsecurity.com/2021/05/a-closer-look-at-the-darkside-ransomware-gang/
 - https://www.mcafee.com/blogs/other-blogs/mcafee-labs/mcafee-atr-analyzes-sodinokibi-aka-revil-ransomware-as-a-service-what-the-code-tells-us/
 - https://news.sophos.com/en-us/2020/04/24/lockbit-ransomware-borrows-tricks-to-keep-up-with-revil-and-maze/
+drilldown_searches:
+- name: View the detection results for - "$dest$"
+  search: '%original_detection_search% | search  dest = "$dest$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$dest$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$dest$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: Wallpaper modification on $dest$
+  risk_objects:
+  - field: dest
+    type: system
+    score: 54
+  threat_objects: []
 tags:
   analytic_story:
   - Ransomware
@@ -41,31 +62,12 @@ tags:
   - LockBit Ransomware
   - Rhysida Ransomware
   asset_type: Endpoint
-  confidence: 90
-  impact: 60
-  message: Wallpaper modification on $dest$
   mitre_attack_id:
   - T1491
-  observable:
-  - name: dest
-    type: Endpoint
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  required_fields:
-  - _time
-  - EventCode
-  - Image
-  - TargetObject
-  - Details
-  - dest
-  - process_guid
-  - process_id
-  - user_id
-  risk_score: 54
   security_domain: endpoint
 tests:
 - name: True Positive Test
@@ -73,4 +75,4 @@ tests:
   - data: 
       https://media.githubusercontent.com/media/splunk/attack_data/master/datasets/malware/revil/inf1/windows-sysmon.log
     source: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-    sourcetype: xmlwineventlog
+    sourcetype: XmlWinEventLog

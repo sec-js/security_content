@@ -1,7 +1,7 @@
 name: O365 User Consent Blocked for Risky Application
 id: 242e4d30-cb59-4051-b0cf-58895e218f40
-version: 2
-date: '2024-05-26'
+version: 4
+date: '2024-11-14'
 author: Mauricio Velazco, Splunk
 status: production
 type: TTP
@@ -16,16 +16,12 @@ description: The following analytic identifies instances where Office 365 has bl
   the organization. If confirmed malicious, this activity suggests that O365's security
   measures successfully prevented a harmful application from accessing organizational
   data, warranting immediate investigation.
-search: >-
-  `o365_management_activity` Workload=AzureActiveDirectory Operation="Consent to application."
-  ResultStatus=Failure
-  | eval permissions =mvindex('ModifiedProperties{}.NewValue', 4)
-  | eval reason =mvindex('ModifiedProperties{}.NewValue', 5)
-  |  search reason = "Risky application detected"
-  | rex field=permissions "Scope: (?<Scope>[^,]+)"
-  |  stats max(_time) as lastTime by Operation, user, reason, object, Scope
-  | `security_content_ctime(lastTime)`
-  | `o365_user_consent_blocked_for_risky_application_filter`
+search: "`o365_management_activity` Workload=AzureActiveDirectory Operation=\"Consent
+  to application.\" ResultStatus=Failure | eval permissions =mvindex('ModifiedProperties{}.NewValue',
+  4) | eval reason =mvindex('ModifiedProperties{}.NewValue', 5) |  search reason =
+  \"Risky application detected\" | rex field=permissions \"Scope: (?<Scope>[^,]+)\"\
+  \ |  stats max(_time) as lastTime by Operation, user, reason, object, Scope | `security_content_ctime(lastTime)`
+  | `o365_user_consent_blocked_for_risky_application_filter`"
 how_to_implement: You must install the Splunk Microsoft Office 365 Add-on and ingest
   Office 365 management activity events.
 known_false_positives: Microsofts algorithm to identify risky applications is unknown
@@ -37,34 +33,38 @@ references:
 - https://learn.microsoft.com/en-us/defender-cloud-apps/investigate-risky-oauth
 - https://www.alteredsecurity.com/post/introduction-to-365-stealer
 - https://github.com/AlteredSecurity/365-Stealer
+drilldown_searches:
+- name: View the detection results for - "$user$"
+  search: '%original_detection_search% | search  user = "$user$"'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+- name: View risk events for the last 7 days for - "$user$"
+  search: '| from datamodel Risk.All_Risk | search normalized_risk_object IN ("$user$")
+    starthoursago=168  | stats count min(_time) as firstTime max(_time) as lastTime
+    values(search_name) as "Search Name" values(risk_message) as "Risk Message" values(analyticstories)
+    as "Analytic Stories" values(annotations._all) as "Annotations" values(annotations.mitre_attack.mitre_tactic)
+    as "ATT&CK Tactics" by normalized_risk_object | `security_content_ctime(firstTime)`
+    | `security_content_ctime(lastTime)`'
+  earliest_offset: $info_min_time$
+  latest_offset: $info_max_time$
+rba:
+  message: O365 has blocked $user$ attempt to grant to consent to an application deemed
+    risky.
+  risk_objects:
+  - field: user
+    type: user
+    score: 30
+  threat_objects: []
 tags:
   analytic_story:
   - Office 365 Account Takeover
   asset_type: O365 Tenant
-  confidence: 100
-  impact: 30
-  message: O365 has blocked $user$ attempt to grant to consent to an application deemed
-    risky.
   mitre_attack_id:
   - T1528
-  observable:
-  - name: user
-    type: User
-    role:
-    - Victim
   product:
   - Splunk Enterprise
   - Splunk Enterprise Security
   - Splunk Cloud
-  risk_score: 30
-  required_fields:
-  - _time
-  - Workload
-  - Operation
-  - ResultStatus
-  - ModifiedProperties{}.NewValue
-  - object
-  - ObjectId
   security_domain: identity
 tests:
 - name: True Positive Test
